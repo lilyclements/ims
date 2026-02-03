@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<publication>
+  <common>
+    <tableofcontents level="2" />
+    <exercise-inline hint="yes" answer="no" solution="no"/>
+    <exercise-divisional hint="yes" answer="no" solution="no"/>
+  </common>
+  
+  <html>
+    <calculator model="none" />
+    <index-page ref="index" />
+    <css style="default" />
+    <search variant="default" />
+    <baseurl href="https://lilyclements.github.io/ims/" />
+  </html>
+</publication>

@@ -61,6 +61,34 @@ A. Exercise solutions (`appendix/exercise-solutions.ptx` from `exercise-solution
 - `preface.ptx` - Preface placeholder
 - `chapters/ch01-hello-data.ptx` through `chapters/ch27-model-infer-applications.ptx` - Chapter placeholders
 - `appendix/exercise-solutions.ptx` - Appendix placeholder
+- `publication.ptx` - Publication configuration for HTML output
+- `pretext.toml` - PreTeXt project configuration (manifest file)
+- `.github/workflows/pretext_deploy.yaml` - GitHub Actions workflow for deployment
+
+## Building the PreTeXt Book
+
+### Local Build
+
+To build the PreTeXt book locally, you need to have the PreTeXt CLI installed:
+
+```bash
+pip install pretextbook
+pretext build html
+```
+
+The built HTML will be in the `output/html` directory.
+
+### GitHub Pages Deployment
+
+The repository is configured with a GitHub Actions workflow that automatically:
+
+1. Installs PreTeXt CLI
+2. Builds the HTML version of the book
+3. Deploys to GitHub Pages
+
+The workflow runs on every push to the `main` branch and can also be triggered manually from the Actions tab.
+
+**Note:** You need to enable GitHub Pages in the repository settings and configure it to deploy from GitHub Actions.
 
 ## Notes
 
