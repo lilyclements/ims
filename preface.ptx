@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<preface xml:id="preface">
+  <title>Preface</title>
+  
+  <p>
+    This is the PreTeXt version of Introduction to Modern Statistics (Second Edition).
+  </p>
+  
+  <p>
+    Content to be added from the qmd source files.
+  </p>
+</preface>

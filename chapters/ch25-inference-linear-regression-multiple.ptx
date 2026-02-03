@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<chapter xml:id="ch25-inference-linear-regression-multiple">
+  <title>Inference for linear regression with multiple predictors</title>
+  
+  <p>
+    Content to be added from inf-model-mlr.qmd
+  </p>
+</chapter>

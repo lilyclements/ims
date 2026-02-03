@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<chapter xml:id="ch07-linear-regression-single">
+  <title>Linear regression with a single predictor</title>
+  
+  <p>
+    Content to be added from model-slr.qmd
+  </p>
+</chapter>
