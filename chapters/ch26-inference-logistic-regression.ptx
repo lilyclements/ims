@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<chapter xml:id="ch26-inference-logistic-regression">
+  <title>Inference for logistic regression</title>
+  
+  <p>
+    Content to be added from inf-model-logistic.qmd
+  </p>
+</chapter>

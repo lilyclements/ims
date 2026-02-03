@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<chapter xml:id="ch01-hello-data">
+  <title>Hello data</title>
+  
+  <p>
+    Content to be added from data-hello.qmd
+  </p>
+</chapter>
