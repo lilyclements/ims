@@ -1,0 +1,42 @@
+name: Build PreTeXt on Pull Requests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install PreTeXt CLI
+        run: |
+          pip install -r requirements.txt
+          pretext --version
+      
+      - name: Setup PreTeXt cache
+        run: |
+          bash .github/scripts/setup-pretext-cache.sh
+      
+      - name: Build PreTeXt book
+        run: |
+          pretext build html
+      
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pretext-html-build
+          path: 'output/html'
+          retention-days: 7
