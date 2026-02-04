@@ -761,7 +761,7 @@ ggplot(dists_mean0_sd1, aes(x = x)) +
 <p>When data are very strongly skewed, we sometimes transform them, so they are easier to model. <xref ref="fig-county-unemployed-pop-transform-1" /> and <xref ref="fig-county-unemployed-pop-transform-2" /> show right-skewed distributions: distribution of the percentage of unemployed people and the distribution of the population in all counties in the United States. The distribution of population is more strongly skewed than the distribution of percentage unemployed, hence the log transformation results in a much bigger change in the shape of the distribution.</p>
 
 <figure xml:id="fig-county-unemployed-pop-transform">
-  <caption>Histograms of percentage unenmployed, population, and their log transformed versions in all US counties. For the plots of transformed variables, the x-value corresponds to the power of 10, e.g., 1 on the x-axis corresponds to $10^1 =$ 10 and 5 on the x-axis corresponds to $10^5=$ 100,000. Data are from 2017.</caption>
+  <caption>Histograms of percentage unemployed, population, and their log transformed versions in all US counties. For the plots of transformed variables, the x-value corresponds to the power of 10, e.g., 1 on the x-axis corresponds to $10^1 =$ 10 and 5 on the x-axis corresponds to $10^5=$ 100,000. Data are from 2017.</caption>
   <sidebyside widths="45% 45%">
     <figure xml:id="fig-county-unemployed-pop-transform-1">
       <caption>Percentage unemployed</caption>
