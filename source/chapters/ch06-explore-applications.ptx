@@ -497,7 +497,7 @@ ggplot(brexit, aes(y = Opinion)) +
         One last consideration for building graphs is to consider color choices.
         Default or rainbow colors are not always the choice which will best distinguish the level of your variables.
         Much research has been done to find color combinations which are distinct and which are clear for differently sighted individuals.
-        The cividis scale works well with ordinal data <xref ref="Nunez:2018" />.
+        The cividis scale works well with ordinal data <xref ref="Nunez-2018" />.
         <xref ref="fig-brexit-viridis" /> shows the same plot with two different color themes.
       </p>
       
