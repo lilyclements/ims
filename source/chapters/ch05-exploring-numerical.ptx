@@ -637,7 +637,7 @@ ggplot(dists_mean0_sd1, aes(x = x)) +
 
 <assemblage>
   <title>Interquartile range (IQR)</title>
-  <p>The IQR interquartile range is the length of the box in a box plot. It is computed as <m>IQR = Q_3 - Q_1,</m> where <m>Q_1</m> and <m>Q_3</m> are the <m>25^{th}</m> and <m>75^{th}</m> percentiles, respectively. A <m>\alpha</m> <alert>percentile</alert> is a number with <m>\alpha</m>% of the observations below and <m>100-\alpha</m>% of the observations above. For example, the <m>90^{th}</m> percentile of SAT scores is the value of the SAT score with 90% of students below that value and 10% of students above that value.</p>
+  <p>The IQR is the length of the box in a box plot. It is computed as <m>IQR = Q_3 - Q_1,</m> where <m>Q_1</m> and <m>Q_3</m> are the <m>25^{th}</m> and <m>75^{th}</m> percentiles, respectively. A <m>\alpha</m> <alert>percentile</alert> is a number with <m>\alpha</m>% of the observations below and <m>100-\alpha</m>% of the observations above. For example, the <m>90^{th}</m> percentile of SAT scores is the value of the SAT score with 90% of students below that value and 10% of students above that value.</p>
 </assemblage>
 
 <exercise>
