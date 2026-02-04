@@ -36,7 +36,7 @@
       </p>
       
       <p>
-        As an alternative, a bar plot is been provided in <xref ref="fig-pie-to-bar-2" />.
+        As an alternative, a bar plot has been provided in <xref ref="fig-pie-to-bar-2" />.
         Notice how much easier it is to identify the magnitude of the differences across categories while not being distracted by other aspects of the image.
         Typically, a bar plot will be easier for the reader to digest than a pie chart, especially if the categorical data being plotted has more than just a few levels.
       </p>
@@ -141,7 +141,7 @@
       <title>Order matters</title>
       
       <p>
-        Most software programs have built in methods for some of the plot details <mdash /> some order levels alphabetically, some provide functionality for arranging them in a custom order.
+        Most software programs have built-in methods for some of the plot details <mdash /> some order levels alphabetically, some provide functionality for arranging them in a custom order.
         As seen in <xref ref="fig-brexit-bars-1" />, the alphabetical ordering isn't particularly meaningful for describing the data.
         Sometimes it makes sense to <alert>order</alert> the bars from tallest to shortest (or vice versa), as shown in <xref ref="fig-brexit-bars-2" />.
         But in this case, the best ordering is probably the one in which the questions were asked, as shown in <xref ref="fig-brexit-bars-3" />.
@@ -276,8 +276,8 @@
         One last consideration for building graphs is to consider color choices.
         Default or rainbow colors are not always the choice which will best distinguish the level of your variables.
         Much research has been done to find color combinations which are distinct and which are clear for differently sighted individuals.
-        The cividis scale works well with ordinal data.
-        <xref ref="Nunez:2018" /> <xref ref="fig-brexit-viridis" /> shows the same plot with two different color themes.
+        The cividis scale works well with ordinal data <xref ref="Nunez:2018" />.
+        <xref ref="fig-brexit-viridis" /> shows the same plot with two different color themes.
       </p>
       
       <figure xml:id="fig-brexit-viridis">
