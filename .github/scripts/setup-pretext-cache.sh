@@ -26,6 +26,10 @@ if [ -f "$CACHE_DIR/runestone_services.xml" ]; then
 fi
 
 # Create a minimal fallback cache file if neither exists
+# Note: These are fallback values for RuneStone Services version 7.10.0.
+# The hardcoded asset filenames with hashed identifiers may become outdated
+# as RuneStone releases new versions, but they provide a working baseline
+# when network access is unavailable.
 echo "Creating minimal fallback cache file"
 cat > "$CACHE_DIR/rs_services.xml" << 'EOF'
 <?xml version="1.0" ?>
