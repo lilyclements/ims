@@ -212,7 +212,9 @@ ggplot(loan50, aes(x = interest_rate)) +
     <p>Come up with another example where the mean is useful for making comparisons.</p>
   </statement>
   <solution>
-    <p>Emilio opened a food truck last year where he sells burritos, and his business has stabilized over the last 3 months. Over that 3-month period, he has made \$11,000 while working 625 hours. Emilio's average hourly earnings provides a useful statistic for evaluating whether his venture is, at least from a financial perspective, worth it: <![CDATA[\frac{\$11000}{625\text{ hours}} = \$17.60\text{ per hour}]]> By knowing his average hourly wage, Emilio now has put his earnings into a standard unit that is easier to compare with many other jobs that he might consider.</p>
+    <p>Emilio opened a food truck last year where he sells burritos, and his business has stabilized over the last 3 months. Over that 3-month period, he has made $11,000 while working 625 hours. Emilio's average hourly earnings provides a useful statistic for evaluating whether his venture is, at least from a financial perspective, worth it:
+    <me>\frac{\$11000}{625\text{ hours}} = \$17.60\text{ per hour}</me>
+    By knowing his average hourly wage, Emilio now has put his earnings into a standard unit that is easier to compare with many other jobs that he might consider.</p>
   </solution>
 </example>
 
@@ -400,13 +402,21 @@ p_uni + p_bi + p_multi
 
 <p>The mean was introduced as a method to describe the center of a variable, and <alert>variability</alert> in the data is also important. Here, we introduce two measures of variability: the variance and the standard deviation. Both of these are very useful in data analysis, even though their formulas are a bit tedious to calculate by hand. The standard deviation is the easier of the two to comprehend, as it roughly describes how far away the typical observation is from the mean.</p>
 
-<p>We call the distance of an observation from its mean its <alert>deviation</alert>. Below are the deviations for the $1^{st},$ $2^{nd},$ $3^{rd},$ and $50^{th}$ observations in the <c>interest_rate</c> variable:</p>
+<p>We call the distance of an observation from its mean its <alert>deviation</alert>. Below are the deviations for the <m>1^{st},</m> <m>2^{nd},</m> <m>3^{rd},</m> and <m>50^{th}</m> observations in the <c>interest_rate</c> variable:</p>
 
-<p><![CDATA[\begin{aligned} x_1 - \bar{x} &= `r round(loan50$interest_rate[1], 2)` - `r round(loan50_interest_rate_mean, 2)` = `r loan50_interest_rate_deviation[1]` \\ x_2 - \bar{x} &= `r round(loan50$interest_rate[2], 2)` - `r round(loan50_interest_rate_mean, 2)` = `r loan50_interest_rate_deviation[2]` \\ x_3 - \bar{x} &= `r round(loan50$interest_rate[3], 2)` - `r round(loan50_interest_rate_mean, 2)` = `r loan50_interest_rate_deviation[3]` \\ &\vdots \\ x_{50} - \bar{x} &= `r round(loan50$interest_rate[50], 2)` - `r round(loan50_interest_rate_mean, 2)` = `r loan50_interest_rate_deviation[50]` \\ \end{aligned}]]></p>
+<md>
+\begin{aligned}
+x_1 - \bar{x} \amp= 10.9 - 11.57 = -0.67 \\
+x_2 - \bar{x} \amp= 9.92 - 11.57 = -1.65 \\
+x_3 - \bar{x} \amp= 26.3 - 11.57 = 14.73 \\
+\amp\vdots \\
+x_{50} - \bar{x} \amp= 6.08 - 11.57 = -5.49
+\end{aligned}
+</md>
 
-<p>If we square these deviations and then take an average, the result is equal to the sample <alert>variance</alert>, denoted by $s^2$:</p>
+<p>If we square these deviations and then take an average, the result is equal to the sample <alert>variance</alert>, denoted by <m>s^2</m>:</p>
 
-<p><![CDATA[s^2 = \frac{(`r loan50_interest_rate_deviation[1]`)^2 + (`r loan50_interest_rate_deviation[2]`)^2 + (`r loan50_interest_rate_deviation[3]`)^2 + \cdots + (`r loan50_interest_rate_deviation[50]`)^2}{50 - 1} = \frac{`r loan50_interest_rate_deviation_squared[1]` + `r loan50_interest_rate_deviation_squared[2]` + \cdots + `r loan50_interest_rate_deviation_squared[50]`}{49} = `r round(loan50_interest_rate_var, 2)`]]></p>
+<me>s^2 = \frac{(-0.67)^2 + (-1.65)^2 + (14.73)^2 + \cdots + (-5.49)^2}{50 - 1} = \frac{0.45 + 2.72 + \cdots + 30.14}{49} = 26.21</me>
 
 <p>We divide by $n - 1,$ rather than dividing by $n,$ when computing a sample's variance. There's some mathematical nuance here, but the end result is that doing this makes this statistic slightly more reliable and useful.</p>
 
@@ -420,7 +430,7 @@ p_uni + p_bi + p_multi
 
 <p>The <alert>standard deviation</alert> is defined as the square root of the variance:</p>
 
-<p><![CDATA[s = \sqrt{`r round(loan50_interest_rate_var, 2)`} = `r round(loan50_interest_rate_sd, 2)`]]></p>
+<me>s = \sqrt{26.21} = 5.12</me>
 
 <p>While often omitted, a subscript of $_x$ may be added to the variance and standard deviation, i.e., $s_x^2$ and $s_x^{},$ if it is useful as a reminder that these are the variance and standard deviation of the observations represented by $x_1,$ $x_2,$ ..., $x_n.$</p>
 
