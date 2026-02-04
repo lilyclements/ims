@@ -3,7 +3,17 @@
 <chapter xml:id="ch07-linear-regression-single">
   <title>Linear regression with a single predictor</title>
   
-  <p>
-    Content to be added from model-slr.qmd
-  </p>
+  <section xml:id="sec-model-slr">
+    <title>Simple linear regression</title>
+    <p>
+      Content to be added from model-slr.qmd
+    </p>
+  </section>
+  
+  <section xml:id="sec-least-squares-regression">
+    <title>Least squares regression</title>
+    <p>
+      Content to be added from model-slr.qmd
+    </p>
+  </section>
 </chapter>

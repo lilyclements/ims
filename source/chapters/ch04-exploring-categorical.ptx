@@ -3,7 +3,10 @@
 <chapter xml:id="ch04-exploring-categorical">
   <title>Exploring categorical data</title>
   
-  <p>
-    Content to be added from explore-categorical.qmd
-  </p>
+  <section xml:id="sec-explore-categorical">
+    <title>Exploring categorical data</title>
+    <p>
+      Content to be added from explore-categorical.qmd
+    </p>
+  </section>
 </chapter>
