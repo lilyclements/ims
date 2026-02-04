@@ -2,7 +2,7 @@
 <!-- This file, the project manifest, provides the overall configuration for your PreTeXt project. -->
 <project ptx-version="2" source="source" publication="publication" output-dir="output">
   <targets>
-    <target name="html" format="html" source="main.ptx" publication="publication.ptx" output-dir="html" deploy-dir="gh-pages" />
+    <target name="html" format="html" source="main.ptx" publication="publication.ptx" output-dir="html" />
     <target name="pdf" format="pdf" source="main.ptx" publication="publication.ptx" output-dir="pdf" />
   </targets>
 </project>
