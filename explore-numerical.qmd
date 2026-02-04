@@ -97,20 +97,28 @@ terms_chp_05 <- c(terms_chp_05, "nonlinear")
 \vspace{-5mm}
 
 ::: {.guidedpractice data-latex=""}
-What do scatterplots reveal about the data, and how are they useful?[^05-explore-numerical-1]
-:::
+What do scatterplots reveal about the data, and how are they useful?
 
-[^05-explore-numerical-1]: Answers may vary.
+::: {.callout-note collapse="true"}
+## Solution
+
+Answers may vary.
     Scatterplots are helpful in quickly spotting associations relating variables, whether those associations come in the form of simple trends or whether those relationships are more complex.
+:::
+:::
 
 \vspace{-5mm}
 
 ::: {.guidedpractice data-latex=""}
-Describe two variables that would have a horseshoe-shaped association in a scatterplot $(\cap$ or $\frown).$[^05-explore-numerical-2]
-:::
+Describe two variables that would have a horseshoe-shaped association in a scatterplot $(\cap$ or $\frown).$
 
-[^05-explore-numerical-2]: Consider the case where your vertical axis represents something "good" and your horizontal axis represents something that is only good in moderation.
+::: {.callout-note collapse="true"}
+## Solution
+
+Consider the case where your vertical axis represents something "good" and your horizontal axis represents something that is only good in moderation.
     Health and water consumption fit this description: we require some water to survive, but consume too much and it becomes toxic and can kill a person.
+:::
+:::
 
 \clearpage
 
@@ -188,19 +196,27 @@ $$ \bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n} $$
 Examine the equation for the mean.
 What does $x_1$ correspond to?
 And $x_2$?
-Can you infer a general meaning to what $x_i$ might represent?[^05-explore-numerical-3]
-:::
+Can you infer a general meaning to what $x_i$ might represent?
 
-[^05-explore-numerical-3]: $x_1$ corresponds to the interest rate for the first loan in the sample, $x_2$ to the second loan's interest rate, and $x_i$ corresponds to the interest rate for the $i^{th}$ loan in the dataset.
+::: {.callout-note collapse="true"}
+## Solution
+
+$x_1$ corresponds to the interest rate for the first loan in the sample, $x_2$ to the second loan's interest rate, and $x_i$ corresponds to the interest rate for the $i^{th}$ loan in the dataset.
     For example, if $i = 4,$ then we are examining $x_4,$ which refers to the fourth observation in the dataset.
+:::
+:::
 
 \vspace{-5mm}
 
 ::: {.guidedpractice data-latex=""}
-What was $n$ in this sample of loans?[^05-explore-numerical-4]
-:::
+What was $n$ in this sample of loans?
 
-[^05-explore-numerical-4]: The sample size was $n = 50.$
+::: {.callout-note collapse="true"}
+## Solution
+
+The sample size was $n = 50.$
+:::
+:::
 
 The `loan50` dataset represents a sample from a larger population of loans made through Lending Club.
 We could compute a mean for the entire population in the same way as the sample mean.
@@ -385,8 +401,6 @@ Histograms are especially convenient for understanding the shape of the data dis
 @fig-loan50IntRateHist suggests that most loans have rates under 15%, while only a handful of loans have rates above 20%.
 When the distribution of a variable trails off to the right in this way and has a longer right **tail**\index{tail}, the shape is said to be **right skewed**\index{right skewed}.[^05-explore-numerical-5]
 
-[^05-explore-numerical-5]: Other ways to describe data that are right skewed: skewed to the right, skewed to the high end, or skewed to the positive end.
-
 ```{r}
 #| label: fig-loan50IntRateDensity
 #| fig-cap: |
@@ -429,10 +443,14 @@ If a distribution has a long right tail, it is right skewed.
 :::
 
 ::: {.guidedpractice data-latex=""}
-Besides the mean (since it was labeled), what can you see in the dot plot in @fig-loan-int-rate-dotplot that you cannot see in the histogram in @fig-loan50IntRateHist?[^05-explore-numerical-6]
-:::
+Besides the mean (since it was labeled), what can you see in the dot plot in @fig-loan-int-rate-dotplot that you cannot see in the histogram in @fig-loan50IntRateHist?
 
-[^05-explore-numerical-6]: The interest rates for individual loans.
+::: {.callout-note collapse="true"}
+## Solution
+
+The interest rates for individual loans.
+:::
+:::
 
 In addition to looking at whether a distribution is skewed or symmetric, histograms can be used to identify modes.
 A **mode** is represented by a prominent peak in the distribution.
@@ -501,11 +519,15 @@ Remember that *uni* stands for 1 (think *uni*cycles), and *bi* stands for 2 (thi
 
 ::: {.guidedpractice data-latex=""}
 Height measurements of young students and adult teachers at an elementary school were taken.
-How many modes would you expect in this height dataset?[^05-explore-numerical-8]
-:::
+How many modes would you expect in this height dataset?
 
-[^05-explore-numerical-8]: There might be two height groups visible in the dataset: the children (students) and the adults (teachers).
+::: {.callout-note collapse="true"}
+## Solution
+
+There might be two height groups visible in the dataset: the children (students) and the adults (teachers).
     That is, the data are probably bimodal.
+:::
+:::
 
 Looking for modes isn't about finding a clear and correct answer about the number of modes in a distribution, which is why *prominent*\index{prominent} is not rigorously defined in this book.
 The most important part of this examination is to better understand your data.
@@ -617,13 +639,17 @@ The Greek letter $\sigma$ is pronounced *sigma*.
 
 ::: {.guidedpractice data-latex=""}
 A good description of the shape of a distribution should include modality and whether the distribution is symmetric or skewed to one side.
-Using @fig-severalDiffDistWithSdOf1 as an example, explain why such a description is important.[^05-explore-numerical-9]
-:::
+Using @fig-severalDiffDistWithSdOf1 as an example, explain why such a description is important.
 
-[^05-explore-numerical-9]: @fig-severalDiffDistWithSdOf1 shows three distributions that look quite different, but all have the same mean, variance, and standard deviation.
+::: {.callout-note collapse="true"}
+## Solution
+
+@fig-severalDiffDistWithSdOf1 shows three distributions that look quite different, but all have the same mean, variance, and standard deviation.
     Using modality, we can distinguish between the first plot (bimodal) and the last two (unimodal).
     Using skewness, we can distinguish between the last plot (right skewed) and the first two.
     While a picture, like a histogram, tells a more complete story, we can use modality and shape (symmetry/skew) to characterize basic information about a distribution.
+:::
+:::
 
 \clearpage
 
@@ -880,10 +906,14 @@ For example, the $90^{th}$ percentile of SAT scores is the value of the SAT scor
 
 ::: {.guidedpractice data-latex=""}
 What percent of the data fall between $Q_1$ and the median?
-What percent is between the median and $Q_3$?[^05-explore-numerical-10]
-:::
+What percent is between the median and $Q_3$?
 
-[^05-explore-numerical-10]: Since $Q_1$ and $Q_3$ capture the middle 50% of the data and the median splits the data in the middle, 25% of the data fall between $Q_1$ and the median, and another 25% falls between the median and $Q_3.$
+::: {.callout-note collapse="true"}
+## Solution
+
+Since $Q_1$ and $Q_3$ capture the middle 50% of the data and the median splits the data in the middle, 25% of the data fall between $Q_1$ and the median, and another 25% falls between the median and $Q_3.$
+:::
+:::
 
 Extending out from the box, the **whiskers**\index{whisker} attempt to capture the data outside of the box.
 The whiskers of a box plot reach to the minimum and the maximum values in the data, unless there are points that are considered unusually high or unusually low, which are identified as potential **outliers**\index{outlier} by the box plot.
@@ -912,10 +942,14 @@ Keep in mind, however, that some datasets have a naturally long skew and outlyin
 :::
 
 ::: {.guidedpractice data-latex=""}
-Using the box plot in @fig-loan-int-rate-boxplot-dotplot-2, estimate the values of the $Q_1,$ $Q_3,$ and IQR for `interest_rate` in the `loan50` dataset.[^05-explore-numerical-11]
-:::
+Using the box plot in @fig-loan-int-rate-boxplot-dotplot-2, estimate the values of the $Q_1,$ $Q_3,$ and IQR for `interest_rate` in the `loan50` dataset.
 
-[^05-explore-numerical-11]: These visual estimates will vary a little from one person to the next: $Q_1 \approx$ 8%, $Q_3 \approx$ 14%, IQR $\approx$ 14 - 8 = 6%.
+::: {.callout-note collapse="true"}
+## Solution
+
+These visual estimates will vary a little from one person to the next: $Q_1 \approx$ 8%, $Q_3 \approx$ 14%, IQR $\approx$ 14 - 8 = 6%.
+:::
+:::
 
 \clearpage
 
@@ -1041,11 +1075,15 @@ ggplot(loan50_35, aes(x = interest_rate)) +
 
 ::: {.guidedpractice data-latex=""}
 Which is more affected by extreme observations, the mean or median?
-Is the standard deviation or IQR more affected by extreme observations?[^05-explore-numerical-12]
-:::
+Is the standard deviation or IQR more affected by extreme observations?
 
-[^05-explore-numerical-12]: Mean is affected more than the median.
+::: {.callout-note collapse="true"}
+## Solution
+
+Mean is affected more than the median.
     Standard deviation is affected more than the IQR.
+:::
+:::
 
 The median and IQR are called **robust statistics**\index{robust statistic} because extreme observations have little effect on their values: moving the most extreme value generally has little influence on these statistics.
 On the other hand, the mean and standard deviation are more heavily influenced by changes in extreme observations, which can be important in some situations.
@@ -1077,11 +1115,15 @@ You might not be surprised that the answer to the question "which is better, the
 
 ::: {.guidedpractice data-latex=""}
 The distribution of loan amounts in the `loan50` dataset is right skewed, with a few large loans lingering out into the right tail.
-If you were wanting to understand the typical loan size, should you be more interested in the mean or median?[^05-explore-numerical-13]
-:::
+If you were wanting to understand the typical loan size, should you be more interested in the mean or median?
 
-[^05-explore-numerical-13]: If we are looking to simply understand what a typical individual loan looks like, the median is probably more useful.
+::: {.callout-note collapse="true"}
+## Solution
+
+If we are looking to simply understand what a typical individual loan looks like, the median is probably more useful.
     However, if the goal is to understand something that scales well, such as the total amount of money we might need to have on hand if we were to offer 1,000 loans, then the mean would be more useful.
+:::
+:::
 
 Regardless of the choice of centrality statistic (either mean or median), for most analyses, it is important to consider more than just the centrality. Other statistics like upper and lower percentiles, IQR, or standard deviation provide information about the variability of the observations. And visualizing the data through a graphical representation will typically provide a wealth of information necessary for understanding the full data picture associated with the research question.
 
@@ -1245,12 +1287,16 @@ One observation that stands out when comparing the two maps: the poverty rate is
 :::
 
 ::: {.guidedpractice data-latex=""}
-What interesting features are evident in the median household income intensity map in @fig-county-intensity-maps-4?[^05-explore-numerical-14]
-:::
+What interesting features are evident in the median household income intensity map in @fig-county-intensity-maps-4?
 
-[^05-explore-numerical-14]: Answers will vary.
+::: {.callout-note collapse="true"}
+## Solution
+
+Answers will vary.
     There is some correspondence between high earning and metropolitan areas, where we can see darker spots (higher median household income), though there are several exceptions.
     You might look for large cities you are familiar with and try to spot them on the map as dark spots.
+:::
+:::
 
 \clearpage
 

@@ -45,16 +45,20 @@ terms_chp_2 <- c("population", "census", "sample")
 ```
 
 ::: {.guidedpractice data-latex=""}
-For the second and third questions above, identify the target population and what represents an individual case.[^02-data-design-1]
-:::
+For the second and third questions above, identify the target population and what represents an individual case.
 
-[^02-data-design-1]: The question *"Over the last five years, what is the average time to complete a degree for Duke undergrads?"* is only relevant to students who complete their degree; the average cannot be computed using a student who never finished their degree.
+::: {.callout-note collapse="true"}
+## Solution
+
+The question *"Over the last five years, what is the average time to complete a degree for Duke undergrads?"* is only relevant to students who complete their degree; the average cannot be computed using a student who never finished their degree.
     Thus, only Duke undergrads who graduated in the last five years represent cases in the population under consideration.
     Each such student is an individual case.
     For the question *"Does a new drug reduce the number of deaths in patients with severe heart disease?"*, a person with severe heart disease represents a case.
     The population includes all people with severe heart disease.
     
 ### Parameters and statistics
+:::
+:::
 
 In most statistical analysis procedures, the research question at hand boils down to understanding a numerical summary.
 The number (or set of numbers) may be a quantity you are already familiar with (like the average) or it may be something you learn through this text (like the slope and intercept from a least squares model, provided in @sec-least-squares-regression).
@@ -72,10 +76,7 @@ The terms statistic and parameter are useful for communicating claims and models
 terms_chp_2 <- c(terms_chp_2, "population parameter", "sample statistic")
 ```
 
-
 ### Anecdotal evidence
-
-
 
 Consider the following possible responses to the three research questions:
 
@@ -391,14 +392,17 @@ terms_chp_2 <- c(terms_chp_2, "convenience sample")
 We can easily access ratings for products, sellers, and companies through websites.
 These ratings are based only on those people who go out of their way to provide a rating.
 If 50% of online reviews for a product are negative, do you think this means that 50% of buyers are dissatisfied with the product?
-Why?[^02-data-design-2]
-:::
+Why?
 
-[^02-data-design-2]: Answers will vary.
+::: {.callout-note collapse="true"}
+## Solution
+
+Answers will vary.
     From our own anecdotal experiences, we believe people tend to rant more about products that fell below expectations than rave about those that perform as expected.
     For this reason, we suspect there is a negative bias in product ratings on sites like Amazon.
     However, since our experiences may not be representative, we also keep an open mind.
-
+:::
+:::
 
 ### Four sampling methods {#sec-samp-methods}
 
@@ -536,8 +540,6 @@ terms_chp_2 <- c(terms_chp_2, "experiment", "randomized experiment")
 
 1.  **Controlling.** Researchers assign treatments to cases, and they do their best to **control**\index{control} any other differences in the groups[^02-data-design-3]. For example, when patients take a drug in pill form, some patients take the pill with only a sip of water while others may have it with an entire glass of water. To control for the effect of water consumption, a doctor may instruct every patient to drink a 12-ounce glass of water with the pill.
 
-[^02-data-design-3]: This is a different concept than a *control group*, which we discuss in the second principle and in @sec-reducing-bias-human-experiments.
-
 ```{r}
 #| include: false
 terms_chp_2 <- c(terms_chp_2, "control")
@@ -560,7 +562,6 @@ Confounding variables may or may not be measured as part of the study.
 Regardless, drawing cause-and-effect conclusions is difficult in an observational study because of the ever-present possibility of confounding variables.
 :::
 
-
 ```{r}
 #| include: false
 terms_chp_2 <- c(terms_chp_2, "confounding variable")
@@ -577,8 +578,6 @@ terms_chp_2 <- c(terms_chp_2, "confounding variable")
     Reporting that you have 500 observations would be considered pseudoreplication, as the blood pressure measurements of a given individual are not independent of each other.
     Pseudoreplication often happens when the wrong entity is replicated, and the reported sample sizes are exaggerated.
 
-[^02-data-design-4]: Also called a **lurking variable**, **confounding factor**, or a **confounder**.
-
 ```{r}
 #| include: false
 terms_chp_2 <- c(terms_chp_2, "replication", "pseudoreplication", "replication crisis")
@@ -587,7 +586,6 @@ terms_chp_2 <- c(terms_chp_2, "replication", "pseudoreplication", "replication c
 \index{replication} \index{lurking variable}
 
 4.  **Blocking.**\index{blocking} Researchers sometimes know or suspect that variables, other than the treatment, influence the response. Under these circumstances, they may first group individuals based on this variable into **blocks** and then randomize cases within each block to the treatment groups. This strategy is often referred to as **blocking**. For instance, if we are looking at the effect of a drug on heart attacks, we might first split patients in the study into low-risk and high-risk blocks, then randomly assign half the patients from each block to the control group and the other half to the treatment group, as shown in @fig-blocking. This strategy ensures that each treatment group has the same number of low-risk patients and the same number of high-risk patients.
-
 
 ```{r}
 #| include: false
@@ -633,8 +631,6 @@ Study volunteers[^02-data-design-5] were randomly placed into two study groups.
 One group, the **treatment group**\index{treatment group}, received the drug.
 The other group, called the **control group**\index{control group}, did not receive any drug treatment.
 
-[^02-data-design-5]: Human subjects are often called **patients**, **volunteers**, or **study participants**.
-
 ```{r}
 #| include: false
 terms_chp_2 <- c(terms_chp_2, "treatment group", "control group")
@@ -670,9 +666,6 @@ The patients are not the only ones who should be blinded: doctors and researcher
 When a doctor knows a patient has been given the real treatment, they might inadvertently give that patient more attention or care than a patient that they know is on the placebo.
 To guard against this bias, which again has been found to have a measurable effect in some instances, most modern studies employ a **double-blind**\index{double-blind} setup where doctors or researchers who interact with patients are, just like the patients, unaware of who is or is not receiving the treatment.[^02-data-design-6]
 
-[^02-data-design-6]: There are always some researchers involved in the study who do know which patients are receiving which treatment.
-    However, they do not interact with the study's patients and do not tell the blinded health care professionals who is receiving which treatment.
-
 ```{r}
 #| include: false
 terms_chp_2 <- c(terms_chp_2, "double-blind")
@@ -682,22 +675,30 @@ terms_chp_2 <- c(terms_chp_2, "double-blind")
 Look back to the study in @sec-case-study-stents-strokes where researchers were testing whether stents were effective at reducing strokes in at-risk patients.
 Is this an experiment?
 Was the study blinded?
-Was it double-blinded?[^02-data-design-7]
-:::
+Was it double-blinded?
 
-[^02-data-design-7]: The researchers assigned the patients into their treatment groups, so this study was an experiment.
+::: {.callout-note collapse="true"}
+## Solution
+
+The researchers assigned the patients into their treatment groups, so this study was an experiment.
     However, the patients could distinguish what treatment they received because a stent is a surgical procedure.
     There is no equivalent surgical placebo, so this study was not blind.
     The study could not be double-blind since it was not blind.
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
 For the study in @sec-case-study-stents-strokes, could the researchers have employed a placebo?
-If so, what would that placebo have looked like?[^02-data-design-8]
-:::
+If so, what would that placebo have looked like?
 
-[^02-data-design-8]: Ultimately, can we make patients think they got treated from a surgery?
+::: {.callout-note collapse="true"}
+## Solution
+
+Ultimately, can we make patients think they got treated from a surgery?
     In fact, we can, and some experiments use a **sham surgery**.
     In a sham surgery, the patient does undergo surgery, but the patient does not receive the full treatment, though they will still get a placebo effect.
+:::
+:::
 
 You may have many questions about the ethics of sham surgeries to create a placebo.
 These questions may have even arisen in your mind when in the general experiment context, where a possibly helpful treatment was withheld from individuals in the control group; the main difference is that a sham surgery tends to create additional risk, while withholding a treatment only maintains a person's risk.
@@ -781,13 +782,17 @@ While one method to justify making causal conclusions from observational studies
 ::: {.guidedpractice data-latex=""}
 @fig-county-multi-unit-homeownership shows a negative association between the homeownership rate and the percentage of housing units that are in multi-unit structures in a county.
 However, it is unreasonable to conclude that there is a causal relationship between the two variables.
-Suggest a variable that might explain the negative relationship.[^02-data-design-10]
-:::
+Suggest a variable that might explain the negative relationship.
 
-[^02-data-design-10]: Answers will vary.
+::: {.callout-note collapse="true"}
+## Solution
+
+Answers will vary.
     Population density may be important.
     If a county is very dense, then this may require a larger percentage of residents to live in housing units that are in multi-unit structures.
     Additionally, the high density may contribute to increases in property value, making homeownership unfeasible for many residents.
+:::
+:::
 
 Observational studies come in two forms: prospective and retrospective studies.
 A **prospective study**\index{study!prospective}\index{prospective study} identifies individuals and collects information as events unfold.
@@ -803,7 +808,6 @@ Some datasets may contain both prospectively- and retrospectively collected vari
 terms_chp_2 <- c(terms_chp_2, "prospective study", "retrospective study")
 ```
 
-
 \clearpage
 
 ## Chapter review {#sec-chp2-review}
@@ -816,8 +820,6 @@ In this chapter, we have discussed randomized experiments and taking good, rando
 When we discuss inferential methods (starting in @sec-foundations-randomization), the conclusions that can be drawn will be dependent on how the data were collected.
 @fig-randsampValloc summarizes how sampling and assignment methods relate to the scope of inference.[^02-data-design-11]
 Regularly revisiting @fig-randsampValloc will be important when making conclusions from a given data analysis.
-
-[^02-data-design-11]: Derived from similar figures in @ISCAM and @sleuth.
 
 ```{r}
 #| label: fig-randsampValloc
