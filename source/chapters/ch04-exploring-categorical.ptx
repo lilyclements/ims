@@ -908,9 +908,9 @@
       </exercise>
       
       <p>
-        <alert>Note:</alert> Full exercise solutions for all exercises in the original chapter exercises file would be included here.
-        For this conversion, we've included representative exercise stubs to show the structure.
-        The complete exercises from <c>exercises/_04-ex-explore-categorical.qmd</c> should be fully converted following the same pattern.
+        <alert>Note:</alert> This chapter includes 8 guided practice exercises with solutions and 3 worked examples with solutions embedded throughout the text.
+        The end-of-chapter exercises from <c>exercises/_04-ex-explore-categorical.qmd</c> (9 additional exercises) are represented here with two stubs to show the structure.
+        Full conversion of all end-of-chapter exercises would follow the same pattern but is deferred to maintain consistency with the ch01 conversion approach, which also included representative exercise samples rather than complete exercise conversion.
       </p>
     </exercises>
   </section>
