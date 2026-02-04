@@ -116,6 +116,17 @@ h1, h2, h3, h4, h5 {
   color: #569BBD;
 }
 
+/* Solution callouts within guided practice */
+
+.guidedpractice .callout-note {
+  margin-top: 1em;
+  border-left: 3px solid #569BBD;
+}
+
+.guidedpractice .callout-note.callout-style-default .callout-header {
+  background-color: rgba(86, 155, 189, 0.1);
+}
+
 /* workedexample */
 
 .workedexample{

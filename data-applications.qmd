@@ -86,18 +86,26 @@ paralympic_1500 |>
 At this stage it's also useful to think about how the data were collected, as that will inform the scope of any inference you can make based on your analysis of the data.
 
 ::: {.guidedpractice data-latex=""}
-Do these data come from an observational study or an experiment?[^03-data-applications-1]
-:::
+Do these data come from an observational study or an experiment?
 
-[^03-data-applications-1]: This is an observational study.
+::: {.callout-note collapse="true"}
+## Solution
+
+This is an observational study.
     Researchers collected data on past gold medal race times in both Olympic and Paralympic Games.
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
 There are `r nrow(paralympic_1500)` rows and `r ncol(paralympic_1500)` columns in the dataset.
-What does each row and each column represent?[^03-data-applications-2]
-:::
+What does each row and each column represent?
 
-[^03-data-applications-2]: Each row represents a 1500m gold medal race and each column represents a variable containing information on each race.
+::: {.callout-note collapse="true"}
+## Solution
+
+Each row represents a 1500m gold medal race and each column represents a variable containing information on each race.
+:::
+:::
 
 Once you've identified the rows and columns, it's useful to review the data dictionary to learn about what each column in the dataset represents.
 The data dictionary is provided in @tbl-paralympic-var-def.
