@@ -41,6 +41,31 @@
         Typically, a bar plot will be easier for the reader to digest than a pie chart, especially if the categorical data being plotted has more than just a few levels.
       </p>
       
+      <program language="r">
+        <input>
+expenses &lt;- tribble(
+  ~category,                     ~value,
+  "Cutting tools"                , 0.03,
+  "Buildings and Administration" , 0.22,
+  "Labor"                        , 0.31,
+  "Machinery"                    , 0.27,
+  "Workplace materials"          , 0.17
+) |&gt;
+  mutate(value =  value * 100) |&gt;
+  uncount(weights = value)
+
+# Pie chart (3D image)
+knitr::include_graphics("images/pie-3d.jpg")
+
+# Bar plot
+ggplot(expenses, aes(x = fct_infreq(category))) +
+  geom_bar() +
+  theme_minimal() +
+  coord_flip() +
+  labs(x = NULL, y = NULL)
+        </input>
+      </program>
+      
       <figure xml:id="fig-pie-to-bar">
         <caption>Same information displayed with two very different visualizations.</caption>
         
@@ -74,6 +99,37 @@
         The default coloring in <xref ref="fig-red-bar-1" /> can be distracting and makes the reader question, for example, is there something similar about the red and purple bars?
         Also note that not everyone sees color the same way, often it's useful to add color and one more feature (e.g., pattern) so that you can refer to the features you're drawing attention to in multiple ways, as shown in <xref ref="fig-red-bar-3" />.
       </p>
+      
+      <program language="r">
+        <input>
+# Default coloring
+ggplot(expenses, aes(y = fct_infreq(category), fill = category)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_openintro("five") +
+  labs(x = NULL, y = NULL) +
+  scale_y_discrete(labels = label_wrap(14))
+
+# Highlighting Buildings and Administration with color
+expenses |&gt;
+  mutate(highlight = if_else(category == "Buildings and Administration", "yes", "no")) |&gt;
+  ggplot(aes(y = fct_infreq(category), fill = highlight)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_manual(values = c(IMSCOL["lgray", "full"], IMSCOL["red", "full"])) +
+  labs(x = NULL, y = NULL) +
+  scale_y_discrete(labels = label_wrap(14))
+
+# Highlighting with color and linetype
+expenses |&gt;
+  mutate(highlight = if_else(category == "Buildings and Administration", "yes", "no")) |&gt;
+  ggplot(aes(y = fct_infreq(category), fill = highlight, color = highlight, linetype = highlight, size = highlight)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_manual(values = c(IMSCOL["lgray", "full"], IMSCOL["red", "full"])) +
+  labs(x = NULL, y = NULL) +
+  scale_color_manual(values = c(IMSCOL["lgray", "full"], "white")) +
+  scale_size_manual(values = c(0, 0.8)) +
+  scale_y_discrete(labels = label_wrap(14))
+        </input>
+      </program>
       
       <figure xml:id="fig-red-bar">
         <caption>Three bar charts visualizing the same information with different coloring to highlight different aspects.</caption>
@@ -115,6 +171,70 @@
         In <xref ref="fig-duke-hires" />, the graph on the right is <alert>annotated</alert> with information about the start of the university's fiscal year which contextualizes the information provided by the data.
         Sometimes the additional information may be a diagonal line given by <m>y = x</m>, points above the line quickly show the reader which values have a <m>y</m> coordinate larger than the <m>x</m> coordinate; points below the line show the opposite.
       </p>
+      
+      <program language="r">
+        <input>
+duke_hires_raw &lt;- read_csv("data/duke-hires.csv")
+
+set.seed(1234)
+
+duke_hires &lt;- duke_hires_raw |&gt;
+  mutate(
+    `2011` = `2010` + round(runif(12, min = -30, max = 15)),
+    `2011` = `2010` + round(runif(12, min = -12, max = 10) * 1.02),
+    `2012` = `2010` + round(runif(12, min = -11, max = 31) * 0.95),
+    `2013` = `2010` + round(runif(12, min = -37, max = 20) * 1.1),
+    `2014` = `2010` + round(runif(12, min = -10, max = 42) * 0.8),
+    `2015` = `2010` + round(runif(12, min = -23, max = 18) * 1.5),
+    `2012` = if_else(month == 6, 600, `2012`),
+    `2013` = if_else(month == 6, 480, `2013`),
+    `2014` = if_else(month == 6, 550, `2014`),
+    `2015` = if_else(month == 6, 430, `2015`),
+    `2012` = if_else(month == 8, 600 + 10, `2012`),
+    `2013` = if_else(month == 8, 480 + 80, `2013`),
+    `2014` = if_else(month == 8, 550 + 90, `2014`),
+    `2015` = if_else(month == 8, 430 + 140, `2015`),
+    `2015` = if_else(month == 7, 800, `2015`)
+  ) |&gt;
+  pivot_longer(
+    cols = !month,
+    names_to = "year",
+    values_to = "n"
+  )
+
+# Colored by year
+ggplot(duke_hires, aes(x = month, y = n, color = year)) +
+  geom_line(linewidth = 1) +
+  scale_color_openintro("five") +
+  scale_x_continuous(breaks = 1:12, labels = month.abb, minor_breaks = NULL) +
+  scale_y_continuous(breaks = seq(0, 800, 100), minor_breaks = NULL) +
+  labs(
+    title = "Duke hires by month",
+    y = NULL, x = NULL, color = NULL
+  ) +
+  theme(
+    legend.position = c(0.12, 0.65),
+    legend.background = element_rect(color = "gray")
+  )
+
+# Same color with annotation
+ggplot(duke_hires, aes(x = month, y = n, group = year)) +
+  geom_segment(x = 7, xend = 7, y = 0, yend = 800) +
+  geom_line(linewidth = 0.8, color = IMSCOL["blue", "f2"]) +
+  scale_x_continuous(breaks = 1:12, labels = month.abb, minor_breaks = NULL) +
+  scale_y_continuous(breaks = seq(0, 800, 200), minor_breaks = NULL) +
+  labs(
+    title = "Duke hires by month",
+    y = NULL, x = NULL
+  ) +
+  annotate(
+    "label",
+    x = 7, y = 250,
+    label = "Hires always peak in\nJuly, which is the start\nof Duke's fiscal year.",
+    hjust = -0.1
+  )
+        </input>
+      </program>
       
       <figure xml:id="fig-duke-hires">
         <caption>Time series plot showing monthly Duke University hiring trends over five calendar years.</caption>
@@ -167,6 +287,41 @@
         </p>
       </blockquote>
       
+      <program language="r">
+        <input>
+brexit &lt;- tibble(
+  opinion = c(
+    rep("Very well", 123), rep("Fairly well", 219), rep("Fairly badly", 332),
+    rep("Very badly", 818), rep("Don't know", 151)
+    ),
+  region = c(
+    rep("london", 10), rep("rest_of_south", 49), rep("midlands_wales", 32), rep("north", 24), rep("scot", 8),
+    rep("london", 18), rep("rest_of_south", 93), rep("midlands_wales", 50), rep("north", 48), rep("scot", 10),
+    rep("london", 33), rep("rest_of_south", 126), rep("midlands_wales", 74), rep("north", 76), rep("scot", 23),
+    rep("london", 118), rep("rest_of_south", 246), rep("midlands_wales", 152), rep("north", 212), rep("scot", 90),
+    rep("london", 16), rep("rest_of_south", 38), rep("midlands_wales", 46), rep("north", 40), rep("scot", 11)
+    )
+)
+
+# Alphabetic order
+ggplot(brexit, aes(y = fct_rev(opinion))) +
+  geom_bar() + 
+  labs(y = "Opinion", x = "Count")
+
+# Frequency order
+ggplot(brexit, aes(y = fct_rev(fct_infreq(opinion)))) +
+  geom_bar() + 
+  labs(y = "Opinion", x = "Count")
+
+# Survey question order
+brexit |&gt;
+  mutate(opinion = fct_relevel(opinion, "Very well", "Fairly well", "Fairly badly", "Very badly", "Don't know")) |&gt;
+  ggplot(aes(y = opinion)) +
+  geom_bar() + 
+  labs(y = "Opinion", x = "Count")
+        </input>
+      </program>
+      
       <figure xml:id="fig-brexit-bars">
         <caption>Three bar charts visualizing the same information with arrangement of levels.</caption>
         
@@ -207,6 +362,40 @@
         Remember, the goal is to convey as much information as possible in a succinct and clear manner.
       </p>
       
+      <program language="r">
+        <input>
+brexit &lt;- brexit |&gt;
+  mutate(
+    region = fct_relevel(
+      region,
+      "london", "rest_of_south", "midlands_wales", "north", "scot"
+    ),
+    region = fct_recode(
+      region,
+      London = "london", 
+      `Rest of South` = "rest_of_south", 
+      `Midlands / Wales` = "midlands_wales", 
+      North = "north", 
+      Scotland = "scot"
+    )
+  ) |&gt;
+  mutate(Opinion = fct_relevel(opinion, c("Very well", "Fairly well", "Fairly badly", "Very badly", "Don't know")))
+
+# Vertical bars
+ggplot(brexit, aes(x = region, fill = Opinion)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_openintro("five") +
+  labs(x = "Region", y = "Count")
+
+# Horizontal bars
+ggplot(brexit, aes(y = region, fill = Opinion)) +
+  geom_bar() +
+  labs(x = "Count", y = NULL) +
+  scale_fill_openintro("five") +
+  theme(legend.position = "bottom")
+        </input>
+      </program>
+      
       <figure xml:id="fig-brexit-region">
         <caption>Stacked bar plots. Horizontal orientation makes the region labels easier to read.</caption>
         
@@ -242,6 +431,38 @@
         <xref ref="fig-seg-three-ways-3" /> also provides full titles and a succinct URL with the data source.
         Other deliberate decisions to consider include using informative labels and avoiding redundancy.
       </p>
+      
+      <program language="r">
+        <input>
+# Stacked bar plot showing percentages
+ggplot(brexit, aes(y = region,  fill = Opinion)) +
+  geom_bar(position = "fill") +
+  labs(x = "Percent", y = NULL) +
+  scale_fill_openintro("five") +
+  scale_x_continuous(labels = label_percent()) +
+  theme(legend.position = "top")
+
+# Stacked bar plot showing counts
+ggplot(brexit, aes(y = region, fill = Opinion)) +
+  geom_bar() + 
+  labs(x = "Count", y = NULL) +
+  scale_fill_openintro("five") +
+  theme(legend.position = "top")
+
+# Faceted bar plot
+ggplot(brexit, aes(y = Opinion)) +
+  geom_bar() +
+  facet_grid(. ~ region, labeller = label_wrap_gen(width = 12)) +
+  scale_x_continuous(breaks = c(0, 100, 200)) +
+  labs(
+    title = "How well or badly do you think the government are doing at handling Britain's exit\nfrom the European Union?",
+    subtitle = "YouGov Survey Results, 2-3 September 2019",
+    caption = "Source: bit.ly/2lCJZVg", 
+    x = NULL, y = NULL
+  ) +
+  theme(plot.title.position = "plot")
+        </input>
+      </program>
       
       <figure xml:id="fig-seg-three-ways">
         <caption>Three different representations of two variables from the survey, region and opinion.</caption>
@@ -279,6 +500,28 @@
         The cividis scale works well with ordinal data <xref ref="Nunez:2018" />.
         <xref ref="fig-brexit-viridis" /> shows the same plot with two different color themes.
       </p>
+      
+      <program language="r">
+        <input>
+p &lt;- ggplot(brexit, aes(y = region, fill = Opinion)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "How well or badly do you think the government are doing at handling Britain's exit\nfrom the European Union?",
+    subtitle = "YouGov Survey Results, 2-3 September 2019",
+    caption = "Source: bit.ly/2lCJZVg",
+    x = NULL, y = NULL, fill = NULL
+  ) +
+  theme(plot.title.position = "plot")
+
+# Default color scale
+p +
+  scale_fill_openintro("five")
+
+# Cividis scale
+p +
+  scale_fill_viridis_d(option = "E")
+        </input>
+      </program>
       
       <figure xml:id="fig-brexit-viridis">
         <caption>Identical bar plots with two different coloring options.</caption>
