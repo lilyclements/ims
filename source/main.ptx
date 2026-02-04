@@ -119,6 +119,14 @@
           <url href="http://dx.doi.org/10.18637/jss.v059.i10">http://dx.doi.org/10.18637/jss.v059.i10</url>
         </biblio>
         
+        <biblio type="raw" xml:id="Nunez:2018">
+          Nuñez, J. R., Anderton, C. R., &amp; Renslow, R. S. (2018).
+          Optimizing colormaps with consideration for color vision deficiency to enable accurate interpretation of scientific data.
+          <em>PLOS ONE</em>, 13(7), e0199239.
+          DOI: 10.1371/journal.pone.0199239.
+          <url href="https://doi.org/10.1371/journal.pone.0199239">https://doi.org/10.1371/journal.pone.0199239</url>
+         </biblio>
+
         <biblio type="raw" xml:id="sleuth">
           Ramsey, F. and Schafer, D. (2012). 
           <em>The Statistical Sleuth</em> (3rd ed.). 

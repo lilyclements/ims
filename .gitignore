@@ -35,4 +35,6 @@ output/
 logs/
 .error_schema.log
 generated-assets/
+assets/
+cli.log
 build.log
