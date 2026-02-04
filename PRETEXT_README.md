@@ -62,8 +62,8 @@ A. Exercise solutions (`appendix/exercise-solutions.ptx` from `exercise-solution
 - `chapters/ch01-hello-data.ptx` through `chapters/ch27-model-infer-applications.ptx` - Chapter placeholders
 - `appendix/exercise-solutions.ptx` - Appendix placeholder
 - `publication.ptx` - Publication configuration for HTML output
-- `pretext.toml` - PreTeXt project configuration (manifest file)
-- `.github/workflows/pretext_deploy.yaml` - GitHub Actions workflow for deployment
+- `pretext.toml` - PreTeXt project configuration (manifest file) [if present]
+- `.github/workflows/pretext_deploy.yaml` - GitHub Actions workflow for deployment (uses GitHub Actions deployment method)
 
 ## Building the PreTeXt Book
 
@@ -84,11 +84,16 @@ The repository is configured with a GitHub Actions workflow that automatically:
 
 1. Installs PreTeXt CLI
 2. Builds the HTML version of the book
-3. Deploys to GitHub Pages
+3. Uploads the built HTML as an artifact
+4. Deploys to GitHub Pages using GitHub Actions
 
 The workflow runs on every push to the `main` branch and can also be triggered manually from the Actions tab.
 
-**Note:** You need to enable GitHub Pages in the repository settings and configure it to deploy from GitHub Actions.
+**Note:** You need to enable GitHub Pages in the repository settings and configure it to deploy from GitHub Actions (not from a branch). To do this:
+
+1. Go to Settings > Pages
+2. Under "Build and deployment", select "Source: GitHub Actions"
+3. The workflow will handle the rest automatically
 
 ## Notes
 
