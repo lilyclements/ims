@@ -37,3 +37,4 @@ logs/
 generated-assets/
 assets/
 cli.log
+build.log

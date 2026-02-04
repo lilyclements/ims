@@ -405,19 +405,27 @@ The negative residual indicates that the linear model overpredicted head length 
 
 ::: {.guidedpractice data-latex=""}
 If a model underestimates an observation, will the residual be positive or negative?
-What about if it overestimates the observation?[^07-model-slr-1]
-:::
+What about if it overestimates the observation?
 
-[^07-model-slr-1]: If a model underestimates an observation, then the model estimate is below the actual.
+::: {.callout-note collapse="true"}
+## Solution
+
+If a model underestimates an observation, then the model estimate is below the actual.
     The residual, which is the actual observation value minus the model estimate, must then be positive.
     The opposite is true when the model overestimates the observation: the residual is negative.
-
-::: {.guidedpractice data-latex=""}
-Compute the residuals for the observation marked by a blue diamond, $(85.0, 98.6),$ and the observation marked by a pink triangle, $(95.5, 94.0),$ in the figure using the linear relationship $\hat{y} = 41 + 0.59x.$[^07-model-slr-2]
+:::
 :::
 
-[^07-model-slr-2]: Gray diamond: $\hat{y} = 41+0.59x = 41+0.59\times 85.0 = 91.15 \rightarrow e = y - \hat{y} = 98.6-91.15=7.45.$ This is close to the earlier estimate of 7.
+::: {.guidedpractice data-latex=""}
+Compute the residuals for the observation marked by a blue diamond, $(85.0, 98.6),$ and the observation marked by a pink triangle, $(95.5, 94.0),$ in the figure using the linear relationship $\hat{y} = 41 + 0.59x.$
+
+::: {.callout-note collapse="true"}
+## Solution
+
+Gray diamond: $\hat{y} = 41+0.59x = 41+0.59\times 85.0 = 91.15 \rightarrow e = y - \hat{y} = 98.6-91.15=7.45.$ This is close to the earlier estimate of 7.
     pink triangle: $\hat{y} = 41+0.59x = 97.3 \rightarrow e = -3.3.$ This is also close to the estimate of -4.
+:::
+:::
 
 Residuals are helpful in evaluating how well a linear model fits a dataset.
 We often display them in a scatterplot such as the one shown in @fig-scattHeadLTotalLResidualPlot for the regression line in @fig-scattHeadLTotalLLine-highlighted.
@@ -599,8 +607,6 @@ terms_chp_07 <- c(terms_chp_07, "correlation")
 We can compute the correlation using a formula, just as we did with the sample mean and standard deviation.
 The formula for correlation, however, is rather complex[^07-model-slr-3], and like with other statistics, we generally perform the calculations on a computer or calculator.
 
-[^07-model-slr-3]: Formally, we can compute the correlation for observations $(x_1, y_1),$ $(x_2, y_2),$ ..., $(x_n, y_n)$ using the formula
-
 $$
 r = \frac{1}{n-1} \sum_{i=1}^{n} \frac{x_i-\bar{x}}{s_x}\frac{y_i-\bar{y}}{s_y}
 $$
@@ -685,11 +691,15 @@ simulated_scatter |>
 ::: {.guidedpractice data-latex=""}
 No straight line is a good fit for any of the datasets represented in @fig-corForNonLinearPlots.
 Try drawing nonlinear curves on each plot.
-Once you create a curve for each, describe what is important in your fit.[^07-model-slr-4]
-:::
+Once you create a curve for each, describe what is important in your fit.
 
-[^07-model-slr-4]: We'll leave it to you to draw the lines.
+::: {.callout-note collapse="true"}
+## Solution
+
+We'll leave it to you to draw the lines.
     In general, the lines you draw should be close to most points and reflect overall trends in the data.
+:::
+:::
 
 \clearpage
 
@@ -905,11 +915,15 @@ A scatterplot of these data is shown in @fig-elmhurstScatterWLine along with a l
 The line follows a negative trend in the data; students who have higher family incomes tended to have lower gift aid from the university.
 
 ::: {.guidedpractice data-latex=""}
-Is the correlation positive or negative in @fig-elmhurstScatterWLine?[^07-model-slr-5]
-:::
+Is the correlation positive or negative in @fig-elmhurstScatterWLine?
 
-[^07-model-slr-5]: Larger family incomes are associated with lower amounts of aid, so the correlation will be negative.
+::: {.callout-note collapse="true"}
+## Solution
+
+Larger family incomes are associated with lower amounts of aid, so the correlation will be negative.
     Using a computer, the correlation can be computed: -0.499.
+:::
+:::
 
 ```{r}
 #| label: fig-elmhurstScatterWLine
@@ -995,9 +1009,6 @@ terms_chp_07 <- c(terms_chp_07, "least squares line")
 4.  The analyses which link the model to inference about a population are most straightforward when the line is fit through least squares.
 
 The first two reasons are largely for tradition and convenience; the third and fourth reasons explain why the least squares criterion is typically most helpful when working with real data.[^07-model-slr-6]
-
-[^07-model-slr-6]: There are applications where the sum of residual magnitudes may be more useful, and there are plenty of other criteria we might consider.
-    However, this book only applies the least squares criterion.
 
 ### Finding and interpreting the least squares line
 
@@ -1283,10 +1294,14 @@ $$
 \clearpage
 
 ::: {.guidedpractice data-latex=""}
-If a linear model has a very strong negative relationship with a correlation of -0.97, how much of the variation in the outcome is explained by the predictor?[^07-model-slr-8]
-:::
+If a linear model has a very strong negative relationship with a correlation of -0.97, how much of the variation in the outcome is explained by the predictor?
 
-[^07-model-slr-8]: About $R^2 = (-0.97)^2 = 0.94$ or 94% of the variation in the outcome variable is explained by the linear model.
+::: {.callout-note collapse="true"}
+## Solution
+
+About $R^2 = (-0.97)^2 = 0.94$ or 94% of the variation in the outcome variable is explained by the linear model.
+:::
+:::
 
 $R^2$ is also called the **coefficient of determination**\index{coefficient of determination}.
 
@@ -1333,8 +1348,6 @@ R^2 = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}
 $$
 :::
 
-[^07-model-slr-9]: The difference $SST - SSE$ is called the **regression sum of squares**\index{regression sum of squares}, $SSR,$ and can also be calculated as $SSR = (\hat{y}_1 - \bar{y})^2 + (\hat{y}_2 - \bar{y})^2 + \cdots + (\hat{y}_n - \bar{y})^2.$ $SSR$ represents the variation in $y$ that was accounted for in our model.
-
 ```{r}
 #| include: false
 terms_chp_07 <- c(terms_chp_07, "total sum of squares", "sum of squared error", "regression sum of squares")
@@ -1354,8 +1367,6 @@ $$
 
 the same value we found when we squared the correlation: $R^2 = (-0.499)^2 = 0.25.$
 :::
-
-[^07-model-slr-10]: $SST$ can be calculated by finding the sample variance of the outcome variable, $s^2$ and multiplying by $n-1.$
 
 \clearpage
 
@@ -1587,7 +1598,6 @@ p_1 <- ggplot(d1, aes(x = x, y = y)) +
   ) +
   scale_x_continuous(expand = expansion(mult = 0.12)) +
   scale_y_continuous(expand = expansion(mult = 0.12))
-
 
 p_1_res <- ggplot(m1_aug, aes(x = .fitted, y = .resid)) +
   geom_point(alpha = 0.7, size = 2) +

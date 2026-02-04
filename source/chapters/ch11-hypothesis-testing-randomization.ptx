@@ -3,7 +3,10 @@
 <chapter xml:id="ch11-hypothesis-testing-randomization">
   <title>Hypothesis testing with randomization</title>
   
-  <p>
-    Content to be added from foundations-randomization.qmd
-  </p>
+  <section xml:id="sec-foundations-randomization">
+    <title>Foundations of randomization</title>
+    <p>
+      Content to be added from foundations-randomization.qmd
+    </p>
+  </section>
 </chapter>

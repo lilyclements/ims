@@ -125,6 +125,25 @@
           <em>PLOS ONE</em>, 13(7), e0199239.
           DOI: 10.1371/journal.pone.0199239.
           <url href="https://doi.org/10.1371/journal.pone.0199239">https://doi.org/10.1371/journal.pone.0199239</url>
+         </biblio>
+
+        <biblio type="raw" xml:id="sleuth">
+          Ramsey, F. and Schafer, D. (2012). 
+          <em>The Statistical Sleuth</em> (3rd ed.). 
+          Cengage Learning.
+        </biblio>
+        
+        <biblio type="raw" xml:id="ISCAM">
+          Chance, B. and Rossman, A. (2018). 
+          <em>Investigating Statistical Concepts, Applications, and Methods</em>. 
+          <url href="http://www.rossmanchance.com/iscam3/">http://www.rossmanchance.com/iscam3/</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Witmer_2021">
+          Witmer, J. (2021). 
+          Simpson's Paradox, Visual Displays, and Causal Diagrams. 
+          <em>The American Mathematical Monthly</em>, 128(7):598-610. 
+          DOI: 10.1080/00029890.2021.1932237.
         </biblio>
       </references>
     </backmatter>
