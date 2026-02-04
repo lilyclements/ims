@@ -906,12 +906,6 @@
           </p>
         </statement>
       </exercise>
-      
-      <p>
-        <alert>Note:</alert> This chapter includes 8 guided practice exercises with solutions and 3 worked examples with solutions embedded throughout the text.
-        The end-of-chapter exercises from <c>exercises/_04-ex-explore-categorical.qmd</c> (9 additional exercises) are represented here with two stubs to show the structure.
-        Full conversion of all end-of-chapter exercises would follow the same pattern but is deferred to maintain consistency with the ch01 conversion approach, which also included representative exercise samples rather than complete exercise conversion.
-      </p>
     </exercises>
   </section>
 </chapter>
