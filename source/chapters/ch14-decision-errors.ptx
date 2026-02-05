@@ -171,7 +171,7 @@
       </tabular>
     </table>
     
-    <exercise xml:id="exercise-cpr-survival-rates">
+    <exercise>
       <title>Guided Practice</title>
       <statement>
         <p>What is the observed survival rate in the control group? And in the treatment group? Also, provide a point estimate <m>(\hat{p}_T - \hat{p}_C)</m> for the true difference in population survival proportions across the two groups: <m>p_T - p_C.</m></p>
