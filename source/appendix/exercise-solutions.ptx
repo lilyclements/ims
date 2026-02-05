@@ -71,7 +71,7 @@
       Solutions to be added from exercise-solutions.qmd
     </p>
   </section>
-
+  
   <section xml:id="sec-exercise-solutions-10">
     <title>Chapter 10</title>
     <p>
@@ -135,7 +135,12 @@
         </li>
       </ol></p>
     </solution>
-
   </section>
 
+  <section xml:id="sec-exercise-solutions-12">
+    <title>Chapter 12</title>
+    <p>
+      Solutions to be added from exercise-solutions.qmd
+    </p>
+  </section>
 </appendix>
