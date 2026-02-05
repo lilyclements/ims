@@ -10,7 +10,7 @@
     
     <p>
       The three data structures we detail are one binary variable, summarized using a single proportion; two binary variables, summarized using a difference of two proportions; and two categorical variables, summarized using a two-way table.
-      When appropriate, each of the data structures will be analyzed using the three methods from <xref ref="ch11-hypothesis-testing-randomization" />, <xref ref="ch12-confidence-intervals-bootstrapping" />, and <xref ref="ch13-inference-mathematical-models" />: randomization test, bootstrapping, and mathematical models, respectively.
+      When appropriate, each of the data structures will be analyzed using the three methods from <xref ref="ch11-hypothesis-testing-randomization" />, <xref ref="ch12-confidence-intervals-bootstrapping" />, and <xref ref="sec-foundations-mathematical" />: randomization test, bootstrapping, and mathematical models, respectively.
     </p>
     
     <p>
@@ -233,7 +233,7 @@
       <title>Conditions</title>
       
       <p>
-        In <xref ref="sec-normalDist" />, we introduced the normal distribution and showed how it can be used as a mathematical model to describe the variability of a statistic.
+        In <xref ref="sec-foundations-mathematical" />, we introduced the normal distribution and showed how it can be used as a mathematical model to describe the variability of a statistic.
         There are conditions under which a sample proportion <m>\hat{p}</m> is well modeled with a normal distribution.
         When the observations are independent and the sample size is sufficiently large, the normal model will describe the sampling distribution of the sample proportion quite well; when the observations violate the conditions, the normal model can be inaccurate.
         Particularly, it can underestimate the variability of the sample proportion.
@@ -655,7 +655,7 @@
           </p>
           
           <p>
-            In <xref ref="sec-two-prop-errors" /> we discuss two-sided hypothesis tests of which the payday example may have been better structured.
+            In <xref ref="ch14-decision-errors" /> we discuss two-sided hypothesis tests of which the payday example may have been better structured.
             That is, we might have wanted to ask whether the borrowers <alert>support or oppose</alert> the regulations (to study opinion in either direction away from the 50% benchmark).
             In that case, the p-value would have been doubled to 0.5552 (again, we would not reject <m>H_0</m>). In the two-sided hypothesis setting, the appropriate conclusion would be to claim that the poll does not provide convincing evidence that a majority of payday loan borrowers support or oppose regulations around credit checks and evaluation of debt payments.
           </p>
@@ -726,7 +726,7 @@
     <title>Exercises</title>
     
     <p>
-      Answers to odd-numbered exercises can be found in <xref ref="sec-exercise-solutions-16" />.
+      Answers to odd-numbered exercises can be found in <xref ref="appendix-exercise-solutions" />.
     </p>
     
     <!-- TODO: Convert exercises/_16-ex-inference-one-prop.qmd to PreTeXt format -->
