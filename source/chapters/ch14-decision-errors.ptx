@@ -1,9 +1,407 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<chapter xml:id="ch14-decision-errors">
+<chapter xml:id="ch14-decision-errors" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Decision Errors</title>
   
-  <p>
-    Content to be added from foundations-errors.qmd
-  </p>
+  <introduction>
+    <p>Using data to make inferential decisions about larger populations is not a perfect process. As seen in <xref ref="ch11-hypothesis-testing-randomization" />, a small p-value typically leads the researcher to a decision to reject the null claim or hypothesis. Sometimes, however, data can produce a small p-value when the null hypothesis is actually true and the data are just inherently variable. Here we describe the errors which can arise in hypothesis testing, how to define and quantify the different errors, and suggestions for mitigating errors if possible.</p>
+    
+    <p>Hypothesis tests are not flawless. Just think of the court system: innocent people are sometimes wrongly convicted and the guilty sometimes walk free. Similarly, data can point to the wrong conclusion. However, what distinguishes statistical hypothesis tests from a court system is that our framework allows us to quantify and control how often the data lead us to the incorrect conclusion.</p>
+    
+    <p>In a hypothesis test, there are two competing hypotheses: the null and the alternative. We make a statement about which one might be true, but we might choose incorrectly. There are four possible scenarios in a hypothesis test, which are summarized in <xref ref="tbl-fourHTScenarios" />.</p>
+    
+    <table xml:id="tbl-fourHTScenarios">
+      <title>Four different scenarios for hypothesis tests</title>
+      <tabular halign="center">
+        <row header="yes" bottom="minor">
+          <cell></cell>
+          <cell colspan="2">Test conclusion</cell>
+        </row>
+        <row header="yes" bottom="medium">
+          <cell>Truth</cell>
+          <cell>Reject null hypothesis</cell>
+          <cell>Fail to reject null hypothesis</cell>
+        </row>
+        <row>
+          <cell>Null hypothesis is true</cell>
+          <cell>Type I error</cell>
+          <cell>Good decision</cell>
+        </row>
+        <row bottom="medium">
+          <cell>Alternative hypothesis is true</cell>
+          <cell>Good decision</cell>
+          <cell>Type II error</cell>
+        </row>
+      </tabular>
+    </table>
+    
+    <p>A <alert>Type I error</alert> is rejecting the null hypothesis when <m>H_0</m> is actually true. Since we rejected the null hypothesis in the sex discrimination and opportunity cost studies, it is possible that we made a Type I error in one or both of those studies. A <alert>Type II error</alert> is failing to reject the null hypothesis when the alternative is actually true.</p>
+    
+    <example>
+      <statement>
+        <p>In a US court, the defendant is either innocent <m>(H_0)</m> or guilty <m>(H_A).</m> What does a Type I error represent in this context? What does a Type II error represent? <xref ref="tbl-fourHTScenarios" /> may be useful.</p>
+      </statement>
+      <solution>
+        <p>If the court makes a Type I error, this means the defendant is innocent (<m>H_0</m> true) but wrongly convicted. A Type II error means the court failed to reject <m>H_0</m> (i.e., failed to convict the person) when they were in fact guilty (<m>H_A</m> true).</p>
+      </solution>
+    </example>
+    
+    <exercise xml:id="exercise-type-i-error-opportunity-cost">
+      <title>Guided Practice</title>
+      <statement>
+        <p>Consider the opportunity cost study where we concluded students were less likely to make a DVD purchase if they were reminded that money not spent now could be spent later. What would a Type I error represent in this context?</p>
+      </statement>
+      <solution>
+        <p>Making a Type I error in this context would mean that reminding students that money not spent now can be spent later does not affect their buying habits, despite the strong evidence (the data suggesting otherwise) found in the experiment. Notice that this does <em>not</em> necessarily mean something was wrong with the data or that we made a computational mistake. Sometimes data simply point us to the wrong conclusion, which is why scientific studies are often repeated to check initial findings.</p>
+      </solution>
+    </exercise>
+    
+    <example>
+      <statement>
+        <p>How could we reduce the Type I error rate in US courts? What influence would this have on the Type II error rate?</p>
+      </statement>
+      <solution>
+        <p>To lower the Type I error rate, we might raise our standard for conviction from <q>beyond a reasonable doubt</q> to <q>beyond a conceivable doubt</q> so fewer people would be wrongly convicted. However, this would also make it more difficult to convict the people who are actually guilty, so we would make more Type II errors.</p>
+      </solution>
+    </example>
+    
+    <exercise xml:id="exercise-type-ii-error-courts">
+      <title>Guided Practice</title>
+      <statement>
+        <p>How could we reduce the Type II error rate in US courts? What influence would this have on the Type I error rate?</p>
+      </statement>
+      <solution>
+        <p>To lower the Type II error rate, we want to convict more guilty people. We could lower the standards for conviction from <q>beyond a reasonable doubt</q> to <q>beyond a little doubt</q>. Lowering the bar for guilt will also result in more wrongful convictions, raising the Type I error rate.</p>
+      </solution>
+    </exercise>
+    
+    <p>The example and guided practice above provide an important lesson: if we reduce how often we make one type of error, we generally make more of the other type.</p>
+  </introduction>
+  
+  <section xml:id="sec-discernibility-level">
+    <title>Discernibility level</title>
+    
+    <p>The <alert>discernibility level</alert> provides the cutoff for the p-value which will lead to a decision of <q>reject the null hypothesis.</q> Choosing a discernibility level for a test is important in many contexts, and the traditional level is 0.05. However, it is sometimes helpful to adjust the discernibility level based on the application. We may select a level that is smaller or larger than 0.05 depending on the consequences of any conclusions reached from the test.</p>
+    
+    <p>If making a Type I error is dangerous or especially costly, we should choose a small discernibility level (e.g., 0.01 or 0.001). If we want to be very cautious about rejecting the null hypothesis, we demand very strong evidence favoring the alternative <m>H_A</m> before we would reject <m>H_0.</m></p>
+    
+    <p>If a Type II error is relatively more dangerous or much more costly than a Type I error, then we should choose a higher discernibility level (e.g., 0.10). Here we want to be cautious about failing to reject <m>H_0</m> when the null is actually false.</p>
+    
+    <assemblage>
+      <title>Discernibility levels should reflect consequences of errors</title>
+      <p>The discernibility level selected for a test should reflect the real-world consequences associated with making a Type I or Type II error.</p>
+    </assemblage>
+  </section>
+  
+  <section xml:id="sec-two-sided-hypotheses">
+    <title>Two-sided hypotheses</title>
+    
+    <p>In <xref ref="ch11-hypothesis-testing-randomization" /> we explored whether women were discriminated against and whether a simple trick could make students a little thriftier. In these two case studies, we have actually ignored some possibilities:</p>
+    
+    <p><ul>
+      <li>What if <em>men</em> are actually discriminated against?</li>
+      <li>What if the money trick actually makes students <em>spend more</em>?</li>
+    </ul></p>
+    
+    <p>These possibilities weren't considered in our original hypotheses or analyses. The disregard of the extra alternatives may have seemed natural since the data pointed in the directions in which we framed the problems. However, there are two dangers if we ignore possibilities that disagree with our data or that conflict with our world view:</p>
+    
+    <p><ol>
+      <li>Framing an alternative hypothesis simply to match the direction that the data point will generally inflate the Type I error rate. After all the work we have done (and will continue to do) to rigorously control the error rates in hypothesis tests, careless construction of the alternative hypotheses can disrupt that hard work.</li>
+      <li>If we only use alternative hypotheses that agree with our worldview, then we are going to be subjecting ourselves to <alert>confirmation bias</alert>, which means we are looking for data that supports our ideas. That's not very scientific, and we can do better!</li>
+    </ol></p>
+    
+    <p>The original hypotheses we have seen are called <alert>one-sided hypothesis tests</alert> because they only explored one direction of possibilities. Such hypotheses are appropriate when we are exclusively interested in the single direction, but usually we want to consider all possibilities. To do so, let's learn about <alert>two-sided hypothesis tests</alert> in the context of a new study that examines the impact of using blood thinners on patients who have undergone CPR.</p>
+    
+    <p>Cardiopulmonary resuscitation (CPR) is a procedure used on individuals suffering a heart attack when other emergency resources are unavailable. This procedure is helpful in providing some blood circulation to keep a person alive, but CPR chest compression can also cause internal injuries. Internal bleeding and other injuries that can result from CPR complicate additional treatment efforts. For instance, blood thinners may be used to help release a clot that is causing the heart attack once a patient arrives in the hospital. However, blood thinners negatively affect internal injuries.</p>
+    
+    <p>Here we consider an experiment with patients who underwent CPR for a heart attack and were subsequently admitted to a hospital. Each patient was randomly assigned to either receive a blood thinner (treatment group) or not receive a blood thinner (control group). The outcome variable of interest was whether the patient survived for at least 24 hours. <xref ref="biblio-Bottiger:2001" /></p>
+    
+    <note>
+      <title>Data</title>
+      <p>The <url href="http://openintrostat.github.io/openintro/reference/cpr.html"><c>cpr</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
+    </note>
+    
+    <example>
+      <statement>
+        <p>Form hypotheses for this study in plain and statistical language. Let <m>p_C</m> represent the true survival rate of people who do not receive a blood thinner (corresponding to the control group) and <m>p_T</m> represent the survival rate for people receiving a blood thinner (corresponding to the treatment group).</p>
+      </statement>
+      <solution>
+        <p>We want to understand whether blood thinners are helpful or harmful. We'll consider both of these possibilities using a two-sided hypothesis test.</p>
+        <p><ul>
+          <li><m>H_0:</m> Blood thinners do not have an overall survival effect, i.e., the survival proportions are the same in each group. <m>p_T - p_C = 0.</m></li>
+          <li><m>H_A:</m> Blood thinners have an impact on survival, either positive or negative, but not zero. <m>p_T - p_C \neq 0.</m></li>
+        </ul></p>
+        <p>Note that if we had done a one-sided hypothesis test, the resulting hypotheses would have been:</p>
+        <p><ul>
+          <li><m>H_0:</m> Blood thinners do not have a positive overall survival effect, i.e., the survival proportions for the blood thinner group is the same or lower than the control group. <m>p_T - p_C \leq 0.</m></li>
+          <li><m>H_A:</m> Blood thinners have a positive impact on survival. <m>p_T - p_C > 0.</m></li>
+        </ul></p>
+      </solution>
+    </example>
+    
+    <p>There were 50 patients in the experiment who did not receive a blood thinner and 40 patients who did. The study results are shown in <xref ref="tbl-cpr-summary" />.</p>
+    
+    <table xml:id="tbl-cpr-summary">
+      <title>Results for the CPR study. Patients in the treatment group were given a blood thinner, and patients in the control group were not.</title>
+      <tabular halign="center">
+        <row header="yes" bottom="medium">
+          <cell>Group</cell>
+          <cell>Died</cell>
+          <cell>Survived</cell>
+          <cell>Total</cell>
+        </row>
+        <row>
+          <cell>Control</cell>
+          <cell>39</cell>
+          <cell>11</cell>
+          <cell>50</cell>
+        </row>
+        <row>
+          <cell>Treatment</cell>
+          <cell>26</cell>
+          <cell>14</cell>
+          <cell>40</cell>
+        </row>
+        <row bottom="medium">
+          <cell>Total</cell>
+          <cell>65</cell>
+          <cell>25</cell>
+          <cell>90</cell>
+        </row>
+      </tabular>
+    </table>
+    
+    <exercise xml:id="exercise-cpr-survival-rates">
+      <title>Guided Practice</title>
+      <statement>
+        <p>What is the observed survival rate in the control group? And in the treatment group? Also, provide a point estimate <m>(\hat{p}_T - \hat{p}_C)</m> for the true difference in population survival proportions across the two groups: <m>p_T - p_C.</m></p>
+      </statement>
+      <solution>
+        <p>Observed control survival rate: <m>\hat{p}_C = \frac{11}{50} = 0.22.</m> Treatment survival rate: <m>\hat{p}_T = \frac{14}{40} = 0.35.</m> Observed difference: <m>\hat{p}_T - \hat{p}_C = 0.35 - 0.22 = 0.13.</m></p>
+      </solution>
+    </exercise>
+    
+    <p>According to the point estimate, for patients who have undergone CPR outside of the hospital, an additional 13% of these patients survive when they are treated with blood thinners. However, we wonder if this difference could be easily explainable by chance, if the treatment has no effect on survival.</p>
+    
+    <p>As we did in past studies, we will simulate what type of differences we might see from chance alone under the null hypothesis. By randomly assigning each of the patient's files to a <q>simulated treatment</q> or <q>simulated control</q> allocation, we get a new grouping. If we repeat this simulation 1,000 times, we can build a <alert>null distribution</alert> of the differences shown in <xref ref="fig-CPR-study-right-tail" />.</p>
+    
+    <listing xml:id="listing-CPR-study-right-tail">
+      <caption><c>R</c> code for null distribution visualization (right tail)</caption>
+      <program language="r">
+        <code>
+set.seed(47)
+cpr_rand_dist &lt;- cpr |>
+  specify(response = outcome, explanatory = group, success = "survived") |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+  calculate(stat = "diff in props", order = c("treatment", "control")) |>
+  # simplify by rounding
+  mutate(stat = round(stat, 3))
+
+cpr_rand_dist |>
+  ggplot(aes(x = stat)) +
+  geom_histogram(binwidth = 0.05) +
+  labs(
+    y = NULL,
+    x = "Difference in randomized survival rates\n(treatment - control)",
+    title = "1,000 randomized differences"
+  ) +
+  theme(
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  ) +
+  gghighlight(stat >= 0.13)
+        </code>
+      </program>
+    </listing>
+    
+    <figure xml:id="fig-CPR-study-right-tail">
+      <caption>Null distribution of the point estimate for the difference in proportions, <m>\hat{p}_T - \hat{p}_C.</m> The shaded right tail shows observations that are at least as large as the observed difference, 0.13.</caption>
+      <image source="images/fig-CPR-study-right-tail-1.png" width="70%" />
+    </figure>
+    
+    <p>The right tail area is 0.131. (Note: it is only a coincidence that we also have <m>\hat{p}_T - \hat{p}_C=0.13.</m>) However, contrary to how we calculated the p-value in previous studies, the p-value of this test is not actually the tail area we calculated, i.e., it's not 0.131!</p>
+    
+    <p>The p-value is defined as the probability we observe a result at least as favorable to the alternative hypothesis as the observed difference. In this case, any differences less than or equal to -0.13 would also provide equally strong evidence favoring the alternative hypothesis as a difference of +0.13 did. A difference of -0.13 would correspond to 13% higher survival rate in the control group than the treatment group. In <xref ref="fig-CPR-study-p-value" /> we have also shaded these differences in the left tail of the distribution. These two shaded tails provide a visual representation of the p-value for a two-sided test.</p>
+    
+    <listing xml:id="listing-CPR-study-p-value">
+      <caption><c>R</c> code for null distribution visualization (two-sided)</caption>
+      <program language="r">
+        <code>
+cpr_rand_dist |>
+  ggplot(aes(x = stat)) +
+  geom_histogram(binwidth = 0.05) +
+  labs(
+    y = NULL,
+    x = "Difference in randomized survival rates\n(treatment - control)",
+    title = "1,000 randomized differences"
+  ) +
+  theme(
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  ) +
+  gghighlight(stat >= 0.13 | stat &lt;= -0.13)
+        </code>
+      </program>
+    </listing>
+    
+    <figure xml:id="fig-CPR-study-p-value">
+      <caption>Null distribution of the point estimate for the difference in proportions, <m>\hat{p}_T - \hat{p}_C.</m> All values that are at least as extreme as +0.13 but in either direction away from 0 are shaded.</caption>
+      <image source="images/fig-CPR-study-p-value-1.png" width="70%" />
+    </figure>
+    
+    <p>For a two-sided test, take the single tail (in this case, 0.131) and double it to get the p-value: 0.262. Since this p-value is larger than 0.05, we do not reject the null hypothesis. That is, we do not find convincing evidence that the blood thinner has any influence on survival of patients who undergo CPR prior to arriving at the hospital.</p>
+    
+    <assemblage>
+      <title>Default to a two-sided test</title>
+      <p>We want to be rigorous and keep an open mind when we analyze data and evidence. Use a one-sided hypothesis test only if you truly have interest in only one direction.</p>
+    </assemblage>
+    
+    <assemblage>
+      <title>Computing a p-value for a two-sided test</title>
+      <p>First compute the p-value for one tail of the distribution, then double that value to get the two-sided p-value. That's it!</p>
+    </assemblage>
+    
+    <example>
+      <statement>
+        <p>Consider the situation of the medical consultant. Now that you know about one-sided and two-sided tests, which type of test do you think is more appropriate?</p>
+      </statement>
+      <solution>
+        <p>The setting has been framed in the context of the consultant being helpful (which is what led us to a one-sided test originally), but what if the consultant actually performed <em>worse</em> than the average? Would we care? More than ever! Since it turns out that we care about a finding in either direction, we should run a two-sided test. The p-value for the two-sided test is double that of the one-sided test, here the simulated p-value would be 0.2444.</p>
+      </solution>
+    </example>
+    
+    <p>Generally, to find a two-sided p-value we double the single tail area, which remains a reasonable approach even when the distribution is asymmetric. However, the approach can result in p-values larger than 1 when the point estimate is very near the mean in the null distribution; in such cases, we write that the p-value is 1. Also, very large p-values computed in this way (e.g., 0.85), may also be slightly inflated. Typically, we do not worry too much about the precision of very large p-values because they lead to the same analysis conclusion, even if the value is slightly off.</p>
+  </section>
+  
+  <section xml:id="sec-controlling-type-i-error">
+    <title>Controlling the Type I error rate</title>
+    
+    <p>Now that we understand the difference between one-sided and two-sided tests, we must recognize when to use each type of test. Because of the result of increased error rates, it is never okay to change two-sided tests to one-sided tests after observing the data. We explore the consequences of ignoring this advice in the next example.</p>
+    
+    <example>
+      <statement>
+        <p>Using <m>\alpha=0.05,</m> we show that freely switching from two-sided tests to one-sided tests will lead us to make twice as many Type I errors as intended.</p>
+      </statement>
+      <solution>
+        <p>Suppose we are interested in finding any difference from 0. We've created a smooth-looking null distribution representing differences due to chance below.</p>
+        
+        <figure xml:id="fig-type1ErrorDoublingExample">
+          <caption>Density curve of a normal distribution with mean 0 and standard deviation 1. The shaded regions represent areas where we would reject <m>H_0</m> under the bad practices considered when <m>\alpha = 0.05.</m></caption>
+          <image source="images/type1ErrorDoublingExampleFigure.png" width="60%" />
+        </figure>
+        
+        <p>First, suppose the sample difference was larger than 0. In a one-sided test, we would set <m>H_A:</m> difference <m>> 0.</m> If the observed difference falls in the upper 5% of the distribution, we would reject <m>H_0</m> since the p-value would just be the single tail. Thus, if <m>H_0</m> is true, we incorrectly reject <m>H_0</m> about 5% of the time when the sample mean is above the null value, as shown above.</p>
+        
+        <p>Then, suppose the sample difference was smaller than 0. In a one-sided test, we would set <m>H_A:</m> difference <m>&lt; 0.</m> If the observed difference falls in the lower 5% of the figure, we would reject <m>H_0.</m> That is, if <m>H_0</m> is true, then we would observe this situation about 5% of the time.</p>
+        
+        <p>By examining these two scenarios, we can determine that we will make a Type I error <m>5\%+5\%=10\%</m> of the time if we are allowed to swap to the <q>best</q> one-sided test for the data. This is twice the error rate we prescribed with our discernibility level: <m>\alpha=0.05</m>!</p>
+      </solution>
+    </example>
+    
+    <listing xml:id="listing-type1ErrorDoublingExample">
+      <caption><c>R</c> code for Type I error doubling visualization</caption>
+      <program language="r">
+        <code>
+par(mar = c(2, 0, 0, 0))
+normTail(U = 1.65, L = -1.65, col = IMSCOL["blue", "full"])
+arrows(-2, 0.17, -1.9, 0.08, length = 0.07, lwd = 1.5)
+text(-1.92, 0.21, "5%", cex = 1.2)
+arrows(2, 0.17, 1.9, 0.08, length = 0.07, lwd = 1.5)
+text(2.08, 0.21, "5%", cex = 1.2)
+        </code>
+      </program>
+    </listing>
+    
+    <assemblage>
+      <title>Hypothesis tests should be set up <em>before</em> seeing the data</title>
+      <p>After observing data, it is tempting to turn a two-sided test into a one-sided test. Avoid this temptation. Hypotheses should be set up <em>before</em> observing the data.</p>
+    </assemblage>
+  </section>
+  
+  <section xml:id="sec-pow">
+    <title>Power</title>
+    
+    <p>Although we won't go into extensive detail here, power is an important topic for follow-up consideration after understanding the basics of hypothesis testing. A good power analysis is a vital preliminary step to any study as it will inform whether the data you collect are sufficient for being able to conclude your research broadly.</p>
+    
+    <p>Often times in experiment planning, there are two competing considerations:</p>
+    
+    <p><ul>
+      <li>We want to collect enough data that we can detect important effects.</li>
+      <li>Collecting data can be expensive, and, in experiments involving people, there may be some risk to patients.</li>
+    </ul></p>
+    
+    <p>When planning a study, we want to know how likely we are to detect an effect we care about. In other words, if there is a real effect, and that effect is large enough that it has practical value, then what is the probability that we detect that effect? This probability is called the <alert>power</alert>, and we can compute it for different sample sizes or different effect sizes.</p>
+    
+    <assemblage>
+      <title>Power</title>
+      <p>The power of the test is the probability of rejecting the null claim when the alternative claim is true.</p>
+      <p>How easy it is to detect the effect depends on both how big the effect is (e.g., how good the medical treatment is) as well as the sample size.</p>
+    </assemblage>
+    
+    <p>We think of power as the probability that you will become rich and famous from your science. In order for your science to make a splash, you need to have good ideas! That is, you won't become famous if you happen to find a single Type I error which rejects the null hypothesis. Instead, you'll become famous if your science is very good and important (that is, if the alternative hypothesis is true). The better your science is (i.e., the better the medical treatment), the larger the <em>effect size</em> and the easier it will be for you to convince people of your work.</p>
+    
+    <p>Not only does your science need to be solid, but you also need to have evidence (i.e., data) that shows the effect. A few observations (e.g., <m>n = 2</m>) is unlikely to be convincing because of well known ideas of natural variability. Indeed, the larger the dataset which provides evidence for your scientific claim, the more likely you are to convince the community that your idea is correct.</p>
+    
+    <p>Although a full discussion of relative power is beyond the scope of this text, you might be interested to know that, often, paired t-tests (discussed in <xref ref="ch21-inference-paired-means" />) are more powerful than independent t-tests (discussed in <xref ref="ch20-inference-two-independent-means" />) because the pairing reduces the inherent variability across observations. Additionally, because the median is almost always more variable than the mean, tests based on the mean are more powerful than tests based on the median. That is to say, reducing variability (done in different ways depending on the experimental design and set-up of the analysis) makes a test more powerful in such that the data are more likely to reject the null hypothesis.</p>
+  </section>
+  
+  <section xml:id="sec-chp14-review">
+    <title>Chapter review</title>
+    
+    <subsection xml:id="subsec-chp14-summary">
+      <title>Summary</title>
+      
+      <p>Although hypothesis testing provides a strong framework for making decisions based on data, as the analyst, you need to understand how and when the process can go wrong. That is, always keep in mind that the conclusion to a hypothesis test may not be right! Sometimes when the null hypothesis is true, we will accidentally reject it and commit a Type I error; sometimes when the alternative hypothesis is true, we will fail to reject the null hypothesis and commit a Type II error. The power of the test quantifies how likely it is to obtain data which will reject the null hypothesis when indeed the alternative is true; the power of the test is increased when larger sample sizes are taken.</p>
+    </subsection>
+    
+    <subsection xml:id="subsec-chp14-terms">
+      <title>Terms</title>
+      
+      <p>The terms introduced in this chapter are presented in <xref ref="tbl-terms-chp-14" />. If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions. You should be able to easily spot them as <alert>bolded text</alert>.</p>
+      
+      <table xml:id="tbl-terms-chp-14">
+        <title>Terms introduced in this chapter</title>
+        <tabular>
+          <row>
+            <cell>Type I error</cell>
+          </row>
+          <row>
+            <cell>Type II error</cell>
+          </row>
+          <row>
+            <cell>discernibility level</cell>
+          </row>
+          <row>
+            <cell>significance level</cell>
+          </row>
+          <row>
+            <cell>confirmation bias</cell>
+          </row>
+          <row>
+            <cell>one-sided hypothesis test</cell>
+          </row>
+          <row>
+            <cell>two-sided hypothesis test</cell>
+          </row>
+          <row>
+            <cell>null distribution</cell>
+          </row>
+          <row>
+            <cell>power</cell>
+          </row>
+        </tabular>
+      </table>
+    </subsection>
+  </section>
+  
+  <section xml:id="sec-chp14-exercises">
+    <title>Exercises</title>
+    
+    <p>Answers to odd-numbered exercises can be found in <xref ref="sec-exercise-solutions-14" />.</p>
+    
+    <xi:include href="../exercises/_14-ex-foundations-errors.ptx" />
+  </section>
 </chapter>
