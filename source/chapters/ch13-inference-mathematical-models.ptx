@@ -190,8 +190,6 @@
       <image source="images/fig-twoSampleNormalsStacked.png" width="70%" />
     </figure>
 
-    <!-- \clearpage -->
-
     <p>If a normal distribution has mean <m>\mu</m> and standard deviation <m>\sigma,</m> we may write the distribution as <m>N(\mu, \sigma).</m> The two distributions in <xref ref="fig-twoSampleNormalsStacked" /> can be written as</p>
 
     <me>
@@ -225,8 +223,6 @@
       <caption>Nel's and Sian's scores shown with the distributions of SAT and ACT scores.</caption>
       <image source="images/fig-satActNormals.png" width="70%" />
     </figure>
-
-    <!-- \clearpage -->
 
     <p>The solution to the previous example relies on a standardization technique called a Z score, a method most commonly employed for nearly normal observations (but that may be used with any distribution).</p>
 
@@ -322,7 +318,7 @@
 
     <p>The <c>pnorm()</c> function is available in default R and will provide the percentile associated with any cutoff on a normal curve.</p>
 
-    <p>The <c>normTail()</c> function is available in the [<alert>openintro</alert>](http://openintrostat.github.io/openintro/) R package and will draw the associated normal distribution curve.</p>
+    <p>The <c>normTail()</c> function is available in the <url href="http://openintrostat.github.io/openintro/"><alert>openintro</alert></url> R package and will draw the associated normal distribution curve.</p>
 
     <listing>
       <program language="r">
@@ -761,7 +757,7 @@
 
     <p>::: {.data data-latex=<q></q>}</p>
 
-    <p>The [<c>opportunity_cost</c>](http://openintrostat.github.io/openintro/reference/opportunity_cost.html) data can be found in the [<alert>openintro</alert>](http://openintrostat.github.io/openintro) R package.</p>
+    <p>The <url href="http://openintrostat.github.io/openintro/reference/opportunity_cost.html"><c>opportunity_cost</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
 
     <p><xref ref="fig-OpportunityCostDiffs-w-normal" /> summarizes the null distribution as determined using the randomization method.</p>
 
@@ -988,7 +984,7 @@
 
     <p>::: {.data data-latex=<q></q>}</p>
 
-    <p>The [<c>stent30</c>](http://openintrostat.github.io/openintro/reference/stent30.html) data can be found in the [<alert>openintro</alert>](http://openintrostat.github.io/openintro) R package.</p>
+    <p>The <url href="http://openintrostat.github.io/openintro/reference/stent30.html"><c>stent30</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
 
     <example>
       <statement>
@@ -1049,8 +1045,6 @@
 
     <p>\index{confidence interval}</p>
 
-    <!-- \clearpage -->
-
   </section>
 
   <section xml:id="sec-chp13-review">
@@ -1109,8 +1103,6 @@
       </program>
     </listing>
 
-    <!-- \clearpage -->
-
     <p>The terms introduced in this chapter are presented in <xref ref="tbl-terms-chp-13" />.</p>
 
     <p>If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions.</p>
@@ -1124,8 +1116,6 @@
         </code>
       </program>
     </listing>
-
-    <!-- \clearpage -->
 
   </section>
 
