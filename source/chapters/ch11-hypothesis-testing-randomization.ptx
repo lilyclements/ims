@@ -5,37 +5,38 @@
   
   <introduction>
     <p>Statistical inference is primarily concerned with understanding and quantifying the uncertainty of parameter estimates. While the equations and details change depending on the setting, the foundations for inference are the same throughout all of statistics.</p>
+    
     <p>We start with two case studies designed to motivate the process of making decisions about research claims. We formalize the process through the introduction of the <alert>hypothesis testing framework</alert>, which allows us to formally evaluate claims about the population.</p>
+
+    <p>Throughout the book so far, you have worked with data in a variety of contexts. You have learned how to summarize and visualize the data as well as how to model multiple variables at the same time. Sometimes the dataset at hand represents the entire research question. But more often than not, the data have been collected to answer a research question about a larger group of which the data are a (hopefully) representative subset.</p>
+
+    <p>You may agree that there is almost always variability in data <mdash /> one dataset will not be identical to a second dataset even if they are both collected from the same population using the same methods. However, quantifying the variability in the data is neither obvious nor easy to do, i.e., answering the question <q>how different is one dataset from another?</q> is not trivial.</p>
+
+    <p>First, a note on notation. We generally use <m>p</m> to denote a population proportion and <m>\hat{p}</m> to denote a sample proportion. Similarly, we generally use <m>\mu</m> to denote a population mean and <m>\bar{x}</m> to denote a sample mean.</p>
+
+    <example>
+      <statement>
+        <p>Suppose your professor splits the students in your class into two groups: students who sit on the left side of the classroom and students who sit on the right side of the classroom. If <m>\hat{p}_{L}</m> represents the proportion of students who prefer to read books on screen who sit on the left side of the classroom and <m>\hat{p}_{R}</m> represents the proportion of students who prefer to read books on screen who sit on the right side of the classroom, would you be surprised if <m>\hat{p}_{L}</m> did not <em>exactly</em> equal <m>\hat{p}_{R}</m>?</p>
+      </statement>
+      <solution>
+        <p>While the proportions <m>\hat{p}_{L}</m> and <m>\hat{p}_{R}</m> would probably be close to each other, it would be unusual for them to be exactly the same. We would probably observe a small difference due to <em>chance</em>.</p>
+      </solution>
+    </example>
+
+    <exercise>
+      <title>Guided Practice</title>
+      <statement>
+        <p>If we do not think the side of the room a person sits on in class is related to whether they prefer to read books on screen, what assumption are we making about the relationship between these two variables?</p>
+      </statement>
+      <solution>
+        <p>We would be assuming that these two variables are <alert>independent</alert>.</p>
+      </solution>
+    </exercise>
+
+    <p>Studying randomness of this form is a key focus of statistics. Throughout this chapter, and those that follow, we provide three different approaches for quantifying the variability inherent in data: randomization, bootstrapping, and mathematical models. Using the methods provided in this chapter, we will be able to draw conclusions beyond the dataset at hand to research questions about larger populations that the samples come from.</p>
+
+    <p>The first type of variability we will explore comes from experiments where the explanatory variable (or treatment) is randomly assigned to the observational units. As you learned in <xref ref="sec-data-hello" />, a randomized experiment can be used to assess whether one variable (the explanatory variable) causes changes in a second variable (the response variable). Every dataset has some variability in it, so to decide whether the variability in the data is due to (1) the causal mechanism (the randomized explanatory variable in the experiment) or instead (2) natural variability inherent to the data, we set up a sham randomized experiment as a comparison. That is, we assume that each observational unit would have gotten the exact same response value regardless of the treatment level. By reassigning the treatments many many times, we can compare the actual experiment to the sham experiment. If the actual experiment has more extreme results than any of the sham experiments, we are led to believe that it is the explanatory variable which is causing the result and not just variability inherent to the data. Using a few different case studies, let's look more carefully at this idea of a <alert>randomization test</alert>.</p>
   </introduction>
-
-  <p>Throughout the book so far, you have worked with data in a variety of contexts. You have learned how to summarize and visualize the data as well as how to model multiple variables at the same time. Sometimes the dataset at hand represents the entire research question. But more often than not, the data have been collected to answer a research question about a larger group of which the data are a (hopefully) representative subset.</p>
-
-  <p>You may agree that there is almost always variability in data <mdash /> one dataset will not be identical to a second dataset even if they are both collected from the same population using the same methods. However, quantifying the variability in the data is neither obvious nor easy to do, i.e., answering the question <q>how different is one dataset from another?</q> is not trivial.</p>
-
-  <p>First, a note on notation. We generally use <m>p</m> to denote a population proportion and <m>\hat{p}</m> to denote a sample proportion. Similarly, we generally use <m>\mu</m> to denote a population mean and <m>\bar{x}</m> to denote a sample mean.</p>
-
-  <example>
-    <statement>
-      <p>Suppose your professor splits the students in your class into two groups: students who sit on the left side of the classroom and students who sit on the right side of the classroom. If <m>\hat{p}_{L}</m> represents the proportion of students who prefer to read books on screen who sit on the left side of the classroom and <m>\hat{p}_{R}</m> represents the proportion of students who prefer to read books on screen who sit on the right side of the classroom, would you be surprised if <m>\hat{p}_{L}</m> did not <em>exactly</em> equal <m>\hat{p}_{R}</m>?</p>
-    </statement>
-    <solution>
-      <p>While the proportions <m>\hat{p}_{L}</m> and <m>\hat{p}_{R}</m> would probably be close to each other, it would be unusual for them to be exactly the same. We would probably observe a small difference due to <em>chance</em>.</p>
-    </solution>
-  </example>
-
-  <exercise>
-    <title>Guided Practice</title>
-    <statement>
-      <p>If we do not think the side of the room a person sits on in class is related to whether they prefer to read books on screen, what assumption are we making about the relationship between these two variables?</p>
-    </statement>
-    <solution>
-      <p>We would be assuming that these two variables are <alert>independent</alert>.</p>
-    </solution>
-  </exercise>
-
-  <p>Studying randomness of this form is a key focus of statistics. Throughout this chapter, and those that follow, we provide three different approaches for quantifying the variability inherent in data: randomization, bootstrapping, and mathematical models. Using the methods provided in this chapter, we will be able to draw conclusions beyond the dataset at hand to research questions about larger populations that the samples come from.</p>
-
-  <p>The first type of variability we will explore comes from experiments where the explanatory variable (or treatment) is randomly assigned to the observational units. As you learned in <xref ref="sec-data-hello" />, a randomized experiment can be used to assess whether one variable (the explanatory variable) causes changes in a second variable (the response variable). Every dataset has some variability in it, so to decide whether the variability in the data is due to (1) the causal mechanism (the randomized explanatory variable in the experiment) or instead (2) natural variability inherent to the data, we set up a sham randomized experiment as a comparison. That is, we assume that each observational unit would have gotten the exact same response value regardless of the treatment level. By reassigning the treatments many many times, we can compare the actual experiment to the sham experiment. If the actual experiment has more extreme results than any of the sham experiments, we are led to believe that it is the explanatory variable which is causing the result and not just variability inherent to the data. Using a few different case studies, let's look more carefully at this idea of a <alert>randomization test</alert>.</p>
 
 <section xml:id="sec-caseStudySexDiscrimination">
   <title>Sex discrimination case study</title>
