@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project ptx-version="2">
+<project ptx-version="2" source="source" publication="publication" output-dir="output">
   <targets>
     <target name="html">
       <format>html</format>
