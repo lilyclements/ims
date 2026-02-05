@@ -50,7 +50,8 @@
 
 </note>
 
-<reading>
+<reading xml:id="tbl-loans-data-matrix">
+  <title>First six rows of the <c>loans</c> dataset</title>
   <!-- First six rows of the `loans` dataset. tbl-pos: H -->
   <program language="r">
     <input>
@@ -71,7 +72,8 @@ loans |>
   </program>
 </reading>
 
-<reading>
+<reading xml:id="tbl-loans-variables">
+  <title>Variables and their descriptions for the <c>loans</c> dataset</title>
   <!-- Variables and their descriptions for the `loans` dataset. tbl-pos: H -->
   <program language="r">
     <input>
@@ -114,7 +116,8 @@ loans_var_def |>
 
 <p>Results of this model are shown in <xref ref="tbl-int-rate-bankruptcy" />.</p>
 
-<reading>
+<reading xml:id="tbl-int-rate-bankruptcy">
+  <title>Summary of a linear model for predicting <c>interest_rate</c> based on whether the borrower has a bankruptcy in their record</title>
   <!--  Summary of a linear model for predicting `interest_rate` based on whether the borrower has a bankruptcy in their record. Degrees of freedom for this model is 9998. tbl-pos: H -->
   <program language="r">
     <input>
@@ -166,7 +169,8 @@ m_bankruptcy |>
 
 <p>The missing level is called the <alert>reference level</alert> and it represents the default level that other levels are measured against.</p>
 
-<reading>
+<reading xml:id="tbl-int-rate-ver-income">
+  <title>Summary of a linear model for predicting <c>interest_rate</c> from the borrower's income source and amount verification</title>
   <!--  Summary of a linear model for predicting `interest_rate` from the borrower’s income source and amount verification. This predictor has three levels, which results in 2 rows in the regression output. tbl-pos: H -->
   <program language="r">
     <input>
@@ -352,7 +356,8 @@ m_verified_income |>
 
 <p>Using this output, we identify <m>b_i,</m> just as we did in the one-predictor case.</p>
 
-<reading>
+<reading xml:id="tbl-loans-full">
+  <title>Output for the regression model</title>
   <!--  Output for the regression model, where interest rate is the outcome and the variables listed are the predictors. Degrees of freedom for this model is 9990. tbl-pos: H -->
   <program language="r">
     <input>
@@ -630,7 +635,8 @@ R^2 = 1 - \frac{\text{variability in residuals}}{\text{variability in the outcom
 
 <p>The first table summarizes the full model since it includes all predictors, while the second does not include the <c>issue_month</c> variable.</p>
 
-<reading>
+<reading xml:id="tbl-loans-full-for-model-selection">
+  <title>The fit for the full regression model</title>
   <!--  The fit for the full regression model, including the adjusted $R^2$. tbl-pos: H -->
   <program language="r">
     <input>
@@ -666,7 +672,8 @@ m_full_w_rsq |>
   </program>
 </reading>
 
-<reading>
+<reading xml:id="tbl-loans-full-except-issue-month">
+  <title>The fit for the regression model after dropping issue month</title>
   <!--  The fit for the regression model after dropping issue month, including the adjusted $R^2$. tbl-pos: H -->
   <program language="r">
     <input>
@@ -907,7 +914,8 @@ m_full_minus_issue_month_w_rsq |>
 
 <p>You should be able to easily spot them as <alert>bolded text</alert>.</p>
 
-<reading>
+<reading xml:id="tbl-terms-chp-08">
+  <title>Terms introduced in this chapter</title>
   <!-- Terms introduced in this chapter. tbl-pos: H -->
   <program language="r">
     <input>
