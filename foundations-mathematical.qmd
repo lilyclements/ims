@@ -1530,6 +1530,10 @@ make_terms_table(terms_chp_13)
 
 \clearpage
 
+[^13-foundations-mathematical-2]: Sometimes also called the Gaussian distribution after mathematician Carl Friedrich Gauss.
+
+[^13-foundations-mathematical-10]: Source: CDC data.
+
 ## Exercises {#sec-chp13-exercises}
 
 Answers to odd-numbered exercises can be found in [Appendix -@sec-exercise-solutions-13].
