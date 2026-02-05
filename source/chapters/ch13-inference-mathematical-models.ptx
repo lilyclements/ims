@@ -181,6 +181,9 @@
 
     <p>In the following sections and beyond, we'll move our discussion to focus on applying the normal distribution and other related distributions to model point estimates for hypothesis tests and for constructing confidence intervals.</p>
 
+    <subsection xml:id="subsec-normal-distribution-model">
+      <title>Normal distribution model</title>
+
     <p>The normal distribution always describes a symmetric, unimodal, bell-shaped curve.</p>
 
     <p>However, normal curves can look different depending on the details of the model.</p>
@@ -252,6 +255,11 @@
       <caption>Nel's and Sian's scores shown with the distributions of SAT and ACT scores.</caption>
       <image source="images/fig-satActNormals.png" width="70%" />
     </figure>
+
+    </subsection>
+
+    <subsection xml:id="subsec-standardizing-z-scores">
+      <title>Standardizing with Z scores</title>
 
     <p>The solution to the previous example relies on a standardization technique called a Z score, a method most commonly employed for nearly normal observations (but that may be used with any distribution).</p>
 
@@ -342,6 +350,11 @@
       </solution>
     </exercise>
 
+    </subsection>
+
+    <subsection xml:id="subsec-normal-probability-calculations">
+      <title>Normal probability calculations</title>
+
     <example>
       <statement>
         <p>Nel from the SAT Guided Practice earned a score of 1800 on their SAT with a corresponding <m>Z=1.</m> They would like to know what percentile they fall in among all SAT test-takers.</p>
@@ -418,6 +431,11 @@
       <p>(Generally ties are ignored when the normal model, or any other continuous distribution, is used.)</p>
       </solution>
     </exercise>
+
+    </subsection>
+
+    <subsection xml:id="subsec-normal-probability-examples">
+      <title>Normal probability examples</title>
 
     <p>Cumulative SAT scores are approximated well by a normal model, <m>N(\mu=1500, \sigma=300).</m></p>
 
@@ -832,6 +850,11 @@
 
     <p>The mathematical models are derived from the normal theory, but even the computational methods (and the intuitive thinking behind both approaches) use the general bell-shaped variability seen in most of the distributions constructed so far.</p>
 
+    </subsection>
+
+    <subsection xml:id="subsec-68-95-99-7-rule">
+      <title>68-95-99.7 rule</title>
+
     <p>Here, we present a useful general rule for the probability of falling within 1, 2, and 3 standard deviations of the mean in the normal distribution.</p>
 
     <p>The rule will be useful in a wide range of practical settings, especially when trying to make a quick estimate without a calculator or Z table.</p>
@@ -874,6 +897,8 @@
       <p>Since the normal model is symmetric, then half of the test takers from part (a) (<m>\frac{95\%}{2} = 47.5\%</m> of all test takers) will score 900 to 1500 while 47.5% score between 1500 and 2100.</p>
       </solution>
     </exercise>
+
+    </subsection>
 
     <subsection xml:id="sec-se">
       <title>Standard error</title>
