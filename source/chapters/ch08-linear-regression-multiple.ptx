@@ -1,9 +1,932 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch08-linear-regression-multiple" xmlns:xi="http://www.w3.org/2001/XInclude">
 
-<chapter xml:id="ch08-linear-regression-multiple">
-  <title>Linear regression with multiple predictors</title>
-  
-  <p>
-    Content to be added from model-mlr.qmd
-  </p>
+<title>Linear regression with multiple predictors</title>
+
+<introduction>
+  <p>Building on the ideas of one predictor variable in a linear regression model (from <xref ref="sec-model-slr" />), a multiple linear regression model is now fit to two or more predictor variables.</p>
+
+  <p>By considering how different explanatory variables interact, we can uncover complicated relationships between the predictor variables and the response variable.</p>
+
+  <p>One challenge to working with multiple variables is that it is sometimes difficult to know which variables are most important to include in the model.</p>
+
+  <p>Model building is an extensive topic, and we scratch the surface here by defining and utilizing the adjusted <m>R^2</m> value.</p>
+
+</introduction>
+
+<p>Multiple regression extends single predictor variable regression to the case that still has one response but many predictors (denoted <m>x_1</m>, <m>x_2</m>, <m>x_3</m>, ...).</p>
+
+<p>The method is motivated by scenarios where many variables may be simultaneously connected to an output.</p>
+
+<p>We will consider data about loans from the peer-to-peer lender, Lending Club, which is a dataset we first encountered in <xref ref="sec-data-hello" />.</p>
+
+<p>The loan data includes terms of the loan as well as information about the borrower.</p>
+
+<p>The outcome variable we would like to better understand is the interest rate assigned to the loan.</p>
+
+<p>For instance, all other characteristics held constant, does it matter how much debt someone already has?</p>
+
+<p>Does it matter if their income has been verified?</p>
+
+<p>Multiple regression will help us answer these and other questions.</p>
+
+<p>The dataset includes information on <c>r nrow(loans)</c> loans, and we'll be looking at a subset of the available variables, some of which will be new from those we saw in earlier chapters.</p>
+
+<p>The first <c>r n_rows_to_show_string</c> observations in the dataset are shown in <xref ref="tbl-loans-data-matrix" />, and descriptions for each variable are shown in <xref ref="tbl-loans-variables" />.</p>
+
+<p>Notice that the past bankruptcy variable (<c>bankruptcy</c>) is an indicator variable, where it takes the value 1 if the borrower had a past bankruptcy in their record and 0 if not.</p>
+
+<p>Using an indicator variable in place of a category name allows for these variables to be directly used in regression.</p>
+
+<p>Two of the other variables are categorical (<c>verified_income</c> and <c>issue_month</c>), each of which can take one of a few different non-numerical values; we'll discuss how these are handled in the model in <xref ref="sec-ind-and-cat-predictors" />.</p>
+
+<note>
+  <title>Data</title>
+  <p>The <url href="http://openintrostat.github.io/openintro/reference/loans_full_schema.html"><c>loans_full_schema</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
+
+  <p>Based on the data in this dataset we have created two new variables: <c>credit_util</c> which is calculated as the total credit utilized divided by the total credit limit and <c>bankruptcy</c> which turns the number of bankruptcies to an indicator variable (0 for no bankruptcies and 1 for at least 1 bankruptcy).</p>
+
+  <p>We will refer to this modified dataset as <c>loans</c>.</p>
+
+</note>
+
+<reading>
+  <!-- First six rows of the `loans` dataset. tbl-pos: H -->
+  <program language="r">
+    <input>
+<![CDATA[
+loans |>
+  slice_head(n = n_rows_to_show) |>
+  kbl(
+    linesep = "", booktabs = TRUE,
+    align = "rlrrrr"
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped", "scale_down"),
+    full_width = FALSE
+  )
+]]>
+    </input>
+  </program>
+</reading>
+
+<reading>
+  <!-- Variables and their descriptions for the `loans` dataset. tbl-pos: H -->
+  <program language="r">
+    <input>
+<![CDATA[
+loans_var_def <- tribble(
+  ~variable,         ~description,
+  "interest_rate",   "Interest rate on the loan, in an annual percentage.",
+  "verified_income", "Categorical variable describing whether the borrower's income source and amount have been verified, with levels Verified (source and amount verified), Source Verified (source only verified), and Not Verified.",
+  "debt_to_income",  "Debt-to-income ratio, which is the percentage of total debt of the borrower divided by their total income.",
+  "credit_util",     "Of all the credit available to the borrower, what fraction are they utilizing. For example, the credit utilization on a credit card would be the card's balance divided by the card's credit limit.",
+  "bankruptcy",      "An indicator variable for whether the borrower has a past bankruptcy in their record. This variable takes a value of `1` if the answer is *yes* and `0` if the answer is *no*.",
+  "term",            "The length of the loan, in months.",
+  "issue_month",     "The month and year the loan was issued, which for these loans is always during the first quarter of 2018.",
+  "credit_checks",   "Number of credit checks in the last 12 months. For example, when filing an application for a credit card, it is common for the company receiving the application to run a credit check.",
+)
+
+loans_var_def |>
+  kbl(
+    linesep = "", booktabs = TRUE,
+    col.names = c("Variable", "Description"),
+    format = "markdown"
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped"), full_width = TRUE
+  ) |>
+  column_spec(1, monospace = TRUE) |>
+  column_spec(2, width = "30em")
+]]>
+    </input>
+  </program>
+</reading>
+
+<section xml:id="sec-ind-and-cat-predictors">
+  <title>Indicator and categorical predictors</title>
+
+<p>Let's start by fitting a linear regression model for interest rate with a single predictor indicating whether a person has a bankruptcy in their record:</p>
+
+<me>\widehat{\texttt{interest\_rate}} = 12.34 + 0.74 \times \texttt{bankruptcy}</me>
+
+<p>Results of this model are shown in <xref ref="tbl-int-rate-bankruptcy" />.</p>
+
+<reading>
+  <!--  Summary of a linear model for predicting `interest_rate` based on whether the borrower has a bankruptcy in their record. Degrees of freedom for this model is 9998. tbl-pos: H -->
+  <program language="r">
+    <input>
+<![CDATA[
+m_bankruptcy <- lm(interest_rate ~ bankruptcy, data = loans)
+
+m_bankruptcy |>
+  tidy() |>
+  mutate(p.value = ifelse(p.value < 0.0001, "<0.0001", round(p.value, 4))) |>
+  kbl(
+    linesep = "", booktabs = TRUE,
+    digits = 2, align = "lrrrr"
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped")
+  ) |>
+  column_spec(1, width = "13em", monospace = TRUE) |>
+  column_spec(2:5, width = "4em")
+]]>
+    </input>
+  </program>
+</reading>
+
+
+<example>
+  <statement>
+    <p>Interpret the coefficient for the past bankruptcy variable in the model.</p>
+  </statement>
+  <solution>
+    <p>The variable takes one of two values: 1 when the borrower has a bankruptcy in their history and 0 otherwise.</p>
+
+    <p>A slope of 0.74 means that the model predicts a 0.74% higher interest rate for those borrowers with a bankruptcy in their record.</p>
+
+    <p>(See <xref ref="sec-categorical-predictor-two-levels" /> for a review of the interpretation for two-level categorical predictor variables.)</p>
+
+  </solution>
+</example>
+
+<p>Suppose we had fit a model using a 3-level categorical variable, such as <c>verified_income</c>.</p>
+
+<p>The output from software is shown in <xref ref="tbl-int-rate-ver-income" />.</p>
+
+<p>This regression output provides multiple rows for the variable.</p>
+
+<p>Each row represents the relative difference for each level of <c>verified_income</c>.</p>
+
+<p>However, we are missing one of the levels: <c>Not Verified</c>.</p>
+
+<p>The missing level is called the <alert>reference level</alert> and it represents the default level that other levels are measured against.</p>
+
+<reading>
+  <!--  Summary of a linear model for predicting `interest_rate` from the borrower’s income source and amount verification. This predictor has three levels, which results in 2 rows in the regression output. tbl-pos: H -->
+  <program language="r">
+    <input>
+<![CDATA[
+m_verified_income <- lm(interest_rate ~ verified_income, data = loans)
+
+m_verified_income |>
+  tidy() |>
+  mutate(p.value = ifelse(p.value < 0.0001, "<0.0001", round(p.value, 4))) |>
+  kbl(
+    linesep = "", booktabs = TRUE,
+    digits = 2, align = "lrrrr"
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped")
+  ) |>
+  column_spec(1, width = "17em", monospace = TRUE) |>
+  column_spec(2:5, width = "5em")
+]]>
+    </input>
+  </program>
+</reading>
+
+
+<example>
+  <statement>
+    <p>How would we write an equation for this regression model?</p>
+  </statement>
+  <solution>
+    <p>The equation for the regression model may be written as a model with two predictors:</p>
+
+<md>
+  <mrow>\widehat{\texttt{interest\_rate}} &amp;= 11.10 \\</mrow>
+  <mrow>&amp;+ 1.42 \times \texttt{verified\_income}_{\texttt{Source Verified}} \\</mrow>
+  <mrow>&amp;+ 3.25 \times \texttt{verified\_income}_{\texttt{Verified}}</mrow>
+</md>
+
+    <p>We use the notation <m>\texttt{variable}_{\texttt{level}}</m> to represent indicator variables for when the categorical variable takes a particular value.</p>
+
+    <p>For example, <m>\texttt{verified\_income}_{\texttt{Source Verified}}</m> would take a value of 1 if it was for a borrower that was source verified, and it would take a value of 0 otherwise.</p>
+
+    <p>Likewise, <m>\texttt{verified\_income}_{\texttt{Verified}}</m> would take a value of 1 if it was for a borrower that was verified, and 0 if it took any other value.</p>
+
+  </solution>
+</example>
+
+<p>The notation <m>\texttt{variable}_{\texttt{level}}</m> may feel a bit confusing.</p>
+
+<p>Let's figure out how to use the equation for each level of the <c>verified_income</c> variable.</p>
+
+
+<example>
+  <statement>
+    <p>Using the model for predicting interest rate from income verification type, compute the average interest rate for borrowers whose income source and amount are both <em>unverified</em>.</p>
+  </statement>
+  <solution>
+    <p>When <c>verified_income</c> takes a value of <c>Not Verified</c>, then both indicator functions in the equation for the linear model are set to 0:</p>
+
+<me>\widehat{\texttt{interest\_rate}} = 11.10 + 1.42 \times 0 + 3.25 \times 0 = 11.10</me>
+
+    <p>The average interest rate for these borrowers is 11.1%.</p>
+
+    <p>Because the level does not have its own coefficient and it is the reference value, the indicators for the other levels for this variable all drop out.</p>
+
+  </solution>
+</example>
+
+    <p>Using the model for predicting interest rate from income verification type, compute the average interest rate for borrowers whose income source is <em>source verified</em>.</p>
+
+<example>
+  <statement>
+  </statement>
+  <solution>
+    <p>When <c>verified_income</c> takes a value of <c>Source Verified</c>, then the corresponding variable takes a value of 1 while the other is 0:</p>
+
+<me>\widehat{\texttt{interest\_rate}} = 11.10 + 1.42 \times 1 + 3.25 \times 0 = 12.52</me>
+
+    <p>The average interest rate for these borrowers is 12.52%.</p>
+
+  </solution>
+</example>
+
+
+<exercise>
+  <statement>
+    <p>Compute the average interest rate for borrowers whose income source and amount are both <em>verified</em>.</p>
+  </statement>
+  <solution>
+    <p>When <c>verified_income</c> takes a value of <c>Verified</c>, then the corresponding variable takes a value of 1 while the other is 0: <m>11.10 + 1.42 \times 0 + 3.25 \times 1 = 14.35.</m> The average interest rate for these borrowers is 14.35%.</p>
+
+  </solution>
+</exercise>
+
+<assemblage>
+  <title>Predictors with several categories</title>
+  <p>When fitting a regression model with a categorical variable that has <m>k</m> levels where <m>k > 2</m>, software will provide a coefficient for <m>k - 1</m> of those levels.</p>
+
+  <p>For the last level that does not receive a coefficient, this is the reference level, and the coefficients listed for the other levels are all considered relative to this reference level.</p>
+
+</assemblage>
+
+
+<exercise>
+  <statement>
+    <p>Interpret the coefficients from the model above.</p>
+  </statement>
+  <solution>
+    <p>Each of the coefficients gives the incremental interest rate for the corresponding level relative to the <c>Not Verified</c> level, which is the reference level.</p>
+
+    <p>For example, for a borrower whose income source and amount have been verified, the model predicts that they will have a 3.25% higher interest rate than a borrower who has not had their income source or amount verified.</p>
+
+  </solution>
+</exercise>
+
+<p>The higher interest rate for borrowers who have verified their income source or amount is surprising.</p>
+
+<p>Intuitively, we would think that a loan would look <em>less</em> risky if the borrower's income has been verified.</p>
+
+<p>However, note that the situation may be more complex, and there may be confounding variables that we didn't account for.</p>
+
+<p>For example, perhaps lenders require borrowers with poor credit to verify their income.</p>
+
+<p>That is, verifying income in our dataset might be a signal of some concerns about the borrower rather than a reassurance that the borrower will pay back the loan.</p>
+
+<p>For this reason, the borrower could be deemed higher risk, resulting in a higher interest rate.</p>
+
+<p>(What other confounding variables might explain this counter-intuitive relationship suggested by the model?)</p>
+
+
+<exercise>
+  <statement>
+    <p>How much larger of an interest rate would we expect for a borrower who has verified their income source and amount vs a borrower whose income source has only been verified?</p>
+  </statement>
+  <solution>
+    <p>Relative to the <c>Not Verified</c> category, the <c>Verified</c> category has an interest rate of 3.25% higher, while the <c>Source Verified</c> category is only 1.42% higher.</p>
+
+    <p>Thus, <c>Verified</c> borrowers will tend to get an interest rate about <m>3.25\% - 1.42\% = 1.83\%</m> higher than <c>Source Verified</c> borrowers.</p>
+
+  </solution>
+</exercise>
+
+</section>
+
+<section xml:id="sec-many-predictors">
+  <title>Many predictors in a model</title>
+
+<p>The world is complex, and it can be helpful to consider many factors at once in statistical modeling.</p>
+
+<p>For example, we might like to use the full context of borrowers to predict the interest rate they receive rather than using a single variable.</p>
+
+<p>This is the strategy used in <alert>multiple regression</alert>.</p>
+
+<p>While we remain cautious about making any causal interpretations using multiple regression on observational data, such models are a common first step in gaining insights or providing some evidence of a causal connection.</p>
+
+<p>We want to construct a model that accounts not only for any past bankruptcy or whether the borrower had their income source or amount verified, but simultaneously accounts for all the variables in the <c>loans</c> dataset: <c>verified_income</c>, <c>debt_to_income</c>, <c>credit_util</c>, <c>bankruptcy</c>, <c>term</c>, <c>issue_month</c>, and <c>credit_checks</c>.</p>
+
+<md>
+  <mrow>\widehat{\texttt{interest\_rate}} &amp;= b_0 \\</mrow>
+  <mrow>&amp;+ b_1 \times \texttt{verified\_income}_{\texttt{Source Verified}} + b_2 \times \texttt{verified\_income}_{\texttt{Verified}} \\</mrow>
+  <mrow>&amp;+ b_3 \times \texttt{debt\_to\_income} + b_4 \times \texttt{credit\_util} \\</mrow>
+  <mrow>&amp;+ b_5 \times \texttt{bankruptcy} + b_6 \times \texttt{term} \\</mrow>
+  <mrow>&amp;+ b_7 \times \texttt{credit\_checks} + b_8 \times \texttt{issue\_month}_{\texttt{Jan-2018}} \\</mrow>
+  <mrow>&amp;+ b_9 \times \texttt{issue\_month}_{\texttt{Mar-2018}}</mrow>
+</md>
+
+<p>This equation represents a holistic approach for modeling all of the variables simultaneously.</p>
+
+<p>Notice that there are two coefficients for <c>verified_income</c> and two coefficients for <c>issue_month</c>, since both are 3-level categorical variables.</p>
+
+<p>We calculate <m>b_0</m>, <m>b_1</m>, <m>b_2</m>, <m>\cdots</m>, <m>b_9</m> the same way as we did in the case of a model with a single predictor -- we select values that minimize the sum of the squared residuals:</p>
+
+<me>SSE = e_1^2 + e_2^2 + \dots + e_{10000}^2 = \sum_{i=1}^{10000} e_i^2 = \sum_{i=1}^{10000} \left(y_i - \hat{y}_i\right)^2</me>
+
+<p>where <m>y_i</m> and <m>\hat{y}_i</m> represent the observed interest rates and their estimated values according to the model, respectively.</p>
+
+<p>10,000 residuals are calculated, one for each observation.</p>
+
+<p>Note that these values are sample statistics and in the case where the observed data is a random sample from a target population that we are interested in making inferences about, they are estimates of the population parameters <m>\beta_0</m>, <m>\beta_1</m>, <m>\beta_2</m>, <m>\cdots</m>, <m>\beta_9</m>.</p>
+
+<p>We will discuss inference based on linear models in <xref ref="sec-inf-model-mlr" />, for now we will focus on calculating sample statistics <m>b_i</m>.</p>
+
+<p>We typically use a computer to minimize the sum of squares and compute point estimates, as shown in the sample output in <xref ref="tbl-loans-full" />.</p>
+
+<p>Using this output, we identify <m>b_i,</m> just as we did in the one-predictor case.</p>
+
+<reading>
+  <!--  Output for the regression model, where interest rate is the outcome and the variables listed are the predictors. Degrees of freedom for this model is 9990. tbl-pos: H -->
+  <program language="r">
+    <input>
+<![CDATA[
+m_full <- lm(interest_rate ~ ., data = loans)
+
+m_full |>
+  tidy() |>
+  mutate(p.value = ifelse(p.value < 0.001, "<0.0001", round(p.value, 4))) |>
+  kbl(linesep = "", booktabs = TRUE, digits = 2, align = "lrrrr") |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped")
+  ) |>
+  column_spec(1, width = "15em", monospace = TRUE) |>
+  column_spec(2:5, width = "5em")
+]]>
+    </input>
+  </program>
+</reading>
+
+<assemblage>
+  <title>Multiple regression model</title>
+  <p>A multiple regression model is a linear model with many predictors.</p>
+
+  <p>In general, we write the model as</p>
+
+<me>\hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \cdots + b_k x_k</me>
+
+  <p>when there are <m>k</m> predictors.</p>
+
+  <p>We always calculate <m>b_i</m> using statistical software.</p>
+
+</assemblage>
+
+
+
+<example>
+  <statement>
+    <p>Write out the regression model using the regression output from <xref ref="tbl-loans-full" />.</p>
+    <p>How many predictors are there in this model?</p>
+  </statement>
+  <solution>
+    <p>The fitted model for the interest rate is given by:</p>
+
+<md>
+  <mrow>\widehat{\texttt{interest\_rate}} &amp;= 1.89 \\</mrow>
+  <mrow>&amp;+ 1.00 \times \texttt{verified\_income}_{\texttt{Source Verified}} + 2.56 \times \texttt{verified\_income}_{\texttt{Verified}} \\</mrow>
+  <mrow>&amp;+ 0.02 \times \texttt{debt\_to\_income} + 4.90 \times \texttt{credit\_util} \\</mrow>
+  <mrow>&amp;+ 0.39 \times \texttt{bankruptcy} + 0.15 \times \texttt{term} \\</mrow>
+  <mrow>&amp;+ 0.23 \times \texttt{credit\_checks} + 0.05 \times \texttt{issue\_month}_{\texttt{Jan-2018}} \\</mrow>
+  <mrow>&amp;- 0.04 \times \texttt{issue\_month}_{\texttt{Mar-2018}}</mrow>
+</md>
+
+    <p>If we count up the number of predictor coefficients, we get the <em>effective</em> number of predictors in the model; there are nine of those.</p>
+
+    <p>Notice that the categorical predictor counts as two, once for each of the two levels shown in the model.</p>
+
+    <p>In general, a categorical predictor with <m>p</m> different levels will be represented by <m>p - 1</m> terms in a multiple regression model.</p>
+
+    <p>A total of seven variables were used as predictors to fit this model: <c>verified_income</c>, <c>debt_to_income</c>, <c>credit_util</c>, <c>bankruptcy</c>, <c>term</c>, <c>credit_checks</c>, <c>issue_month</c>.</p>
+
+  </solution>
+</example>
+
+
+<exercise>
+  <statement>
+    <p>Interpret the coefficient of the variable <c>credit_checks</c>.</p>
+  </statement>
+  <solution>
+    <p>All else held constant, for each additional inquiry into the applicant's credit during the last 12 months, we would expect the interest rate for the loan to be higher, on average, by 0.23 points.</p>
+
+  </solution>
+</exercise>
+
+
+<exercise>
+  <statement>
+    <p>Compute the residual of the first observation in <xref ref="tbl-loans-data-matrix" /> using the full model.</p>
+  </statement>
+  <solution>
+    <p>To compute the residual, we first need the predicted value, which we compute by plugging values into the equation from earlier.</p>
+
+    <p>For example, <m>\texttt{verified\_income}_{\texttt{Source Verified}}</m> takes a value of 0, <m>\texttt{verified\_income}_{\texttt{Verified}}</m> takes a value of 1 (since the borrower's income source and amount were verified), <m>\texttt{debt\_to\_income}</m> was 18.01, and so on.</p>
+
+    <p>This leads to a prediction of <m>\widehat{\texttt{interest\_rate}}_1 = 17.84</m>.</p>
+
+    <p>The observed interest rate was 14.07%, which leads to a residual of <m>e_1 = 14.07 - 17.84 = -3.77</m>.</p>
+
+  </solution>
+</exercise>
+
+
+
+<example>
+  <statement>
+    <p>We calculated a slope coefficient of 0.74 for <c>bankruptcy</c> in <xref ref="sec-ind-and-cat-predictors" /> while the coefficient is 0.39 here.</p>
+    <p>Why is there a difference between the coefficient values between the models with single and multiple predictors?</p>
+  </statement>
+  <solution>
+    <p>If we examined the data carefully, we would see that some predictors are correlated.</p>
+
+    <p>For instance, when we modeled the relationship of the outcome <c>interest_rate</c> and predictor <c>bankruptcy</c> using linear regression, we were unable to control for other variables like whether the borrower had their income verified, the borrower's debt-to-income ratio, and other variables.</p>
+
+    <p>That original model was constructed in a vacuum and did not consider the full context of everything that is considered when an interest rate is decided.</p>
+
+    <p>When we include all of the variables, underlying and unintentional bias that was missed by not including these other variables is reduced or eliminated.</p>
+
+    <p>Of course, bias can still exist from other confounding variables.</p>
+
+  </solution>
+</example>
+
+<p>The previous example describes a common issue in multiple regression: correlation among predictor variables.</p>
+
+<p>We say the two predictor variables are <alert>collinear</alert> (pronounced as <em>co-linear</em>) when they are correlated, and this <alert>multicollinearity</alert> complicates model estimation.</p>
+
+<p>While it is impossible to prevent multicollinearity from arising in observational data, experiments are usually designed to prevent predictors from being multicollinear.</p>
+
+
+
+
+<exercise>
+  <statement>
+    <p>The estimated value of the intercept is 1.89, and one might be tempted to make some interpretation of this coefficient, such as, it is the model's predicted interest rate when each of the variables take value zero: income source is not verified, the borrower has no debt (debt-to-income and credit utilization are zero), and so on.</p>
+    <p>Is this reasonable?</p>
+    <p>Is there any value gained by making this interpretation?</p>
+  </statement>
+  <solution>
+    <p>Many of the variables do take a value 0 for at least one data point, and for those variables, it is reasonable.</p>
+
+    <p>However, one variable never takes a value of zero: <c>term</c>, which describes the length of the loan, in months.</p>
+
+    <p>If <c>term</c> is set to zero, then the loan must be paid back immediately; the borrower must give the money back as soon as they receive it, which means it is not a real loan.</p>
+
+    <p>Ultimately, the interpretation of the intercept in this setting is not insightful.</p>
+
+  </solution>
+</exercise>
+
+</section>
+
+<section xml:id="sec-adjusted-r-squared">
+  <title>Adjusted R-squared</title>
+
+<p>We first used <m>R^2</m> in <xref ref="sec-r-squared" /> to determine the amount of variability in the response that was explained by the model:</p>
+
+<me>
+R^2 = 1 - \frac{\text{variability in residuals}}{\text{variability in the outcome}}
+    = 1 - \frac{Var(e_i)}{Var(y_i)}
+</me>
+
+<p>where <m>e_i</m> represents the residuals of the model and <m>y_i</m> the outcomes.</p>
+
+<p>This equation remains valid in the multiple regression framework, but a small enhancement can make it even more informative when comparing models.</p>
+
+
+
+<exercise>
+  <statement>
+    <p>The variance of the residuals for the model given in the earlier Guided Practice is 18.53, and the variance of the total price in all the auctions is 25.01.</p>
+    <p>Calculate <m>R^2</m> for this model.</p>
+  </statement>
+  <solution>
+    <p><m>R^2 = 1 - \frac{18.53}{25.01} = 0.2591</m>.</p>
+
+  </solution>
+</exercise>
+
+<p>This strategy for estimating <m>R^2</m> works when there is a single predictor.</p>
+
+<p>However, it becomes less helpful when there are many variables.</p>
+
+<p>The regular <m>R^2</m> is a biased estimate of the amount of variability explained by the model when applied to model with more than one predictor.</p>
+
+<p>To get a better estimate, we use the adjusted <m>R^2</m>.</p>
+
+<assemblage>
+  <title>Adjusted R-squared as a tool for model assessment</title>
+  <p>The <alert>adjusted R-squared</alert> is computed as</p>
+
+<md>
+  <mrow>R_{adj}^{2}</mrow>
+  <mrow>&amp;= 1 - \frac{s_{\text{residuals}}^2 / (n-k-1)}</mrow>
+  <mrow>{s_{\text{outcome}}^2 / (n-1)} = 1 - \frac{s_{\text{residuals}}^2}{s_{\text{outcome}}^2}</mrow>
+  <mrow>\times \frac{n-1}{n-k-1}</mrow>
+</md>
+
+  <p>where <m>n</m> is the number of observations used to fit the model and <m>k</m> is the number of predictor variables in the model.</p>
+
+  <p>Remember that a categorical predictor with <m>p</m> levels will contribute <m>p - 1</m> to the number of variables in the model.</p>
+
+</assemblage>
+
+<p>Because <m>k</m> is never negative, the adjusted <m>R^2</m> will be smaller -- often times just a little smaller -- than the unadjusted <m>R^2</m>.</p>
+
+<p>The reasoning behind the adjusted <m>R^2</m> lies in the <alert>degrees of freedom</alert> associated with each variance, which is equal to <m>n - k - 1</m> in the multiple regression context.</p>
+
+<p>If we were to make predictions for <em>new data</em> using our current model, we would find that the unadjusted <m>R^2</m> would tend to be slightly overly optimistic, while the adjusted <m>R^2</m> formula helps correct this bias.</p>
+
+
+
+<exercise>
+  <statement>
+    <p>There were n = 10,000 auctions in the dataset and <m>k=9</m> predictor variables in the model.</p>
+    <p>Use <m>n</m>, <m>k</m>, and the variances from the earlier Guided Practice to calculate adjusted <m>R^2</m> for the interest rate model.</p>
+  </statement>
+  <solution>
+    <p><m>R_{adj}^2 = 1 - \frac{18.53}{25.01}\times \frac{10000-1}{10000-9-1} = 0.2584</m>.</p>
+
+    <p>While the difference is very small, it will be important when we fine tune the model in the next section.</p>
+
+  </solution>
+</exercise>
+
+
+
+
+<exercise>
+  <statement>
+    <p>Suppose you added another predictor to the model, but the variance of the errors <m>Var(e_i)</m> didn't go down.</p>
+    <p>What would happen to the <m>R^2</m>?</p>
+    <p>What would happen to the adjusted <m>R^2</m>?</p>
+  </statement>
+  <solution>
+    <p>The unadjusted <m>R^2</m> would stay the same and the adjusted <m>R^2</m> would go down.</p>
+
+  </solution>
+</exercise>
+
+<p>Adjusted <m>R^2</m> could also have been used in <xref ref="sec-model-slr" /> where we introduced regression models with a single predictor.</p>
+
+<p>However, when there is only <m>k = 1</m> predictors, adjusted <m>R^2</m> is very close to regular <m>R^2</m>, so this nuance isn't typically important when the model has only one predictor.</p>
+
+</section>
+
+<section xml:id="sec-model-selection">
+  <title>Model selection</title>
+
+<p>The best model is not always the most complicated.</p>
+
+<p>Sometimes including predictors that are not evidently important can actually reduce the accuracy of predictions.</p>
+
+<p>In this section, we discuss model selection strategies, which will help us eliminate predictors from the model that are found to be less important.</p>
+
+<p>It's common (and hip, at least in the statistical world) to refer to models that have undergone such predictor pruning as <alert>parsimonious</alert>.</p>
+
+<p>In practice, the model that includes all available predictors is often referred to as the <alert>full model</alert>.</p>
+
+<p>The full model may not be the best model, and if it isn't, we want to identify a smaller model that is preferable.</p>
+
+<subsection xml:id="sec-stepwise-selection">
+  <title>Stepwise selection</title>
+
+<p>Two common strategies for adding or removing predictors in a multiple regression model are called backward elimination and forward selection.</p>
+
+<p>These techniques are often referred to as <alert>stepwise selection</alert> strategies, because they add or delete one variable at a time as they "step" through the candidate predictors.</p>
+
+<p><alert>Backward elimination</alert> starts with the full model -- the model that includes all potential predictor variables. Predictors are eliminated one-at-a-time from the model until we cannot improve the model any further.</p>
+
+<p><alert>Forward selection</alert> is the reverse of the backward elimination technique.</p>
+
+<p>Instead, of eliminating predictors one-at-a-time, we add predictors one-at-a-time until we cannot find any predictors that improve the model any further.</p>
+
+<p>An important consideration in implementing either of these stepwise selection strategies is the criterion used to decide whether to eliminate or add a predictors.</p>
+
+<p>One commonly used decision criterion is adjusted <m>R^2</m>.</p>
+
+<p>When using adjusted <m>R^2</m> as the decision criterion, we seek to eliminate or add predictors depending on whether they lead to the largest improvement in adjusted <m>R^2</m> and we stop when adding or elimination of another predictor does not lead to further improvement in adjusted <m>R^2</m>.</p>
+
+<p>Adjusted <m>R^2</m> describes the strength of a model fit, and it is a useful tool for evaluating which predictors are adding value to the model, where <em>adding value</em> means they are (likely) improving the accuracy in predicting future outcomes.</p>
+
+<p>Let's consider two models, which are shown in <xref ref="tbl-loans-full-for-model-selection" /> and <xref ref="tbl-loans-full-except-issue-month" />.</p>
+
+<p>The first table summarizes the full model since it includes all predictors, while the second does not include the <c>issue_month</c> variable.</p>
+
+<reading>
+  <!--  The fit for the full regression model, including the adjusted $R^2$. tbl-pos: H -->
+  <program language="r">
+    <input>
+<![CDATA[
+options(digits = 6) # to get more digits
+m_full_r_sq_adj <- glance(m_full)$adj.r.squared |> round(4)
+options(digits = 3) # to get back to default set in _common.R
+m_full_df_residual <- glance(m_full)$df.residual
+
+m_full_w_rsq <- m_full |>
+  tidy() |>
+  mutate(p.value = ifelse(p.value < 0.001, "<0.0001", round(p.value, 4))) |>
+  add_row(term = glue("Adjusted R-sq = {m_full_r_sq_adj}")) |>
+  add_row(term = glue("df = {m_full_df_residual}"))
+
+m_full_w_rsq |>
+  kbl(
+    linesep = "", booktabs = TRUE,
+    digits = 2, align = "lrrrr"
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped")
+  ) |>
+  column_spec(1, width = "17em") |>
+  column_spec(1, monospace = ifelse(as.numeric(rownames(m_full_w_rsq)) < 11, TRUE, FALSE)) |>
+  column_spec(2:5, width = "5em") |>
+  pack_rows("", 11, 12) |>
+  add_indent(11:12) |>
+  row_spec(11:12, italic = TRUE)
+]]>
+    </input>
+  </program>
+</reading>
+
+<reading>
+  <!--  The fit for the regression model after dropping issue month, including the adjusted $R^2$. tbl-pos: H -->
+  <program language="r">
+    <input>
+<![CDATA[
+m_full_minus_issue_month <- lm(interest_rate ~ . - issue_month, data = loans)
+
+options(digits = 6) # to get more digits
+m_full_minus_issue_month_r_sq_adj <- glance(m_full_minus_issue_month)$adj.r.squared |> round(4)
+options(digits = 3) # to get back to default set in _common.R
+m_full_minus_issue_month_df_residual <- glance(m_full_minus_issue_month)$df.residual
+
+m_full_minus_issue_month_w_rsq <- m_full_minus_issue_month |>
+  tidy() |>
+  mutate(p.value = ifelse(p.value < 0.001, "<0.0001", round(p.value, 4))) |>
+  add_row(term = glue("Adjusted R-sq = {m_full_minus_issue_month_r_sq_adj}")) |>
+  add_row(term = glue("df = {m_full_minus_issue_month_df_residual}"))
+
+m_full_minus_issue_month_w_rsq |>
+  kbl(
+    linesep = "", booktabs = TRUE,
+    digits = 2, align = "lrrrr"
+  ) |>
+  kable_styling(
+    bootstrap_options = c("striped", "condensed"),
+    latex_options = c("striped")
+  ) |>
+  column_spec(1, width = "17em") |>
+  column_spec(1, monospace = ifelse(as.numeric(rownames(m_full_minus_issue_month_w_rsq)) < 9, TRUE, FALSE)) |>
+  column_spec(2:5, width = "5em") |>
+  pack_rows("", 9, 10) |>
+  add_indent(9:10) |>
+  row_spec(9:10, italic = TRUE)
+]]>
+    </input>
+  </program>
+</reading>
+
+
+<example>
+  <statement>
+    <p>Which of the two models is better?</p>
+  </statement>
+  <solution>
+    <p>We compare the adjusted <m>R^2</m> of each model to determine which to choose.</p>
+
+    <p>Since the second model has a higher adjusted <m>R^2</m> compared to the first model, we prefer the second model to the first.</p>
+
+    <p>We cannot know for sure, but based on the adjusted <m>R^2</m>, this is our best assessment.</p>
+
+  </solution>
+</example>
+
+    <p>Results corresponding to the full model for the <c>loans</c> data are shown in <xref ref="tbl-loans-full-for-model-selection" />.</p>
+
+    <p>How should we proceed under the backward elimination strategy?</p>
+
+<example>
+  <statement>
+  </statement>
+  <solution>
+    <p>Our baseline adjusted <m>R^2</m> from the full model is 0.2597, and we need to determine whether dropping a predictor will improve the adjusted <m>R^2</m>.</p>
+
+    <p>To check, we fit models that each drop a different predictor, and we record the adjusted <m>R^2</m>:</p>
+
+<ul>
+  <li><p>Excluding <c>verified_income</c>: 0.2238</p></li>
+  <li><p>Excluding <c>debt_to_income</c>: 0.2557</p></li>
+  <li><p>Excluding <c>credit_util</c>: 0.1916</p></li>
+  <li><p>Excluding <c>bankruptcy</c>: 0.2589</p></li>
+  <li><p>Excluding <c>term</c>: 0.1468</p></li>
+  <li><p>Excluding <c>credit_checks</c>: 0.2484</p></li>
+  <li><p>Excluding <c>issue_month</c>: 0.2598</p></li>
+</ul>
+
+    <p>The model without <c>issue_month</c> has the highest adjusted <m>R^2</m> of 0.2598, higher than the adjusted <m>R^2</m> for the full model; therefore, we drop <c>issue_month</c> from the model.</p>
+
+    <p>Since we eliminated a predictor from the model in the first step, we see whether we should eliminate any additional predictors.</p>
+
+    <p>Our baseline adjusted <m>R^2</m> is now <m>R^2_{adj} = 0.2598</m>.</p>
+
+    <p>We now fit new models, which consider eliminating each of the remaining predictors in addition to <c>issue_month</c>:</p>
+
+<ul>
+  <li><p>Excluding <c>issue_month</c> and <c>verified_income</c>: 0.22395</p></li>
+  <li><p>Excluding <c>issue_month</c> and <c>debt_to_income</c>: 0.25579</p></li>
+  <li><p>Excluding <c>issue_month</c> and <c>credit_util</c>: 0.19174</p></li>
+  <li><p>Excluding <c>issue_month</c> and <c>bankruptcy</c>: 0.25898</p></li>
+  <li><p>Excluding <c>issue_month</c> and <c>term</c>: 0.14692</p></li>
+  <li><p>Excluding <c>issue_month</c> and <c>credit_checks</c>: 0.24801</p></li>
+</ul>
+
+
+
+<md>
+  <mrow>\widehat{\texttt{interest\_rate}} &amp;= 1.90 \\</mrow>
+  <mrow>&amp;+ 1.00 \times \texttt{verified\_income}_\texttt{Source only} + 2.56 \times \texttt{verified\_income}_\texttt{Verified} \\</mrow>
+  <mrow>&amp;+ 0.02 \times \texttt{debt\_to\_income} + 4.90 \times \texttt{credit\_util} \\</mrow>
+  <mrow>&amp;+ 0.39 \times \texttt{bankruptcy} + 0.15 \times \texttt{term} \\</mrow>
+  <mrow>&amp;+ 0.23 \times \texttt{credit\_checks}</mrow>
+</md>
+
+  </solution>
+</example>
+
+
+<example>
+  <statement>
+    <p>Construct a model for predicting <c>interest_rate</c> from the <c>loans</c> data using forward selection.</p>
+  </statement>
+  <solution>
+    <p>We start with the model that includes no predictors.</p>
+
+    <p>Then we fit each of the possible models with just one predictor.</p>
+
+    <p>Then we examine the adjusted <m>R^2</m> for each of these models:</p>
+
+<ul>
+  <li><p>Including <c>verified_income</c>: 0.05926</p></li>
+  <li><p>Including <c>debt_to_income</c>: 0.01946</p></li>
+  <li><p>Including <c>credit_util</c>: 0.06452</p></li>
+  <li><p>Including <c>bankruptcy</c>: 0.00222</p></li>
+  <li><p>Including <c>term</c>: 0.12855</p></li>
+  <li><p>Including <c>credit_checks</c>: -0.0001</p></li>
+  <li><p>Including <c>issue_month</c>: 0.01711</p></li>
+</ul>
+
+    <p>In this first step, we compare the adjusted <m>R^2</m> against a baseline model that has no predictors, which always has <m>R_{adj}^2 = 0</m>.</p>
+
+    <p>The model with one predictor that has the largest adjusted <m>R^2</m> is the model with the <c>term</c> predictor, so we will add this variable to our model.</p>
+
+    <p>We repeat the process again, this time considering 2-predictor models where one of the predictors is <c>term</c> and with a new baseline of <m>R^2_{adj} = 0.12855:</m></p>
+
+<ul>
+  <li><p>Including <c>term</c> and <c>verified_income</c>: 0.16851</p></li>
+  <li><p>Including <c>term</c> and <c>debt_to_income</c>: 0.14368</p></li>
+  <li><p>Including <c>term</c> and <c>credit_util</c>: 0.20046</p></li>
+  <li><p>Including <c>term</c> and <c>bankruptcy</c>: 0.13070</p></li>
+  <li><p>Including <c>term</c> and <c>credit_checks</c>: 0.12840</p></li>
+  <li><p>Including <c>term</c> and <c>issue_month</c>: 0.14294</p></li>
+</ul>
+
+
+
+
+
+<ul>
+  <li><p>Including <c>term</c>, <c>credit_util</c>, and <c>verified_income</c>: 0.24183</p></li>
+  <li><p>Including <c>term</c>, <c>credit_util</c>, and <c>debt_to_income</c>: 0.20810</p></li>
+  <li><p>Including <c>term</c>, <c>credit_util</c>, and <c>bankruptcy</c>: 0.20169</p></li>
+  <li><p>Including <c>term</c>, <c>credit_util</c>, and <c>credit_checks</c>: 0.20031</p></li>
+  <li><p>Including <c>term</c>, <c>credit_util</c>, and <c>issue_month</c>: 0.21629</p></li>
+</ul>
+
+
+
+
+
+
+  </solution>
+</example>
+
+<assemblage>
+  <title>Stepwise selection strategies</title>
+  <p>Backward elimination begins with the model having the largest number of predictors and eliminates predictors one-by-one until we are satisfied that all remaining predictors are important to the model.</p>
+
+  <p>Forward selection starts with no predictors included in the model, then it adds in predictors according to their importance until no other important predictors are found.</p>
+
+  <p>Notice that, for both methods, we have always chosen to retain the model with the largest adjusted <m>R^2</m> value, even if the difference is less than half a percent (e.g., 0.2597 versus 0.2598).</p>
+
+  <p>One could argue that the difference between these two models is negligible, as they both explain nearly the same amount of variability in the <c>interest_rate</c>.</p>
+
+  <p>These negligible differences are an important aspect to model selection.</p>
+
+  <p>It is highly advised that <em>before</em> you begin the model selection process, you decide what a "meaningful" difference in adjusted <m>R^2</m> is for the context of your data.</p>
+
+  <p>Maybe this difference is 1% or maybe it is 5%.</p>
+
+  <p>This "threshold" is what you will then use to decide if one model is "better" than another model.</p>
+
+  <p>Using meaningful thresholds in model selection requires more critical thinking about what the adjusted <m>R^2</m> values mean.</p>
+
+  <p>Additionally, backward elimination and forward selection can arrive at different final models, because the decision for whether to include a given predictor or not depends on the other predictors that are already in the model.</p>
+
+  <p>With forward selection, you start with a model that includes no predictors, and add predictors one at a time.</p>
+
+  <p>In backward elimination, you start with a model that includes all of the potential predictors, and remove predictors one at a time.</p>
+
+  <p>How much a given predictor changes the percentage of the variability in the outcome that is explained by the model depends on the other predictors in the model, particularly if the predictor variables are correlated with each other.</p>
+
+</assemblage>
+
+<p>There is no "one size fits all" model selection strategy, which is why there are so many different model selection methods.</p>
+
+<p>We hope you walk away from this exploration understanding how stepwise selection is carried out and the considerations that should be made when using stepwise selection with regression models.</p>
+
+</subsection>
+
+<subsection xml:id="sec-other-model-selection">
+  <title>Other model selection strategies</title>
+
+<p>Stepwise selection using adjusted <m>R^2</m> as the decision criteria is one of many commonly used model selection strategies.</p>
+
+<p>Stepwise selection can also be carried out with decision criteria other than adjusted <m>R^2</m>, such as p-values, which you'll learn about in <xref ref="sec-inf-model-slr" /> onward, or AIC (Akaike information criterion) or BIC (Bayesian information criterion), which you might learn about in more advanced courses.</p>
+
+<p>Alternatively, one could choose to include or exclude predictors from a model based on expert opinion or due to research focus.</p>
+
+<p>In fact, many statisticians discourage the use of stepwise regression <em>alone</em> for model selection and advocate, instead, for a more thoughtful approach that carefully considers the research focus and features of the data.</p>
+
+</subsection>
+
+</section>
+
+<section xml:id="sec-chp8-review">
+  <title>Chapter review</title>
+
+<subsection>
+  <title>Summary</title>
+
+<p>With real data, there is often a need to describe how multiple variables can be modeled together.</p>
+
+<p>In this chapter, we have presented one approach using multiple linear regression.</p>
+
+<p>Each coefficient represents how the model predicts the outcome might change with one unit increase of that predictor <em>given</em> the rest of the predictor variables in the model.</p>
+
+<p>Working with and interpreting multivariable models can be tricky, especially when the predictor variables show multicollinearity.</p>
+
+<p>There is often no perfect or "right" final model, however, using the adjusted <m>R^2</m> value is one way to identify important predictor variables for a final regression model.</p>
+
+<p>In later chapters we will generalize multiple linear regression models to a larger population of interest from which the dataset was sampled.</p>
+
+</subsection>
+
+<subsection>
+  <title>Terms</title>
+
+<p>The terms introduced in this chapter are presented in <xref ref="tbl-terms-chp-08" />.</p>
+
+<p>If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions.</p>
+
+<p>You should be able to easily spot them as <alert>bolded text</alert>.</p>
+
+<reading>
+  <!-- Terms introduced in this chapter. tbl-pos: H -->
+  <program language="r">
+    <input>
+<![CDATA[
+make_terms_table(terms_chp_08)
+]]>
+    </input>
+  </program>
+</reading>
+
+</subsection>
+
+</section>
+
+<section xml:id="sec-chp8-exercises">
+  <title>Exercises</title>
+  <xi:include href="../exercises/_08-ex-model-mlr.ptx"/>
+</section>
+
 </chapter>
