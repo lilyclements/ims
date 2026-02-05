@@ -761,7 +761,7 @@ m_full_minus_issue_month_w_rsq |>
 
 <md>
   <mrow>\widehat{\texttt{interest\_rate}} &amp;= 1.90 \\</mrow>
-  <mrow>&amp;+ 1.00 \times \texttt{verified\_income}_\texttt{Source only} + 2.56 \times \texttt{verified\_income}_\texttt{Verified} \\</mrow>
+  <mrow>&amp;+ 1.00 \times \texttt{verified\_income}_{\texttt{Source Verified}} + 2.56 \times \texttt{verified\_income}_{\texttt{Verified}} \\</mrow>
   <mrow>&amp;+ 0.02 \times \texttt{debt\_to\_income} + 4.90 \times \texttt{credit\_util} \\</mrow>
   <mrow>&amp;+ 0.39 \times \texttt{bankruptcy} + 0.15 \times \texttt{term} \\</mrow>
   <mrow>&amp;+ 0.23 \times \texttt{credit\_checks}</mrow>
