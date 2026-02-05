@@ -30,9 +30,9 @@
 
 <p>Multiple regression will help us answer these and other questions.</p>
 
-<p>The dataset includes information on <c>r nrow(loans)</c> loans, and we'll be looking at a subset of the available variables, some of which will be new from those we saw in earlier chapters.</p>
+<p>The dataset includes information on 10000 loans, and we'll be looking at a subset of the available variables, some of which will be new from those we saw in earlier chapters.</p>
 
-<p>The first <c>r n_rows_to_show_string</c> observations in the dataset are shown in <xref ref="tbl-loans-data-matrix" />, and descriptions for each variable are shown in <xref ref="tbl-loans-variables" />.</p>
+<p>The first six observations in the dataset are shown in <xref ref="tbl-loans-data-matrix" />, and descriptions for each variable are shown in <xref ref="tbl-loans-variables" />.</p>
 
 <p>Notice that the past bankruptcy variable (<c>bankruptcy</c>) is an indicator variable, where it takes the value 1 if the borrower had a past bankruptcy in their record and 0 if not.</p>
 
@@ -235,10 +235,9 @@ m_verified_income |>
   </solution>
 </example>
 
-    <p>Using the model for predicting interest rate from income verification type, compute the average interest rate for borrowers whose income source is <em>source verified</em>.</p>
-
 <example>
   <statement>
+    <p>Using the model for predicting interest rate from income verification type, compute the average interest rate for borrowers whose income source is <em>source verified</em>.</p>
   </statement>
   <solution>
     <p>When <c>verified_income</c> takes a value of <c>Source Verified</c>, then the corresponding variable takes a value of 1 while the other is 0:</p>
@@ -720,12 +719,11 @@ m_full_minus_issue_month_w_rsq |>
   </solution>
 </example>
 
+<example>
+  <statement>
     <p>Results corresponding to the full model for the <c>loans</c> data are shown in <xref ref="tbl-loans-full-for-model-selection" />.</p>
 
     <p>How should we proceed under the backward elimination strategy?</p>
-
-<example>
-  <statement>
   </statement>
   <solution>
     <p>Our baseline adjusted <m>R^2</m> from the full model is 0.2597, and we need to determine whether dropping a predictor will improve the adjusted <m>R^2</m>.</p>
