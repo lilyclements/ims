@@ -1,16 +1,582 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<chapter xml:id="ch10-model-applications">
+<chapter xml:id="ch10-model-applications" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Applications: Model</title>
-  
-  <p>
-    Content to be added from model-applications.qmd
-  </p>
-  
-  <section xml:id="sec-model-tutorials">
-    <title>Interactive R tutorials</title>
-    <p>
-      Navigate the concepts you've learned in this part of the book through R tutorials created with <c>learnr</c>.
-    </p>
-  </section>
+
+<section xml:id="sec-model-case-study">
+  <title>Case study: Houses for sale</title>
+
+<p>Take a walk around your neighborhood and you'll probably see a few houses for sale, and you might be able to look up its price online. You'll note that house prices are somewhat arbitrary – the homeowners get to decide the listing price, and many criteria factor into this decision, e.g., what do comparable houses ("comps" in real estate speak) sell for, how quickly they need to sell the house, etc.</p>
+
+<p>In this case study we'll formalize the process of determining the listing price of a house by using data on current home sales. In November of 2020, information on 98 houses in the Duke Forest neighborhood of Durham, NC were scraped from <url href="https://www.zillow.com">Zillow</url>. The homes were all recently sold at the time of data collection, and the goal of the project was to build a model for predicting the sale price based on a particular home's characteristics. The first four homes are shown in <xref ref="tbl-duke-data-frame" />, and descriptions of each variable are shown in <xref ref="tbl-duke-variables" />.</p>
+
+<note>
+  <title>Data</title>
+  <p>The <url href="http://openintrostat.github.io/openintro/reference/duke_forest.html"><c>duke_forest</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
+</note>
+
+<table xml:id="tbl-duke-data-frame">
+  <title>Top four rows of <c>duke_forest</c>.</title>
+  <tabular halign="right">
+    <row header="yes" bottom="minor">
+      <cell halign="left">price</cell>
+      <cell halign="left">bed</cell>
+      <cell halign="left">bath</cell>
+      <cell halign="left">area</cell>
+      <cell halign="left">year_built</cell>
+      <cell halign="left">cooling</cell>
+      <cell halign="left">lot</cell>
+    </row>
+    <row>
+      <cell>1,520,000</cell>
+      <cell>3</cell>
+      <cell>4</cell>
+      <cell>6,040</cell>
+      <cell>1972</cell>
+      <cell>central</cell>
+      <cell>0.46</cell>
+    </row>
+    <row>
+      <cell>1,030,000</cell>
+      <cell>5</cell>
+      <cell>4.5</cell>
+      <cell>4,475</cell>
+      <cell>1969</cell>
+      <cell>central</cell>
+      <cell>1.14</cell>
+    </row>
+    <row>
+      <cell>420,000</cell>
+      <cell>2</cell>
+      <cell>2.5</cell>
+      <cell>1,745</cell>
+      <cell>1959</cell>
+      <cell>central</cell>
+      <cell>0.51</cell>
+    </row>
+    <row>
+      <cell>680,000</cell>
+      <cell>4</cell>
+      <cell>3</cell>
+      <cell>2,091</cell>
+      <cell>1961</cell>
+      <cell>other</cell>
+      <cell>0.84</cell>
+    </row>
+  </tabular>
+</table>
+
+<table xml:id="tbl-duke-variables">
+  <title>Variables and their descriptions for the <c>duke_forest</c> dataset.</title>
+  <tabular halign="left">
+    <row header="yes" bottom="minor">
+      <cell>Variable</cell>
+      <cell>Description</cell>
+    </row>
+    <row>
+      <cell><c>price</c></cell>
+      <cell>Sale price, in USD</cell>
+    </row>
+    <row>
+      <cell><c>bed</c></cell>
+      <cell>Number of bedrooms</cell>
+    </row>
+    <row>
+      <cell><c>bath</c></cell>
+      <cell>Number of bathrooms</cell>
+    </row>
+    <row>
+      <cell><c>area</c></cell>
+      <cell>Area of home, in square feet</cell>
+    </row>
+    <row>
+      <cell><c>year_built</c></cell>
+      <cell>Year the home was built</cell>
+    </row>
+    <row>
+      <cell><c>cooling</c></cell>
+      <cell>Cooling system: central or other (other is baseline)</cell>
+    </row>
+    <row>
+      <cell><c>lot</c></cell>
+      <cell>Area of the entire property, in acres</cell>
+    </row>
+  </tabular>
+</table>
+
+<subsection xml:id="correlating-with-price">
+  <title>Correlating with <c>price</c></title>
+
+<p>As mentioned, the goal of the data collection was to build a model for the sale price of homes. While using multiple predictor variables is likely preferable to using only one variable, we start by learning about the variables themselves and their relationship to price. <xref ref="fig-single-scatter" /> shows scatterplots describing price as a function of each of the predictor variables. All of the variables seem to be positively associated with price (higher values of the variable are matched with higher price values).</p>
+
+<listing xml:id="listing-single-scatter">
+  <caption>R code for scatterplots of price versus predictor variables</caption>
+  <program language="r">
+    <input>
+pr_bed &lt;- ggplot(duke_forest, aes(x = bed, y = price)) +
+  geom_point(alpha = 0.8) +
+  labs(
+    x = "Number of bedrooms",
+    y = "Sale price (USD)"
+  ) +  
+  stat_cor(aes(label = paste("r", ..r.., sep = "~`=`~"))) +
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K"))
+
+pr_bath &lt;- ggplot(duke_forest, aes(x = bath, y = price)) +
+  geom_point(alpha = 0.8) +
+  labs(
+    x = "Number of bathrooms",
+    y = "Sale price (USD)"
+  ) +
+  stat_cor(aes(label = paste("r", ..r.., sep = "~`=`~"))) +
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K"))
+
+pr_area &lt;- ggplot(duke_forest, aes(x = area, y = price)) +
+  geom_point(alpha = 0.8) +
+  labs(
+    x = "Area of home (in square feet)",
+    y = "Sale price (USD)"
+  ) + 
+  stat_cor(aes(label = paste("r", ..r.., sep = "~`=`~"))) +
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K"))
+
+pr_year &lt;- ggplot(duke_forest, aes(x = year_built, y = price)) +
+  geom_point(alpha = 0.8) +
+  labs(
+    x = "Year built",
+    y = "Sale price (USD)"
+  ) +
+  stat_cor(aes(label = paste("r", ..r.., sep = "~`=`~"))) +
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K"))
+
+pr_cool &lt;- ggplot(duke_forest, aes(x = cooling, y = price)) +
+  geom_point(alpha = 0.8) +
+  labs(
+    x = "Cooling type",
+    y = "Sale price (USD)"
+  ) +
+  stat_cor(aes(label = paste("r", ..r.., sep = "~`=`~"))) +
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K"))
+
+pr_lot &lt;- ggplot(duke_forest, aes(x = lot, y = price)) +
+  geom_point(alpha = 0.8) +
+  labs(
+    x = "Area of property (in acres)",
+    y = "Sale price (USD)"
+  ) + 
+  stat_cor(aes(label = paste("r", ..r.., sep = "~`=`~"))) +
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K"))
+
+pr_bed + pr_bath + pr_area + pr_year + pr_cool + pr_lot +
+  plot_layout(ncol = 2)
+    </input>
+  </program>
+</listing>
+
+<figure xml:id="fig-single-scatter">
+  <caption>Scatterplots describing six different predictor variables' relationship with the price of a home.</caption>
+  <image source="images/fig-single-scatter-1.png" width="90%" />
+</figure>
+
+<exercise>
+  <statement>
+    <p>In <xref ref="fig-single-scatter" /> there does not appear to be a correlation value calculated for the predictor variable, <c>cooling</c>. Why not? Can the variable still be used in the linear model?</p>
+  </statement>
+  <solution>
+    <p>The correlation coefficient can only be calculated to describe the relationship between two numerical variables. The predictor variable <c>cooling</c> is categorical, not numerical. It <em>can</em>, however, be used in the linear model as a binary indicator variable coded, for example, with a <m>1</m> for central and <m>0</m> for other.</p>
+  </solution>
+</exercise>
+
+<example>
+  <statement>
+    <p>In <xref ref="fig-single-scatter" /> which variable seems to be most informative for predicting house price? Provide two reasons for your answer.</p>
+  </statement>
+  <solution>
+    <p>The <c>area</c> of the home is the variable which is most highly correlated with <c>price</c>. Additionally, the scatterplot for <c>price</c> vs. <c>area</c> seems to show a strong linear relationship between the two variables. Note that the correlation coefficient and the scatterplot linearity will often give the same conclusion. However, recall that the correlation coefficient is very sensitive to outliers, so it is always wise to look at the scatterplot even when the variables are highly correlated.</p>
+  </solution>
+</example>
+
+</subsection>
+
+<subsection xml:id="modeling-price-with-area">
+  <title>Modeling <c>price</c> with <c>area</c></title>
+
+<p>A linear model was fit to predict <c>price</c> from <c>area</c>. The resulting model information is given in <xref ref="tbl-price-slr" />.</p>
+
+<table xml:id="tbl-price-slr">
+  <title>Summary of least squares fit for price on area.</title>
+  <tabular halign="right">
+    <row header="yes" bottom="minor">
+      <cell halign="left">term</cell>
+      <cell halign="left">estimate</cell>
+      <cell halign="left">std.error</cell>
+      <cell halign="left">statistic</cell>
+      <cell halign="left">p.value</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>(Intercept)</c></cell>
+      <cell>116,652</cell>
+      <cell>53,302</cell>
+      <cell>2.19</cell>
+      <cell>0.0316</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>area</c></cell>
+      <cell>159</cell>
+      <cell>18</cell>
+      <cell>8.78</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left" colspan="5"><em>Adjusted R-sq = 0.4399</em></cell>
+    </row>
+    <row>
+      <cell halign="left" colspan="5"><em>df = 96</em></cell>
+    </row>
+  </tabular>
+</table>
+
+<exercise>
+  <statement>
+    <p>Interpret the value of <m>b_1 = 159</m> in the context of the problem.</p>
+  </statement>
+  <solution>
+    <p>For each additional square foot of house, we would expect such houses to cost, on average, $159 more.</p>
+  </solution>
+</exercise>
+
+<exercise>
+  <statement>
+    <p>Using the output in <xref ref="tbl-price-slr" />, write out the model for predicting <c>price</c> from <c>area</c>.</p>
+  </statement>
+  <solution>
+    <p><m>\widehat{\text{price}} = 116,652 + 159 \times \text{area}</m></p>
+  </solution>
+</exercise>
+
+<p>The residuals from the linear model can be used to assess whether a linear model is appropriate. <xref ref="fig-price-resid-slr" /> plots the residuals <m>e_i = y_i - \hat{y}_i</m> on the <m>y</m>-axis and the fitted (or predicted) values <m>\hat{y}_i</m> on the <m>x</m>-axis.</p>
+
+<listing xml:id="listing-price-resid-slr">
+  <caption>R code for residual plot for the model predicting sale price from area</caption>
+  <program language="r">
+    <input>
+duke_forest |&gt;
+  lm(price ~ area, data = _) |&gt;
+  augment() |&gt;
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point(size = 2, alpha = 0.8) +
+  labs(
+    x = "Predicted values of sale price (in USD)",
+    y = "Residuals"
+  ) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_x_continuous(labels = label_dollar(scale = 1/1000, suffix = "K")) +
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K"))
+    </input>
+  </program>
+</listing>
+
+<figure xml:id="fig-price-resid-slr">
+  <caption>Residuals versus predicted values for the model predicting sale price from area of home.</caption>
+  <image source="images/fig-price-resid-slr-1.png" width="70%" />
+</figure>
+
+<exercise>
+  <statement>
+    <p>What aspect(s) of the residual plot indicate that a linear model is appropriate? What aspect(s) of the residual plot seem concerning when fitting a linear model?</p>
+  </statement>
+  <solution>
+    <p>The residual plot shows that the relationship between <c>area</c> and <c>price</c> of a home is indeed linear. However, the residuals are quite large for expensive homes. The large residuals indicate potential outliers or increasing variability, either of which could warrant more involved modeling techniques than are presented in this chapter.</p>
+  </solution>
+</exercise>
+
+</subsection>
+
+<subsection xml:id="modeling-price-with-multiple-variables">
+  <title>Modeling <c>price</c> with multiple variables</title>
+
+<p>It seems as though the predictions of home price might be more accurate if more than one predictor variable was used in the linear model. <xref ref="tbl-price-mlr" /> displays the output from a linear model of <c>price</c> regressed on <c>area</c>, <c>bed</c>, <c>bath</c>, <c>year_built</c>, <c>cooling</c>, and <c>lot</c>.</p>
+
+<table xml:id="tbl-price-mlr">
+  <title>Summary of least squares fit for price on multiple predictor variables.</title>
+  <tabular halign="right">
+    <row header="yes" bottom="minor">
+      <cell halign="left">term</cell>
+      <cell halign="left">estimate</cell>
+      <cell halign="left">std.error</cell>
+      <cell halign="left">statistic</cell>
+      <cell halign="left">p.value</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>(Intercept)</c></cell>
+      <cell>-2,910,715</cell>
+      <cell>533,271</cell>
+      <cell>-5.46</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>area</c></cell>
+      <cell>102</cell>
+      <cell>23</cell>
+      <cell>4.49</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>bed</c></cell>
+      <cell>-13,692</cell>
+      <cell>22,729</cell>
+      <cell>-0.60</cell>
+      <cell>0.5484</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>bath</c></cell>
+      <cell>41,076</cell>
+      <cell>17,295</cell>
+      <cell>2.38</cell>
+      <cell>0.0196</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>year_built</c></cell>
+      <cell>1,459</cell>
+      <cell>273</cell>
+      <cell>5.34</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>coolingcentral</c></cell>
+      <cell>84,065</cell>
+      <cell>26,456</cell>
+      <cell>3.18</cell>
+      <cell>0.0021</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>lot</c></cell>
+      <cell>356,141</cell>
+      <cell>77,435</cell>
+      <cell>4.60</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left" colspan="5"><em>Adjusted R-sq = 0.5584</em></cell>
+    </row>
+    <row>
+      <cell halign="left" colspan="5"><em>df = 91</em></cell>
+    </row>
+  </tabular>
+</table>
+
+<example>
+  <statement>
+    <p>Using <xref ref="tbl-price-mlr" />, write out the linear model of price on the six predictor variables.</p>
+  </statement>
+  <solution>
+    <md>
+      <mrow>\widehat{\text{price}} = -2,910,715 \amp+ 102 \times \text{area}</mrow>
+      <mrow>\amp- 13,692 \times \text{bed}</mrow>
+      <mrow>\amp+ 41,076 \times \text{bath}</mrow>
+      <mrow>\amp+ 1,459 \times \text{year_built}</mrow>
+      <mrow>\amp+ 84,065 \times \text{cooling}_{\text{central}}</mrow>
+      <mrow>\amp+ 356,141 \times \text{lot}</mrow>
+    </md>
+  </solution>
+</example>
+
+<exercise>
+  <statement>
+    <p>The value of the estimated coefficient on <m>\text{cooling}_{\text{central}}</m> is <m>b_5 = 84,065</m>. Interpret the value of <m>b_5</m> in the context of the problem.</p>
+  </statement>
+  <solution>
+    <p>The coefficient indicates that if all the other variables are kept constant, homes with central air conditioning cost $84,065 more, on average.</p>
+  </solution>
+</exercise>
+
+<p>A friend suggests that maybe you do not need all six variables to have a good model for <c>price</c>. You consider taking a variable out, but you aren't sure which one to remove.</p>
+
+<example>
+  <statement>
+    <p>Results corresponding to the full model for the housing data are shown in <xref ref="tbl-price-mlr" />. How should we proceed under the backward elimination strategy?</p>
+  </statement>
+  <solution>
+    <p>Our baseline adjusted <m>R^2</m> from the full model is 0.5584, and we need to determine whether dropping a predictor will improve the adjusted <m>R^2</m>. To check, we fit models that each drop a different predictor, and we record the adjusted <m>R^2</m>:</p>
+    <p><ul>
+      <li>Excluding <c>area</c>: 0.4846</li>
+      <li>Excluding <c>bed</c>: 0.5609</li>
+      <li>Excluding <c>bath</c>: 0.5488</li>
+      <li>Excluding <c>year_built</c>: 0.4951</li>
+      <li>Excluding <c>cooling</c>: 0.5423</li>
+      <li>Excluding <c>lot</c>: 0.5051</li>
+    </ul></p>
+    <p>The model without <c>bed</c> has the highest adjusted <m>R^2</m> of 0.5609, higher than the adjusted <m>R^2</m> for the full model. Because eliminating <c>bed</c> leads to a model with a higher adjusted <m>R^2</m> than the full model, we drop <c>bed</c> from the model. It might seem counter-intuitive to exclude number of bedrooms from the model. After all, we would expect homes with more bedrooms to cost more, and we can see a clear relationship between number of bedrooms and sale price in <xref ref="fig-single-scatter" />. However, note that <c>area</c> is still in the model, and it's quite likely that the area of the home and the number of bedrooms are highly associated. Therefore, the model already has information on "how much space is available in the house" with the inclusion of <c>area</c>.</p>
+    <p>Since we eliminated a predictor from the model in the first step, we see whether we should eliminate any additional predictors. Our baseline adjusted <m>R^2</m> is now 0.5609. We fit another set of new models, which consider eliminating each of the remaining predictors in addition to <c>bed</c>:</p>
+    <p><ul>
+      <li>Excluding <c>bed</c> and <c>area</c>: 0.4888</li>
+      <li>Excluding <c>bed</c> and <c>bath</c>: 0.5526</li>
+      <li>Excluding <c>bed</c> and <c>year_built</c>: 0.4972</li>
+      <li>Excluding <c>bed</c> and <c>cooling</c>: 0.5440</li>
+      <li>Excluding <c>bed</c> and <c>lot</c>: 0.5073</li>
+    </ul></p>
+    <p>None of these models lead to an improvement in adjusted <m>R^2</m>, so we do not eliminate any of the remaining predictors.</p>
+  </solution>
+</example>
+
+<p>That is, after backward elimination, we are left with the model that keeps all predictors except <c>bed</c>, which we can summarize using the coefficients from <xref ref="tbl-price-full-except-bed" />.</p>
+
+<table xml:id="tbl-price-full-except-bed">
+  <title>Summary of least squares fit for price on multiple predictor variables, excluding number of bedrooms.</title>
+  <tabular halign="right">
+    <row header="yes" bottom="minor">
+      <cell halign="left">term</cell>
+      <cell halign="left">estimate</cell>
+      <cell halign="left">std.error</cell>
+      <cell halign="left">statistic</cell>
+      <cell halign="left">p.value</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>(Intercept)</c></cell>
+      <cell>-2,952,641</cell>
+      <cell>524,565</cell>
+      <cell>-5.63</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>area</c></cell>
+      <cell>99</cell>
+      <cell>18</cell>
+      <cell>5.52</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>bath</c></cell>
+      <cell>36,228</cell>
+      <cell>12,920</cell>
+      <cell>2.80</cell>
+      <cell>0.0062</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>year_built</c></cell>
+      <cell>1,466</cell>
+      <cell>268</cell>
+      <cell>5.47</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>coolingcentral</c></cell>
+      <cell>83,856</cell>
+      <cell>26,119</cell>
+      <cell>3.21</cell>
+      <cell>0.0019</cell>
+    </row>
+    <row>
+      <cell halign="left"><c>lot</c></cell>
+      <cell>357,119</cell>
+      <cell>76,439</cell>
+      <cell>4.67</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell halign="left" colspan="5"><em>Adjusted R-sq = 0.5609</em></cell>
+    </row>
+    <row>
+      <cell halign="left" colspan="5"><em>df = 92</em></cell>
+    </row>
+  </tabular>
+</table>
+
+<p>Then, the linear model for predicting sale price based on this model is as follows:</p>
+
+<md>
+  <mrow>\widehat{\text{price}} = \amp-2,952,641 + 99 \times \text{area} + 36,228 \times \text{bath} + 1,466 \times \text{year_built}</mrow>
+  <mrow>\amp+ 83,856 \times \text{cooling}_{\text{central}} + 357,119 \times \text{lot}</mrow>
+</md>
+
+<example>
+  <statement>
+    <p>The residual plot for the model with all of the predictor variables except <c>bed</c> is given in <xref ref="fig-price-resid-mlr-nobed" />. How do the residuals in <xref ref="fig-price-resid-mlr-nobed" /> compare to the residuals in <xref ref="fig-price-resid-slr" />?</p>
+  </statement>
+  <solution>
+    <p>The residuals, for the most part, are randomly scattered around 0. However, there is one extreme outlier with a residual of -$750,000, a house whose actual sale price is a lot lower than its predicted price. Also, we observe again that the residuals are quite large for expensive homes.</p>
+  </solution>
+</example>
+
+<listing xml:id="listing-price-resid-mlr-nobed">
+  <caption>R code for residual plot for the model predicting sale price from all predictors except number of bedrooms</caption>
+  <program language="r">
+    <input>
+m_full_no_bed |&gt;
+  augment() |&gt;
+  ggplot(aes(x = .fitted, y = .resid)) +
+  geom_point(size = 2, alpha = 0.8) +
+  labs(
+    x = "Predicted values of house price (in USD)",
+    y = "Residuals"
+  ) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_x_continuous(labels = label_dollar(scale = 1/1000, suffix = "K")) +
+  scale_y_continuous(labels = label_dollar(scale = 1/1000, suffix = "K"))
+    </input>
+  </program>
+</listing>
+
+<figure xml:id="fig-price-resid-mlr-nobed">
+  <caption>Residuals versus predicted values for the model predicting sale price from all predictors except for number of bedrooms.</caption>
+  <image source="images/fig-price-resid-mlr-nobed-1.png" width="70%" />
+</figure>
+
+<exercise>
+  <statement>
+    <p>Consider a house with 1,803 square feet, 2.5 bathrooms, 0.145 acres, built in 1941, that has central air conditioning. What is the predicted price of the home?</p>
+  </statement>
+  <solution>
+    <p><m>\widehat{\text{price}} = -2,952,641 + 99 \times 1803 + 36,228 \times 2.5 + 1,466 \times 1941 + 83,856 \times 1 + 357,119 \times 0.145 = \$297,570.</m></p>
+  </solution>
+</exercise>
+
+<exercise>
+  <statement>
+    <p>If you later learned that the house (with a predicted price of $297,570) had recently sold for $804,133, would you think the model was terrible? What if you learned that the house was in California?</p>
+  </statement>
+  <solution>
+    <p>A residual of $506,563 is reasonably big. Note that the large residuals (except a few homes) in <xref ref="fig-price-resid-mlr-nobed" /> are closer to $250,000 (about half as big). After we learn that the house is in California, we realize that the model shouldn't be applied to the new home at all! The original data are from Durham, NC, and models based on the Durham, NC data should be used only to explore patterns in prices for homes in Durham, NC.</p>
+  </solution>
+</exercise>
+
+</subsection>
+
+</section>
+
+<section xml:id="sec-model-tutorials">
+  <title>Interactive R tutorials</title>
+
+<p>Navigate the concepts you've learned in this part in R using the following self-paced tutorials. All you need is your browser to get started!</p>
+
+<p><url href="https://openintrostat.github.io/ims-tutorials/03-model/">Tutorial 3: Regression modeling</url></p>
+
+<p><ul>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-01/">Tutorial 3 - Lesson 1: Visualizing two variables</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-02/">Tutorial 3 - Lesson 2: Correlation</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-03/">Tutorial 3 - Lesson 3: Simple linear regression</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-04/">Tutorial 3 - Lesson 4: Interpreting regression models</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-05/">Tutorial 3 - Lesson 5: Model fit</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-06/">Tutorial 3 - Lesson 6: Parallel slopes</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-07/">Tutorial 3 - Lesson 7: Evaluating and extending parallel slopes model</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-08/">Tutorial 3 - Lesson 8: Multiple regression</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-09/">Tutorial 3 - Lesson 9: Logistic regression</url></li>
+  <li><url href="https://openintro.shinyapps.io/ims-03-model-10/">Tutorial 3 - Lesson 10: Case study: Italian restaurants in NYC</url></li>
+</ul></p>
+
+<p>You can also access the full list of tutorials supporting this book at <url href="https://openintrostat.github.io/ims-tutorials">https://openintrostat.github.io/ims-tutorials</url>.</p>
+
+</section>
+
+<section xml:id="sec-model-labs">
+  <title>R labs</title>
+
+<p>Further apply the concepts you've learned in this part in R with computational labs that walk you through a data analysis case study.</p>
+
+<p><url href="https://www.openintro.org/go?id=ims-r-lab-model">Introduction to linear regression - Human Freedom Index</url></p>
+
+<p>You can also access the full list of labs supporting this book at <url href="https://www.openintro.org/go?id=ims-r-labs">https://www.openintro.org/go?id=ims-r-labs</url>.</p>
+
+</section>
+
 </chapter>
