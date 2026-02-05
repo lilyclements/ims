@@ -77,6 +77,15 @@ classdata |&gt;
   </program>
 </listing>
 
+<table>
+  <title>Summary statistics of scores for each exam version.</title>
+  <tabular>
+    <row bottom="minor"><cell>Group</cell><cell>n</cell><cell>Mean</cell><cell>SD</cell><cell>Min</cell><cell>Max</cell></row>
+    <row><cell>A</cell><cell>58</cell><cell>75.1</cell><cell>13.9</cell><cell>44</cell><cell>100</cell></row>
+    <row><cell>B</cell><cell>55</cell><cell>72.0</cell><cell>13.8</cell><cell>38</cell><cell>100</cell></row>
+  </tabular>
+</table>
+
 
 <listing xml:id="fig-boxplotTwoVersionsOfExams">
   <caption>Exam scores for students given one of two different exams.</caption>
@@ -90,6 +99,11 @@ ggplot(classdata, aes(x = exam, y = m1, color = exam)) +
     </code>
   </program>
 </listing>
+
+<figure xml:id="fig-boxplotTwoVersionsOfExams-out">
+  <caption>Exam scores for students given one of two different exams.</caption>
+  <image source="images/fig-boxplotTwoVersionsOfExams-1.png" width="70%" />
+</figure>
 
 
 <exercise>
@@ -134,6 +148,11 @@ include_graphics("images/rand2means.png")
   </program>
 </listing>
 
+<figure xml:id="fig-rand2means-out">
+  <caption>The version of the test (A or B) is randomly allocated to the test scores, under the null assumption that the tests are equally difficult.</caption>
+  <image source="images/rand2means.png" width="70%" />
+</figure>
+
 
   <p>Building on <xref ref="fig-rand2means"/>, <xref ref="fig-randexams"/> shows the values of the simulated statistics <m>\bar{x}_{1, sim} - \bar{x}_{2, sim}</m> over 1,000 random simulations. We see that, just by chance, the difference in scores can range anywhere from -10 points to +10 points.</p>
 
@@ -157,6 +176,11 @@ classdata |&gt;
     </code>
   </program>
 </listing>
+
+<figure xml:id="fig-randexams-out">
+  <caption>Histogram of differences in means, calculated from 1,000 different randomizations of the exam types.</caption>
+  <image source="images/fig-randexams-1.png" width="70%" />
+</figure>
 
 
 </subsection>
@@ -192,6 +216,11 @@ classdata |&gt;
     </code>
   </program>
 </listing>
+
+<figure xml:id="fig-randexamspval-out">
+  <caption>Histogram of differences in means, calculated from 1,000 different randomizations of the exam types. The observed difference of 3.1 points is plotted as a vertical line, and the area more extreme than 3.1 is shaded to represent the p-value.</caption>
+  <image source="images/fig-randexamspval-1.png" width="70%" />
+</figure>
 
 
 <example>
@@ -231,6 +260,11 @@ include_graphics("images/bootmeans2means.png")
     </code>
   </program>
 </listing>
+
+<figure xml:id="fig-bootmeans2means-out">
+  <caption>For the two group comparison, the bootstrap resampling is done separately on each group, but the statistic is calculated as a difference. The set of k differences is then analyzed as the statistic of interest with conclusions drawn on the parameter of interest.</caption>
+  <image source="images/bootmeans2means.png" width="70%" />
+</figure>
 
 
   <p>In the following sections, we leave the fictional setting of Awesome Auto and apply the bootstrap method to actual datasets investigating whether embryonic stem cells help improve heart function and later to investigate characteristics of births. Note that the fictional setting allowed us to visualize the bootstrap method because we had samples of size five. The visualization was important in understanding how the bootstrap method works. However, the bootstrap relies heavily on the sample being an outstanding proxy for the population, and five observations are almost never enough to truly represent the nuances of a full population. To that end, we apply bootstrap methods with much larger sample sizes, as seen in the 1000 random samples provided in the births data.</p>
@@ -280,6 +314,15 @@ stem_cell |&gt;
     </code>
   </program>
 </listing>
+
+<table>
+  <title>Summary statistics of the embryonic stem cell study.</title>
+  <tabular>
+    <row bottom="minor"><cell>Group</cell><cell>n</cell><cell>Mean</cell><cell>SD</cell></row>
+    <row><cell>ESC</cell><cell>9</cell><cell>3.50</cell><cell>5.17</cell></row>
+    <row><cell>control</cell><cell>9</cell><cell>-4.33</cell><cell>2.76</cell></row>
+  </tabular>
+</table>
 
 
   <p>The point estimate of the difference in the heart pumping variable is straightforward to find: it is the difference in the sample means.</p>
@@ -359,6 +402,11 @@ boot_2mean |&gt;
   </program>
 </listing>
 
+<figure xml:id="fig-bootexamsci-out">
+  <caption>Histogram of differences in means after 1,000 bootstrap samples from each of the two groups. The observed difference is plotted as a black vertical line at 7.83. The blue dashed and red dotted lines provide the bootstrap percentile and bootstrap SE confidence intervals, respectively, for the difference in true population means.</caption>
+  <image source="images/fig-bootexamsci-1.png" width="70%" />
+</figure>
+
 
 <exercise>
   <statement>
@@ -423,6 +471,17 @@ births14 |&gt;
     </code>
   </program>
 </listing>
+
+<table>
+  <title>Four cases from the <c>births14</c> dataset. The empty cells indicate missing data.</title>
+  <tabular>
+    <row bottom="minor"><cell>fage</cell><cell>mage</cell><cell>weeks</cell><cell>visits</cell><cell>gained</cell><cell>weight</cell><cell>sexbaby</cell><cell>habit</cell></row>
+    <row><cell></cell><cell>13</cell><cell>39</cell><cell>10</cell><cell>38</cell><cell>7.63</cell><cell>male</cell><cell>nonsmoker</cell></row>
+    <row><cell></cell><cell>14</cell><cell>42</cell><cell>15</cell><cell>20</cell><cell>7.88</cell><cell>male</cell><cell>nonsmoker</cell></row>
+    <row><cell>19</cell><cell>15</cell><cell>37</cell><cell>11</cell><cell>38</cell><cell>6.63</cell><cell>female</cell><cell>nonsmoker</cell></row>
+    <row><cell>21</cell><cell>15</cell><cell>41</cell><cell>6</cell><cell>34</cell><cell>8.00</cell><cell>male</cell><cell>nonsmoker</cell></row>
+  </tabular>
+</table>
 
 
   <p>We would like to know, is there convincing evidence that newborns from mothers who smoke have a different average birth weight than newborns from mothers who do not smoke? We will use data from this sample to try to answer this question.</p>
@@ -489,6 +548,15 @@ births14_sample_stats |&gt;
   </program>
 </listing>
 
+<table>
+  <title>Summary statistics for the <c>births14</c> dataset.</title>
+  <tabular>
+    <row bottom="minor"><cell>Habit</cell><cell>n</cell><cell>Mean</cell><cell>SD</cell></row>
+    <row><cell>nonsmoker</cell><cell>867</cell><cell>7.18</cell><cell>1.60</cell></row>
+    <row><cell>smoker</cell><cell>114</cell><cell>6.78</cell><cell>1.43</cell></row>
+  </tabular>
+</table>
+
 
 </subsection>
 
@@ -522,6 +590,11 @@ births14_nona |&gt;
     </code>
   </program>
 </listing>
+
+<figure xml:id="fig-babySmokePlotOfTwoGroupsToExamineSkew-out">
+  <caption>The left panel represents birth weights for infants whose mothers smoked during pregnancy. The right panel represents the birth weights for infants whose mothers who did not smoke during pregnancy.</caption>
+  <image source="images/fig-babySmokePlotOfTwoGroupsToExamineSkew-1.png" width="70%" />
+</figure>
 
 
 <exercise>
@@ -673,6 +746,11 @@ stem_cell |&gt;
   </program>
 </listing>
 
+<figure xml:id="fig-stem-cell-histograms-out">
+  <caption>Histograms for the difference in heart pumping function after a heart attack for both the treatment group (ESC, which received the embryonic stem cell treatment) and the control group (which did not receive the treatment).</caption>
+  <image source="images/fig-stem-cell-histograms-1.png" width="70%" />
+</figure>
+
 
   <p>Generally, we use statistical software to find the appropriate degrees of freedom, or if software isn't available, we can use the smaller of <m>n_1 - 1</m> and <m>n_2 - 1</m> for the degrees of freedom, e.g., if using a <m>t</m>-table to find tail areas. For transparency in the Examples and Guided Practice, we'll use the latter approach for finding <m>df</m>; in the case of the ESC example, this means we'll use <m>df = 8.</m></p>
 
@@ -735,6 +813,13 @@ make_terms_table(terms_chp_20)
     </code>
   </program>
 </listing>
+
+<table>
+  <title>Terms introduced in this chapter.</title>
+  <tabular>
+    <row><cell>point estimate</cell></row>
+  </tabular>
+</table>
 
 
 
