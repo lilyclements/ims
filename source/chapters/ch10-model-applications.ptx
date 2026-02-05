@@ -374,7 +374,7 @@ duke_forest |&gt;
       <mrow>\widehat{\text{price}} = -2,910,715 \amp+ 102 \times \text{area}</mrow>
       <mrow>\amp- 13,692 \times \text{bed}</mrow>
       <mrow>\amp+ 41,076 \times \text{bath}</mrow>
-      <mrow>\amp+ 1,459 \times \text{year\_built}</mrow>
+      <mrow>\amp+ 1,459 \times \text{year_built}</mrow>
       <mrow>\amp+ 84,065 \times \text{cooling}_{\text{central}}</mrow>
       <mrow>\amp+ 356,141 \times \text{lot}</mrow>
     </md>
@@ -485,7 +485,7 @@ duke_forest |&gt;
 <p>Then, the linear model for predicting sale price based on this model is as follows:</p>
 
 <md>
-  <mrow>\widehat{\text{price}} = \amp-2,952,641 + 99 \times \text{area} + 36,228 \times \text{bath} + 1,466 \times \text{year\_built}</mrow>
+  <mrow>\widehat{\text{price}} = \amp-2,952,641 + 99 \times \text{area} + 36,228 \times \text{bath} + 1,466 \times \text{year_built}</mrow>
   <mrow>\amp+ 83,856 \times \text{cooling}_{\text{central}} + 357,119 \times \text{lot}</mrow>
 </md>
 
