@@ -4,7 +4,7 @@
   <title>Inference for comparing two proportions</title>
 
   <introduction>
-    <p>We now extend the methods from <xref ref="sec-inference-one-prop" /> to apply confidence intervals and hypothesis tests to differences in population proportions that come from two groups, Group 1 and Group 2: <m>p_1 - p_2.</m></p>
+    <p>We now extend the methods from <xref ref="ch16-inference-single-proportion" text="title" /> to apply confidence intervals and hypothesis tests to differences in population proportions that come from two groups, Group 1 and Group 2: <m>p_1 - p_2.</m></p>
     <p>In our investigations, we'll identify a reasonable point estimate of <m>p_1 - p_2</m> based on the sample, and you may have already guessed its form: <m>\hat{p}_1 - \hat{p}_2.</m> <idx><h>point estimate</h><h>difference of proportions</h></idx><idx><h>difference of proportions</h><h>point estimate</h></idx> Then we'll look at the inferential analysis in three different ways: using a randomization test, applying bootstrapping for interval estimates, and, if we verify that the point estimate can be modeled using a normal distribution, we compute the estimate's standard error, and we apply the mathematical framework.</p>
   </introduction>
   
@@ -53,7 +53,7 @@
       
       <p>In this study, a larger proportion of patients who received blood thinner after CPR,<m>\hat{p}_T = \frac{14}{40} = 0.35,</m> survived compared to those who did not receive blood thinner, <m>\hat{p}_C = \frac{11}{50} = 0.22.</m> However, based on these observed proportions alone, we cannot determine whether the difference (<m>\hat{p}_T - \hat{p}_C = 0.35 - 0.22 = 0.13</m>) provides <em>convincing evidence</em> that blood thinner usage after CPR is effective.</p>
       
-      <p>As we saw in <xref ref="sec-foundations-randomization" />, we can re-randomize the responses (<c>survived</c> or <c>died</c>) to the treatment conditions assuming the null hypothesis is true and compute possible differences in proportions.</p>
+      <p>As we saw in <xref ref="ch11-hypothesis-testing-randomization" text="title" />, we can re-randomize the responses (<c>survived</c> or <c>died</c>) to the treatment conditions assuming the null hypothesis is true and compute possible differences in proportions.</p>
       
       <p>The process by which we randomize observations to two groups is summarized and visualized in <xref ref="fig-fullrand" />).</p>
       
@@ -137,7 +137,7 @@
     <subsection>
       <title>Variability of the difference in sample proportions</title>
       
-      <p>The bootstrap method applied to two samples is an extension of the method described in <xref ref="sec-foundations-bootstrapping" />.</p>
+      <p>The bootstrap method applied to two samples is an extension of the method described in <xref ref="ch12-confidence-intervals-bootstrapping" text="title" />.</p>
       
       <p>Now, we have two samples, so each sample estimates the population from which they came.</p>
       
@@ -202,7 +202,7 @@
       
       <p>The values in the histogram can be used in two different ways to create a confidence interval for the parameter of interest: <m>p_1 - p_2</m>.</p>
       
-      <p>As in <xref ref="sec-foundations-bootstrapping" />, the bootstrap confidence interval can be calculated directly from the bootstrapped differences in <xref ref="fig-bootCPR1000" />.</p>
+      <p>As in <xref ref="ch12-confidence-intervals-bootstrapping" text="title" />, the bootstrap confidence interval can be calculated directly from the bootstrapped differences in <xref ref="fig-bootCPR1000" />.</p>
       
       <p>The interval created from the percentiles of the distribution is called the <alert>percentile interval</alert><idx><h>bootstrap</h><h>percentile interval</h></idx><idx>percentile interval</idx>.</p>
       
@@ -584,7 +584,7 @@
         </section>
         <section xml:id="sec-chp17-exercises">
         <title>Chapter exercises</title>
-        Answers to odd numbered exercises can be found in <xref ref="exercise-solutions" />.
+        Answers to odd numbered exercises can be found in <xref ref="appendix-exercise-solutions" />.
         <exercise>
         <statement>
         <alert>Disaggregating Asian American tobacco use, hypothesis testing.</alert>Understanding cultural differences in tobacco use across different demographic groups can lead to improved health care education and treatment.
