@@ -1326,7 +1326,7 @@ ggplot(county, aes(y = pop_change, x = log(pop2010, base = 10))) +
       <title>Stats scores</title>
       <statement>
         <p>
-          The final exam scores of twenty introductory statistics students, arranged in ascending order, as as follows: 57, 66, 69, 71, 72, 73, 74, 77, 78, 78, 79, 79, 81, 81, 82, 83, 83, 88, 89, 94. Suppose students who score above the 75th percentile on the final exam get an A in the class. How many students will get an A in this class?
+          The final exam scores of twenty introductory statistics students, arranged in ascending order, are as follows: 57, 66, 69, 71, 72, 73, 74, 77, 78, 78, 79, 79, 81, 81, 82, 83, 83, 88, 89, 94. Suppose students who score above the 75th percentile on the final exam get an A in the class. How many students will get an A in this class?
         </p>
       </statement>
     </exercise>
