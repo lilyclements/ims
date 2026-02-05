@@ -756,9 +756,23 @@ ggplot(dists_mean0_sd1, aes(x = x)) +
 
 <p>You might not be surprised that the answer to the question "which is better, the mean or the median?" is: <em>it depends</em>. The two statistics measure different things, and so their use is dependent on the context in the analysis. Consider the following scenarios:</p>
 
-<p>* Is it better to measure the average profit per customer or the median profit per customer?   - If concern is about the overall profit margin of the company, the mean is a better measure to assess what is happening across the company. The company could have a positive median profit per customer and still be unprofitable.   - If concern is around understanding the profit per typical customer, possibly to understand the growth headroom for the company's profit, the median profit per customer would tell you more about individual customer profits.</p>
-
-<p>* If you operate an app and want to know how long it takes for the app to open on your customers' phones, do you want the mean amount of time or the median amount of time?   - The mean leads to an understanding of the overall amount of time being wasted in opening the app.   - The median tells you about the typical user experience.   - However, if the app takes less than 5 milliseconds to launch for 50% of the users but more than 10 seconds to launch for 10% of the users, the median doesn't give the information you need. In that scenario, you might want an upper percentile, like the 95th percentile.</p>
+<ul>
+  <li>
+    <p>Is it better to measure the average profit per customer or the median profit per customer?</p>
+    <ul>
+      <li><p>If concern is about the overall profit margin of the company, the mean is a better measure to assess what is happening across the company. The company could have a positive median profit per customer and still be unprofitable.</p></li>
+      <li><p>If concern is around understanding the profit per typical customer, possibly to understand the growth headroom for the company's profit, the median profit per customer would tell you more about individual customer profits.</p></li>
+    </ul>
+  </li>
+  <li>
+    <p>If you operate an app and want to know how long it takes for the app to open on your customers' phones, do you want the mean amount of time or the median amount of time?</p>
+    <ul>
+      <li><p>The mean leads to an understanding of the overall amount of time being wasted in opening the app.</p></li>
+      <li><p>The median tells you about the typical user experience.</p></li>
+      <li><p>However, if the app takes less than 5 milliseconds to launch for 50% of the users but more than 10 seconds to launch for 10% of the users, the median doesn't give the information you need. In that scenario, you might want an upper percentile, like the 95th percentile.</p></li>
+    </ul>
+  </li>
+</ul>
 
 <exercise>
   <statement>
