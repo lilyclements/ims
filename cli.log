@@ -14,7 +14,7 @@ INFO    : verifying and expanding input directory: /home/runner/work/ims/ims/sou
 INFO    : input directory expanded to absolute path: /home/runner/work/ims/ims/generated-assets
 INFO    : verifying and expanding input directory: /home/runner/work/ims/ims/source/../assets
 INFO    : input directory expanded to absolute path: /home/runner/work/ims/ims/assets
-INFO    : converting /home/runner/work/ims/ims/source/main.ptx to HTML in /tmp/tmpe27fan07
+INFO    : converting /home/runner/work/ims/ims/source/main.ptx to HTML in /tmp/tmp_qzdfvmz
 INFO    : XSL conversion of /home/runner/work/ims/ims/source/main.ptx by /home/runner/.ptx/xsl/pretext-html.xsl
 INFO    : comprehensive messages, warnings, and errors:
 INFO    :     * PTX:WARNING: There are apparent XML elements in locations that should be text only (6 times).
