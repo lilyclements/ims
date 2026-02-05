@@ -846,11 +846,16 @@
       </solution>
     </exercise>
 
+    </subsection>
+
+  </section>
+
+  <section xml:id="sec-quantifying-variability">
+    <title>Quantifying the variability of a statistic</title>
+
     <p>As seen in later chapters, it turns out that many of the statistics used to summarize data (e.g., the sample proportion, the sample mean, differences in two sample proportions, differences in two sample means, the sample slope from a linear model, etc.) vary according to the normal distribution seen above.</p>
 
     <p>The mathematical models are derived from the normal theory, but even the computational methods (and the intuitive thinking behind both approaches) use the general bell-shaped variability seen in most of the distributions constructed so far.</p>
-
-    </subsection>
 
     <subsection xml:id="subsec-68-95-99-7-rule">
       <title>68-95-99.7 rule</title>
@@ -956,6 +961,9 @@
 
     <p>When the sample size is sufficiently large, the normal approximation generally provides us with the same conclusions as the simulation model.</p>
 
+    <subsection xml:id="subsec-opp-cost-observed-data">
+      <title>Observed data</title>
+
     <p>In <xref ref="sec-caseStudyOpportunityCost" /> we were introduced to the opportunity cost study, which found that students became thriftier when they were reminded that not spending money now means the money can be spent on other things in the future.</p>
 
     <p>Let's re-analyze the data in the context of the normal distribution and compare the results.</p>
@@ -963,6 +971,11 @@
     <p>::: {.data data-latex=<q></q>}</p>
 
     <p>The <url href="http://openintrostat.github.io/openintro/reference/opportunity_cost.html"><c>opportunity_cost</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
+
+    </subsection>
+
+    <subsection xml:id="subsec-opp-cost-variability">
+      <title>Variability of the statistic</title>
 
     <p><xref ref="fig-OpportunityCostDiffs-w-normal" /> summarizes the null distribution as determined using the randomization method.</p>
 
@@ -978,6 +991,11 @@
       <caption>Null distribution of differences with an overlaid normal curve for the opportunity cost study. 10,000 simulations were run for this figure.</caption>
       <image source="images/fig-OpportunityCostDiffs-w-normal.png" width="70%" />
     </figure>
+
+    </subsection>
+
+    <subsection xml:id="subsec-opp-cost-observed-vs-null">
+      <title>Observed statistic vs. null statistics</title>
 
     <p>As we learned in <xref ref="sec-normalDist" />, it is helpful to draw and shade a picture of the normal distribution so we know precisely what we want to calculate.</p>
 
@@ -1021,10 +1039,15 @@
 
     <p>Next, let's turn our attention to the medical consultant case study.</p>
 
+    </subsection>
+
   </section>
 
   <section xml:id="sec-casemed">
     <title>Case study (test): Medical consultant</title>
+
+    <subsection xml:id="subsec-med-cons-observed-data">
+      <title>Observed data</title>
 
     <p>In <xref ref="sec-case-study-med-consult" /> we learned about a medical consultant who reported that only 3 of their 62 clients who underwent a liver transplant had complications, which is less than the more common complication rate of 0.10.</p>
 
@@ -1034,6 +1057,11 @@
 
     <p>Borrowing a formula that we'll encounter in <xref ref="ch16-inference-single-proportion" text="title" />, the standard error of this distribution was also computed: <m>SE = 0.038.</m></p>
 
+    </subsection>
+
+    <subsection xml:id="subsec-med-cons-variability">
+      <title>Variability of the statistic</title>
+
     <p>Before we begin, we want to point out a simple detail that is easy to overlook: the null distribution we generated from the simulation is slightly skewed, and the histogram is not particularly smooth.</p>
 
     <p>In fact, the normal distribution only sort-of fits this model.</p>
@@ -1042,6 +1070,11 @@
       <caption>The null distribution for the sample proportion, created from 10,000 simulated studies from the medical consultant, along with the best-fitting normal model.</caption>
       <image source="images/fig-MedConsNullSim-w-normal.png" width="70%" />
     </figure>
+
+    </subsection>
+
+    <subsection xml:id="subsec-med-cons-observed-vs-null">
+      <title>Observed statistic vs. null statistics</title>
 
     <p>As always, we'll draw a picture before finding the normal probabilities.</p>
 
@@ -1082,6 +1115,11 @@
 
     <p>The guidelines for this particular situation -- which we will learn in <xref ref="ch16-inference-single-proportion" text="title" /> -- would have alerted us that the normal model was a poor approximation.</p>
 
+    </subsection>
+
+    <subsection xml:id="subsec-med-cons-conditions">
+      <title>Conditions for applying the normal model</title>
+
     <p>The success story in this section was the application of the normal model in the context of the opportunity cost data.</p>
 
     <p>However, the biggest lesson comes from the less successful attempt to use the normal approximation in the medical consultant case study.</p>
@@ -1103,6 +1141,8 @@
     <p>There are times when simulation, randomization, or bootstrapping are unwieldy in either structure or computational demand.</p>
 
     <p>Normality can often lead to excellent approximations of the data using straightforward modeling techniques.</p>
+
+    </subsection>
 
   </section>
 
@@ -1174,6 +1214,9 @@
       </solution>
     </example>
 
+    <subsection xml:id="subsec-stent-observed-data">
+      <title>Observed data</title>
+
     <p>Consider an experiment that examined whether implanting a stent in the brain of a patient at risk for a stroke helps reduce the risk of a stroke.</p>
 
     <p>The results from the first 30 days of this study, which included 451 patients, are summarized in <xref ref="tbl-stentStudyResultsCIsection" />.</p>
@@ -1235,6 +1278,11 @@
     <p>::: {.data data-latex=<q></q>}</p>
 
     <p>The <url href="http://openintrostat.github.io/openintro/reference/stent30.html"><c>stent30</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
+
+    </subsection>
+
+    <subsection xml:id="subsec-stent-variability">
+      <title>Variability of the statistic</title>
 
     <example>
       <statement>
@@ -1311,6 +1359,8 @@
     <p>Confidence intervals provide an interval estimate for and attempt to capture <alert>population parameters</alert>.</p>
 
     <p>\index{confidence interval}</p>
+
+    </subsection>
 
   </section>
 
