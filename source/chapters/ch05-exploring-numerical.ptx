@@ -12,7 +12,7 @@
   
   <p>Consider the <c>loan_amount</c> variable from the <c>loan50</c> dataset, which represents the loan size for each of 50 loans in the dataset.</p>
   <p>This variable is numerical since we can sensibly discuss the numerical difference of the size of two loans. On the other hand, area codes and zip codes are not numerical, but rather they are categorical variables.</p>
-  <p>Throughout this chapter, we will apply numerical methods using the <c>loan50</c> and county datasets, which were introduced in <xref ref="sec-data-basics" />. If you’d like to review the variables from either dataset, see Tables <xref ref="tbl-loan50-df" /> and <xref ref="tbl-county-df" />
+  <p>Throughout this chapter, we will apply numerical methods using the <c>loan50</c> and county datasets, which were introduced in <xref ref="sec-data-basics" />. If you’d like to review the variables from either dataset, see Tables <xref ref="tbl-loan50-df" /> and <xref ref="tbl-county-df" />.</p>
   <p>The <c>county</c> data can be found in the <c>usdata</c> R package and the <c>loan50</c> data can be found in the <c>openintro</c> R package.</p>
 
 </introduction>
