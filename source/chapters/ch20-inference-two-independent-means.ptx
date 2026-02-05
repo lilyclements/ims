@@ -100,7 +100,7 @@ ggplot(classdata, aes(x = exam, y = m1, color = exam)) +
   </program>
 </listing>
 
-<figure xml:id="fig-boxplotTwoVersionsOfExams-out">
+<figure xml:id="fig-boxplotTwoVersionsOfExams">
   <caption>Exam scores for students given one of two different exams.</caption>
   <image source="images/fig-boxplotTwoVersionsOfExams-1.png" width="70%" />
 </figure>
@@ -148,7 +148,7 @@ include_graphics("images/rand2means.png")
   </program>
 </listing>
 
-<figure xml:id="fig-rand2means-out">
+<figure xml:id="fig-rand2means">
   <caption>The version of the test (A or B) is randomly allocated to the test scores, under the null assumption that the tests are equally difficult.</caption>
   <image source="images/rand2means.png" width="70%" />
 </figure>
@@ -177,7 +177,7 @@ classdata |&gt;
   </program>
 </listing>
 
-<figure xml:id="fig-randexams-out">
+<figure xml:id="fig-randexams">
   <caption>Histogram of differences in means, calculated from 1,000 different randomizations of the exam types.</caption>
   <image source="images/fig-randexams-1.png" width="70%" />
 </figure>
@@ -217,7 +217,7 @@ classdata |&gt;
   </program>
 </listing>
 
-<figure xml:id="fig-randexamspval-out">
+<figure xml:id="fig-randexamspval">
   <caption>Histogram of differences in means, calculated from 1,000 different randomizations of the exam types. The observed difference of 3.1 points is plotted as a vertical line, and the area more extreme than 3.1 is shaded to represent the p-value.</caption>
   <image source="images/fig-randexamspval-1.png" width="70%" />
 </figure>
@@ -261,7 +261,7 @@ include_graphics("images/bootmeans2means.png")
   </program>
 </listing>
 
-<figure xml:id="fig-bootmeans2means-out">
+<figure xml:id="fig-bootmeans2means">
   <caption>For the two group comparison, the bootstrap resampling is done separately on each group, but the statistic is calculated as a difference. The set of k differences is then analyzed as the statistic of interest with conclusions drawn on the parameter of interest.</caption>
   <image source="images/bootmeans2means.png" width="70%" />
 </figure>
@@ -402,7 +402,7 @@ boot_2mean |&gt;
   </program>
 </listing>
 
-<figure xml:id="fig-bootexamsci-out">
+<figure xml:id="fig-bootexamsci">
   <caption>Histogram of differences in means after 1,000 bootstrap samples from each of the two groups. The observed difference is plotted as a black vertical line at 7.83. The blue dashed and red dotted lines provide the bootstrap percentile and bootstrap SE confidence intervals, respectively, for the difference in true population means.</caption>
   <image source="images/fig-bootexamsci-1.png" width="70%" />
 </figure>
@@ -591,7 +591,7 @@ births14_nona |&gt;
   </program>
 </listing>
 
-<figure xml:id="fig-babySmokePlotOfTwoGroupsToExamineSkew-out">
+<figure xml:id="fig-babySmokePlotOfTwoGroupsToExamineSkew">
   <caption>The left panel represents birth weights for infants whose mothers smoked during pregnancy. The right panel represents the birth weights for infants whose mothers who did not smoke during pregnancy.</caption>
   <image source="images/fig-babySmokePlotOfTwoGroupsToExamineSkew-1.png" width="70%" />
 </figure>
@@ -746,7 +746,7 @@ stem_cell |&gt;
   </program>
 </listing>
 
-<figure xml:id="fig-stem-cell-histograms-out">
+<figure xml:id="fig-stem-cell-histograms">
   <caption>Histograms for the difference in heart pumping function after a heart attack for both the treatment group (ESC, which received the embryonic stem cell treatment) and the control group (which did not receive the treatment).</caption>
   <image source="images/fig-stem-cell-histograms-1.png" width="70%" />
 </figure>
@@ -834,7 +834,8 @@ make_terms_table(terms_chp_20)
   <p>Answers to odd-numbered exercises can be found in <xref ref="sec-exercise-solutions-20"/>.</p>
 
 
-<xi:include href="exercises/_20-ex-inference-two-means.qmd"/>
+<!-- TODO: Convert exercises/_20-ex-inference-two-means.qmd to PTX format -->
+<!-- <xi:include href="../exercises/_20-ex-inference-two-means.ptx"/> -->
 
 </section>
 
