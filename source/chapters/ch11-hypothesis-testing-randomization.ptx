@@ -23,15 +23,7 @@
       </solution>
     </example>
 
-    <exercise>
-      <title>Guided Practice</title>
-      <statement>
-        <p>If we do not think the side of the room a person sits on in class is related to whether they prefer to read books on screen, what assumption are we making about the relationship between these two variables?</p>
-      </statement>
-      <solution>
-        <p>We would be assuming that these two variables are <alert>independent</alert>.</p>
-      </solution>
-    </exercise>
+    <p><alert>Guided Practice:</alert> If we do not think the side of the room a person sits on in class is related to whether they prefer to read books on screen, what assumption are we making about the relationship between these two variables?<fn>We would be assuming that these two variables are <alert>independent</alert>.</fn></p>
 
     <p>Studying randomness of this form is a key focus of statistics. Throughout this chapter, and those that follow, we provide three different approaches for quantifying the variability inherent in data: randomization, bootstrapping, and mathematical models. Using the methods provided in this chapter, we will be able to draw conclusions beyond the dataset at hand to research questions about larger populations that the samples come from.</p>
 
@@ -55,7 +47,7 @@
 
     <p>The participants in this study were 48 bank supervisors who identified as male, attending a management institute at the University of North Carolina in 1972. They were asked to assume the role of the personnel director of a bank and were given a personnel file to judge whether the person should be promoted to a branch manager position. The files given to the participants were identical, except that half of them indicated the candidate identified as male and the other half indicated the candidate identified as female. These files were randomly assigned to the bank managers.</p>
 
-    <exercise>
+    <exercise xml:id="ex-sex-discrimination-study-type">
       <title>Guided Practice</title>
       <statement>
         <p>Is this an observational study or an experiment? How does the type of study impact what can be inferred from the results?</p>
@@ -191,7 +183,7 @@
       </tabular>
     </table>
 
-    <exercise>
+    <exercise xml:id="ex-sex-discrimination-sim-diff">
       <title>Guided Practice</title>
       <statement>
         <p>What is the difference in promotion rates between the two simulated groups in <xref ref="tbl-sex-discrimination-rand-1" />? How does this compare to the observed difference 29.2% from the actual study?</p>
