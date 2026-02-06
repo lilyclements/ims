@@ -906,6 +906,142 @@
           </p>
         </statement>
       </exercise>
+      
+      <exercise>
+        <title>Black Lives Matter</title>
+        <statement>
+          <p>
+            A Washington Post-Schar School poll conducted in the United States in June 2020, among a random national sample of 1,006 adults, asked respondents whether they support or oppose protests following George Floyd's killing that have taken place in cities across the US. The survey also collected information on the age of the respondents. The results are summarized in the stacked bar plot below.
+          </p>
+          
+          <p>
+            <ol>
+              <li><p>Based on the stacked bar plot, do views on the protests and age appear to be associated? Explain your reasoning.</p></li>
+              <li><p>Conjecture other possible variables that might explain the potential association between these two variables.</p></li>
+            </ol>
+          </p>
+        </statement>
+      </exercise>
+      
+      <exercise>
+        <title>Raise taxes</title>
+        <statement>
+          <p>
+            A random sample of registered voters nationally were asked whether they think it's better to raise taxes on the rich or raise taxes on the poor. The survey also collected information on the political party affiliation of the respondents.
+          </p>
+          
+          <p>
+            <ol>
+              <li><p>Based on the stacked bar plot shown above, do views on raising taxes and political affiliation appear to be associated? Explain your reasoning.</p></li>
+              <li><p>Conjecture other possible variables that might explain the potential association between these two variables.</p></li>
+            </ol>
+          </p>
+        </statement>
+      </exercise>
+      
+      <exercise>
+        <title>Heart transplant data display</title>
+        <statement>
+          <p>
+            The Stanford University Heart Transplant Study was conducted to determine whether an experimental heart transplant program increased lifespan. Each patient entering the program was officially designated a heart transplant candidate, meaning that they were gravely ill and might benefit from a new heart. Patients were randomly assigned into treatment and control groups. Patients in the treatment group received a transplant, and those in the control group did not. The visualizations below display two different versions of the study results.
+          </p>
+          
+          <p>
+            <ol>
+              <li><p>Provide one aspect of the two group comparison that is easier to see from the stacked bar plot (left)?</p></li>
+              <li><p>Provide one aspect of the two group comparison that is easier to see from the standardized bar plot (right)?</p></li>
+              <li><p>For the Heart Transplant Study which of those aspects would be more important to display? That is, which bar plot would be better as a data visualization?</p></li>
+            </ol>
+          </p>
+        </statement>
+      </exercise>
+      
+      <exercise>
+        <title>Shipping holiday gifts data display</title>
+        <statement>
+          <p>
+            A local news survey asked 500 randomly sampled Los Angeles residents which shipping carrier they prefer to use for shipping holiday gifts. The bar plots below show the distribution of responses by age group as well as distribution of responses by shipping method.
+          </p>
+          
+          <p>
+            <ol>
+              <li><p>Which graph (top or bottom) would you use to understand the shipping choices of people of different ages? Explain.</p></li>
+              <li><p>Which graph (top or bottom) would you use to understand the age distribution across different types of shipping choices? Explain.</p></li>
+              <li><p>A new shipping company would like to market to people over the age of 55. Who will be their biggest competitor? Explain.</p></li>
+              <li><p>FedEx would like to reach out to grow their market share so as to balance the age demographics of FedEx users. To what age group should FedEx market?</p></li>
+            </ol>
+          </p>
+        </statement>
+      </exercise>
+      
+      <exercise>
+        <title>Meat consumption and life expectancy</title>
+        <statement>
+          <p>
+            In data collected for You (2022), total meat intake is associated with life expectancy (at birth) in 175 countries. Meat intake is measured in kg per capita per year (averaged over 2011 to 2013). The two ridge plots show an association between income and meat consumption (higher income countries tend to eat more meat) and an association between income and life expectancy (higher income countries have higher life expectancy).
+          </p>
+          
+          <p>
+            <ol>
+              <li><p>Do the graphs above demonstrate that meat consumption and life expectancy are associated? That is, can you tell if countries with low meat consumption have low life expectancy? Explain.</p></li>
+              <li><p>Let's assume that you had a plot comparing meat consumption and life expectancy, and they <em>do</em> seem associated. Your friend says that the plot shows that high meat consumption leads to a longer life. You correctly say, no, we can't tell if there is a causal relationship because the relationship is confounded by income level. Explain what you mean.</p></li>
+              <li><p>How can you investigate the relationship between meat consumption and life expectancy in the presence of confounding variables (like income)?</p></li>
+            </ol>
+          </p>
+        </statement>
+      </exercise>
+      
+      <exercise>
+        <title>Florence Nightingale</title>
+        <statement>
+          <p>
+            Florence Nightingale was a nurse in the Crimean War and an early statistician. In her notes, she opined, <q>In comparing the deaths of one hospital with those of another, any statistics are justly considered absolutely valueless which do not give the ages, the sexes, and the diseases of all the cases.</q>
+          </p>
+          
+          <p>
+            <ol>
+              <li><p>Nightingale describes three confounding variables to consider when comparing death rates across hospitals. What are they? Describe what makes each variable potentially confounding.</p></li>
+              <li><p>Provide two additional potential confounding variables for this situation. Check to make sure that the variables are associated with both the explanatory variable (hospital) and the response variable (death).</p></li>
+              <li><p>Why does Nightingale say that the statistics are <q>valueless</q> if given without being broken down by age, sex, and disease? Explain.</p></li>
+            </ol>
+          </p>
+        </statement>
+      </exercise>
+      
+      <exercise>
+        <title>On-time arrivals</title>
+        <statement>
+          <p>
+            Consider all of the flights out of New York City in 2013 that flew into Puerto Rico (BQN), Los Angeles (LAX), or San Francisco (SFO) on the following two airlines: JetBlue (B6) or United Airlines (UA). Below are the tabulated counts for the number of flights <c>delayed</c> and <c>on time</c> for each airline into each city.
+          </p>
+          
+          <p>
+            <ol>
+              <li><p>What percent of all JetBlue flights were delayed? What percent of all United Airlines flights were delayed? (Note, the overall delay proportions are typically what would be reported and associated with an airline.)</p></li>
+              <li><p>For each of the three airports, find the percent of delayed flights for each of JetBlue and United (you should have 6 numbers).</p></li>
+              <li><p>United has a higher proportion of delayed flights for each of the three cities, yet JetBlue has a higher proportion of delayed flights overall. Explain, using the data counts provided, how the seeming paradox could happen.</p></li>
+            </ol>
+          </p>
+        </statement>
+      </exercise>
+      
+      <exercise>
+        <title>US House of Representatives</title>
+        <statement>
+          <p>
+            The US House of Representatives is dominated by two political parties: Democrats and Republicans. Democrats are thought to be the more liberal party and Republicans are considered to be the more conservative party. However, within each party there is an internal spectrum of liberal to conservative. For example, conservative Democrats and liberal Republicans would be labeled moderate. Consider an election where the only change in membership is that the most conservative Democrats are replaced by a set of liberal Republicans who are more liberal than the incumbent Republicans but more conservative than the Democrats they replaced.
+          </p>
+          
+          <p>
+            <ol>
+              <li><p>After the election, is the Democratic wing of the House more conservative or more liberal? Explain.</p></li>
+              <li><p>After the election, is the Republican wing of the House more conservative or more liberal? Explain.</p></li>
+              <li><p>After the election, is the overall House membership more conservative or more liberal? Explain.</p></li>
+              <li><p>In what settings would you report the outcome of the change in House membership to be more conservative? And in what settings would you report the outcome of the change in House membership to be more liberal?</p></li>
+            </ol>
+          </p>
+        </statement>
+      </exercise>
     </exercises>
   </section>
 </chapter>
