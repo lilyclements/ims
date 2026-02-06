@@ -316,7 +316,7 @@ ggplot(loan50, aes(x = interest_rate)) +
 
 <p>Histograms provide a view of the <alert>data density</alert>. Higher bars represent where the data are relatively more common. For instance, there are many more loans with rates between 5% and 10% than loans with rates between 20% and 25% in the dataset. The bars make it easy to see how the density of the data changes relative to the interest rate.</p>
 
-<p>Histograms are especially convenient for understanding the shape of the data distribution. <xref ref="fig-loan50IntRateHist" /> suggests that most loans have rates under 15%, while only a handful of loans have rates above 20%. When the distribution of a variable trails off to the right in this way and has a longer right <alert>tail</alert>, the shape is said to be <alert>right skewed</alert>.[^05-explore-numerical-5]</p>
+<p>Histograms are especially convenient for understanding the shape of the data distribution. <xref ref="fig-loan50IntRateHist" /> suggests that most loans have rates under 15%, while only a handful of loans have rates above 20%. When the distribution of a variable trails off to the right in this way and has a longer right <alert>tail</alert>, the shape is said to be <alert>right skewed</alert>.</p>
 
 <listing xml:id="listing-loan50IntRateDensity">
   <caption><c>R</c> code for density plot of interest rate</caption>
