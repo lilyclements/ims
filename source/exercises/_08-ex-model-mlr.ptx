@@ -170,7 +170,7 @@
           </ul>
         </li>
         <li>
-          <p>The <m>R^2</m> of this model is [value]%. Interpret this value in context of the data and the model. </p>
+          <p>The <m>R^2</m> of this model is given in the output table. Interpret this value in context of the data and the model. </p>
         </li>
       </ol></p>
   </statement>
@@ -179,13 +179,13 @@
   <exercise>
     <title>Baby weights, backwards elimination.</title>
     <statement>
-      <p>Let's consider a model that predicts <c>weight</c> of newborns using several predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smoke cigarettes during pregnancy (<c>habit</c>). <xref ref="data:births14"/> The adjusted <m>R^2</m> of the full model is [value]. We remove each variable one by one, refit the model, and record the adjusted <m>R^2</m>. Which, if any, variable should be removed from the model?</p>
+      <p>Let's consider a model that predicts <c>weight</c> of newborns using several predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smokes cigarettes during pregnancy (<c>habit</c>). <xref ref="data:births14"/> The adjusted <m>R^2</m> of the full model is given. We remove each variable one by one, refit the model, and record the adjusted <m>R^2</m>. Which, if any, variable should be removed from the model?</p>
       <ul>
-        <li><p>Drop <c>mature</c>: [value]</p></li>
-        <li><p>Drop <c>weeks</c>: [value]</p></li>
-        <li><p>Drop <c>visits</c>: [value]</p></li>
-        <li><p>Drop <c>gained</c>: [value]</p></li>
-        <li><p>Drop <c>sex</c>: [value]</p></li>
+        <li><p>Drop <c>mature</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>weeks</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>visits</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>gained</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>sex</c>: [adjusted R² value]</p></li>
       </ul>
   </statement>
   </exercise>
@@ -193,13 +193,13 @@
   <exercise>
     <title>Palmer penguins, backwards elimination.</title>
     <statement>
-      <p>The following full model is built to predict the weights of three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica. <xref ref="palmerpenguins"/> The adjusted <m>R^2</m> of the full model is [value]. In order to evaluate whether any of the predictors can be dropped from the model without losing predictive performance of the model, the researchers dropped one variable at a time, refit the model, and recorded the adjusted <m>R^2</m> of the smaller model. These values are given below. Which, if any, variable should be removed from the model first?</p>
+      <p>The following full model is built to predict the weights of three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica. <xref ref="palmerpenguins"/> The adjusted <m>R^2</m> of the full model is given. In order to evaluate whether any of the predictors can be dropped from the model without losing predictive performance of the model, the researchers dropped one variable at a time, refit the model, and recorded the adjusted <m>R^2</m> of the smaller model. These values are given below. Which, if any, variable should be removed from the model first?</p>
       <ul>
-        <li><p>Drop <c>bill_length_mm</c>: [value]</p></li>
-        <li><p>Drop <c>bill_depth_mm</c>: [value]</p></li>
-        <li><p>Drop <c>flipper_length_mm</c>: [value]</p></li>
-        <li><p>Drop <c>sex</c>: [value]</p></li>
-        <li><p>Drop <c>species</c>: [value]</p></li>
+        <li><p>Drop <c>bill_length_mm</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>bill_depth_mm</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>flipper_length_mm</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>sex</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>species</c>: [adjusted R² value]</p></li>
       </ul>
   </statement>
   </exercise>
@@ -207,14 +207,14 @@
   <exercise>
     <title>Baby weights, forward selection.</title>
     <statement>
-      <p>Using information on the mother and the sex of the baby (which can be determined prior to birth), we want to build a model that predicts the birth weight of babies. In order to do so, we will evaluate six candidate predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smoke cigarettes during pregnancy (<c>habit</c>). And we will make a decision about including them in the model using forward selection and adjusted <m>R^2</m>. Below are the six models we evaluate and their adjusted <m>R^2</m> values. <xref ref="data:births14"/> Which variable should be added to the model first?</p>
+      <p>Using information on the mother and the sex of the baby (which can be determined prior to birth), we want to build a model that predicts the birth weight of babies. In order to do so, we will evaluate six candidate predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smokes cigarettes during pregnancy (<c>habit</c>). And we will make a decision about including them in the model using forward selection and adjusted <m>R^2</m>. Below are the six models we evaluate and their adjusted <m>R^2</m> values. <xref ref="data:births14"/> Which variable should be added to the model first?</p>
       <ul>
-        <li><p>Predict <c>weight</c> from <c>mature</c>: [value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>weeks</c>: [value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>visits</c>: [value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>gained</c>: [value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>sex</c>: [value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>habit</c>: [value]</p></li>
+        <li><p>Predict <c>weight</c> from <c>mature</c>: [adjusted R² value]</p></li>
+        <li><p>Predict <c>weight</c> from <c>weeks</c>: [adjusted R² value]</p></li>
+        <li><p>Predict <c>weight</c> from <c>visits</c>: [adjusted R² value]</p></li>
+        <li><p>Predict <c>weight</c> from <c>gained</c>: [adjusted R² value]</p></li>
+        <li><p>Predict <c>weight</c> from <c>sex</c>: [adjusted R² value]</p></li>
+        <li><p>Predict <c>weight</c> from <c>habit</c>: [adjusted R² value]</p></li>
       </ul>
   </statement>
   </exercise>
@@ -222,13 +222,13 @@
   <exercise>
     <title>Palmer penguins, forward selection.</title>
     <statement>
-      <p>Using body measurement and other relevant data on three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica, we want to predict their body mass. In order to do so, we will evaluate five candidate predictors and make a decision about including them in the model using forward selection and adjusted <m>R^2</m>. Below are the five models we evaluate and their adjusted <m>R^2</m> values:  Which variable should be added to the model first?</p>
+      <p>Using body measurement and other relevant data on three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica, we want to predict their body mass. In order to do so, we will evaluate five candidate predictors and make a decision about including them in the model using forward selection and adjusted <m>R^2</m>. Below are the five models we evaluate and their adjusted <m>R^2</m> values. Which variable should be added to the model first?</p>
       <ul>
-        <li><p>Predict body mass from <c>bill_length_mm</c>: [value]</p></li>
-        <li><p>Predict body mass from <c>bill_depth_mm</c>: [value]</p></li>
-        <li><p>Predict body mass from <c>flipper_length_mm</c>: [value]</p></li>
-        <li><p>Predict body mass from <c>sex</c>: [value]</p></li>
-        <li><p>Predict body mass from <c>species</c>: [value]</p></li>
+        <li><p>Predict body mass from <c>bill_length_mm</c>: [adjusted R² value]</p></li>
+        <li><p>Predict body mass from <c>bill_depth_mm</c>: [adjusted R² value]</p></li>
+        <li><p>Predict body mass from <c>flipper_length_mm</c>: [adjusted R² value]</p></li>
+        <li><p>Predict body mass from <c>sex</c>: [adjusted R² value]</p></li>
+        <li><p>Predict body mass from <c>species</c>: [adjusted R² value]</p></li>
       </ul>
   </statement>
   </exercise>
