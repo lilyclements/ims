@@ -202,7 +202,7 @@
     <statement>
       <p>Two observations were collected on each of five people. Which of the following could be a possible randomization of the paired differences given in the table below? If the set of values could not be a randomized set of differences, indicate why not.</p>
       
-      <table xml:id="tbl-ex21-14">
+      <table xml:id="table-ex21-14">
         <title>Paired observations</title>
         <tabular halign="center">
           <row header="yes" bottom="medium">
@@ -311,7 +311,7 @@
     <statement>
       <p>Forest rangers wanted to better understand the rate of growth for younger trees in the park. They took measurements of a random sample of 50 young trees in 2009 and again measured those same trees in 2019. The data below summarize their measurements, where the heights are in feet.</p>
       
-      <table xml:id="tbl-ex21-18">
+      <table xml:id="table-ex21-18">
         <title>Tree growth data</title>
         <tabular halign="center">
           <row header="yes" bottom="medium">
