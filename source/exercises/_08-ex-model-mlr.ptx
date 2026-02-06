@@ -116,7 +116,7 @@
           <p>For a given release year, which genre of movies are predicted, on average, to have the highest predicted return on investment?</p>
         </li>
         <li>
-          <p>The adjusted <m>R^2</m> of this model is [adjusted R² value]%. Adding the production budget of the movie to the model increases the adjusted <m>R^2</m> to [adjusted R² value]%. Should production budget be added to the model? </p>
+          <p>The adjusted <m>R^2</m> of this model is [initial adjusted R² value]%. Adding the production budget of the movie to the model increases the adjusted <m>R^2</m> to [updated adjusted R² value]%. Should production budget be added to the model? </p>
         </li>
       </ol></p>
   </statement>
@@ -179,7 +179,7 @@
   <exercise>
     <title>Baby weights, backwards elimination.</title>
     <statement>
-      <p>Let's consider a model that predicts <c>weight</c> of newborns using several predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smokes cigarettes during pregnancy (<c>habit</c>). <xref ref="data:births14"/> The adjusted <m>R^2</m> of the full model is given. We remove each variable one by one, refit the model, and record the adjusted <m>R^2</m>. Which, if any, variable should be removed from the model?</p>
+      <p>Let's consider a model that predicts <c>weight</c> of newborns using several predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smokes cigarettes during pregnancy (<c>habit</c>). <xref ref="data:births14"/> The adjusted <m>R^2</m> of the full model is [full model adjusted R² value]. We remove each variable one by one, refit the model, and record the adjusted <m>R^2</m>. Which, if any, variable should be removed from the model?</p>
       <ul>
         <li><p>Drop <c>mature</c>: [adjusted R² value]</p></li>
         <li><p>Drop <c>weeks</c>: [adjusted R² value]</p></li>
@@ -193,7 +193,7 @@
   <exercise>
     <title>Palmer penguins, backwards elimination.</title>
     <statement>
-      <p>The following full model is built to predict the weights of three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica. <xref ref="palmerpenguins"/> The adjusted <m>R^2</m> of the full model is given. In order to evaluate whether any of the predictors can be dropped from the model without losing predictive performance of the model, the researchers dropped one variable at a time, refit the model, and recorded the adjusted <m>R^2</m> of the smaller model. These values are given below. Which, if any, variable should be removed from the model first?</p>
+      <p>The following full model is built to predict the weights of three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica. <xref ref="palmerpenguins"/> The adjusted <m>R^2</m> of the full model is [full model adjusted R² value]. In order to evaluate whether any of the predictors can be dropped from the model without losing predictive performance of the model, the researchers dropped one variable at a time, refit the model, and recorded the adjusted <m>R^2</m> of the smaller model. These values are given below. Which, if any, variable should be removed from the model first?</p>
       <ul>
         <li><p>Drop <c>bill_length_mm</c>: [adjusted R² value]</p></li>
         <li><p>Drop <c>bill_depth_mm</c>: [adjusted R² value]</p></li>
