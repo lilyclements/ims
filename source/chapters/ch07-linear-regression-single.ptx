@@ -62,7 +62,7 @@ ggplot(target, aes(x = x, y = y)) +
 
 <p>If the observed data is a random sample from a target population that we are interested in making inferences about, these values are considered to be point estimates for the population parameters <m>\beta_0</m> and <m>\beta_1.</m></p>
 
-<p>We will discuss how to make inferences about parameters of a linear model based on sample statistics in <xref ref="sec-inf-model-slr" />.</p>
+<p>We will discuss how to make inferences about parameters of a linear model based on sample statistics in <xref ref="ch24-inference-linear-regression-single" />.</p>
 
 <p>When we use <m>x</m> to predict <m>y,</m> we usually call <m>x</m> the <alert>predictor</alert><idx><h>variable</h><h>predictor</h></idx><idx>predictor variable</idx> variable and we call <m>y</m> the <alert>outcome</alert><idx><h>variable</h><h>outcome</h></idx><idx>outcome variable</idx>.</p>
 
@@ -580,7 +580,7 @@ p_neg_lin + theme(plot.margin = unit(c(0, 10, 5, 0), "pt")) +
     <p>It is reasonable to try to fit a linear model to the data.</p>
     <p>However, it is unclear whether there is evidence that the slope parameter is different from zero.</p>
     <p>The point estimate of the slope parameter is not zero, but we might wonder if this could just be due to chance.</p>
-    <p>We will address this scenario in <xref ref="sec-inf-model-slr" />.</p>
+    <p>We will address this scenario in <xref ref="ch24-inference-linear-regression-single" />.</p>
   </solution>
 </example>
 
@@ -959,7 +959,7 @@ ggplot(elmhurst, aes(x = family_income, y = gift_aid)) +
 
 <p>Statistical software is usually used to compute the least squares line and the typical output generated as a result of fitting regression models looks like the one shown in <xref ref="tbl-rOutputForIncomeAidLSRLine" />.</p>
 
-<p>For now we will focus on the first column of the output, which lists <m>{b}_0</m> and <m>{b}_1.</m> In <xref ref="sec-inf-model-slr" /> we will dive deeper into the remaining columns which give us information on how accurate and precise these values of intercept and slope that are calculated from a sample of 50 students are in estimating the population parameters of intercept and slope for <em>all</em> students.</p>
+<p>For now we will focus on the first column of the output, which lists <m>{b}_0</m> and <m>{b}_1.</m> In <xref ref="ch24-inference-linear-regression-single" /> we will dive deeper into the remaining columns which give us information on how accurate and precise these values of intercept and slope that are calculated from a sample of 50 students are in estimating the population parameters of intercept and slope for <em>all</em> students.</p>
 
 <table xml:id="tbl-rOutputForIncomeAidLSRLine">
   <title>Summary of least squares fit for the Elmhurst data.</title>
