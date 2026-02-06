@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<chapter xml:id="ch02-study-design">
+<chapter xml:id="ch02-study-design" xmlns:xi="http://www.w3.org/2001/XInclude">
   <title>Study design</title>
   
   <introduction>
@@ -658,5 +658,13 @@
 
       <clearpage/>
     </subsection>
+  </section>
+
+  <section xml:id="sec-chp2-exercises">
+    <title>Exercises</title>
+    
+    <p>Answers to odd-numbered exercises can be found in <xref ref="sec-exercise-solutions-02" />.</p>
+    
+    <xi:include href="../exercises/_02-ex-data-design.ptx" />
   </section>
 </chapter>
