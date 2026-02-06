@@ -12,7 +12,7 @@
   <section xml:id="sec-exercise-solutions-01">
     <title>Chapter 1</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp01-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-01-data-hello" />.
     </p>
 
     <solution xml:id="sol-ch01-ex01">
@@ -98,7 +98,7 @@
   <section xml:id="sec-exercise-solutions-02">
     <title>Chapter 2</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp02-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-02-data-design" />.
     </p>
 
     <solution xml:id="sol-ch02-ex01">
@@ -234,7 +234,7 @@
   <section xml:id="sec-exercise-solutions-04">
     <title>Chapter 4</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp04-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="sec-chp4-exercises" />.
     </p>
 
     <solution xml:id="sol-ch04-ex01">
@@ -280,7 +280,7 @@
   <section xml:id="sec-exercise-solutions-05">
     <title>Chapter 5</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp05-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="sec-chp5-exercises" />.
     </p>
 
     <solution xml:id="sol-ch05-ex01">
@@ -388,7 +388,7 @@
   <section xml:id="sec-exercise-solutions-07">
     <title>Chapter 7</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp07-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-07-model-slr" />.
     </p>
 
     <solution xml:id="sol-ch07-ex01">
@@ -520,7 +520,7 @@
   <section xml:id="sec-exercise-solutions-08">
     <title>Chapter 8</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp08-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="sec-chp8-exercises" />.
     </p>
 
     <solution xml:id="sol-ch08-ex01">
@@ -673,7 +673,7 @@
   <section xml:id="sec-exercise-solutions-12">
     <title>Chapter 12</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp12-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-12-foundations-bootstrapping" />.
     </p>
 
     <solution xml:id="sol-ch12-ex01">
@@ -789,7 +789,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-14">
     <title>Chapter 14</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp14-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-14-foundations-errors" />.
     </p>
 
     <solution xml:id="sol-ch14-ex01">
@@ -837,7 +837,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-16">
     <title>Chapter 16</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp16-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-14-foundations-errors" />.
     </p>
 
     <solution xml:id="sol-ch16-ex01">
@@ -1060,7 +1060,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-18">
     <title>Chapter 18</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp18-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-18-inference-tables" />.
     </p>
 
     <solution xml:id="sol-ch18-ex01">
@@ -1129,7 +1129,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-19">
     <title>Chapter 19</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp19-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-19-inference-one-mean" />.
     </p>
 
     <solution xml:id="sol-ch19-ex01">
@@ -1224,7 +1224,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-20">
     <title>Chapter 20</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp20-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-20-inference-two-means" />.
     </p>
 
     <solution xml:id="sol-ch20-ex01">
@@ -1291,7 +1291,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-21">
     <title>Chapter 21</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp21-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-21-inference-paired-means" />.
     </p>
 
     <solution xml:id="sol-ch21-ex01">
@@ -1368,7 +1368,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-22">
     <title>Chapter 22</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp22-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-22-inference-many-means" />.
     </p>
 
     <solution xml:id="sol-ch22-ex01">
@@ -1431,7 +1431,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-24">
     <title>Chapter 24</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp24-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-24-inf-model-slr" />.
     </p>
 
     <solution xml:id="sol-ch24-ex01">
@@ -1512,7 +1512,7 @@ reason why they differ at all because 28<m>^\circ</m> C is 82.4<m>^\circ</m> F, 
   <section xml:id="sec-exercise-solutions-25">
     <title>Chapter 25</title>
     <p>
-      Solutions for odd-numbered exercises in <xref ref="sec-chp25-exercises" />.
+      Solutions for odd-numbered exercises in <xref ref="exercises-25-inf-model-mlr" />.
     </p>
 
     <solution xml:id="sol-ch25-ex01">
