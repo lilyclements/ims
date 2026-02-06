@@ -20,6 +20,58 @@
     <title>Meat consumption and life expectancy.</title>
     <statement>
       <p>In data collected for <xref ref="You:2022"/>, total meat intake is associated with life expectancy (at birth) in 175 countries. Meat intake is measured in kg per capita per year (averaged over 2011 to 2013). The scatterplot on the top left displays the relationship between life expectancy at birth vs. per capita meat consumption. The scatterplot on the top right displays the same relationship colored by income status of the country. The set of scatterplots across the bottom display the same relationship by income status of the country. </p>
+      
+      <listing>
+        <caption>R code to generate the figure</caption>
+        <program language="r">
+          <input>
+meat &lt;- read_csv("data/meat.csv")
+
+p_life &lt;- meat |&gt;
+  drop_na(life_0) |&gt;
+  drop_na(gdp) |&gt;
+  ggplot(aes(x = meat, y = life_0)) +
+  geom_point(alpha = 0.8) +
+  theme(axis.title = element_text(size = 11))  +
+  labs(x = "Meat consumption", y = "Life expectancy")
+
+p_life_confound &lt;-  meat |&gt; 
+  drop_na(life_0) |&gt;
+  drop_na(gdp) |&gt;
+  mutate(ses = cut(gdp, breaks = c(-Inf, 2000, 10000, Inf))) |&gt;
+  mutate(income = case_when(
+    ses == "(-Inf,2e+03]" ~ "low income",
+    ses == "(2e+03,1e+04]" ~ "middle income",
+    ses == "(1e+04, Inf]" ~ "high income")) |&gt;
+  mutate(income = fct_relevel(income, c("low income", "middle income", "high income"))) |&gt;
+  ggplot(aes(x = meat, y  = life_0, color = income, shape = income)) + 
+  geom_point(alpha = 0.8) +
+  theme(axis.title = element_text(size = 11))  +
+  labs(x = "Meat consumption", y = "Life expectancy", color = "", shape = "") 
+
+p_life_confound2 &lt;-  meat |&gt; 
+  drop_na(life_0) |&gt;
+  drop_na(gdp) |&gt;
+  mutate(ses = cut(gdp, breaks = c(-Inf, 3000, 10000, Inf))) |&gt;
+  mutate(income = case_when(
+    ses == "(-Inf,3e+03]" ~ "low income",
+    ses == "(3e+03,1e+04]" ~ "middle income",
+    ses == "(1e+04, Inf]" ~ "high income")) |&gt;
+  mutate(income = fct_relevel(income, c("low income", "middle income", "high income"))) |&gt;
+  ggplot(aes(x = meat, y  = life_0, color = income, shape = income)) + 
+  geom_point(alpha = 0.8) +
+  labs(x = "Meat consumption (kg per capita)", y = "Life expectancy",
+       color = "", shape = "") +
+  theme(axis.title = element_text(size = 11)) +
+  guides(color = "none", shape = "none")  +
+  facet_wrap(~ income)
+
+(p_life + p_life_confound) / p_life_confound2 + plot_layout(guides='collect') &amp; 
+  theme(legend.position='bottom')
+          </input>
+        </program>
+      </listing>
+      
       <p><ol marker="a.">
         <li>
           <p>Describe the relationship between meat consumption and life expectancy.</p>
@@ -38,6 +90,43 @@
     <title>Arrival delays.</title>
     <statement>
       <p>Consider all of the flights out of New York City in 2013 that flew into Puerto Rico (BQN) or San Francisco (SFO) on the following two airlines: JetBlue (B6) or United Airlines (UA). We consider the relationship between day of the year and arrival delay (in minutes). Note that a negative arrival delay means that the flight arrived early. The figures display a least squares regression line for arrival delay versus time (day of the year).<fn>The <c>flights</c> data used in this exercise can be found in the <url href="https://github.com/tidyverse/nycflights13"><alert>nycflights13</alert></url> R package.</fn> </p>
+      
+      <listing>
+        <caption>R code to generate the figures</caption>
+        <program language="r">
+          <input>
+p_delay &lt;- flights |&gt;
+  filter(dest %in% c("BQN", "SFO")) |&gt;
+  filter(carrier %in% c("B6", "UA")) |&gt;
+  group_by(carrier) |&gt;
+  mutate(med_delay = median(arr_delay, na.rm = TRUE)) |&gt;
+  mutate(date = ymd(paste(year, month, day, sep= ' '))) |&gt;
+  ggplot(aes(x = time_hour, y = arr_delay, color = carrier, linetype = carrier)) +
+  geom_smooth(method = "lm", se = FALSE) + 
+  labs(x = NULL, y = NULL, color = "Carrier", linetype = "Carrier") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  scale_color_openintro("two") +
+  theme(legend.position = c(0.15, 0.8))
+
+p_delay_city &lt;- flights |&gt;
+  filter(dest %in% c("BQN", "SFO")) |&gt;
+  filter(carrier %in% c("B6", "UA")) |&gt;
+  mutate(carrier = ifelse(carrier == "B6", "JetBlue", "United")) |&gt;
+  group_by(carrier, dest) |&gt;
+  mutate(med_delay = median(arr_delay, na.rm = TRUE)) |&gt;
+  mutate(date = ymd(paste(year, month, day, sep= ' '))) |&gt;
+  ggplot(aes(x = time_hour, y = arr_delay, color = carrier, linetype = carrier)) +
+  geom_smooth(method = "lm", se = FALSE, show.legend = FALSE) + 
+  labs(x = NULL, y = NULL) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) +
+  facet_wrap(~dest) +
+  scale_color_openintro("two")
+
+p_delay + p_delay_city
+          </input>
+        </program>
+      </listing>
+      
       <p><ol marker="a.">
         <li>
           <p>Does it seem like there are differences in arrival delays across time when looking at BQN and SFO airports combined (left figure)? Explain.</p>
@@ -125,7 +214,38 @@
   <exercise>
     <title>Movie returns by genre.</title>
     <statement>
-      <p>A model was fit to predict return-on-investment (ROI) on movies based on release year and genre (Adventure, Action, Drama, Horror, and Comedy). The plots below show the predicted ROI vs. actual ROI for each of the genres separately. Do these figures support the comment in the FiveThirtyEight.com article that states, "The return-on-investment potential for horror movies is absurd." Note that the x-axis range varies for each plot. <xref ref="webpage:horrormovies"/></p>
+      <p>A model was fit to predict return-on-investment (ROI) on movies based on release year and genre (Adventure, Action, Drama, Horror, and Comedy). The plots below show the predicted ROI vs. actual ROI for each of the genres separately. Do these figures support the comment in the FiveThirtyEight.com article that states, "The return-on-investment potential for horror movies is absurd." Note that the x-axis range varies for each plot. <xref ref="webpage:horrormovies"/> </p>
+      
+      <listing>
+        <caption>R code to generate the figure</caption>
+        <program language="r">
+          <input>
+movie_profit &lt;- read_csv("data/movie_profit.csv")
+movie_profit &lt;- movie_profit |&gt;
+  mutate(
+    release_date = mdy(release_date),
+    release_year = year(release_date),
+    oct_release = ifelse(month(release_date) == 10, "yes", "no"),
+    dom_gross_to_prod = domestic_gross / production_budget,
+    ww_gross_to_prod = worldwide_gross / production_budget
+    ) |&gt;
+  filter(
+    release_year &gt;= 2010,
+    release_year &lt; 2019
+    )
+
+m_movie &lt;- lm(ww_gross_to_prod ~ release_year + genre, data = movie_profit)
+m_movie_aug &lt;- augment(m_movie)
+
+ggplot(m_movie_aug, aes(y = .fitted, x = ww_gross_to_prod, color = genre)) + 
+  geom_point(alpha = 0.5, show.legend = FALSE, size = 2) +
+  facet_wrap(~genre, scales = "free_x") +
+  theme_minimal() + 
+  labs(x = "Actual ROI", y = "Predicted ROI", color = "Genre") +
+  scale_color_openintro("five")
+          </input>
+        </program>
+      </listing>
   </statement>
   </exercise>
 
