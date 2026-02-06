@@ -116,7 +116,7 @@
           <p>For a given release year, which genre of movies are predicted, on average, to have the highest predicted return on investment?</p>
         </li>
         <li>
-          <p>The adjusted <m>R^2</m> of this model is [value]%. Adding the production budget of the movie to the model increases the adjusted <m>R^2</m> to [value]%. Should production budget be added to the model? </p>
+          <p>The adjusted <m>R^2</m> of this model is [adjusted R² value]%. Adding the production budget of the movie to the model increases the adjusted <m>R^2</m> to [adjusted R² value]%. Should production budget be added to the model? </p>
         </li>
       </ol></p>
   </statement>
