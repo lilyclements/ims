@@ -3,7 +3,733 @@
 <chapter xml:id="ch16-inference-single-proportion">
   <title>Inference for a single proportion</title>
   
-  <p>
-    Content to be added from inference-one-prop.qmd
-  </p>
+  <introduction>
+    <p>
+      Focusing now on statistical inference for categorical data, we will revisit many of the foundational aspects of hypothesis testing from <xref ref="ch11-hypothesis-testing-randomization" />.
+    </p>
+    
+    <p>
+      The three data structures we detail are one binary variable, summarized using a single proportion; two binary variables, summarized using a difference of two proportions; and two categorical variables, summarized using a two-way table.
+      When appropriate, each of the data structures will be analyzed using the three methods from <xref ref="ch11-hypothesis-testing-randomization" />, <xref ref="ch12-confidence-intervals-bootstrapping" />, and <xref ref="sec-foundations-mathematical" />: randomization test, bootstrapping, and mathematical models, respectively.
+    </p>
+    
+    <p>
+      As we build on the inferential ideas, we will visit new foundational concepts in statistical inference.
+      For example, we will cover the conditions for when a normal model is appropriate; the two different error rates in hypothesis testing; and choosing the confidence level for a confidence interval.
+    </p>
+    
+    <p>
+      We encountered inference methods for a single proportion in <xref ref="ch12-confidence-intervals-bootstrapping" />, exploring point estimates and confidence intervals.
+      In this section, we'll do a review of these topics and how to choose an appropriate sample size when collecting data for single proportion contexts.
+    </p>
+    
+    <p>
+      Note that there is only one variable being measured in a study which focuses on one proportion.
+      For each observational unit, the single variable is measured as either a success or failure (e.g., <q>surgical complication</q> vs. <q>no surgical complication</q>).
+      Because the nature of the research question at hand focuses on only a single variable, there is not a way to randomize the variable across a different (explanatory) variable.
+      For this reason, we will not use randomization as an analysis tool when focusing on a single proportion.
+      Instead, we will apply bootstrapping techniques to test a given hypothesis, and we will also revisit the associated mathematical models.
+    </p>
+  </introduction>
+
+  <section xml:id="sec-one-prop-null-boot">
+    <title>Bootstrap test for a proportion</title>
+    
+    <p>
+      The bootstrap simulation concept when <m>H_0</m> is true is similar to the ideas used in the case studies presented in <xref ref="ch12-confidence-intervals-bootstrapping" /> where we bootstrapped without an assumption about <m>H_0.</m> Because we will be testing a hypothesized value of <m>p</m> (referred to as <m>p_0</m>), the bootstrap simulation for hypothesis testing has a fantastic advantage that it can be used for any sample size (a huge benefit for small samples, a nice alternative for large samples).
+    </p>
+    
+    <p>
+      We expand on the medical consultant example from <xref ref="sec-case-study-med-consult" />, but instead of finding an interval estimate for the true complication rate, we test a specific claim.
+    </p>
+
+    <subsection xml:id="subsec-one-prop-observed-data">
+      <title>Observed data</title>
+      
+      <p>
+        Recall the set-up for the example:
+        People providing an organ for donation sometimes seek the help of a special <q>medical consultant</q>.
+        These consultants assist the patient in all aspects of the surgery, with the goal of reducing the possibility of complications during the medical procedure and recovery.
+        Patients might choose a consultant based in part on the historical complication rate of the consultant's clients.
+        One consultant tried to attract patients by noting the average complication rate for liver donor surgeries in the US is about 10%, but her clients have only had 3 complications in the 62 liver donor surgeries she has facilitated.
+        She claims this is strong evidence that her work meaningfully contributes to reducing complications (and therefore she should be hired!).
+      </p>
+
+      <example xml:id="example-consultant-causal-claim">
+        <statement>
+          <p>
+            Using the data, is it possible to assess the consultant's claim that her complication rate is less than 10%?
+          </p>
+        </statement>
+        <solution>
+          <p>
+            No.
+            The claim is that there is a causal connection, but the data are observational.
+            Patients who hire this medical consultant may have lower complication rates for other reasons.
+          </p>
+          
+          <p>
+            While it is not possible to assess this causal claim, it is still possible to test for an association using these data.
+            For this question we ask, could the low complication rate of <m>\hat{p} = 0.0484</m> have simply occurred by chance, if her complication rate does not differ from the US standard rate?
+          </p>
+        </solution>
+      </example>
+
+      <exercise xml:id="exercise-consultant-hypotheses">
+        <statement>
+          <p>
+            Write out hypotheses in both plain and statistical language to test for the association between the consultant's work and the true complication rate, <m>p,</m> for the consultant's clients.
+          </p>
+        </statement>
+        <solution>
+          <p>
+            <m>H_0:</m> There is no association between the consultant's contributions and the clients' complication rate.
+            In statistical language, <m>p = 0.10.</m> 
+          </p>
+          <p>
+            <m>H_A:</m> Patients who work with the consultant tend to have a complication rate lower than 10%, i.e., <m>p \lt 0.10.</m>
+          </p>
+        </solution>
+      </exercise>
+
+      <p>
+        Because, as it turns out, the conditions of working with the normal distribution are not met (see <xref ref="sec-one-prop-norm" />), the uncertainty associated with the sample proportion should not be modeled using the normal distribution, as doing so would underestimate the uncertainty associated with the sample statistic.
+        However, we would still like to assess the hypotheses from the previous exercise in absence of the normal framework.
+        To do so, we need to evaluate the possibility of a sample value <m>(\hat{p})</m> as far below the null value, <m>p_0 = 0.10</m> as what was observed.
+        The deviation of the sample value from the hypothesized parameter is usually quantified with a p-value.
+      </p>
+      
+      <p>
+        The p-value is computed based on the null distribution, which is the distribution of the test statistic if the null hypothesis is true.
+        Supposing the null hypothesis is true, we can compute the p-value by identifying the probability of observing a test statistic that favors the alternative hypothesis at least as strongly as the observed test statistic.
+        Here we will use a bootstrap simulation to calculate the p-value.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-one-prop-variability">
+      <title>Variability of the statistic</title>
+      
+      <p>
+        We want to identify the sampling distribution of the test statistic <m>(\hat{p})</m> if the null hypothesis was true.
+        In other words, we want to see the variability we can expect from sample proportions if the null hypothesis was true.
+        Then we plan to use this information to decide whether there is enough evidence to reject the null hypothesis.
+      </p>
+      
+      <p>
+        Under the null hypothesis, 10% of liver donors have complications during or after surgery.
+        Suppose this rate was really no different for the consultant's clients (for <em>all</em> the consultant's clients, not just the 62 previously measured).
+        If this was the case, we could <em>simulate</em> 62 clients to get a sample proportion for the complication rate from the null distribution.
+        Simulating observations using a hypothesized null parameter value is often called a <term>parametric bootstrap simulation</term><idx>parametric bootstrap</idx>, but we will refer to it descriptively as <q>simulating under the null hypothesis claim.</q>
+      </p>
+      
+      <p>
+        Similar to the process described in <xref ref="ch12-confidence-intervals-bootstrapping" />, each client can be simulated using a bag of marbles with 10% red marbles and 90% white marbles.
+        Sampling a marble from the bag (with 10% red marbles) is one way of simulating whether a patient has a complication <em>if the true complication rate is 10%</em>.
+        If we select 62 marbles and then compute the proportion of patients with complications in the simulation, <m>\hat{p}_{sim1},</m> then the resulting sample proportion is a sample from the null distribution.
+      </p>
+      
+      <p>
+        There were 5 simulated cases with a complication and 57 simulated cases without a complication, i.e., <m>\hat{p}_{sim1} = 5/62 = 0.081.</m>
+      </p>
+
+      <example xml:id="example-one-simulation-enough">
+        <statement>
+          <p>
+            Is this one simulation enough to determine whether we should reject the null hypothesis?
+          </p>
+        </statement>
+        <solution>
+          <p>
+            No.
+            To assess the hypotheses, we need to see a distribution of many values of <m>\hat{p}_{sim},</m> not just a <em>single</em> draw from this sampling distribution.
+          </p>
+        </solution>
+      </example>
+    </subsection>
+
+    <subsection xml:id="subsec-one-prop-observed-vs-null">
+      <title>Observed statistic vs. null statistics</title>
+      
+      <p>
+        One simulation isn't enough to get a sense of the null distribution; many simulation studies are needed.
+        Roughly 10,000 seems sufficient.
+        However, paying someone to simulate 10,000 studies by hand is a waste of time and money.
+        Instead, simulations are typically programmed into a computer, which is much more efficient.
+      </p>
+      
+      <p>
+        <xref ref="fig-nullDistForPHatIfLiverTransplantConsultantIsNotHelpful" /> shows the results of 10,000 simulated studies.
+        The proportions that are equal to or less than <m>\hat{p} = 0.0484</m> are shaded.
+        The shaded areas represent sample proportions under the null distribution that provide at least as much evidence as <m>\hat{p}</m> favoring the alternative hypothesis.
+        There were 132 simulated sample proportions with <m>\hat{p}_{sim} \leq 0.0484.</m> We use these to construct the null distribution's left-tail area and find the p-value:
+      </p>
+
+      <me>
+        \text{left tail area} = \frac{\text{Number of observed simulations with }\hat{p}_{sim} \leq \text{ 0.0484}}{10000}
+      </me>
+
+      <p>
+        Of the 10,000 simulated <m>\hat{p}_{sim},</m> 132 were equal to or smaller than <m>\hat{p}.</m> Since the hypothesis test is one-sided, the estimated p-value is equal to this tail area: 0.013.
+      </p>
+
+      <figure xml:id="fig-nullDistForPHatIfLiverTransplantConsultantIsNotHelpful">
+        <caption>The null distribution for <m>\hat{p},</m> created from 10,000 simulated studies. The left tail, representing the p-value for the hypothesis test is colored in blue.</caption>
+        <image source="images/nullDistForPHatIfLiverTransplantConsultantIsNotHelpful.png" width="70%" />
+      </figure>
+
+      <exercise xml:id="exercise-interpret-pvalue-consultant">
+        <statement>
+          <p>
+            Because the estimated p-value is 0.013, which is smaller than the discernibility level 0.05, we reject the null hypothesis.
+            Explain what this means in plain language in the context of the problem.
+          </p>
+        </statement>
+        <solution>
+          <p>
+            There is sufficient evidence to reject the null hypothesis in favor of the alternative hypothesis.
+            We can conclude that there is evidence that the consultant's surgery complication rate is lower than the US standard rate of 10%.
+            However, we cannot conclude that the consultant's work causes the lower complication rate, since this is observational data.
+          </p>
+        </solution>
+      </exercise>
+
+      <exercise xml:id="exercise-consultant-job-quality">
+        <statement>
+          <p>
+            Does the conclusion in the previous exercise imply the consultant is good at their job?
+            Explain.
+          </p>
+        </statement>
+        <solution>
+          <p>
+            Not necessarily.
+            While we have evidence of an association between working with the consultant and lower complication rates, we cannot establish causation from observational data.
+            The lower rate could be due to selection bias (healthier patients choosing to work with the consultant) or other confounding variables.
+          </p>
+        </solution>
+      </exercise>
+
+      <note>
+        <title>Null distribution of <m>\hat{p}</m> with bootstrap simulation</title>
+        <p>
+          Regardless of the statistical method chosen, the p-value is always derived by analyzing the null distribution of the test statistic.
+          The normal model poorly approximates the null distribution for <m>\hat{p}</m> (the sample proportion) when the success-failure condition is not satisfied.
+          As a substitute, we can generate the null distribution using simulated sample proportions and use this distribution to compute the tail area, i.e., the p-value.
+        </p>
+      </note>
+      
+      <p>
+        In the previous exercise, the p-value is <em>estimated</em>.
+        It is not exact because the simulated null distribution itself is only a close approximation of the sampling distribution of the sample statistic.
+        An exact p-value can be generated using the binomial distribution, but that method will not be covered in this text.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-one-prop-norm">
+    <title>Mathematical model for a proportion</title>
+
+    <subsection xml:id="subsec-one-prop-conditions">
+      <title>Conditions</title>
+      
+      <p>
+        In <xref ref="sec-foundations-mathematical" />, we introduced the normal distribution and showed how it can be used as a mathematical model to describe the variability of a statistic.
+        There are conditions under which a sample proportion <m>\hat{p}</m> is well modeled with a normal distribution.
+        When the observations are independent and the sample size is sufficiently large, the normal model will describe the sampling distribution of the sample proportion quite well; when the observations violate the conditions, the normal model can be inaccurate.
+        Particularly, it can underestimate the variability of the sample proportion.
+      </p>
+
+      <note>
+        <title>Sampling distribution of <m>\hat{p}</m></title>
+        <p>
+          The sampling distribution for <m>\hat{p}</m> (the sample proportion) based on a sample of size <m>n</m> from a population with a true proportion <m>p</m> is nearly normal when:
+        </p>
+        
+        <p>
+          <ol>
+            <li><p>The sample's observations are independent, e.g., are from a simple random sample.</p></li>
+            <li><p>We expected to see at least 10 successes and 10 failures in the sample, i.e., <m>np\geq10</m> and <m>n(1-p)\geq10.</m> This is called the <term>success-failure condition</term><idx>success-failure condition</idx>.</p></li>
+          </ol>
+        </p>
+        
+        <p>
+          When these conditions are met, then the sampling distribution of <m>\hat{p}</m> is nearly normal with mean <m>p</m> and standard error of <m>\hat{p}</m> as <m>SE = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}.</m>
+        </p>
+      </note>
+      
+      <p>
+        Recall that the margin of error is defined by the standard error.
+        The margin of error for <m>\hat{p}</m> can be directly obtained from <m>SE(\hat{p}).</m>
+      </p>
+
+      <note>
+        <title>Margin of error for <m>\hat{p}</m></title>
+        <p>
+          The margin of error is <m>z^\star \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}</m> where <m>z^\star</m> is calculated from a specified percentile on the normal distribution.
+        </p>
+      </note>
+      
+      <p>
+        Typically we do not know the true proportion <m>p,</m> so we substitute some value to check conditions and estimate the standard error.
+        For confidence intervals, the sample proportion <m>\hat{p}</m> is used to check the success-failure condition and compute the standard error.
+        For hypothesis tests, typically the null value <mdash /> that is, the proportion claimed in the null hypothesis <mdash /> is used in place of <m>p.</m>
+      </p>
+      
+      <p>
+        The independence condition is a more nuanced requirement.
+        When it isn't met, it is important to understand how and why it is violated.
+        For example, there exist no statistical methods available to truly correct the inherent biases of data from a convenience sample.
+        On the other hand, if we took a cluster sample (see <xref ref="sec-samp-methods" />), the observations wouldn't be independent, but suitable statistical methods are available for analyzing the data (but they are beyond the scope of even most second or third courses in statistics).
+      </p>
+
+      <example xml:id="example-consultant-normal-inapproprate">
+        <statement>
+          <p>
+            In the examples based on large sample theory, we modeled <m>\hat{p}</m> using the normal distribution.
+            Why is this not appropriate for the case study on the medical consultant?
+          </p>
+        </statement>
+        <solution>
+          <p>
+            The independence assumption may be reasonable if each of the surgeries is from a different surgical team.
+            However, the success-failure condition is not satisfied.
+            Under the null hypothesis, we would anticipate seeing <m>62 \times 0.10 = 6.2</m> complications, not the 10 required for the normal approximation.
+          </p>
+        </solution>
+      </example>
+      
+      <p>
+        While this book is scoped to well-constrained statistical problems, do remember that this is just the first book in what is a large library of statistical methods that are suitable for a very wide range of data and contexts.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-one-prop-ci">
+      <title>Confidence interval for a proportion</title>
+      
+      <p>
+        A confidence interval provides a range of plausible values for the parameter <m>p,</m> and when <m>\hat{p}</m> can be modeled using a normal distribution, the confidence interval for <m>p</m> takes the form <m>\hat{p} \pm z^{\star} \times SE.</m> We have seen <m>\hat{p}</m> to be the sample proportion.
+        The value <m>z^{\star}</m> determines the confidence level (previously set to be 1.96) and will be discussed in detail in the examples following.
+        The value of the standard error, <m>SE,</m> depends heavily on the sample size.
+      </p>
+
+      <note>
+        <title>Standard error of one proportion, <m>\hat{p}</m></title>
+        <p>
+          When the conditions are met so that the distribution of <m>\hat{p}</m> (the sample proportion) is nearly normal, the <alert>variability</alert> of a single proportion, <m>\hat{p}</m> is well described by:
+        </p>
+
+        <me>
+          SE(\hat{p}) = \sqrt{\frac{p(1-p)}{n}}
+        </me>
+
+        <p>
+          Note that we almost never know the true value of <m>p</m> (the population probability or proportion). A more helpful formula to use is:
+        </p>
+
+        <me>
+          SE(\hat{p}) \approx \sqrt{\frac{(\text{best guess of }p)(1 - \text{best guess of }p)}{n}}
+        </me>
+
+        <p>
+          For hypothesis testing, we use <m>p_0</m> (the proportion specified in the null hypothesis) as the best guess of <m>p.</m> For confidence intervals, we use <m>\hat{p}</m> as the best guess of <m>p.</m>
+        </p>
+      </note>
+
+      <exercise xml:id="exercise-marijuana-poll-se">
+        <statement>
+          <p>
+            Consider taking many polls of registered voters (i.e., random samples) of size 300 asking them if they support legalized marijuana.
+            It is suspected that about 2/3 of all voters support legalized marijuana.
+            To understand how the sample proportion <m>(\hat{p})</m> would vary across the samples, calculate the standard error of <m>\hat{p}.</m>
+          </p>
+        </statement>
+        <solution>
+          <p>
+            Because the <m>p</m> is unknown but expected to be around 2/3, we will use 2/3 in place of <m>p</m> in the formula for the standard error.
+            <m>SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{2/3 (1 - 2/3)}{300}} = 0.027.</m>
+          </p>
+        </solution>
+      </exercise>
+    </subsection>
+
+    <subsection xml:id="subsec-one-prop-variability-sample">
+      <title>Variability of the sample proportion</title>
+
+      <example xml:id="example-payday-loan-ci">
+        <statement>
+          <p>
+            A simple random sample of 826 payday loan borrowers was surveyed to better understand their interests around regulation and costs.
+            70% of the responses supported new regulations on payday lenders.
+          </p>
+
+          <p>
+            <ol>
+              <li><p>Is it reasonable to model the distribution of <m>\hat{p}</m> using a normal distribution?</p></li>
+              <li><p>Estimate the standard error of <m>\hat{p}.</m></p></li>
+              <li><p>Construct a 95% confidence interval for <m>p,</m> the proportion of payday borrowers who support increased regulation for payday lenders.</p></li>
+            </ol>
+          </p>
+        </statement>
+        <solution>
+          <p>
+            <ol>
+              <li>
+                <p>The data are a random sample, so it is reasonable to assume that the observations are independent and representative of the population of interest. We also must check the success-failure condition, using <m>\hat{p}</m> in place of <m>p</m> when computing a confidence interval. Since both values are at least 10, we can use the normal distribution to model <m>\hat{p}.</m></p>
+
+                <md>
+                  <mrow>\text{Support: } n p \amp\approx 826 \times 0.70 = 578</mrow>
+                  <mrow>\text{Not: } n (1 - p) \amp\approx 826 \times (1 - 0.70) = 248</mrow>
+                </md>
+              </li>
+              <li>
+                <p>Because <m>p</m> is unknown and the standard error is for a confidence interval, use <m>\hat{p}</m> in place of <m>p</m> in the formula.</p>
+                <me>SE = \sqrt{\frac{p(1-p)}{n}} \approx \sqrt{\frac{0.70 (1 - 0.70)}{826}} = 0.016.</me>
+              </li>
+              <li>
+                <p>Using <m>\hat{p} = 0.70</m>, <m>z^{\star} = 1.96</m> for a 95% confidence interval, and the standard error <m>SE = 0.016</m> from the previous part, the confidence interval is</p>
+
+                <md>
+                  <mrow>\text{point estimate} \amp\pm z^{\star} \times SE</mrow>
+                  <mrow>0.70 \amp\pm 1.96 \times 0.016</mrow>
+                  <mrow>(0.669 \amp, 0.731)</mrow>
+                </md>
+
+                <p>We are 95% confident that the true proportion of payday borrowers who supported regulation at the time of the poll was between 0.669 and 0.731.</p>
+              </li>
+            </ol>
+          </p>
+        </solution>
+      </example>
+
+      <note>
+        <title>Constructing a confidence interval for a single proportion</title>
+        <p>
+          There are three steps to constructing a confidence interval for <m>p</m> (the true population proportion or probability).
+        </p>
+
+        <p>
+          <ol>
+            <li><p>Check if it seems reasonable to assume the observations are independent and check the success-failure condition using <m>\hat{p}</m> (the sample proportion). If the conditions are met, the sampling distribution of <m>\hat{p}</m> may be well-approximated by the normal model.</p></li>
+            <li><p>Calculate the standard error using <m>\hat{p}</m> instead of <m>p</m>.</p></li>
+            <li><p>Apply the general confidence interval formula.</p></li>
+          </ol>
+        </p>
+      </note>
+      
+      <p>
+        For additional one-proportion confidence interval examples, see <xref ref="sec-ConfidenceIntervals" />.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-one-prop-change-confidence">
+      <title>Changing the confidence level</title>
+      
+      <p>
+        Suppose we want to consider confidence intervals where the confidence level is somewhat higher than 95%: perhaps we would like a confidence level of 99%.
+        Think back to the analogy about trying to catch a fish: if we want to be more sure that we will catch the fish, we should use a wider net.
+        To create a 99% confidence level, we must also widen our 95% interval.
+        On the other hand, if we want an interval with lower confidence, such as 90%, we could make our original 95% interval slightly slimmer.
+      </p>
+      
+      <p>
+        The 95% confidence interval structure provides guidance in how to make intervals with new confidence levels.
+        Below is a general 95% confidence interval for a point estimate that comes from a nearly normal distribution:
+      </p>
+
+      <me>
+        \text{point estimate} \pm 1.96 \times SE
+      </me>
+
+      <p>
+        There are three components to this interval: the point estimate, <q>1.96</q>, and the standard error.
+        The choice of <m>1.96 \times SE</m> was based on capturing 95% of the data since the estimate is within 1.96 standard errors of the true value about 95% of the time.
+        1.96 corresponds to the 95% confidence level.
+      </p>
+
+      <exercise xml:id="exercise-normal-258-sd">
+        <statement>
+          <p>
+            If <m>X</m> is a normally distributed random variable, how often will <m>X</m> be within 2.58 standard deviations of the mean?
+          </p>
+        </statement>
+        <solution>
+          <p>
+            This is equivalent to asking how often the <m>Z</m> score will be larger than -2.58 but less than 2.58.
+            (For a picture, see <xref ref="fig-choosingZForCI" />.) To determine this probability, look up -2.58 and 2.58 in the normal probability table (0.0049 and 0.9951).
+            Thus, there is a <m>0.9951-0.0049 \approx 0.99</m> probability that the unobserved random variable <m>X</m> will be within 2.58 standard deviations of the mean.
+          </p>
+        </solution>
+      </exercise>
+
+      <figure xml:id="fig-choosingZForCI">
+        <caption>The area between <m>-z^{\star}</m> and <m>z^{\star}</m> increases as <m>|z^{\star}|</m> becomes larger. If the confidence level is 99%, we choose <m>z^{\star}</m> such that 99% of the normal curve is between <m>-z^{\star}</m> and <m>z^{\star},</m> which corresponds to 0.5% in the lower tail and 0.5% in the upper tail: <m>z^{\star}=2.58.</m></caption>
+        <image source="images/choosingZForCI.png" width="70%" />
+      </figure>
+      
+      <p>
+        To create a 99% confidence interval, change 1.96 in the 95% confidence interval formula to be <m>2.58.</m> The previous exercise highlights that 99% of the time a normal random variable will be within 2.58 standard deviations of its mean.
+        This approach <mdash /> using the Z scores in the normal model to compute confidence levels <mdash /> is appropriate when the point estimate is associated with a normal distribution and we can properly compute the standard error.
+        Thus, the formula for a 99% confidence interval is:
+      </p>
+
+      <me>
+        \text{point estimate} \pm 2.58 \times SE
+      </me>
+
+      <p>
+        The normal approximation is crucial to the precision of the <m>z^\star</m> confidence intervals (in contrast to the bootstrap percentile confidence intervals).
+        When the normal model is not a good fit, we will use alternative distributions that better characterize the sampling distribution or we will use bootstrapping procedures.
+      </p>
+
+      <exercise xml:id="exercise-stent-99-ci">
+        <statement>
+          <p>
+            Create a 99% confidence interval for the impact of the stent on the risk of stroke using the data from <xref ref="sec-case-study-stents-strokes" />.
+            The point estimate is 0.090, and the standard error is <m>SE = 0.028.</m> It has been verified for you that the point estimate can reasonably be modeled by a normal distribution.
+          </p>
+        </statement>
+        <solution>
+          <p>
+            Since the necessary conditions for applying the normal model have already been checked for us, we can go straight to the construction of the confidence interval: <m>\text{point estimate} \pm 2.58 \times SE</m> which gives an interval of (0.018, 0.162). We are 99% confident that implanting a stent in the brain of a patient who is at risk of stroke increases the risk of stroke within 30 days by a rate of 0.018 to 0.162 (assuming the patients are representative of the population).
+          </p>
+        </solution>
+      </exercise>
+
+      <note>
+        <title>Mathematical model confidence interval for any confidence level</title>
+        <p>
+          If the point estimate follows the normal model with standard error <m>SE,</m> then a confidence interval for the population parameter is
+        </p>
+
+        <me>
+          \text{point estimate} \pm z^{\star} \times SE
+        </me>
+
+        <p>
+          where <m>z^{\star}</m> corresponds to the confidence level selected.
+        </p>
+      </note>
+      
+      <p>
+        <xref ref="fig-choosingZForCI" /> provides a picture of how to identify <m>z^{\star}</m> based on a confidence level.
+        We select <m>z^{\star}</m> so that the area between <m>-z^{\star}</m> and <m>z^{\star}</m> in the normal model corresponds to the confidence level.
+      </p>
+
+      <exercise xml:id="exercise-stent-90-ci">
+        <statement>
+          <p>
+            Previously, we found that implanting a stent in the brain of a patient at risk for a stroke <em>increased</em> the risk of a stroke.
+            The study estimated a 9% increase in the number of patients who had a stroke, and the standard error of this estimate was about <m>SE = 2.8\%.</m> Compute a 90% confidence interval for the effect.
+          </p>
+        </statement>
+        <solution>
+          <p>
+            We must find <m>z^{\star}</m> such that 90% of the distribution falls between <m>-z^{\star}</m> and <m>z^{\star}</m> in the standard normal model, <m>N(\mu=0, \sigma=1).</m> We can look up <m>-z^{\star}</m> in the normal probability table by looking for a lower tail of 5% (the other 5% is in the upper tail), thus <m>z^{\star} = 1.65.</m> The 90% confidence interval can then be computed as <m>\text{point estimate} \pm 1.65 \times SE \to (4.4\%, 13.6\%).</m> (Note: the conditions for normality had earlier been confirmed for us.) That is, we are 90% confident that implanting a stent in a stroke patient's brain increased the risk of stroke within 30 days by 4.4% to 13.6%.
+          </p>
+          <p>
+            Note, the problem was set up as 90% to indicate that there was not a need for a high level of confidence (such as 95% or 99%).
+            A lower degree of confidence increases potential for error, but it also produces a more narrow interval.
+          </p>
+        </solution>
+      </exercise>
+    </subsection>
+
+    <subsection xml:id="subsec-one-prop-hypothesis-test">
+      <title>Hypothesis test for a proportion</title>
+      
+      <p>
+        One possible regulation for payday lenders is that they would be required to do a credit check and evaluate debt payments against the borrower's finances.
+        We would like to know: would borrowers support this form of regulation?
+      </p>
+
+      <exercise xml:id="exercise-payday-hypotheses">
+        <statement>
+          <p>
+            Set up hypotheses to evaluate whether borrowers have a majority support for this type of regulation.
+          </p>
+        </statement>
+        <solution>
+          <p>
+            <m>H_0:</m> there is not support for the regulation; <m>H_0: p \leq 0.50.</m>
+          </p>
+          <p>
+            <m>H_A:</m> the majority of borrowers support the regulation; <m>H_A: p > 0.50.</m>
+          </p>
+        </solution>
+      </exercise>
+      
+      <p>
+        To apply the normal distribution framework in the context of a hypothesis test for a proportion, the independence and success-failure conditions must be satisfied.
+        In a hypothesis test, the success-failure condition is checked using the null proportion: we verify <m>np_0</m> and <m>n(1-p_0)</m> are at least 10, where <m>p_0</m> is the null value.
+      </p>
+
+      <note>
+        <title>The test statistic for assessing a single proportion is a Z</title>
+        <p>
+          The <term>Z score</term><idx>Z score</idx> is a ratio of how the sample proportion differs from the hypothesized proportion <m>(p_0)</m> as compared to the expected variability of the <m>\hat{p}</m> (sample proportion) values.
+        </p>
+
+        <me>
+          Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}}
+        </me>
+
+        <p>
+          When the null hypothesis is true and the conditions are met, Z has a standard normal distribution.
+        </p>
+
+        <p>
+          Conditions:
+        </p>
+        <p>
+          <ul>
+            <li><p>independent observations</p></li>
+            <li><p>large samples <m>(n p_0 \geq 10</m> and <m>n (1-p_0) \geq 10)</m></p></li>
+          </ul>
+        </p>
+      </note>
+
+      <exercise xml:id="exercise-payday-normal-check">
+        <statement>
+          <p>
+            Do payday loan borrowers support a regulation that would require lenders to pull their credit report and evaluate their debt payments?
+            From a random sample of 826 borrowers, 51% said they would support such a regulation.
+            Is it reasonable to use a normal distribution to model <m>\hat{p}</m> for a hypothesis test here?
+          </p>
+        </statement>
+        <solution>
+          <p>
+            Independence holds since the poll is based on a random sample.
+            The success-failure condition also holds, which is checked using the null value <m>(p_0 = 0.5)</m> from <m>H_0:</m> <m>np_0 = 826 \times 0.5 = 413,</m> <m>n(1 - p_0) = 826 \times 0.5 = 413.</m> Recall that here, the best guess for <m>p</m> is <m>p_0</m> which comes from the null hypothesis (because we assume the null hypothesis is true when performing the testing procedure steps).
+          </p>
+        </solution>
+      </exercise>
+
+      <note>
+        <title>Mathematical model hypothesis test for a proportion</title>
+        <p>
+          Set up hypotheses and verify the conditions using the null value, <m>p_0,</m> to ensure <m>\hat{p}</m> (the sample proportion) is nearly normal under <m>H_0.</m> If the conditions hold, calculate the standard error, again using <m>p_0,</m> and show the p-value in a drawing.
+          Lastly, compute the p-value and evaluate the hypotheses.
+        </p>
+      </note>
+      
+      <p>
+        For additional one-proportion hypothesis test examples, see <xref ref="sec-HypothesisTesting" />.
+      </p>
+
+      <example xml:id="example-payday-hypothesis-test">
+        <statement>
+          <p>
+            Using the hypotheses and data from the previous exercises, evaluate whether the poll on lending regulations provides convincing evidence that a majority of payday loan borrowers support a new regulation that would require lenders to pull credit reports and evaluate debt payments.
+          </p>
+        </statement>
+        <solution>
+          <p>
+            With hypotheses already set up and conditions checked, we can move onto calculations.
+            The standard error in the context of a one-proportion hypothesis test is computed using the null value, <m>p_0:</m>
+          </p>
+
+          <me>
+            SE = \sqrt{\frac{p_0 (1 - p_0)}{n}} = \sqrt{\frac{0.5 (1 - 0.5)}{826}} = 0.017
+          </me>
+
+          <p>
+            A picture of the normal model is shown in <xref ref="fig-normTail-51" /> with the p-value represented by the shaded region.
+          </p>
+
+          <figure xml:id="fig-normTail-51">
+            <caption>Normal distribution with p-value shaded for payday loan hypothesis test.</caption>
+            <image source="images/normTail-51.png" width="60%" />
+          </figure>
+
+          <p>
+            Based on the normal model, the test statistic can be computed as the Z score of the point estimate:
+          </p>
+
+          <me>
+            Z = \frac{\text{point estimate} - \text{null value}}{SE} = \frac{0.51 - 0.50}{0.017} = 0.59
+          </me>
+
+          <p>
+            The single tail area which represents the p-value is 0.2776.
+            Because the p-value is larger than 0.05, we do not reject <m>H_0.</m> The poll does not provide convincing evidence that a majority of payday loan borrowers support regulations around credit checks and evaluation of debt payments.
+          </p>
+          
+          <p>
+            In <xref ref="ch14-decision-errors" /> we discuss two-sided hypothesis tests of which the payday example may have been better structured.
+            That is, we might have wanted to ask whether the borrowers <alert>support or oppose</alert> the regulations (to study opinion in either direction away from the 50% benchmark).
+            In that case, the p-value would have been doubled to 0.5552 (again, we would not reject <m>H_0</m>). In the two-sided hypothesis setting, the appropriate conclusion would be to claim that the poll does not provide convincing evidence that a majority of payday loan borrowers support or oppose regulations around credit checks and evaluation of debt payments.
+          </p>
+          
+          <p>
+            In both the one-sided or two-sided setting, the conclusion is somewhat unsatisfactory because there is no conclusion.
+            That is, there is no resolution one way or the other about public opinion.
+            We cannot claim that exactly 50% of people support the regulation, but we cannot claim a majority in either direction.
+          </p>
+        </solution>
+      </example>
+    </subsection>
+
+    <subsection xml:id="subsec-one-prop-violating-conditions">
+      <title>Violating conditions</title>
+      
+      <p>
+        We've spent a lot of time discussing conditions for when <m>\hat{p}</m> can be reasonably modeled by a normal distribution.
+        What happens when the success-failure condition fails?
+        What about when the independence condition fails?
+        In either case, the general ideas of confidence intervals and hypothesis tests remain the same, but the strategy or technique used to generate the interval or p-value change.
+      </p>
+      
+      <p>
+        When the success-failure condition isn't met for a hypothesis test, we can simulate the null distribution of <m>\hat{p}</m> using the null value, <m>p_0,</m> as seen in <xref ref="sec-one-prop-null-boot" />.
+        Unfortunately, methods for dealing with observations which are not independent (e.g., repeated measurements on subjects where measurements are taken pre and post study) are outside the scope of this book.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-chp16-review">
+    <title>Chapter review</title>
+
+    <subsection xml:id="subsec-chp16-summary">
+      <title>Summary</title>
+      
+      <p>
+        Building on the foundational ideas from the previous few chapters, this chapter focused exclusively on the single population proportion as the parameter of interest.
+        Note that it is not possible to do a randomization test with only one variable, so to do computational hypothesis testing, we applied a bootstrapping framework.
+        The bootstrap confidence interval and the mathematical framework for both hypothesis testing and confidence intervals are similar to those applied to other data structures and parameters.
+        When using the mathematical model, keep in mind the success-failure conditions.
+        Additionally, know that bootstrapping is always more accurate with larger samples.
+      </p>
+    </subsection>
+
+    <subsection xml:id="subsec-chp16-terms">
+      <title>Terms</title>
+      
+      <p>
+        The terms introduced in this chapter include:
+      </p>
+      
+      <p>
+        <ul>
+          <li><p><term>parametric bootstrap</term></p></li>
+          <li><p><term>success-failure condition</term></p></li>
+          <li><p><term>Z score</term></p></li>
+        </ul>
+      </p>
+      
+      <p>
+        If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions.
+      </p>
+    </subsection>
+  </section>
+
+  <section xml:id="sec-chp16-exercises">
+    <title>Exercises</title>
+    
+    <p>
+      Answers to odd-numbered exercises can be found in <xref ref="appendix-exercise-solutions" />.
+    </p>
+    
+    <!-- TODO: Convert exercises/_16-ex-inference-one-prop.qmd to PreTeXt format -->
+    <!-- <xi:include href="../exercises/_16-ex-inference-one-prop.ptx" xmlns:xi="http://www.w3.org/2001/XInclude"/> -->
+  </section>
 </chapter>
