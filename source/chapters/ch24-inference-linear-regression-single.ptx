@@ -16,7 +16,7 @@
 <section xml:id="sec-case-study-sandwich-store">
   <title>Case study: Sandwich store</title>
 
-<subsection xml:id="subsec-observed-data">
+<subsection xml:id="subsec-sandwich-observed-data">
   <title>Observed data</title>
 
 <p>We start the chapter with a hypothetical example describing the linear relationship between dollars spent advertising for a chain sandwich restaurant and monthly revenue. The hypothetical example serves the purpose of illustrating how a linear model varies from sample to sample. Because we have made up the example and the data (and the entire population), we can take many many samples from the population to visualize the variability. Note that in real life, we always have exactly one sample (that is, one dataset), and through the inference process, we imagine what might have happened had we taken a different sample. The change from sample to sample leads to an understanding of how the single observed dataset is different from the population of values, which is typically the fundamental goal of inference.</p>
@@ -59,7 +59,7 @@
 
 </subsection>
 
-<subsection xml:id="subsec-variability-of-the-statistic">
+<subsection xml:id="subsec-sandwich-variability-of-the-statistic">
   <title>Variability of the statistic</title>
 
 <p>Unfortunately, in our scenario, the CEO is not willing to part with the full set of data, but they will allow potential franchise buyers to see a small sample of the data in order to help the potential buyer decide whether set up a new franchise. The CEO is willing to give each potential franchise buyer a random sample of data from 20 stores.</p>
@@ -336,7 +336,7 @@
   </sidebyside>
 </figure>
 
-<subsection xml:id="subsec-observed-data">
+<subsection xml:id="subsec-randslope-observed-data">
   <title>Observed data</title>
 
 <p>We will continue to use the births data to investigate the linear relationship between <c>weight</c> and <c>weeks</c> gestation. Note that the least squares model (see <xref ref="sec-model-slr" />) describing the relationship is given in <xref ref="tbl-ls-births" />. The columns in <xref ref="tbl-ls-births" /> are further described in <xref ref="sec-mathslope" />.</p>
@@ -360,7 +360,7 @@
 
 </subsection>
 
-<subsection xml:id="subsec-variability-of-the-statistic">
+<subsection xml:id="subsec-randslope-variability-permuted">
   <title>Variability of the statistic</title>
 
 <p>After permuting the data, the least squares estimate of the line can be computed. Repeated permutations and slope calculations describe the variability in the line (i.e., in the slope) due only to the natural variability and not due to a relationship between <c>weight</c> and <c>weeks</c> gestation. <xref ref="fig-permweekslm" /> shows two different permutations of <c>weight</c> and the resulting linear models.</p>
@@ -408,7 +408,7 @@
 
 </subsection>
 
-<subsection xml:id="subsec-observed-statistic-vs.-null-statistics">
+<subsection xml:id="subsec-randslope-obs-vs-null">
   <title>Observed statistic vs. null statistics</title>
 
 <listing xml:id="listing-fig-nulldistBirths">
@@ -448,7 +448,7 @@
 
 <p>As we have seen in previous chapters, we can use bootstrapping to estimate the sampling distribution of the statistic of interest (here, the slope) without the null assumption of no relationship (which was the condition in the randomization test). Because interest is now in creating a CI, there is no null hypothesis, so there won't be any reason to permute either of the variables.</p>
 
-<subsection xml:id="subsec-observed-data">
+<subsection xml:id="subsec-bootbeta1-observed-data">
   <title>Observed data</title>
 
 <p>Returning to the births data, we may want to consider the relationship between <c>mage</c> (mother's age) and <c>weight</c>. Is <c>mage</c> a good predictor of <c>weight</c>? And if so, what is the relationship? That is, what is the slope that models average <c>weight</c> of baby as a function of <c>mage</c> (mother's age)? The linear model regressing <c>weight</c> on <c>mage</c> is provided in <xref ref="tbl-ls-births-mage" />.</p>
@@ -507,7 +507,7 @@
 
 </subsection>
 
-<subsection xml:id="subsec-variability-of-the-statistic">
+<subsection xml:id="subsec-bootbeta1-variability-bootstrap">
   <title>Variability of the statistic</title>
 
 <p>Because the focus here is <em>not</em> on a null distribution, we sample with replacement <m>n = 100</m> observations from the original dataset. Recall that with bootstrapping the resample always has the same number of observations as the original dataset in order to mimic the process of taking a sample from the population. When sampling in the linear model case, consider each observation to be a single dot. If the dot is resampled, both the <c>weight</c> and the <c>mage</c> measurement are observed. The measurements are linked to the dot (i.e., to the birth in the sample).</p>
@@ -634,7 +634,7 @@
 
 <p>In this section, we discuss uncertainty in the estimates of the slope and y-intercept for a regression line. Just as we identified standard errors for point estimates in previous chapters, we start by discussing standard errors for the slope and y-intercept estimates.</p>
 
-<subsection xml:id="subsec-observed-data">
+<subsection xml:id="subsec-mathslope-observed-data">
   <title>Observed data</title>
 
 <p><alert>Midterm elections and unemployment</alert></p>
@@ -718,7 +718,7 @@
 
 <p>We would reject <m>H_0</m> in favor of <m>H_A</m> if the data provide strong evidence that the true slope parameter is different than zero. To assess the hypotheses, we identify a standard error for the estimate, compute an appropriate test statistic, and identify the p-value.</p>
 
-<subsection xml:id="subsec-variability-of-the-statistic">
+<subsection xml:id="subsec-mathslope-variability-se">
   <title>Variability of the statistic</title>
 
 <p>Just like other point estimates we have seen before, we can compute a standard error and test statistic for <m>b_1</m>. We will generally label the test statistic using a <m>T</m>, since it follows the <m>t</m>-distribution.</p>
@@ -772,7 +772,7 @@
 
 </subsection>
 
-<subsection xml:id="subsec-observed-statistic-vs.-null-statistics">
+<subsection xml:id="subsec-mathslope-obs-vs-null">
   <title>Observed statistic vs. null statistics</title>
 
 <p>As the final step in a mathematical hypothesis test for the slope, we use the information provided to make a conclusion about whether the data could have come from a population where the true slope was zero (i.e., <m>\beta_1 = 0</m>). Before evaluating the formal hypothesis claim, sometimes it is important to check your intuition. Based on everything we have seen in the examples above describing the variability of a line from sample to sample, ask yourself if the linear relationship given by the data could have come from a population in which the slope was truly zero.</p>
@@ -870,7 +870,7 @@
 
 <p>In the previous sections, we used randomization and bootstrapping to perform inference when the mathematical model was not valid due to violations of the technical conditions. In this section, we'll provide details for when the mathematical model is appropriate and a discussion of technical conditions needed for the randomization and bootstrapping procedures. Recall from <xref ref="sec-resids" /> that residual plots can be used to visualize how well a linear model fits the data.</p>
 
-<subsection xml:id="subsec-what-are-the-technical-conditions-for-the-mathematical-model?">
+<subsection xml:id="subsec-tech-cond-math-model">
   <title>What are the technical conditions for the mathematical model?</title>
 
 <p>When fitting a least squares line, we generally require the following:</p>
@@ -1091,7 +1091,7 @@
   <li><p>E: <alert>equal</alert> variability around the line for all values of the explanatory variable</p></li>
 </ul>
 
-<subsection xml:id="subsec-why-do-we-need-technical-conditions?">
+<subsection xml:id="subsec-why-need-tech-cond">
   <title>Why do we need technical conditions?</title>
 
 <p>As with other inferential techniques we have covered in this text, if the technical conditions above do not hold, then it is not possible to make concluding claims about the population. That is, without the technical conditions, the T score will not have the assumed t-distribution. That said, it is almost always impossible to check the conditions precisely, so we look for large deviations from the conditions. If there are large deviations, we will be unable to trust the calculated p-value or the endpoints of the resulting confidence interval.</p>
@@ -1122,7 +1122,7 @@
 
 </subsection>
 
-<subsection xml:id="subsec-what-if-all-the-technical-conditions-are-met?">
+<subsection xml:id="subsec-when-tech-cond-met">
   <title>What if all the technical conditions are met?</title>
 
 <p>When the technical conditions are met, the least squares regression model and inference is provided by virtually all statistical software. In addition to being ubiquitous, however, an additional advantage to the least squares regression model (and related inference) is that the linear model has important extensions (which are not trivial to implement with bootstrapping and randomization tests). In particular, random effects models, repeated measures, and interaction are all linear model extensions which require the above technical conditions. When the technical conditions hold, the extensions to the linear model can provide important insight into the data and research question at hand. We will discuss some of the extended modeling and associated inference in <xref ref="sec-inf-model-mlr" /> and <xref ref="sec-inf-model-logistic" />. Many of the techniques used to deal with technical condition violations are outside the scope of this text, but they are taught in universities in the very next class after this one. If you are working with linear models or are curious to learn more, we recommend that you continue learning about statistical methods applicable to a larger class of datasets.</p>
