@@ -324,9 +324,37 @@
     <title>Poverty and unemployment.</title>
     <statement>
       <p>The following scatterplot shows the relationship between percent of population below the poverty level (<c>poverty</c>) from unemployment rate among those ages 20-64 (<c>unemployment_rate</c>) in counties in the US, as provided by data from the 2019 American Community Survey. The regression output for the model for predicting <c>poverty</c> from <c>unemployment_rate</c> is also provided.<fn>The <c>county_2019</c> data used in this exercise can be found in the <alert>usdata</alert> R package.</fn></p>
+      
+      <table xml:id="tbl-ex07-23">
+        <title>Regression output for predicting poverty from unemployment rate</title>
+        <tabular halign="left">
+          <row header="yes" bottom="medium">
+            <cell>term</cell>
+            <cell right="minor">estimate</cell>
+            <cell right="minor">std.error</cell>
+            <cell right="minor">statistic</cell>
+            <cell>p.value</cell>
+          </row>
+          <row>
+            <cell>(Intercept)</cell>
+            <cell right="minor">7.158</cell>
+            <cell right="minor">0.297</cell>
+            <cell right="minor">24.104</cell>
+            <cell><m>\lt</m>0.0001</cell>
+          </row>
+          <row>
+            <cell>unemployment_rate</cell>
+            <cell right="minor">0.738</cell>
+            <cell right="minor">0.048</cell>
+            <cell right="minor">15.301</cell>
+            <cell><m>\lt</m>0.0001</cell>
+          </row>
+        </tabular>
+      </table>
+      
       <figure xml:id="fig-ex07-23">
         <image source="images/exercises/_07-ex-model-slr-23.png" width="90%">
-          <description>Figure for exercise 23</description>
+          <description>Scatterplot showing poverty vs unemployment rate</description>
         </image>
       </figure>
 
@@ -334,7 +362,7 @@
         <li>Write out the linear model.</li>
         <li>Interpret the intercept.</li>
         <li>Interpret the slope.</li>
-        <li>The <m>R^2</m> of this model is [computed value]%. Interpret this value.</li>
+        <li>The <m>R^2</m> of this model is 42%. Interpret this value.</li>
         <li>Calculate the correlation coefficient.</li>
       </ol></p>
     </statement>
@@ -344,11 +372,39 @@
     <title>Cat weights.</title>
     <statement>
       <p>The following regression output is for predicting the heart weight (<c>Hwt</c>, in g) of cats from their body weight (<c>Bwt</c>, in kg). The coefficients are estimated using a dataset of 144 domestic cats.<fn>The <c>cats</c> data used in this exercise can be found in the <alert>MASS</alert> R package.</fn></p>
+      
+      <table xml:id="tbl-ex07-24">
+        <title>Regression output for predicting cat heart weight from body weight</title>
+        <tabular halign="left">
+          <row header="yes" bottom="medium">
+            <cell>term</cell>
+            <cell right="minor">estimate</cell>
+            <cell right="minor">std.error</cell>
+            <cell right="minor">statistic</cell>
+            <cell>p.value</cell>
+          </row>
+          <row>
+            <cell>(Intercept)</cell>
+            <cell right="minor">-0.357</cell>
+            <cell right="minor">0.692</cell>
+            <cell right="minor">-0.516</cell>
+            <cell>0.6066</cell>
+          </row>
+          <row>
+            <cell>Bwt</cell>
+            <cell right="minor">4.034</cell>
+            <cell right="minor">0.250</cell>
+            <cell right="minor">16.119</cell>
+            <cell><m>\lt</m>0.0001</cell>
+          </row>
+        </tabular>
+      </table>
+      
       <p><ol marker="a.">
         <li>Write out the linear model.</li>
         <li>Interpret the intercept.</li>
         <li>Interpret the slope.</li>
-        <li>The <m>R^2</m> of this model is [computed value]%. Interpret <m>R^2</m>.</li>
+        <li>The <m>R^2</m> of this model is 65%. Interpret <m>R^2</m>.</li>
         <li>Calculate the correlation coefficient.</li>
       </ol></p>
     </statement>
