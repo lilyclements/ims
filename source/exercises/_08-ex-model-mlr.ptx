@@ -611,13 +611,13 @@ ggplot(m_movie_aug, aes(y = .fitted, x = ww_gross_to_prod, color = genre)) +
   <exercise>
     <title>Baby weights, backwards elimination.</title>
     <statement>
-      <p>Let's consider a model that predicts <c>weight</c> of newborns using several predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smokes cigarettes during pregnancy (<c>habit</c>). <xref ref="data-births14"/> The adjusted <m>R^2</m> of the full model is [full model adjusted R² value]. We remove each variable one by one, refit the model, and record the adjusted <m>R^2</m>. Which, if any, variable should be removed from the model?</p>
+      <p>Let's consider a model that predicts <c>weight</c> of newborns using several predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smokes cigarettes during pregnancy (<c>habit</c>). <xref ref="data-births14"/> The adjusted <m>R^2</m> of the full model is 0.327. We remove each variable one by one, refit the model, and record the adjusted <m>R^2</m>. Which, if any, variable should be removed from the model?</p>
       <ul>
-        <li><p>Drop <c>mature</c>: [adjusted R² value]</p></li>
-        <li><p>Drop <c>weeks</c>: [adjusted R² value]</p></li>
-        <li><p>Drop <c>visits</c>: [adjusted R² value]</p></li>
-        <li><p>Drop <c>gained</c>: [adjusted R² value]</p></li>
-        <li><p>Drop <c>sex</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>mature</c>: 0.321</p></li>
+        <li><p>Drop <c>weeks</c>: 0.061</p></li>
+        <li><p>Drop <c>visits</c>: 0.326</p></li>
+        <li><p>Drop <c>gained</c>: 0.327</p></li>
+        <li><p>Drop <c>sex</c>: 0.301</p></li>
       </ul>
   </statement>
   </exercise>
@@ -625,13 +625,77 @@ ggplot(m_movie_aug, aes(y = .fitted, x = ww_gross_to_prod, color = genre)) +
   <exercise>
     <title>Palmer penguins, backwards elimination.</title>
     <statement>
-      <p>The following full model is built to predict the weights of three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica. <xref ref="palmerpenguins"/> The adjusted <m>R^2</m> of the full model is [full model adjusted R² value]. In order to evaluate whether any of the predictors can be dropped from the model without losing predictive performance of the model, the researchers dropped one variable at a time, refit the model, and recorded the adjusted <m>R^2</m> of the smaller model. These values are given below. Which, if any, variable should be removed from the model first?</p>
+      <p>The following full model is built to predict the weights of three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica. <xref ref="palmerpenguins"/> The table below shows the results of the full model regression.</p>
+      
+      <table>
+        <title>Linear model for predicting penguin body mass (full model)</title>
+        <tabular>
+          <row header="yes">
+            <cell>term</cell>
+            <cell>estimate</cell>
+            <cell>std.error</cell>
+            <cell>statistic</cell>
+            <cell>p.value</cell>
+          </row>
+          <row>
+            <cell>(Intercept)</cell>
+            <cell>-1461.0</cell>
+            <cell>571.3</cell>
+            <cell>-2.6</cell>
+            <cell>0.011</cell>
+          </row>
+          <row>
+            <cell>bill_length_mm</cell>
+            <cell>18.2</cell>
+            <cell>7.1</cell>
+            <cell>2.6</cell>
+            <cell>0.0109</cell>
+          </row>
+          <row>
+            <cell>bill_depth_mm</cell>
+            <cell>67.2</cell>
+            <cell>19.7</cell>
+            <cell>3.4</cell>
+            <cell>7e-04</cell>
+          </row>
+          <row>
+            <cell>flipper_length_mm</cell>
+            <cell>16.0</cell>
+            <cell>2.9</cell>
+            <cell>5.5</cell>
+            <cell>&lt;0.0001</cell>
+          </row>
+          <row>
+            <cell>sexmale</cell>
+            <cell>389.9</cell>
+            <cell>47.8</cell>
+            <cell>8.1</cell>
+            <cell>&lt;0.0001</cell>
+          </row>
+          <row>
+            <cell>speciesChinstrap</cell>
+            <cell>-251.5</cell>
+            <cell>81.1</cell>
+            <cell>-3.1</cell>
+            <cell>0.0021</cell>
+          </row>
+          <row>
+            <cell>speciesGentoo</cell>
+            <cell>1014.6</cell>
+            <cell>129.6</cell>
+            <cell>7.8</cell>
+            <cell>&lt;0.0001</cell>
+          </row>
+        </tabular>
+      </table>
+      
+      <p>The adjusted <m>R^2</m> of the full model is 0.87. In order to evaluate whether any of the predictors can be dropped from the model without losing predictive performance of the model, the researchers dropped one variable at a time, refit the model, and recorded the adjusted <m>R^2</m> of the smaller model. These values are given below. Which, if any, variable should be removed from the model first?</p>
       <ul>
-        <li><p>Drop <c>bill_length_mm</c>: [adjusted R² value]</p></li>
-        <li><p>Drop <c>bill_depth_mm</c>: [adjusted R² value]</p></li>
-        <li><p>Drop <c>flipper_length_mm</c>: [adjusted R² value]</p></li>
-        <li><p>Drop <c>sex</c>: [adjusted R² value]</p></li>
-        <li><p>Drop <c>species</c>: [adjusted R² value]</p></li>
+        <li><p>Drop <c>bill_length_mm</c>: 0.87</p></li>
+        <li><p>Drop <c>bill_depth_mm</c>: 0.869</p></li>
+        <li><p>Drop <c>flipper_length_mm</c>: 0.861</p></li>
+        <li><p>Drop <c>sex</c>: 0.845</p></li>
+        <li><p>Drop <c>species</c>: 0.821</p></li>
       </ul>
   </statement>
   </exercise>
@@ -641,12 +705,12 @@ ggplot(m_movie_aug, aes(y = .fitted, x = ww_gross_to_prod, color = genre)) +
     <statement>
       <p>Using information on the mother and the sex of the baby (which can be determined prior to birth), we want to build a model that predicts the birth weight of babies. In order to do so, we will evaluate six candidate predictors: whether the mother is considered <c>mature</c>, number of <c>weeks</c> of gestation, number of hospital <c>visits</c> during pregnancy, weight <c>gained</c> by the mother during pregnancy, <c>sex</c> of the baby, and whether the mother smokes cigarettes during pregnancy (<c>habit</c>). And we will make a decision about including them in the model using forward selection and adjusted <m>R^2</m>. Below are the six models we evaluate and their adjusted <m>R^2</m> values. <xref ref="data-births14"/> Which variable should be added to the model first?</p>
       <ul>
-        <li><p>Predict <c>weight</c> from <c>mature</c>: [adjusted R² value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>weeks</c>: [adjusted R² value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>visits</c>: [adjusted R² value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>gained</c>: [adjusted R² value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>sex</c>: [adjusted R² value]</p></li>
-        <li><p>Predict <c>weight</c> from <c>habit</c>: [adjusted R² value]</p></li>
+        <li><p>Predict <c>weight</c> from <c>mature</c>: 0.002</p></li>
+        <li><p>Predict <c>weight</c> from <c>weeks</c>: 0.3</p></li>
+        <li><p>Predict <c>weight</c> from <c>visits</c>: 0.034</p></li>
+        <li><p>Predict <c>weight</c> from <c>gained</c>: 0.021</p></li>
+        <li><p>Predict <c>weight</c> from <c>sex</c>: 0.018</p></li>
+        <li><p>Predict <c>weight</c> from <c>habit</c>: 0.021</p></li>
       </ul>
   </statement>
   </exercise>
@@ -656,11 +720,11 @@ ggplot(m_movie_aug, aes(y = .fitted, x = ww_gross_to_prod, color = genre)) +
     <statement>
       <p>Using body measurement and other relevant data on three species (<em>Adelie</em>, <em>Chinstrap</em>, or <em>Gentoo</em>) of penguins living in the Palmer Archipelago, Antarctica, we want to predict their body mass. In order to do so, we will evaluate five candidate predictors and make a decision about including them in the model using forward selection and adjusted <m>R^2</m>. Below are the five models we evaluate and their adjusted <m>R^2</m> values. Which variable should be added to the model first?</p>
       <ul>
-        <li><p>Predict body mass from <c>bill_length_mm</c>: [adjusted R² value]</p></li>
-        <li><p>Predict body mass from <c>bill_depth_mm</c>: [adjusted R² value]</p></li>
-        <li><p>Predict body mass from <c>flipper_length_mm</c>: [adjusted R² value]</p></li>
-        <li><p>Predict body mass from <c>sex</c>: [adjusted R² value]</p></li>
-        <li><p>Predict body mass from <c>species</c>: [adjusted R² value]</p></li>
+        <li><p>Predict body mass from <c>bill_length_mm</c>: 0.352</p></li>
+        <li><p>Predict body mass from <c>bill_depth_mm</c>: 0.22</p></li>
+        <li><p>Predict body mass from <c>flipper_length_mm</c>: 0.758</p></li>
+        <li><p>Predict body mass from <c>sex</c>: 0.178</p></li>
+        <li><p>Predict body mass from <c>species</c>: 0.668</p></li>
       </ul>
   </statement>
   </exercise>
