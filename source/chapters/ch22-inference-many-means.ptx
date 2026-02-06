@@ -662,7 +662,7 @@ anova(mod) |&gt;
 
 
 <ul>
-  <li><p><term>Constant variance.</term> The last assumption is that the variance in the groups is about equal from one group to the next. This assumption can be checked by examining side-by-side box plots of the outcomes across the groups, as in <xref ref="fig-mlb" />ANOVABoxPlot. In this case, the variability is similar in the four groups but not identical. We see in <xref ref="tbl-mlb" />HRPerABSummaryTable that the standard deviation does not vary much from one group to the next.</p></li>
+  <li><p><term>Constant variance.</term> The last assumption is that the variance in the groups is about equal from one group to the next. This assumption can be checked by examining side-by-side box plots of the outcomes across the groups, as in <xref ref="fig-mlbANOVABoxPlot" />ANOVABoxPlot. In this case, the variability is similar in the four groups but not identical. We see in <xref ref="tbl-mlbHRPerABSummaryTable" />HRPerABSummaryTable that the standard deviation does not vary much from one group to the next.</p></li>
 </ul>
 
 
