@@ -591,7 +591,7 @@ births14_nona |&gt;
   </program>
 </listing>
 
-<figure xml:id="fig-babySmokePlotOfTwoGroupsToExamineSkew1">
+<figure xml:id="fig-babySmokePlotOfTwoGroupsToExamineSkew">
   <caption>The left panel represents birth weights for infants whose mothers smoked during pregnancy. The right panel represents the birth weights for infants whose mothers who did not smoke during pregnancy.</caption>
   <image source="images/fig-babySmokePlotOfTwoGroupsToExamineSkew-1.png" width="70%" />
 </figure>
