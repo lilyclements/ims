@@ -358,6 +358,33 @@
   </program>
 </listing>
 
+<table xml:id="tbl-ls-births">
+  <title>The least squares estimates of the intercept and slope are given in the estimate column. The observed slope is 0.335.</title>
+  <tabular>
+    <row header="yes">
+      <cell>term</cell>
+      <cell>estimate</cell>
+      <cell>std.error</cell>
+      <cell>statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell>-5.60</cell>
+      <cell>1.21</cell>
+      <cell>-4.62</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>weeks</cell>
+      <cell>0.335</cell>
+      <cell>0.031</cell>
+      <cell>10.83</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+  </tabular>
+</table>
+
 </subsection>
 
 <subsection xml:id="subsec-randslope-variability-permuted">
@@ -504,6 +531,33 @@
     </input>
   </program>
 </listing>
+
+<table xml:id="tbl-ls-births-mage">
+  <title>The least squares estimates of the intercept and slope are given in the estimate column. The observed slope is 0.036.</title>
+  <tabular>
+    <row header="yes">
+      <cell>term</cell>
+      <cell>estimate</cell>
+      <cell>std.error</cell>
+      <cell>statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell>6.96</cell>
+      <cell>0.45</cell>
+      <cell>15.39</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>mage</cell>
+      <cell>0.036</cell>
+      <cell>0.016</cell>
+      <cell>2.29</cell>
+      <cell>0.0239</cell>
+    </row>
+  </tabular>
+</table>
 
 </subsection>
 
@@ -744,6 +798,33 @@
   </program>
 </listing>
 
+<table xml:id="tbl-midtermUnempRegTable">
+  <title>Output from statistical software for the regression line modeling the midterm election losses for the President's party as a response to unemployment.</title>
+  <tabular>
+    <row header="yes">
+      <cell>term</cell>
+      <cell>estimate</cell>
+      <cell>std.error</cell>
+      <cell>statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell>-7.36</cell>
+      <cell>5.16</cell>
+      <cell>-1.43</cell>
+      <cell>0.1657</cell>
+    </row>
+    <row>
+      <cell>unemp</cell>
+      <cell>-0.89</cell>
+      <cell>0.83</cell>
+      <cell>-1.07</cell>
+      <cell>0.2960</cell>
+    </row>
+  </tabular>
+</table>
+
 <example>
   <statement>
     <p>What do the first and second columns of <xref ref="tbl-midtermUnempRegTable" /> represent?</p>
@@ -814,6 +895,33 @@
     </input>
   </program>
 </listing>
+
+<table xml:id="tbl-rOutputForIncomeAidLSRLineInInferenceSection">
+  <title>Summary of least squares fit for the Elmhurst College data, where we are predicting the gift aid by the university based on the family income of students.</title>
+  <tabular>
+    <row header="yes">
+      <cell>term</cell>
+      <cell>estimate</cell>
+      <cell>std.error</cell>
+      <cell>statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell>24319.33</cell>
+      <cell>1291.45</cell>
+      <cell>18.83</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>family_income</cell>
+      <cell>-0.0431</cell>
+      <cell>0.0108</cell>
+      <cell>-3.98</cell>
+      <cell>0.0002</cell>
+    </row>
+  </tabular>
+</table>
 
 </subsection>
 
@@ -1142,6 +1250,30 @@
   <title>Terms</title>
 
 <p>The terms introduced in this chapter are presented in <xref ref="tbl-terms-chp-24" />. If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions. You should be able to easily spot them as <alert>bolded text</alert>.</p>
+
+<table xml:id="tbl-terms-chp-24">
+  <title>Terms introduced in this chapter.</title>
+  <tabular>
+    <row>
+      <cell>inference with single predictor regression</cell>
+    </row>
+    <row>
+      <cell>variability of the slope</cell>
+    </row>
+    <row>
+      <cell>randomization test for the slope</cell>
+    </row>
+    <row>
+      <cell>bootstrap CI for the slope</cell>
+    </row>
+    <row>
+      <cell>t-distribution for slope</cell>
+    </row>
+    <row>
+      <cell>technical conditions linear regression</cell>
+    </row>
+  </tabular>
+</table>
 
 </subsection>
 
