@@ -120,12 +120,12 @@
     <exercise>
     <title>Statistics and employment, use the bootstrap</title>
     <statement>
-      <p>In a large university where 70% of the full-time students are employed at least 5 hours per week, the members of the Statistics Department wonder if the same proportion of their students work at least 5 hours per week. They randomly sample 25 majors and find that 15 of the students work 5 or more hours each week. Two sampling distributions are created to describe the variability in the proportion of statistics majors who work at least 5 hours per week. The null hypothesis distribution imposes a true population proportion of <m>p=0.7</m> while the data bootstrap resamples from the actual data (which has 60% of the observations who work at least 5 hours per week). <em>See the next page for the questions.</em></p>
+      <p>In a large university where 70% of the full-time students are employed at least 5 hours per week, the members of the Statistics Department wonder if the same proportion of their students work at least 5 hours per week. They randomly sample 25 majors and find that 15 of the students work 5 or more hours each week. Two sampling distributions are created to describe the variability in the proportion of statistics majors who work at least 5 hours per week. The null hypothesis distribution imposes a true population proportion of <m>p=0.7</m> while the data bootstrap resamples from the actual data (which has 60% of the observations who work at least 5 hours per week).</p>
       <p><ol marker="a.">
-        <li><p>Which distribution should be used to test whether the proportion of all statistics majors who work at least 5 hours per week is 70%? And which distribution should be used to find a confidence interval for the true poportion of statistics majors who work at least 5 hours per week?</p></li>
+        <li><p>Which distribution should be used to test whether the proportion of all statistics majors who work at least 5 hours per week is 70%? And which distribution should be used to find a confidence interval for the true proportion of statistics majors who work at least 5 hours per week?</p></li>
         <li><p>Using the appropriate histogram, test the claim that 70% of statistics majors, like their peers, work at least 5 hours per week. State the null and alternative hypotheses, find the p-value, and conclude the test in the context of the problem.</p></li>
         <li><p>Using the appropriate histogram, find a 98% bootstrap percentile confidence interval for the true proportion of statistics majors who work at least 5 hours per week. Interpret the confidence interval in the context of the problem.</p></li>
-        <li><p>Using the appropriate historgram, find a 98% bootstrap SE confidence interval for the true proportion of statistics majors who work at least 5 hours per week. Interpret the confidence interval in the context of the problem.</p></li>
+        <li><p>Using the appropriate histogram, find a 98% bootstrap SE confidence interval for the true proportion of statistics majors who work at least 5 hours per week. Interpret the confidence interval in the context of the problem.</p></li>
       </ol></p>
     </statement>
   </exercise>
@@ -336,7 +336,7 @@
       <p>A website is trying to increase registration for first-time visitors, exposing 1% of these visitors to a new site design. Of 752 randomly sampled visitors over a month who saw the new design, 64 registered.</p>
       <p><ol marker="a.">
         <li><p>Check the conditions for constructing a confidence interval for the proportion of first-time visitors of the site who would register under the new design using a mathematical model.</p></li>
-        <li><p>Compute the standard error which would describe the variability os the point estimate associated with repeated samples of size 752.</p></li>
+        <li><p>Compute the standard error which would describe the variability of the point estimate associated with repeated samples of size 752.</p></li>
         <li><p>Construct and interpret a 90% confidence interval for the fraction of first-time visitors of the site who would register under the new design (assuming stable behaviors by new visitors over time).</p></li>
       </ol></p>
     </statement>
