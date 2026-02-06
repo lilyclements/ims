@@ -145,7 +145,7 @@
           </li>
         </ul>
         <p>
-          Later on in the textbook, in the <url href="https://openintro-ims2.netlify.app/inferential-modeling">Inferential modeling</url> part, we will consider how a regression model built on a sample may or may not describe a particular population of interest.
+          Later on in the textbook, in the <xref ref="part-inferential-modeling" text="title" /> part, we will consider how a regression model built on a sample may or may not describe a particular population of interest.
         </p>
       </introduction>
       <xi:include href="chapters/ch07-linear-regression-single.ptx" />
@@ -206,7 +206,7 @@
       <title>Statistical inference</title>
       <introduction>
         <p>
-          While the previous part of the textbook, <url href="https://openintro-ims2.netlify.app/foundations-of-inference">Foundations of inference</url>, introduces the core of statistical inference, this part provides details for applying statistical inference in particular settings.
+          While the previous part of the textbook, <xref ref="part-foundations-of-inference" text="title" />, introduces the core of statistical inference, this part provides details for applying statistical inference in particular settings.
           Understanding the specific nuances given for different inferential methods can be helpful in communicating the resulting analyses.
         </p>
         <ul>
@@ -271,8 +271,8 @@
       <title>Inferential modeling</title>
       <introduction>
         <p>
-          In a previous part, <url href="https://openintro-ims2.netlify.app/regression-modeling">Regression modeling</url>, you learned how to build linear and logistic regression models based on a set of observations.
-          In a different part, <url href="https://openintro-ims2.netlify.app/foundations-of-inference">Foundations of inference</url>, you learned about the structures that allow us to make inferential claims about a population given a sample of data.
+          In a previous part, <xref ref="part-regression-modeling" text="title" />, you learned how to build linear and logistic regression models based on a set of observations.
+          In a different part, <xref ref="part-foundations-of-inference" text="title" />, you learned about the structures that allow us to make inferential claims about a population given a sample of data.
           In this part, we develop inferential methods applied to regression models.
         </p>
         <ul>
