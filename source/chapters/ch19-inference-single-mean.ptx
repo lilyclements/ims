@@ -659,6 +659,4 @@ qt(0.95, df = 14)
     </subsection>
   </section>
 
-  <xi:include href="../exercises/ch19-exercises.ptx"/>
-
 </chapter>
