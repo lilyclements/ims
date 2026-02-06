@@ -13,8 +13,8 @@ The exercise file `_08-ex-model-mlr.qmd` has been updated to use static images i
   - Top left: Overall relationship
   - Top right: Same relationship colored by income status  
   - Bottom: Faceted by income status (low, middle, high)
-- **Expected size**: ~80-120 KB
-- **Current size**: 1.5 KB (placeholder)
+- **Expected size**: ~60-150 KB (based on similar multi-panel plots in repository)
+- **Current size**: 6.4 KB (placeholder - minimal gray PNG structure)
 
 ### Q4: Arrival Delays
 - **Filename**: `arrival-delays.png`
@@ -22,15 +22,15 @@ The exercise file `_08-ex-model-mlr.qmd` has been updated to use static images i
 - **Description**: Shows arrival delay trends for flights from NYC to Puerto Rico (BQN) and San Francisco (SFO) on JetBlue (B6) and United Airlines (UA)
   - Left side: Combined plot (Carrier comparison)
   - Right panels: BQN and SFO separately
-- **Expected size**: ~60-100 KB
-- **Current size**: 1.5 KB (placeholder)
+- **Expected size**: ~40-100 KB (based on similar line plots in repository)
+- **Current size**: 3.2 KB (placeholder - minimal gray PNG structure)
 
 ### Q10: Movie returns by genre
 - **Filename**: `movie-returns-genre.png`
 - **Source URL**: https://github.com/user-attachments/assets/f48c49ea-ae49-407a-9e8e-c5d19f7921bc
 - **Description**: Shows predicted ROI vs actual ROI faceted by movie genre (Action, Adventure, Comedy, Drama, Horror)
-- **Expected size**: ~80-120 KB
-- **Current size**: 1.5 KB (placeholder)
+- **Expected size**: ~60-150 KB (based on similar faceted scatter plots in repository)
+- **Current size**: 4.4 KB (placeholder - minimal gray PNG structure)
 
 ## How to Complete the Update
 

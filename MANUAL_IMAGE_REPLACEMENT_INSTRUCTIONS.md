@@ -22,9 +22,9 @@ The exercise file `exercises/_08-ex-model-mlr.qmd` has been successfully updated
 - **Changes:** Replaced R code chunks with `knitr::include_graphics()` calls for Q3, Q4, and Q10
 
 ### Image Files Created (Placeholders)
-- `exercises/images/meat-consumption-life-expectancy.png` (6.3 KB placeholder)
-- `exercises/images/arrival-delays.png` (3.2 KB placeholder)
-- `exercises/images/movie-returns-genre.png` (4.4 KB placeholder)
+- `exercises/images/meat-consumption-life-expectancy.png` (6.4 KB placeholder - minimal gray PNG)
+- `exercises/images/arrival-delays.png` (3.2 KB placeholder - minimal gray PNG)
+- `exercises/images/movie-returns-genre.png` (4.4 KB placeholder - minimal gray PNG)
 
 ## Required Actions
 
@@ -89,7 +89,8 @@ After replacing the images, verify the exercise file renders correctly:
 ### Image Specifications
 
 - **Format:** PNG
-- **Expected file sizes:** 50-120 KB each
+- **Expected file sizes:** 50-150 KB each (based on similar exercise images in the repository)
+- **Current placeholder sizes:** 3-7 KB (minimal gray PNG structures)
 - **Display width:** 90% (configured with `#| out-width: 90%`)
 
 ### Exercise Questions Updated
