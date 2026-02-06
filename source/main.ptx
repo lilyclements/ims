@@ -221,6 +221,18 @@
           The State of Online Harassment.
         </biblio>
         
+        <biblio type="raw" xml:id="data-pewdiagnosis-2013">
+          Pew Research Center (2013).
+          The Diagnosis Difference.
+          <url href="https://www.openintro.org/go?id=textbook-pew-2013-diagnosis-difference">https://www.openintro.org/go?id=textbook-pew-2013-diagnosis-difference</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-socialmedianews-2022">
+          Pew Research Center (2022).
+          News consumption across digital platforms.
+          <url href="https://www.pewresearch.org/journalism/fact-sheet/news-platform-fact-sheet/pj_2022-09-20_news-platforms_0-03b/">https://www.pewresearch.org/journalism/fact-sheet/news-platform-fact-sheet/pj_2022-09-20_news-platforms_0-03b/</url>
+        </biblio>
+        
         <biblio type="raw" xml:id="biblio-data-gallupcollegeimpact">
           Gallup Poll.
           College Impact on Life Satisfaction Survey.
@@ -413,6 +425,30 @@
           National Sleep Foundation (2012).
           Sleep in America Poll: Transportation Workers' Sleep.
           <url href="http://www.openintro.org/redirect.php?go=textbook-trans_workers_sleep_2012">http://www.openintro.org/redirect.php?go=textbook-trans_workers_sleep_2012</url>
+
+        <biblio type="raw" xml:id="survey-blmWaPoScar-2020">
+          Washington Post (2020).
+          Washington Post-Schar School national poll, data collected June 2-7, 2020.
+          <url href="http://www.openintro.org/redirect.php?go=exercise-wapo-2020-blm-poll">http://www.openintro.org/redirect.php?go=exercise-wapo-2020-blm-poll</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="survey-raiseTaxes-2015">
+          Public Policy Polling (2015).
+          Americans on College Degrees, Classic Literature, the Seasons, and More, data collected Feb 20-22, 2015.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-PPP_30215">http://www.openintro.org/redirect.php?go=textbook-PPP_30215</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Turnbull-Brown-Hu-1974">
+          Turnbull, B., Brown, B., and Hu, M. (1974).
+          Survivorship of Heart Transplant Data.
+          <em>Journal of the American Statistical Association</em>, 69:74-80.
+          DOI: 10.1080/01621459.1974.10480130
+        </biblio>
+        
+        <biblio type="raw" xml:id="nightingale-1859">
+          Nightingale, F. (1859).
+          <em>Notes on Nursing: what it is, and what it is not</em>.
+          Harrison &amp; Sons, p. 55.
         </biblio>
       </references>
     </backmatter>
