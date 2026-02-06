@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<chapter xml:id="sec-inf-model-mlr" xmlns:xi="http://www.w3.org/2001/XInclude">
+<chapter xml:id="ch25-inference-linear-regression-multiple" xmlns:xi="http://www.w3.org/2001/XInclude">
 
 <title>Inference for linear regression with multiple predictors</title>
 
