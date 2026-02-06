@@ -64,7 +64,7 @@
 
 <p>Unfortunately, in our scenario, the CEO is not willing to part with the full set of data, but they will allow potential franchise buyers to see a small sample of the data in order to help the potential buyer decide whether set up a new franchise. The CEO is willing to give each potential franchise buyer a random sample of data from 20 stores.</p>
 
-<p>As with any numerical characteristic which describes a subset of the population, the estimated slope of a sample will vary from sample to sample. Consider the linear model which describes revenue (in \<m>1,000) based on advertising dollars (in \</m>1,000).</p>
+<p>As with any numerical characteristic which describes a subset of the population, the estimated slope of a sample will vary from sample to sample. Consider the linear model which describes revenue (in $1,000) based on advertising dollars (in $1,000).</p>
 
 <p>The least squares regression model uses the data to find a sample linear fit: <me>\hat{y} = b_0 + b_1 x.</me></p>
 
@@ -824,7 +824,10 @@
 <exercise>
   <statement>
     <p><xref ref="tbl-rOutputForIncomeAidLSRLineInInferenceSection" /> shows statistical software output from fitting the least squares regression line shown in <xref ref="fig-elmhurstScatterWLine" />. Use the output to formally evaluate the following hypotheses.</p>
-    <p>-   <m>H_0</m>: The true coefficient for family income is zero. -   <m>H_A</m>: The true coefficient for family income is not zero.</p>
+    <ul>
+      <li><p><m>H_0</m>: The true coefficient for family income is zero.</p></li>
+      <li><p><m>H_A</m>: The true coefficient for family income is not zero.</p></li>
+    </ul>
   </statement>
   <solution>
     <p>We look in the second row corresponding to the family income variable. We see the point estimate of the slope of the line is -0.0431, the standard error of this estimate is 0.0108, and the <m>t</m>-test statistic is <m>T = -3.98</m>. The p-value corresponds exactly to the two-sided test we are interested in: 0.0002. The p-value is so small that we reject the null hypothesis and conclude that family income and financial aid at Elmhurst College for freshman entering in the year 2011 are negatively correlated and the true slope parameter is indeed less than 0, just as we believed in our analysis of <xref ref="fig-elmhurstScatterWLine" />.</p>
