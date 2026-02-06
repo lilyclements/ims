@@ -64,18 +64,20 @@
 
 | Element Type | Count | Status |
 |-------------|-------|--------|
-| Sections | 5 | ✅ |
+| Sections | 8 | ✅ |
 | Subsections | 3 | ✅ |
+| Paragraphs | 132 | ✅ |
 | Figures | 11 | ✅ |
 | Tables | 7 | ✅ |
-| R Code Listings | 15 | ✅ |
+| R Code Listings | 9 | ✅ |
 | Examples | 2 | ✅ |
 | Assemblages | 3 | ✅ |
 | Data Notes | 2 | ✅ |
-| Math Display Equations | 15+ | ✅ |
-| Cross-references | 50+ | ✅ |
+| Math Display Equations (me) | 5 | ✅ |
+| Math Display Equations (md) | 4 | ✅ |
+| Cross-references | 34+ | ✅ |
 | Footnotes | 2 | ✅ |
-| Index Terms | 6 | ✅ |
+| Index Terms | 9 | ✅ |
 
 ## Conversion Features
 
