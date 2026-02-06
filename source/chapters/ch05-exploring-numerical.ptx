@@ -1350,7 +1350,41 @@ ggplot(county, aes(y = pop_change, x = log(pop2010, base = 10))) +
         
         <image source="images/_05-ex-explore-numerical/ex-income-coffee-shop.png" width="70%" />
 
-        TODO: Add table here
+        <table>
+          <title>Summary statistics for coffee shop income data</title>
+          <tabular>
+            <row header="yes">
+              <cell></cell>
+              <cell>n</cell>
+              <cell>Min</cell>
+              <cell>Q1</cell>
+              <cell>Median</cell>
+              <cell>Mean</cell>
+              <cell>Max</cell>
+              <cell>SD</cell>
+            </row>
+            <row>
+              <cell>Before</cell>
+              <cell>40</cell>
+              <cell>$60,679</cell>
+              <cell>$60,818</cell>
+              <cell>$65,238</cell>
+              <cell>$65,089</cell>
+              <cell>$69,885</cell>
+              <cell>$2,122</cell>
+            </row>
+            <row>
+              <cell>After</cell>
+              <cell>42</cell>
+              <cell>$60,679</cell>
+              <cell>$60,838</cell>
+              <cell>$65,352</cell>
+              <cell>$73,299</cell>
+              <cell>$250,000</cell>
+              <cell>$37,321</cell>
+            </row>
+          </tabular>
+        </table>
 
         <p>
           <ol>
