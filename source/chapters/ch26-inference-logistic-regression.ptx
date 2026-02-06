@@ -286,11 +286,18 @@ glm(spam ~ to_multiple + cc + dollar + urgent_subj, data = email, family = "bino
 
 <p>As in <xref ref="sec-inf-model-mlr" />, with <alert>multiple predictors</alert>, each hypothesis test (for each of the explanatory variables) is conditioned on each of the other variables remaining in the model.</p>
 
-<p>> if multiple predictors <m>H_0: \beta_i = 0</m> given other variables in the model</p>
+<blockquote>
+  <p>if multiple predictors <m>H_0: \beta_i = 0</m> given other variables in the model</p>
+</blockquote>
 
 <p>Using the example above and focusing on each of the variable p-values (here we won't discuss the p-value associated with the intercept), we can write out the four different hypotheses (associated with the p-value corresponding to each of the coefficients / rows in <xref ref="tbl-emaillogmodel" />):</p>
 
-<p>-   <m>H_0: \beta_1 = 0</m> given <c>cc</c>, <c>dollar</c>, and <c>urgent_subj</c> are included in the model -   <m>H_0: \beta_2 = 0</m> given <c>to_multiple</c>, <c>dollar</c>, and <c>urgent_subj</c> are included in the model -   <m>H_0: \beta_3 = 0</m> given <c>to_multiple</c>, <c>cc</c>, and <c>urgent_subj</c> are included in the model -   <m>H_0: \beta_4 = 0</m> given <c>to_multiple</c>, <c>cc</c>, and <c>dollar</c> are included in the model</p>
+<ul>
+  <li><p><m>H_0: \beta_1 = 0</m> given <c>cc</c>, <c>dollar</c>, and <c>urgent_subj</c> are included in the model</p></li>
+  <li><p><m>H_0: \beta_2 = 0</m> given <c>to_multiple</c>, <c>dollar</c>, and <c>urgent_subj</c> are included in the model</p></li>
+  <li><p><m>H_0: \beta_3 = 0</m> given <c>to_multiple</c>, <c>cc</c>, and <c>urgent_subj</c> are included in the model</p></li>
+  <li><p><m>H_0: \beta_4 = 0</m> given <c>to_multiple</c>, <c>cc</c>, and <c>dollar</c> are included in the model</p></li>
+</ul>
 
 <p>The very low p-values from the software output tell us that three of the variables (that is, not <c>cc</c>) act as statistically discernible predictors in the model at the discernibility level of 0.05, despite the inclusion of any of the other variables. Consider the p-value on <m>H_0: \beta_1 = 0</m>. The low p-value says that it would be extremely unlikely to observe data that yield a coefficient on <c>to_multiple</c> at least as far from 0 as -1.91 (i.e., <m>|b_1| > 1.91</m>) if the true relationship between <c>to_multiple</c> and <c>spam</c> was non-existent (i.e., if <m>\beta_1 = 0</m>) <alert>and</alert> the model also included <c>cc</c> and <c>dollar</c> and <c>urgent_subj</c>. Note also that the coefficient on <c>dollar</c> has a small associated p-value, but the magnitude of the coefficient is also seemingly small (0.07). It turns out that in units of standard errors (0.02 here), 0.07 is actually quite far from zero, it's all about context! The p-values on the remaining variables are interpreted similarly. From the initial output (p-values) in <xref ref="tbl-emaillogmodel" />, it seems as though <c>to_multiple</c>, <c>dollar</c>, and <c>urgent_subj</c> are important variables for modeling whether an email is <c>spam</c>. We remind you that although p-values provide some information about the importance of each of the predictors in the model, there are many, arguably more important, aspects to consider when choosing the best model.</p>
 
@@ -337,6 +344,11 @@ glm(spam ~ to_multiple, data = email, family = "binomial") |&gt;
 </listing>
 
 <p>For each cross-validated model, the coefficients change slightly, and the model is used to make independent predictions on the holdout sample. The model from the first cross-validation sample is given in <xref ref="fig-emailCV1" /> and can be compared to the coefficients in <xref ref="tbl-emaillogmodel1" />.</p>
+
+<figure xml:id="fig-emailCV1">
+  <caption>The smaller model. The coefficients are estimated using the least squares model on 3/4 of the data with a single predictor variable. Predictions are made on the remaining 1/4 of the observations. Note that the prediction error rate is quite high.</caption>
+  <image source="images/emailCV1.png" width="90%" />
+</figure>
 
 <listing xml:id="tbl-email-spam">
   <caption>The smaller model. One quarter at a time, the data were removed from the model building, and whether the email was spam (TRUE) or not (FALSE) was predicted. The logistic regression model was fit independently of the removed emails. Only <c>to_multiple</c> is used to predict whether the email is spam. Because we used a cutoff designed to identify spam emails, the accuracy of the non-spam email predictions is very low. <c>spamTP</c> is the proportion of true spam emails that were predicted to be spam. <c>notspamTP</c> is the proportion of true not spam emails that were predicted to be not spam.</caption>
@@ -410,6 +422,11 @@ glm(spam ~ to_multiple + attach + winner + format + re_subj + exclaim_mess + num
     </input>
   </program>
 </listing>
+
+<figure xml:id="fig-emailCV2">
+  <caption>The larger model. The coefficients are estimated using the least squares model on 3/4 of the dataset with the seven specified predictor variables. Predictions are made on the remaining 1/4 of the observations. Note that the predictions are independent of the estimated model coefficients. The predictions are now much better for both the spam and the non-spam emails (than they were with a single predictor variable).</caption>
+  <image source="images/emailCV2.png" width="100%" />
+</figure>
 
 <listing xml:id="listing-414">
   <caption>R code</caption>
