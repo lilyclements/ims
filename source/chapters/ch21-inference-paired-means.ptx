@@ -176,7 +176,7 @@ ggplot(tires, aes(
 
 
 <figure xml:id="fig-tiredata4">
-  <caption></caption>
+  <caption>The 4th car: the tire brand was randomly permuted, and in the randomization calculation, the measurements (in cm) ended up in different groups</caption>
   <image source="images/fig-tiredata4-1.png" width="70%" />
 </figure>
 
@@ -246,7 +246,7 @@ origplot4 + shuffbrand4
 
 
 <figure xml:id="fig-tiredata5">
-  <caption></caption>
+  <caption>The 5th car: the tire brand was randomly permuted to stay the same! In the randomization calculation, the measurements (in cm) ended up in the original groups</caption>
   <image source="images/fig-tiredata5-1.png" width="70%" />
 </figure>
 
@@ -310,7 +310,7 @@ origplot5 + shuffbrand5
 </listing>
 
 
-<p>We can put the shuffled assignments for all the cars into one plot as seen in <xref ref="fig-tiredata" />Perm-2.</p>
+<p>We can put the shuffled assignments for all the cars into one plot as seen in <xref ref="fig-tiredataPerm" />.</p>
 
 
 <figure xml:id="fig-tiredataPerm">
@@ -374,7 +374,7 @@ shuffbrand
 </listing>
 
 
-<p>The next step in the randomization test is to sort the brands so that the assigned brand value on the x-axis aligns with the assigned group from the randomization. <xref ref="fig-tiredata" />PermSort-1 shows the same randomized groups, as seen in <xref ref="fig-tiredata" />Perm-2 previously. However, <xref ref="fig-tiredata" />PermSort-2 sorts the randomized groups so that we can measure the variability <em>across</em> groups as compared to the variability <em>within</em> groups.</p>
+<p>The next step in the randomization test is to sort the brands so that the assigned brand value on the x-axis aligns with the assigned group from the randomization. <xref ref="fig-tiredataPermSort" /> shows the same randomized groups, as seen in <xref ref="fig-tiredataPerm" /> previously. However, <xref ref="fig-tiredataPermSort" /> sorts the randomized groups so that we can measure the variability <em>across</em> groups as compared to the variability <em>within</em> groups.</p>
 
 
 <figure xml:id="fig-tiredataPermSort">
@@ -608,7 +608,7 @@ ggplot(tires_shuffled, aes(x = stat)) +
 <p>In an earlier edition of this textbook, we found that Amazon prices were, on average, lower than those of the UCLA Bookstore for UCLA courses in 2010. It's been several years, and many stores have adapted to the online market, so we wondered, how is the UCLA Bookstore doing today?</p>
 
 
-<p>We sampled 201 UCLA courses. Of those, 68 required books could be found on Amazon. A portion of the dataset from these courses is shown in <xref ref="tbl-textbooks" />DF, where prices are in US dollars.</p>
+<p>We sampled 201 UCLA courses. Of those, 68 required books could be found on Amazon. A portion of the dataset from these courses is shown in <xref ref="tbl-textbooksDF" />, where prices are in US dollars.</p>
 
 
 
@@ -652,7 +652,7 @@ ucla_textbooks_f18 |&gt;
 <p>Following the example of bootstrapping the one-sample statistic, the observed <em>differences</em> can be bootstrapped in order to understand the variability of the average difference from sample to sample. Remember, the differences act as a single value to bootstrap. That is, the original dataset would include the list of 68 price differences, and each resample will also include 68 price differences (some repeated through the bootstrap resampling process). The bootstrap procedure for paired differences is quite similar to the procedure applied to the one-sample statistic case in <xref ref="sec-boot1mean" />.</p>
 
 
-<p>In <xref ref="fig-pairboot" />, two 99% confidence intervals for the difference in the cost of a new book at the UCLA bookstore compared with Amazon have been calculated. The bootstrap percentile confidence interval is computed using the 0.5 percentile and 99.5 percentile bootstrapped differences and is found to be (\<m>0.25, \</m>7.87).</p>
+<p>In <xref ref="fig-pairboot" />, two 99% confidence intervals for the difference in the cost of a new book at the UCLA bookstore compared with Amazon have been calculated. The bootstrap percentile confidence interval is computed using the 0.5 percentile and 99.5 percentile bootstrapped differences and is found to be (<m>\$0.25, \$7.87</m>).</p>
 
 
 <exercise>
@@ -662,12 +662,12 @@ ucla_textbooks_f18 |&gt;
   <solution>
     <p>The bootstrapped differences in sample means vary roughly from 0.7 to 7.5, a range of \$6.80.</p>
     <p>Although the bootstrap distribution is not symmetric, we use the empirical rule (that with bell-shaped distributions, most observations are within two standard errors of the center), the standard error of the mean differences is approximately \$1.70.</p>
-    <p>You might note that the standard error calculation given in <xref ref="sec-mathpaired" /> is <m>SE(\bar{x}_{diff}) = \sqrt{s^2_{diff}/n_{diff}} = \sqrt{13.4^2/68} = \</m>1.62$ (values from <xref ref="sec-mathpaired" />), very close to the bootstrap approximation.</p>
+    <p>You might note that the standard error calculation given in <xref ref="sec-mathpaired" /> is <m>SE(\bar{x}_{diff}) = \sqrt{s^2_{diff}/n_{diff}} = \sqrt{13.4^2/68} = \$1.62</m> (values from <xref ref="sec-mathpaired" />), very close to the bootstrap approximation.</p>
   </solution>
 </exercise>
 
 
-<p>The bootstrap SE interval is found by computing the SE of the bootstrapped differences <m>(SE_{\overline{x}_{diff}} = \</m>1.64)<m> and the normal multiplier of </m>z^{\star} = 2.58.<m> The averaged difference is </m>\bar{x} = \<m>3.58.</m> The 99% confidence interval is: <m>\</m>3.58 \pm 2.58 \times \<m> 1.64 = (\</m>-0.65, \<m>7.81).</m></p>
+<p>The bootstrap SE interval is found by computing the SE of the bootstrapped differences <m>SE_{\overline{x}_{diff}} = \$1.64</m><m> and the normal multiplier of </m>z^{\star} = 2.58.<m> The averaged difference is </m>\bar{x} = \<m>3.58.</m> The 99% confidence interval is: <m>\</m>3.58 \pm 2.58 \times \<m> 1.64 = (\</m>-0.65, \<m>7.81).</m></p>
 
 
 <p>The confidence intervals seem to indicate that the UCLA bookstore price is, on average, higher than the Amazon price, as the majority of the confidence interval is positive. However, if the analysis required a strong degree of certainty (e.g., 99% confidence), and the bootstrap SE interval was most appropriate (given a second course in statistics the nuances of the methods can be investigated), the results of which bookseller is higher are not well determined (because the bootstrap SE interval overlaps zero). That is, the 99% bootstrap SE interval gives potential for UCLA bookstore to be lower, on average, than Amazon (because of the possible negative values for the true mean difference in price).</p>
@@ -772,7 +772,7 @@ boot_diff |&gt;
   <title>Variability of the statistic</title>
 
 
-<p>To analyze a paired dataset, we simply analyze the differences. <xref ref="tbl-textbooks" />SummaryStats provides the data summaries from the textbook data. Note that instead of reporting the prices separately for UCLA and Amazon, the summary statistics are given by the mean of the differences, the standard deviation of the differences, and the total number of pairs (i.e., differences). The parameter of interest is also a single value, <m>\mu_{diff},</m> so we can use the same <m>t</m>-distribution techniques we applied in <xref ref="sec-one-mean-math" /> directly onto the observed differences.</p>
+<p>To analyze a paired dataset, we simply analyze the differences. <xref ref="tbl-textbooksSummaryStats" /> provides the data summaries from the textbook data. Note that instead of reporting the prices separately for UCLA and Amazon, the summary statistics are given by the mean of the differences, the standard deviation of the differences, and the total number of pairs (i.e., differences). The parameter of interest is also a single value, <m>\mu_{diff},</m> so we can use the same <m>t</m>-distribution techniques we applied in <xref ref="sec-one-mean-math" /> directly onto the observed differences.</p>
 
 
 <table xml:id="tbl-textbooksSummaryStats">
@@ -896,7 +896,7 @@ ucla_textbooks_f18 |&gt;
   </statement>
   <solution>
     <p>The average price difference is only mildly useful for this question.</p>
-    <p>Examine the distribution shown in <xref ref="fig-diff" />InTextbookPricesF18.</p>
+    <p>Examine the distribution shown in <xref ref="fig-diffInTextbookPricesF18" />.</p>
     <p>There are certainly a handful of cases where Amazon prices are far below the UCLA Bookstore's, which suggests it is worth checking Amazon (and probably other online sites) before purchasing.</p>
     <p>However, in many cases the Amazon price is above what the UCLA Bookstore charges, and most of the time the price isn't that different.</p>
     <p>Ultimately, if getting a book immediately from the bookstore is notably more convenient, e.g., to get started on reading or homework, it's likely a good idea to go with the UCLA Bookstore unless the price difference on a specific book happens to be quite large.</p>
