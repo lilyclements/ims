@@ -426,11 +426,13 @@
         <alert>Use the pooled proportion when</alert> <m>H_0</m> is <m>p_1 - p_2 = 0.</m>
         When the null hypothesis is that the proportions are equal, use the pooled proportion <m>(\hat{p}_{\textit{pool}})</m> of successes to verify the success-failure condition and estimate the standard error:
         <me>\hat{p}_{\textit{pool}} = \frac{\text{number of successes}}{\text{number of cases}} = \frac{\hat{p}_1 n_1 + \hat{p}_2 n_2}{n_1 + n_2}</me>
+        Here <m>\hat{p}_1 n_1</m> represents the number of successes in sample 1 because <m>\hat{p}_1 = \frac{\text{number of successes in sample 1}}{n_1}.</m>
         Similarly, <m>\hat{p}_2 n_2</m> represents the number of successes in sample 2.
         <alert>The test statistic for assessing two proportions is a Z.</alert>
         The Z score<idx><h>Z score</h><h>difference in proportions</h></idx><idx><h>difference in proportions</h><h>Z score</h></idx> is a ratio of how the two sample proportions differ as compared to the expected variability of difference between the proportions.
         <me>Z = \frac{(\hat{p}_1 - \hat{p}_2) - 0}{\sqrt{\hat{p}_{pool}(1-\hat{p}_{pool}) \bigg(\frac{1}{n_1} + \frac{1}{n_2} \bigg)}}
       </me>
+        When the null hypothesis is true and the conditions are met, Z has a standard normal distribution.
         See the box below for calculation of the pooled proportion of successes.
         Conditions:
         <ul>
