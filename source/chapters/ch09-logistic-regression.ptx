@@ -975,9 +975,558 @@ resume_fit |&gt;
       </statement>
     </exercise>
 
-    <p>
-      <em>Note: Additional exercises from exercises/_09-ex-model-logistic.qmd require conversion to PreTeXt format. These include complex exercises on possum classification, Challenger disaster analysis, and spam filtering, with embedded R code blocks, tables, and figures that need to be converted.</em>
-    </p>
+
+    <exercise xml:id="ex-possum-classification">
+      <title>Possum classification, comparing models</title>
+      <statement>
+        <p>
+          The common brushtail possum of the Australia region is a bit cuter than its distant cousin, 
+          the American opossum (see <xref ref="fig-brushtail-possum" />). We consider 104 brushtail 
+          possums from two regions in Australia, where the possums may be considered a random sample 
+          from the population. The first region is Victoria, which is in the eastern half of Australia 
+          and traverses the southern coast. The second region consists of New South Wales and Queensland, 
+          which make up eastern and northeastern Australia.<fn>The <url href="http://openintrostat.github.io/openintro/reference/possum.html">possum</url> 
+          data used in this exercise can be found in the <url href="http://openintrostat.github.io/openintro">openintro</url> R package.</fn>
+        </p>
+        <p>
+          We use logistic regression to differentiate between possums in these two regions. The outcome 
+          variable, called <c>pop</c>, takes value 1 when a possum is from Victoria and 0 when it is 
+          from New South Wales or Queensland. We consider five predictors: <c>sex</c> (an indicator 
+          for a possum being male), <c>head_l</c> (head length), <c>skull_w</c> (skull width), 
+          <c>total_l</c> (total length), and <c>tail_l</c> (tail length). Each variable is summarized 
+          in a histogram. The full logistic regression model and a reduced model after variable 
+          selection are summarized in the tables below.
+        </p>
+        
+        <!-- R code for histograms -->
+        <listing xml:id="list-possum-histograms">
+          <caption>R code to generate histograms of possum variables</caption>
+          <program language="r">
+            <input>
+possum &lt;- openintro::possum |&gt;
+  mutate(
+    sex = ifelse(sex == "m", "male", "female"),
+    pop = as.factor(ifelse(pop == "Vic", "Victoria", "other"))
+  )
+
+hist_sex &lt;- ggplot(possum, aes(x = sex)) +
+  geom_bar() +
+  labs(x = "Sex", y = "Count") 
+
+hist_head &lt;- ggplot(possum, aes(x = head_l)) +
+  geom_histogram() +
+  labs(x = "Head length (in mm)", y = "Count") 
+
+hist_skull &lt;- ggplot(possum, aes(x = skull_w)) +
+  geom_histogram() +
+  labs(x = "Skull width (in mm)", y = "Count")     
+
+hist_total &lt;- ggplot(possum, aes(x = total_l)) +
+  geom_histogram() +
+  labs(x = "Total length (in cm)", y = "Count")   
+
+hist_tail &lt;- ggplot(possum, aes(x = tail_l)) +
+  geom_histogram() +
+  labs(x = "Tail length (in cm)", y = "Count")     
+
+hist_pop &lt;- ggplot(possum, aes(x = pop)) +
+  geom_bar() +
+  labs(x = "Population", y = "Count")
+
+hist_sex + hist_head + hist_skull + hist_total + hist_tail + hist_pop +
+  plot_layout(ncol = 3)
+            </input>
+          </program>
+        </listing>
+        
+        <!-- Full model table -->
+        <listing xml:id="list-possum-full-model">
+          <caption>Full logistic regression model with all predictors</caption>
+          <program language="r">
+            <input>
+glm(pop ~ sex + head_l + skull_w + total_l + tail_l, 
+    data = possum, family = "binomial") |&gt;
+  tidy() |&gt;
+  mutate(p.value = ifelse(p.value &lt; .0001, "&lt;0.0001", round(p.value, 4)))
+            </input>
+          </program>
+        </listing>
+        
+        <!-- Reduced model table -->
+        <listing xml:id="list-possum-reduced-model">
+          <caption>Reduced logistic regression model without head_l</caption>
+          <program language="r">
+            <input>
+glm(pop ~ sex + skull_w + total_l + tail_l, 
+    data = possum, family = "binomial") |&gt;
+  tidy() |&gt;
+  mutate(p.value = ifelse(p.value &lt; .0001, "&lt;0.0001", round(p.value, 4)))
+            </input>
+          </program>
+        </listing>
+        
+        <p>
+          <ol marker="a.">
+            <li>
+              <p>
+                Examine each of the predictors given by the individual graphs. Are there any outliers 
+                that are likely to have a very large influence on the logistic regression model?
+              </p>
+            </li>
+            <li>
+              <p>
+                Two models are provided above for predicting the region of the possum. (In 
+                <xref ref="ch26-inference-logistic-regression" /> we will cover a method for deciding between the 
+                models based on p-values.) The first model includes <c>head_l</c> and the second model 
+                does not. Explain why the remaining estimates (model coefficients) change between the 
+                two models.
+              </p>
+            </li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+
+    <exercise xml:id="ex-challenger-disaster">
+      <title>Challenger disaster and model building</title>
+      <statement>
+        <p>
+          On January 28, 1986, a routine launch was anticipated for the Challenger space shuttle. 
+          Seventy-three seconds into the flight, disaster happened: the shuttle broke apart, killing 
+          all seven crew members on board. An investigation into the cause of the disaster focused on 
+          a critical seal called an O-ring, and it is believed that damage to these O-rings during a 
+          shuttle launch may be related to the ambient temperature during the launch. The table below 
+          summarizes observational data on O-rings for 23 shuttle missions, where the mission order is 
+          based on the temperature at the time of the launch. <c>temperature</c> gives the temperature 
+          in Fahrenheit, <c>damaged</c> represents the number of damaged O-rings, and <c>undamaged</c> 
+          represents the number of O-rings that were not damaged.<fn>The <url href="http://openintrostat.github.io/openintro/reference/orings.html">orings</url> 
+          data used in this exercise can be found in the <url href="http://openintrostat.github.io/openintro">openintro</url> R package.</fn>
+        </p>
+        
+        <!-- O-rings data tables -->
+        <listing xml:id="list-orings-data-1">
+          <caption>O-ring data (missions 1-12)</caption>
+          <program language="r">
+            <input>
+orings |&gt;
+  slice_head(n = 12) |&gt;
+  t()
+            </input>
+          </program>
+        </listing>
+        
+        <listing xml:id="list-orings-data-2">
+          <caption>O-ring data (missions 13-23)</caption>
+          <program language="r">
+            <input>
+orings |&gt;
+  slice_tail(n = 11) |&gt;
+  t()
+            </input>
+          </program>
+        </listing>
+        
+        <!-- Logistic regression model -->
+        <listing xml:id="list-orings-model">
+          <caption>Logistic regression model for O-ring damage</caption>
+          <program language="r">
+            <input>
+orings |&gt;
+  pivot_longer(cols = c(damaged, undamaged), 
+               names_to = "outcome", values_to = "n") |&gt;
+  uncount(n) |&gt;
+  mutate(outcome = fct_relevel(outcome, "undamaged", "damaged")) |&gt;
+  glm(outcome ~ temperature, data = _, family = "binomial") |&gt;
+  tidy() |&gt;
+  mutate(p.value = ifelse(p.value &lt; .0001, "&lt;0.0001", round(p.value, 4)))
+            </input>
+          </program>
+        </listing>
+        
+        <p>
+          <ol marker="a.">
+            <li>
+              <p>
+                Each column of the table above represents a different shuttle mission. Examine these 
+                data and describe what you observe with respect to the relationship between temperatures 
+                and damaged O-rings.
+              </p>
+            </li>
+            <li>
+              <p>
+                Failures have been coded as 1 for a damaged O-ring and 0 for an undamaged O-ring, and 
+                a logistic regression model was fit to these data. The regression output for this model 
+                is given above. Describe the key components of the output in words.
+              </p>
+            </li>
+            <li>
+              <p>
+                Write out the logistic model using the point estimates of the model parameters.
+              </p>
+            </li>
+            <li>
+              <p>
+                Based on the model, do you think concerns regarding O-rings are justified? Explain.
+              </p>
+            </li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+
+    <exercise xml:id="ex-possum-prediction">
+      <title>Possum classification, prediction</title>
+      <statement>
+        <p>
+          A logistic regression model was proposed for classifying common brushtail possums into their 
+          two regions. The outcome variable took value 1 if the possum was from Victoria and 0 otherwise.
+        </p>
+        
+        <!-- Model table -->
+        <listing xml:id="list-possum-prediction-model">
+          <caption>Logistic regression model for possum classification</caption>
+          <program language="r">
+            <input>
+openintro::possum |&gt;
+  mutate(
+    sex = ifelse(sex == "m", "male", "female"),
+    pop = as.factor(ifelse(pop == "Vic", "Victoria", "other"))
+  ) |&gt;
+  glm(pop ~ sex + skull_w + total_l + tail_l, data = _, family = "binomial") |&gt;
+  tidy() |&gt;
+  mutate(p.value = ifelse(p.value &lt; .0001, "&lt;0.0001", round(p.value, 4)))
+            </input>
+          </program>
+        </listing>
+        
+        <p>
+          <ol marker="a.">
+            <li>
+              <p>
+                Write out the form of the model. Also identify which of the variables are positively 
+                associated with the outcome of living in Victoria, when controlling for other variables.
+              </p>
+            </li>
+            <li>
+              <p>
+                Suppose we see a brushtail possum at a zoo in the US, and a sign says the possum had 
+                been captured in the wild in Australia, but it doesn't say which part of Australia. 
+                However, the sign does indicate that the possum is male, its skull is about 63 mm wide, 
+                its tail is 37 cm long, and its total length is 83 cm. What is the reduced model's 
+                computed probability that this possum is from Victoria? How confident are you in the 
+                model's accuracy of this probability calculation?
+              </p>
+            </li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+
+    <exercise xml:id="ex-challenger-prediction">
+      <title>Challenger disaster and prediction</title>
+      <statement>
+        <p>
+          On January 28, 1986, a routine launch was anticipated for the Challenger space shuttle. 
+          Seventy-three seconds into the flight, disaster happened: the shuttle broke apart, killing 
+          all seven crew members on board. An investigation into the cause of the disaster focused on 
+          a critical seal called an O-ring, and it is believed that damage to these O-rings during a 
+          shuttle launch may be related to the ambient temperature during the launch. The investigation 
+          found that the ambient temperature at the time of the shuttle launch was closely related to 
+          the damage of O-rings, which are a critical component of the shuttle.
+        </p>
+        
+        <!-- Plot code -->
+        <listing xml:id="list-challenger-plot">
+          <caption>Plot of O-ring damage probability vs temperature</caption>
+          <program language="r">
+            <input>
+orings |&gt;
+  pivot_longer(cols = c(damaged, undamaged), 
+               names_to = "outcome", values_to = "n") |&gt;
+  uncount(n) |&gt;
+  group_by(temperature) |&gt;
+  summarize(prop_damaged = mean(outcome == "damaged")) |&gt;
+  ggplot() +
+  geom_point(aes(x = temperature, y = prop_damaged), size = 2) +
+  labs(
+    x = "Temperature (Fahrenheit)",
+    y = "Probability of damage"
+  ) +
+  lims(x = c(50,85))
+            </input>
+          </program>
+        </listing>
+        
+        <p>
+          <ol marker="a.">
+            <li>
+              <p>
+                The data provided in the previous exercise are shown in the plot. The logistic model 
+                fit to these data may be written as
+              </p>
+              <me>
+                \log\left( \frac{\hat{p}}{1 - \hat{p}} \right) = 11.6630 - 0.2162\times \texttt{temperature}
+              </me>
+              <p>
+                where <m>\hat{p}</m> is the model-estimated probability that an O-ring will become 
+                damaged. Use the model to calculate the probability that an O-ring will become damaged 
+                at each of the following ambient temperatures: 51, 53, and 55 degrees Fahrenheit. The 
+                model-estimated probabilities for several additional ambient temperatures are provided 
+                below, where subscripts indicate the temperature:
+              </p>
+              <md>
+                <mrow>&amp;\hat{p}_{57} = 0.341 &amp;&amp; \hat{p}_{59} = 0.251 &amp;&amp; \hat{p}_{61} = 0.179 &amp;&amp; \hat{p}_{63} = 0.124</mrow>
+                <mrow>&amp;\hat{p}_{65} = 0.084 &amp;&amp; \hat{p}_{67} = 0.056 &amp;&amp; \hat{p}_{69} = 0.037 &amp;&amp; \hat{p}_{71} = 0.024</mrow>
+              </md>
+            </li>
+            <li>
+              <p>
+                Add the model-estimated probabilities from part (a) on the plot, then connect these 
+                dots using a smooth curve to represent the model-estimated probabilities.
+              </p>
+            </li>
+            <li>
+              <p>
+                Describe any concerns you may have regarding applying logistic regression in this 
+                application, and note any assumptions that are required to accept the model's validity.
+              </p>
+            </li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+
+    <exercise xml:id="ex-spam-model-selection">
+      <title>Spam filtering, model selection</title>
+      <statement>
+        <p>
+          Spam filters are built on principles similar to those used in logistic regression. Using 
+          characteristics of individual emails, we fit a probability that each message is spam or not 
+          spam. We have several email variables for this problem, and we won't describe what each 
+          variable means here for the sake of brevity, but each is either a numerical or indicator 
+          variable.<fn>The <url href="http://openintrostat.github.io/openintro/reference/email.html">email</url> 
+          data used in this exercise can be found in the <url href="http://openintrostat.github.io/openintro">openintro</url> R package.</fn>
+        </p>
+        
+        <!-- Full model -->
+        <listing xml:id="list-spam-full-model">
+          <caption>Full logistic regression model for spam filtering</caption>
+          <program language="r">
+            <input>
+m_full &lt;- glm(spam ~ to_multiple + cc + attach + dollar +
+  winner + inherit + password + format +
+  re_subj + exclaim_subj + sent_email,
+  data = email, family = "binomial")
+
+m_full |&gt;
+  tidy() |&gt;
+  mutate(p.value = ifelse(p.value &lt; .0001, "&lt;0.0001", round(p.value, 4)))
+            </input>
+          </program>
+        </listing>
+        
+        <p>
+          The AIC of the full model is 458.5. We remove each variable one by one, refit the model, 
+          and record the updated AIC.
+        </p>
+        
+        <p>
+          <ol marker="a.">
+            <li>
+              <p>
+                For variable selection, we fit the full model, which includes all variables, and then 
+                we also fit each model where we've dropped exactly one of the variables. In each of 
+                these reduced models, the AIC value for the model is reported below. Based on these 
+                results, which variable, if any, should we drop as part of model selection? Explain.
+              </p>
+              <p>
+                <ul>
+                  <li><p>None Dropped: 458.5</p></li>
+                  <li><p>Drop <c>to_multiple</c>: 458.2</p></li>
+                  <li><p>Drop <c>cc</c>: 457.0</p></li>
+                  <li><p>Drop <c>attach</c>: 458.2</p></li>
+                  <li><p>Drop <c>dollar</c>: 459.9</p></li>
+                  <li><p>Drop <c>winner</c>: 463.1</p></li>
+                  <li><p>Drop <c>inherit</c>: 457.3</p></li>
+                  <li><p>Drop <c>password</c>: 459.2</p></li>
+                  <li><p>Drop <c>format</c>: 460.6</p></li>
+                  <li><p>Drop <c>re_subj</c>: 489.5</p></li>
+                  <li><p>Drop <c>exclaim_subj</c>: 458.3</p></li>
+                  <li><p>Drop <c>sent_email</c>: 467.9</p></li>
+                </ul>
+              </p>
+            </li>
+            <li>
+              <p>
+                Consider the subsequent model selection stage (where the variable from part (a) has 
+                been removed, and we are considering removal of a second variable). Here again we've 
+                computed the AIC for each leave-one-variable-out model. Based on the results, which 
+                variable, if any, should we drop as part of model selection? Explain.
+              </p>
+              <p>
+                <ul>
+                  <li><p>None dropped: 457.0</p></li>
+                  <li><p>Drop <c>to_multiple</c>: 456.6</p></li>
+                  <li><p>Drop <c>attach</c>: 456.7</p></li>
+                  <li><p>Drop <c>dollar</c>: 458.5</p></li>
+                  <li><p>Drop <c>winner</c>: 461.8</p></li>
+                  <li><p>Drop <c>inherit</c>: 455.8</p></li>
+                  <li><p>Drop <c>password</c>: 457.7</p></li>
+                  <li><p>Drop <c>format</c>: 459.2</p></li>
+                  <li><p>Drop <c>re_subj</c>: 488.1</p></li>
+                  <li><p>Drop <c>sent_email</c>: 466.5</p></li>
+                </ul>
+              </p>
+            </li>
+            <li>
+              <p>
+                Consider one more step in the process. Here again we've computed the AIC for each 
+                leave-one-variable-out model. Based on the results, which variable, if any, should we 
+                drop as part of model selection? Explain.
+              </p>
+              <p>
+                <ul>
+                  <li><p>None Dropped: 455.8</p></li>
+                  <li><p>Drop <c>to_multiple</c>: 455.5</p></li>
+                  <li><p>Drop <c>attach</c>: 455.5</p></li>
+                  <li><p>Drop <c>dollar</c>: 457.3</p></li>
+                  <li><p>Drop <c>winner</c>: 460.5</p></li>
+                  <li><p>Drop <c>password</c>: 456.5</p></li>
+                  <li><p>Drop <c>format</c>: 458.0</p></li>
+                  <li><p>Drop <c>re_subj</c>: 486.8</p></li>
+                  <li><p>Drop <c>sent_email</c>: 465.2</p></li>
+                </ul>
+              </p>
+            </li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+
+    <exercise xml:id="ex-spam-prediction">
+      <title>Spam filtering, prediction</title>
+      <statement>
+        <p>
+          Recall running a logistic regression to aid in spam classification for individual emails. 
+          In this exercise, we've taken a small set of the variables and fit a logistic model with 
+          the following output:
+        </p>
+        
+        <!-- Model table -->
+        <listing xml:id="list-spam-prediction-model">
+          <caption>Logistic regression model for spam prediction</caption>
+          <program language="r">
+            <input>
+glm(spam ~ to_multiple + winner + format + re_subj,
+  data = email, family = "binomial") |&gt;
+  tidy() |&gt;
+  mutate(p.value = ifelse(p.value &lt; .0001, "&lt;0.0001", round(p.value, 4)))
+            </input>
+          </program>
+        </listing>
+        
+        <p>
+          <ol marker="a.">
+            <li>
+              <p>
+                Write down the model using the coefficients from the model fit.
+              </p>
+            </li>
+            <li>
+              <p>
+                Suppose we have an observation where <m>\texttt{to\_multiple} = 0</m>, 
+                <m>\texttt{winner}= 1</m>, <m>\texttt{format} = 0</m>, and <m>\texttt{re\_subj} = 0</m>. 
+                What is the predicted probability that this message is spam?
+              </p>
+            </li>
+            <li>
+              <p>
+                Put yourself in the shoes of a data scientist working on a spam filter. For a given 
+                message, how high must the probability a message is spam be before you think it would 
+                be reasonable to put it in a <em>spambox</em> (which the user is unlikely to check)? 
+                What tradeoffs might you consider? Any ideas about how you might make your spam-filtering 
+                system even better from the perspective of someone using your email service?
+              </p>
+            </li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+
+    <exercise xml:id="ex-possum-aic">
+      <title>Possum classification, model selection via AIC</title>
+      <statement>
+        <p>
+          A logistic regression model was proposed for classifying common brushtail possums into their 
+          two regions. The outcome variable took value 1 if the possum was from Victoria and 0 otherwise.
+        </p>
+        <p>
+          We use logistic regression to classify the 104 possums in our dataset in these two regions. 
+          The outcome variable, called <c>pop</c>, takes value 1 when the possum is from Victoria and 
+          0 when it is from New South Wales or Queensland. We consider five predictors: <c>sex</c> 
+          (an indicator for a possum being male), <c>head_l</c> (head length), <c>skull_w</c> (skull 
+          width), <c>total_l</c> (total length), and <c>tail_l</c> (tail length).
+        </p>
+        <p>
+          A summary of the three models we fit and their AIC values are given below:
+        </p>
+        
+        <!-- Model comparison table -->
+        <listing xml:id="list-possum-aic-comparison">
+          <caption>Comparison of three logistic regression models via AIC</caption>
+          <program language="r">
+            <input>
+pop_m1 &lt;- glm(pop ~ sex + head_l + skull_w + total_l + tail_l, 
+              data = possum, family = "binomial")
+pop_m2 &lt;- glm(pop ~ sex + skull_w + total_l + tail_l, 
+              data = possum, family = "binomial")
+pop_m3 &lt;- glm(pop ~ sex + head_l + total_l + tail_l, 
+              data = possum, family = "binomial")
+
+# Compare AIC values
+bind_rows(
+  glance(pop_m1) |&gt; select(AIC) |&gt; mutate(formula = "sex + head_l + skull_w + total_l + tail_l"),
+  glance(pop_m2) |&gt; select(AIC) |&gt; mutate(formula = "sex + skull_w + total_l + tail_l"),
+  glance(pop_m3) |&gt; select(AIC) |&gt; mutate(formula = "sex + head_l + total_l + tail_l")
+)
+            </input>
+          </program>
+        </listing>
+        
+        <p>
+          <ol marker="a.">
+            <li>
+              <p>
+                Using the AIC metric, which of the three models would be best to report?
+              </p>
+            </li>
+            <li>
+              <p>
+                If, for example, the AIC is virtually equivalent for two models that have differing 
+                numbers of variables, which model would be preferred: the model with more variables or 
+                the model with fewer variables? Explain.
+              </p>
+            </li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+
+    <exercise xml:id="ex-model-selection">
+      <title>Model selection</title>
+      <statement>
+        <p>
+          An important aspect of building a logistic regression model is figuring out which variables 
+          to include in the model. In <xref ref="sec-model-logistic" /> we covered using AIC to choose 
+          between variable subsets. In <xref ref="ch26-inference-logistic-regression" /> we will cover using 
+          something called p-values to choose between variables subsets. Alternatively, you might hope 
+          that a model gave the smallest number of false positives, the smallest number of false 
+          negatives, or the highest overall accuracy. If different criteria produce outcomes of 
+          <em>different variable subsets</em> for the final model, how might you decide which model to 
+          put forward? (Hint: There is no single correct answer to this question.)
+        </p>
+      </statement>
+    </exercise>
 
   </exercises>
 </section>
