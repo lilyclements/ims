@@ -145,7 +145,7 @@
                     method = "lm", se = FALSE, fullrange = TRUE,
                     color = IMSCOL["green", "full"]) +
         geom_point(data = sandwich3, aes(x = ad, y = rev),
-                   size = 3, , shape = 23,
+                   size = 3, shape = 23,
                    fill = IMSCOL["gray", "full"], color = "#FFFFFF") +
         geom_smooth(data = sandwich3, aes(x = ad, y = rev),
                     method = "lm", se = FALSE, fullrange = TRUE,
