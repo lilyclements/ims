@@ -1754,7 +1754,7 @@ m_full |&gt;
                   <li><p>Drop <c>cc</c>: 1863.2</p></li>
                   <li><p>Drop <c>attach</c>: 1871.9</p></li>
                   <li><p>Drop <c>dollar</c>: 1879.7</p></li>
-                  <li><p>Drop <c>winner</c>: 1885</p></li>
+                  <li><p>Drop <c>winner</c>: 1885.0</p></li>
                   <li><p>Drop <c>inherit</c>: 1865.5</p></li>
                   <li><p>Drop <c>password</c>: 1879.3</p></li>
                   <li><p>Drop <c>format</c>: 2008.9</p></li>
@@ -1780,7 +1780,7 @@ m_full |&gt;
                   <li><p>Drop <c>winner</c>: 1885.2</p></li>
                   <li><p>Drop <c>inherit</c>: 1864.8</p></li>
                   <li><p>Drop <c>password</c>: 1878.4</p></li>
-                  <li><p>Drop <c>format</c>: 2007</p></li>
+                  <li><p>Drop <c>format</c>: 2007.0</p></li>
                   <li><p>Drop <c>re_subj</c>: 1904.3</p></li>
                   <li><p>Drop <c>sent_email</c>: 1957.3</p></li>
                 </ul>
@@ -1798,7 +1798,7 @@ m_full |&gt;
                   <li><p>Drop <c>to_multiple</c>: 2019.6</p></li>
                   <li><p>Drop <c>attach</c>: 1871.2</p></li>
                   <li><p>Drop <c>dollar</c>: 1877.7</p></li>
-                  <li><p>Drop <c>winner</c>: 1885</p></li>
+                  <li><p>Drop <c>winner</c>: 1885.0</p></li>
                   <li><p>Drop <c>inherit</c>: 1864.5</p></li>
                   <li><p>Drop <c>password</c>: 1878.2</p></li>
                   <li><p>Drop <c>format</c>: 2007.4</p></li>
