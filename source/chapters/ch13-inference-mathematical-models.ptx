@@ -1697,6 +1697,7 @@
             In 2013, the Pew Research Foundation reported that "45% of U.S. adults report that they live with one or more chronic conditions".
             However, this value was based on a sample, so it may not be a perfect estimate for the population parameter of interest on its own.
             The study reported a standard error of about 1.2%, and a normal model may reasonably be used in this setting.
+            <xref ref="data:pewdiagnosis:2013" />
           </p>
           <p>
             <ol>
@@ -1723,6 +1724,7 @@
           <p>
             A poll conducted in 2022 found that 50% of U.S. adults (i.e., a proportion of 0.5) get news from social media sometimes or often.
             The standard error for this estimate was 0.5% (i.e., 0.005), and a normal distribution may be used to model the sample proportion.
+            <xref ref="data:socialmedianews:2022" />
           </p>
           <p>
             <ol>
@@ -1749,7 +1751,7 @@
           <p>
             Suppose that you conduct a hypothesis test about a population proportion and calculate the Z score to be 0.47.
             Which of the following is the best interpretation of this value?
-            For the problems which are not a good interpretation, indicate the statistical idea being described.
+            For the problems which are not a good interpretation, indicate the statistical idea being described.<fn>This exercise was inspired by discussion on Dr. Allan Rossman's blog <url href="https://askgoodquestions.blog/">Ask Good Questions</url>.</fn>
           </p>
           <p>
             <ol>
