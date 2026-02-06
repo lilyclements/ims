@@ -354,6 +354,13 @@
           <url href="http://www.openintro.org/redirect.php?go=textbook-school_bully_sleepy_2011">http://www.openintro.org/redirect.php?go=textbook-school_bully_sleepy_2011</url>
         </biblio>
         
+        <biblio type="raw" xml:id="news-coffeeDepression">
+          O'Connor, A. (2011).
+          Coffee Drinking Linked to Less Depression in Women.
+          <em>New York Times</em>, September 26, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-coffee_depression_2011">http://www.openintro.org/redirect.php?go=textbook-coffee_depression_2011</url>
+        </biblio>
+        
         <biblio type="raw" xml:id="Audera-2001">
           Audera, C., Patulny, R. V., Sander, B. H., and Douglas, R. M. (2001).
           Mega-dose vitamin C in treatment of the common cold: a randomised controlled trial.
@@ -450,6 +457,120 @@
           Nightingale, F. (1859).
           <em>Notes on Nursing: what it is, and what it is not</em>.
           Harrison &amp; Sons, p. 55.
+        </biblio>
+        
+        <biblio type="raw" xml:id="Heinz-2003">
+          Heinz, G., Peterson, L. J., Johnson, R. W., and Kerk, C. J. (2003).
+          Exploring relationships in body dimensions.
+          <em>Journal of Statistics Education</em>, 11(2).
+          <url href="http://www.openintro.org/redirect.php?go=textbook-body_dim_2003">http://www.openintro.org/redirect.php?go=textbook-body_dim_2003</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Mortada-2000">
+          Mortada, W. I., Sobh, M. A., El-Defrawy, M. M., and Farahat, S. E. (2000).
+          Study of lead exposure from automobile exhaust as a risk for nephrotoxicity among traffic policemen.
+          <em>American Journal of Nephrology</em>, 21(4):274-279.
+          DOI: 10.1159/000046261
+        </biblio>
+        
+        <biblio type="raw" xml:id="Smith-2021">
+          Smith, G. E., Chouinard, P. A., and Byosiere, S. (2021).
+          If I fits I sits: A citizen science investigation into illusory contour susceptibility in domestic cats (<em>Felis silvestris catus</em>).
+          <em>Applied Animal Behaviour Science</em>, 240.
+          DOI: 10.1016/j.applanim.2021.105338
+        </biblio>
+        
+        <biblio type="raw" xml:id="Lucas-2011">
+          Lucas, M., Mirzaei, F., Pan, A., Okereke, O. I., Willett, W. C., O'Reilly, E. J., Koenen, K., and Ascherio, A. (2011).
+          Coffee, caffeine, and risk of depression among women.
+          <em>Archives of Internal Medicine</em>, 171(17):1571.
+          DOI: 10.1001/archinternmed.2011.393
+        </biblio>
+        
+        <biblio type="raw" xml:id="KingSuamani2018">
+          King, C., Suamani, J., Sanuku, N., Cheng, Y.-C., Satofan, S., Mancuso, B., Goss, C. W., Robinson, L. J., Siba, P. M., Weil, G. J., and Kazura, J. W. (2018).
+          A Trial of a Triple-Drug Treatment for Lymphatic Filariasis.
+          <em>New England Journal of Medicine</em>, 379:1801-1810.
+          DOI: 10.1056/NEJMoa1706854
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-defundpolice">
+          Survey USA (2021).
+          News Poll 25938, data collected April 29 - May 5, 2021.
+          <url href="https://www.openintro.org/go?id=textbook-surveyusa-2021-seattle-defund-police">https://www.openintro.org/go?id=textbook-surveyusa-2021-seattle-defund-police</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="web-art2018">
+          CDC (2018).
+          2018 Assisted Reproductive Technology Fertility Clinic Success Rates Report.
+          <url href="https://www.cdc.gov/art/pdf/2018-report/ART-2018-Clinic-Report-Full.pdf">https://www.cdc.gov/art/pdf/2018-report/ART-2018-Clinic-Report-Full.pdf</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-gssgrass">
+          NORC (2022).
+          Data Explorer - Should marijuana be made legal.
+          <url href="https://www.openintro.org/go?id=textbook-gssdataexplorer-marijuana-legal">https://www.openintro.org/go?id=textbook-gssdataexplorer-marijuana-legal</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-gsssexeq">
+          NORC (2016).
+          Data Explorer - Government resp to promote gender equality.
+          <url href="https://www.openintro.org/go?id=textbook-gssdataexplorer-marijuana-gender-equality">https://www.openintro.org/go?id=textbook-gssdataexplorer-marijuana-gender-equality</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-KFF2019nathealthplan">
+          Kaiser Family Foundation (2019).
+          The Public On Next Steps For The ACA And Proposals To Expand Coverage, data collected January 9 - 14, 2019.
+          <url href="https://www.openintro.org/go?id=textbook-kff-2019-expand-aca-coverage">https://www.openintro.org/go?id=textbook-kff-2019-expand-aca-coverage</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="news-youngAmericans1">
+          Vaughn, A. (2011).
+          Poll finds young adults optimistic, but not about money.
+          <em>Los Angeles Times</em>, November 3, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-young_americans_2011">http://www.openintro.org/redirect.php?go=textbook-young_americans_2011</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="news-youngAmericans2">
+          Demos (2011).
+          The State of Young America: The Poll, November 2, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-young_americans_2011_extra">http://www.openintro.org/redirect.php?go=textbook-young_americans_2011_extra</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-elderlyDriving">
+          Marist Poll (2011).
+          Road Rules: Re-Testing Drivers at Age 65?, March 4, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-drivers_at_65_2011">http://www.openintro.org/redirect.php?go=textbook-drivers_at_65_2011</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-july4">
+          Survey USA (2012).
+          News Poll 19333, data collected on June 27, 2012.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-SurveyUSA_19333">http://www.openintro.org/redirect.php?go=textbook-SurveyUSA_19333</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-gallupcovidvaccine">
+          Gallup (2021).
+          U.S. Support for Vaccination Proof Varies by Activity, data collected in April 2021.
+          <url href="https://www.openintro.org/go?id=textbook-gallup-2021-vaccine-proof">https://www.openintro.org/go?id=textbook-gallup-2021-vaccine-proof</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-studyAbroad">
+          American Council on Education (2008).
+          College-Bound Students' Interests in Study Abroad and Other International Learning Activities.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-Interests_in_Study_Abroad_2008">http://www.openintro.org/redirect.php?go=textbook-Interests_in_Study_Abroad_2008</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-collegeWorthIt">
+          Pew Research Center (2011).
+          Is College Worth It?, data collected March 15-29, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-college_worth_it_2011">http://www.openintro.org/redirect.php?go=textbook-college_worth_it_2011</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-yougovcovid">
+          YouGov (2021).
+          Do you think the coronavirus will end up bringing the world closer together, or leave us further apart?
+          <url href="https://www.openintro.org/go?id=textbook-yougov-2021-covid">https://www.openintro.org/go?id=textbook-yougov-2021-covid</url>
         </biblio>
       </references>
     </backmatter>
