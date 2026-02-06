@@ -436,6 +436,7 @@
         The <url href="http://openintrostat.github.io/openintro/reference/fish_oil.html"><c>fish_oil_18</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.
         </note>
         </subsection>
+    
         <subsection xml:id="sec-test-prop-pool">
         <title>Hypothesis test for the difference between two proportions</title>
         The details for calculating a SE and for checking technical conditions are very similar to that of confidence intervals.
