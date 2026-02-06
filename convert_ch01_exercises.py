@@ -1,12 +1,22 @@
 #!/usr/bin/env python3
 """
 Convert Chapter 1 exercises from Quarto to PreTeXt format.
+
+This is a one-time conversion script that generates the PreTeXt XML file for Chapter 1 exercises.
+The XML content is embedded as a string literal since the conversion has already been done manually
+from the source Quarto file. The convert_formatting() function is kept as documentation of the
+conversion rules that were applied.
+
+Usage: python convert_ch01_exercises.py
 """
 
 import re
 
 def convert_formatting(text):
-    """Convert Quarto formatting to PreTeXt XML."""
+    """
+    Document the formatting conversions applied during manual conversion.
+    This function is not used in the script but serves as documentation of conversion rules.
+    """
     # Bold → alert
     text = re.sub(r'\*\*([^*]+?)\*\*', r'<alert>\1</alert>', text)
     # Italic → em
@@ -638,9 +648,13 @@ def create_exercises_file():
     return xml_content
 
 if __name__ == "__main__":
+    import os
     xml_content = create_exercises_file()
     
-    output_file = "/home/runner/work/ims/ims/source/exercises/_01-ex-data-hello.ptx"
+    # Use relative path from script location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    output_file = os.path.join(script_dir, "source", "exercises", "_01-ex-data-hello.ptx")
+    
     with open(output_file, 'w') as f:
         f.write(xml_content)
     
