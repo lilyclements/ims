@@ -317,7 +317,7 @@ pt(-2.10, df = 18)
 
       <exercise xml:id="ex-tdist-df20-right">
         <statement>
-          <p>What proportion of the 𝑡-distribution with 20 degrees of freedom falls above 1.65?</p>
+          <p>What proportion of the <m>t</m>-distribution with 20 degrees of freedom falls above 1.65?</p>
         </statement>
         <solution>
           <p>Note that with 20 degrees of freedom, the <m>t</m>-distribution is relatively close to the normal distribution. With a normal distribution, this would correspond to about 0.05, so we should expect the <m>t</m>-distribution to give us a similar value. Using statistical software, we can obtain a precise value: 0.0573.</p>
@@ -383,7 +383,7 @@ pt(-3, df = 2) + (1 - pt(3, df = 2))
       <p>We will identify a confidence interval for the average mercury content in dolphin muscle using a sample of 19 Risso's dolphins from the Taiji area in Japan. The data are summarized in <xref ref="tbl-summaryStatsOfHgInMuscleOfRissosDolphins"/>. The minimum and maximum observed values can be used to evaluate whether there are clear outliers.</p>
 
       <table xml:id="tbl-summaryStatsOfHgInMuscleOfRissosDolphins">
-        <title>Summary of mercury content in the muscle of 19 Risso's dolphins from the Taiji area. Measurements are in micrograms of mercury per wet gram of muscle (<m>\mu</m>g/wet g).</title>
+        <title>Summary of mercury content in the muscle of 19 Risso's dolphins from the Taiji area. Measurements are in micrograms of mercury per wet gram of muscle (<m>\mu\text{g/wet g}</m>).</title>
         <tabular>
           <row header="yes">
             <cell>n</cell>
@@ -469,7 +469,7 @@ qt(0.975, df = 18)
             <mrow>(3.29 \  &amp;, \ 5.51)</mrow>
           </md>
 
-          <p>We are 95% confident the average mercury content of muscles in Risso's dolphins is between 3.29 and 5.51 <m>\mu</m>g/wet gram, which is considered extremely high.</p>
+          <p>We are 95% confident the average mercury content of muscles in Risso's dolphins is between 3.29 and 5.51 <m>\mu\text{g/wet g}</m>, which is considered extremely high.</p>
         </solution>
       </exercise>
 
