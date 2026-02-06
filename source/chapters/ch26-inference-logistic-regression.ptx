@@ -4,7 +4,7 @@
 <title>Inference for logistic regression</title>
 
 <introduction>
-  <p>Combining ideas from <xref ref="sec-model-logistic" /> on logistic regression, <xref ref="sec-foundations-mathematical" /> on inference with mathematical models, and <xref ref="sec-inf-model-slr" /> and <xref ref="sec-inf-model-mlr" /> which apply inferential techniques to the linear model, we wrap up the book by considering inferential methods applied to a logistic regression model.</p>
+  <p>Combining ideas from <xref ref="sec-model-logistic" /> on logistic regression, <xref ref="sec-foundations-mathematical" /> on inference with mathematical models, and <xref ref="ch24-inference-linear-regression-single" /> and <xref ref="ch25-inference-linear-regression-multiple" /> which apply inferential techniques to the linear model, we wrap up the book by considering inferential methods applied to a logistic regression model.</p>
   <p>Additionally, we use cross-validation as a method for independent assessment of the logistic regression model.</p>
 </introduction>
 
@@ -284,7 +284,7 @@ glm(spam ~ to_multiple + cc + dollar + urgent_subj, data = email, family = "bino
 
 <p>Not only does <xref ref="tbl-emaillogmodel" /> provide the estimates for the coefficients, it also provides information on the inference analysis (i.e., hypothesis testing) which is the focus of this chapter.</p>
 
-<p>As in <xref ref="sec-inf-model-mlr" />, with <alert>multiple predictors</alert>, each hypothesis test (for each of the explanatory variables) is conditioned on each of the other variables remaining in the model.</p>
+<p>As in <xref ref="ch25-inference-linear-regression-multiple" />, with <alert>multiple predictors</alert>, each hypothesis test (for each of the explanatory variables) is conditioned on each of the other variables remaining in the model.</p>
 
 <blockquote>
   <p>if multiple predictors <m>H_0: \beta_i = 0</m> given other variables in the model</p>
