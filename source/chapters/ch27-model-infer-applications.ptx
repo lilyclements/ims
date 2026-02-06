@@ -672,7 +672,7 @@ mario_CV2$pred |&gt;
         </statement>
         <solution>
           <p>
-            The predicted value is roughly <m>\widehat{\texttt{price}} = \$50.</m> The observed value is roughly <m>\texttt{price}_i = \$60</m> riders (using <m>e_i = y_i - \hat{y}_i).</m>
+            The predicted value is roughly <m>\widehat{\texttt{price}} = \$50.</m> The observed value is roughly <m>\texttt{price}_i = \$60</m> (using <m>e_i = y_i - \hat{y}_i).</m>
           </p>
         </solution>
       </exercise>
