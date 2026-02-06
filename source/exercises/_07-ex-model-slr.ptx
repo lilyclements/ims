@@ -126,9 +126,11 @@
     <title>Meat and carbohydrate consumption.</title>
     <statement>
       <p>What would be the correlation between the per capita meat consumption and per capita carbohydrate consumption if, for each country, people always consumed</p>
-      <p>1.  3 kg more of meat than of carbohydrates each year?</p>
-      <p>2.  2 kg less of meat than of carbohydrates each year?</p>
-      <p>3.  half as much meat as carbohydrates each year?</p>
+      <p><ol marker="1.">
+        <li>3 kg more of meat than of carbohydrates each year?</li>
+        <li>2 kg less of meat than of carbohydrates each year?</li>
+        <li>half as much meat as carbohydrates each year?</li>
+      </ol></p>
     </statement>
   </exercise>
 
@@ -236,7 +238,7 @@
         <li>Write out the linear model.</li>
         <li>Interpret the intercept.</li>
         <li>Interpret the slope.</li>
-        <li>The <m>R^2</m> of this model is [computed value]%.\ Interpret this value.</li>
+        <li>The <m>R^2</m> of this model is [computed value]%. Interpret this value.</li>
         <li>Calculate the correlation coefficient.</li>
       </ol></p>
     </statement>
@@ -250,7 +252,7 @@
         <li>Write out the linear model.</li>
         <li>Interpret the intercept.</li>
         <li>Interpret the slope.</li>
-        <li>The <m>R^2</m> of this model is [computed value]%.\ Interpret <m>R^2</m>.</li>
+        <li>The <m>R^2</m> of this model is [computed value]%. Interpret <m>R^2</m>.</li>
         <li>Calculate the correlation coefficient.</li>
       </ol></p>
     </statement>
