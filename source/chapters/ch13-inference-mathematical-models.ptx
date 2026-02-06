@@ -1697,7 +1697,7 @@
             In 2013, the Pew Research Foundation reported that "45% of U.S. adults report that they live with one or more chronic conditions".
             However, this value was based on a sample, so it may not be a perfect estimate for the population parameter of interest on its own.
             The study reported a standard error of about 1.2%, and a normal model may reasonably be used in this setting.
-            <xref ref="data:pewdiagnosis:2013" />
+            <xref ref="data-pewdiagnosis-2013" />
           </p>
           <p>
             <ol>
@@ -1724,7 +1724,7 @@
           <p>
             A poll conducted in 2022 found that 50% of U.S. adults (i.e., a proportion of 0.5) get news from social media sometimes or often.
             The standard error for this estimate was 0.5% (i.e., 0.005), and a normal distribution may be used to model the sample proportion.
-            <xref ref="data:socialmedianews:2022" />
+            <xref ref="data-socialmedianews-2022" />
           </p>
           <p>
             <ol>
