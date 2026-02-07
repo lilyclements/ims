@@ -25,7 +25,7 @@
 
     <p>In recent chapters, we have encountered four case studies.</p>
 
-    <p>While they differ in the settings, in their outcomes, and in the technique we have used to analyze the data, they all have something in common: the general shape of the distribution of the statistics (called the <alert>sampling distribution</alert>).\index{sampling distribution} You may have noticed that the distributions were symmetric and bell-shaped.</p>
+    <p>While they differ in the settings, in their outcomes, and in the technique we have used to analyze the data, they all have something in common: the general shape of the distribution of the statistics (called the <alert>sampling distribution</alert>). You may have noticed that the distributions were symmetric and bell-shaped.</p>
 
     <assemblage>
       <p><alert>Sampling distribution.</alert></p>
@@ -46,7 +46,7 @@
 
     <p><xref ref="fig-FourCaseStudies" /> shows the null distributions in each of the four case studies where we ran 10,000 simulations.</p>
 
-    <p>Note that the <alert>null distribution</alert>\index{null distribution} is the sampling distribution of the statistic created under the setting where the null hypothesis is true.</p>
+    <p>Note that the <alert>null distribution</alert> is the sampling distribution of the statistic created under the setting where the null hypothesis is true.</p>
 
     <p>Therefore, the null distribution will always be centered at the value of the parameter given by the null hypothesis.</p>
 
@@ -83,7 +83,7 @@
     <p>The bell-shaped curve similarity is not a coincidence, but rather, is guaranteed by mathematical theory.</p>
 
     <assemblage>
-      <p><alert>Central Limit Theorem for proportions.</alert>\index{Central Limit Theorem}</p>
+      <p><alert>Central Limit Theorem for proportions.</alert></p>
 
       <p>If we look at a proportion (or difference in proportions) and the scenario satisfies certain conditions, then the sample proportion (or difference in proportions) will appear to follow a bell-shaped curve called the <em>normal distribution</em>.</p>
 
@@ -106,33 +106,16 @@
 
     <ol>
       <li>
-        <p>Observations in the sample are <alert>independent</alert>.</p>
+        <p>Observations in the sample are <alert>independent</alert>. Independence is guaranteed when we take a random sample from a population. Independence can also be guaranteed if we randomly divide individuals into treatment and control groups.</p>
       </li>
-    </ol>
-    <p>Independence is guaranteed when we take a random sample from a population.</p>
-
-    <p>Independence can also be guaranteed if we randomly divide individuals into treatment and control groups.</p>
-
-    <ol>
       <li>
-        <p>The sample is <alert>large enough</alert>.</p>
+        <p>The sample is <alert>large enough</alert>. The sample size cannot be too small. What qualifies as <q>small</q> differs from one context to the next, and we'll provide suitable guidelines for proportions in <xref ref="ch16-inference-single-proportion" text="title" />.</p>
       </li>
     </ol>
-    <p>The sample size cannot be too small.</p>
-
-    <p>What qualifies as <q>small</q> differs from one context to the next, and we'll provide suitable guidelines for proportions in <xref ref="ch16-inference-single-proportion" text="title" />.</p>
-
-    <p>So far we have had no need for the normal distribution.</p>
-
-    <p>We've been able to answer our questions somewhat easily using simulation techniques.</p>
-
-    <p>However, soon this will change.</p>
-
-    <p>Simulating data can be non-trivial.</p>
-
-    <p>For example, some of the scenarios encountered in <xref ref="sec-model-mlr" text="title" /> where we introduced regression models with multiple predictors would require complex simulations in order to make inferential conclusions.</p>
-
-    <p>Instead, the normal distribution and other distributions like it offer a general framework for statistical inference that applies to a very large number of settings.</p>
+    
+    <p>So far we have had no need for the normal distribution. We've been able to answer our questions somewhat easily using simulation techniques.
+However, soon this will change. Simulating data can be non-trivial. For example, some of the scenarios encountered in <xref ref="sec-model-mlr" text="title" /> where we introduced regression models with multiple predictors would require complex simulations in order to make inferential conclusions.
+Instead, the normal distribution and other distributions like it offer a general framework for statistical inference that applies to a very large number of settings.</p>
 
     <assemblage>
       <p><alert>Technical Conditions.</alert></p>
@@ -141,14 +124,8 @@
 
       <p>If these conditions do not hold, it is unwise to use the normal distribution (and related concepts like Z scores, probabilities from the normal curve, etc.) for inferential analyses.</p>
 
-      <ol>
-        <li>
-          <p><alert>Independent observations</alert></p>
-        </li>
-        <li>
-          <p><alert>Large enough sample:</alert> For proportions, at least 10 expected successes and 10 expected failures in the sample.</p>
-        </li>
-      </ol>
+          <p>1. <alert>Independent observations</alert></p>
+          <p>2. <alert>Large enough sample:</alert> For proportions, at least 10 expected successes and 10 expected failures in the sample.</p>
     </assemblage>
 
   </section>
@@ -156,43 +133,30 @@
   <section xml:id="sec-normalDist">
     <title>Normal Distribution</title>
 
-    <p>Among all the distributions we see in statistics, one is overwhelmingly the most common.</p>
-
-    <p>The symmetric, unimodal, bell curve is ubiquitous throughout statistics.</p>
-
-    <p>It is so common that people know it as a variety of names including the <alert>normal curve</alert>\index{normal curve}, <alert>normal model</alert>\index{normal model}, or <alert>normal distribution</alert>\index{normal distribution}.[^13-foundations-mathematical-2]</p>
-
-    <p>Under certain conditions, sample proportions, sample means, and sample differences can be modeled using the normal distribution.</p>
-
-    <p>Additionally, some variables such as SAT scores and heights of US adult males closely follow the normal distribution.</p>
+    <p>Among all the distributions we see in statistics, one is overwhelmingly the most common.
+    The symmetric, unimodal, bell curve is ubiquitous throughout statistics.
+    It is so common that people know it as a variety of names including the <alert>normal curve</alert>, <alert>normal model</alert>, or <alert>normal distribution</alert><fn>It is also introduced as the Gaussian distribution after Frederic Gauss, the first person to formalize its mathematical expression.</fn>.
+    Under certain conditions, sample proportions, sample means, and sample differences can be modeled using the normal distribution.
+    Additionally, some variables such as SAT scores and heights of US adult males closely follow the normal distribution.</p>
 
     <assemblage>
       <p><alert>Normal distribution facts.</alert></p>
-
-      <p>Distributions of many variables are nearly normal, but none are exactly normal.</p>
-
-      <p>Thus, the normal distribution, while not perfect for any single problem, is very useful for a variety of problems.</p>
-
+      <p>Distributions of many variables are nearly normal, but none are exactly normal.
+         Thus, the normal distribution, while not perfect for any single problem, is very useful for a variety of problems.</p>
     </assemblage>
 
-    <p>In this section, we will discuss the normal distribution in the context of data to become familiar with normal distribution techniques.</p>
-
-    <p>In the following sections and beyond, we'll move our discussion to focus on applying the normal distribution and other related distributions to model point estimates for hypothesis tests and for constructing confidence intervals.</p>
+    <p>In this section, we will discuss the normal distribution in the context of data to become familiar with normal distribution techniques.
+    In the following sections and beyond, we'll move our discussion to focus on applying the normal distribution and other related distributions to model point estimates for hypothesis tests and for constructing confidence intervals.</p>
 
     <subsection xml:id="subsec-normal-distribution-model">
       <title>Normal distribution model</title>
 
-    <p>The normal distribution always describes a symmetric, unimodal, bell-shaped curve.</p>
-
-    <p>However, normal curves can look different depending on the details of the model.</p>
-
-    <p>Specifically, the normal model can be adjusted using two parameters: mean and standard deviation.</p>
-
-    <p>As you can probably guess, changing the mean shifts the bell curve to the left or right, while changing the standard deviation stretches or constricts the curve.</p>
-
-    <p><xref ref="fig-twoSampleNormals" /> shows the normal distribution with mean <m>0</m> and standard deviation <m>1</m> (which is commonly referred to as the <alert>standard normal distribution</alert>\index{standard normal distribution}).</p>
-
-    <p>A normal distribution with mean <m>19</m> and standard deviation <m>4</m> is shown on the right.</p>
+    <p>The normal distribution always describes a symmetric, unimodal, bell-shaped curve.
+However, normal curves can look different depending on the details of the model.
+Specifically, the normal model can be adjusted using two parameters: mean and standard deviation.
+As you can probably guess, changing the mean shifts the bell curve to the left or right, while changing the standard deviation stretches or constricts the curve.
+<xref ref="fig-twoSampleNormals" /> shows the normal distribution with mean <m>0</m> and standard deviation <m>1</m> (which is commonly referred to as the <alert>standard normal distribution</alert>).
+A normal distribution with mean <m>19</m> and standard deviation <m>4</m> is shown on the right.</p>
 
     <p><xref ref="fig-twoSampleNormalsStacked" /> shows the same two normal distributions on the same axis.</p>
 
@@ -212,7 +176,7 @@
       N(\mu = 0, \sigma = 1)\quad\text{and}\quad N(\mu = 19, \sigma = 4)
     </me>
 
-    <p>Because the mean and standard deviation describe a normal distribution exactly, they are called the distribution's <alert>parameters</alert>\index{parameter}.</p>
+    <p>Because the mean and standard deviation describe a normal distribution exactly, they are called the distribution's <alert>parameters</alert>.</p>
 
     <example>
       <statement>
@@ -235,6 +199,11 @@
       </solution>
     </example>
 
+    </subsection>
+
+    <subsection xml:id="subsec-standardizing-z-scores">
+      <title>Standardizing with Z scores</title>
+
     <exercise>
       <title>Guided Practice</title>
       <statement>
@@ -254,20 +223,11 @@
       <image source="images/fig-satActNormals.png" width="70%" />
     </figure>
 
-    </subsection>
-
-    <subsection xml:id="subsec-standardizing-z-scores">
-      <title>Standardizing with Z scores</title>
-
-    <p>The solution to the previous example relies on a standardization technique called a Z score, a method most commonly employed for nearly normal observations (but that may be used with any distribution).</p>
-
-    <p>The <alert>Z score</alert>\index{Z score} of an observation is defined as the number of standard deviations it falls above or below the mean.</p>
-
-    <p>If the observation is one standard deviation above the mean, its Z score is 1.</p>
-
-    <p>If it is 1.5 standard deviations <em>below</em> the mean, then its Z score is -1.5.</p>
-
-    <p>If <m>x</m> is an observation from a distribution <m>N(\mu, \sigma),</m> we define the Z score mathematically as</p>
+    <p>The solution to the previous example relies on a standardization technique called a Z score, a method most commonly employed for nearly normal observations (but that may be used with any distribution).
+The <alert>Z score</alert> of an observation is defined as the number of standard deviations it falls above or below the mean.
+If the observation is one standard deviation above the mean, its Z score is 1.
+If it is 1.5 standard deviations <em>below</em> the mean, then its Z score is -1.5.
+If <m>x</m> is an observation from a distribution <m>N(\mu, \sigma),</m> we define the Z score mathematically as</p>
 
     <me>
       Z = \frac{x-\mu}{\sigma}
@@ -286,13 +246,12 @@
 
       <p>We compute the Z score for an observation <m>x</m> that follows a distribution with mean <m>\mu</m> and standard deviation <m>\sigma</m> using</p>
 
-      <me>
+      <p><m>
         Z = \frac{x-\mu}{\sigma}
-      </me>
+      </m> </p>
 
-      <p>If the observation <m>x</m> comes from a <em>normal</em> distribution centered at <m>\mu</m> with standard deviation of <m>\sigma</m>, then the Z score will be distributed according to a <em>normal</em> distribution with a center of 0 and a standard deviation of 1.</p>
-
-      <p>That is, the normality remains when transforming from <m>x</m> to <m>Z</m> with a shift in both the center as well as the spread.</p>
+      <p>If the observation <m>x</m> comes from a <em>normal</em> distribution centered at <m>\mu</m> with standard deviation of <m>\sigma</m>, then the Z score will be distributed according to a <em>normal</em> distribution with a center of 0 and a standard deviation of 1.
+That is, the normality remains when transforming from <m>x</m> to <m>Z</m> with a shift in both the center as well as the spread.</p>
 
     </assemblage>
 
@@ -359,7 +318,7 @@
 
       </statement>
       <solution>
-        <p>Nel's <alert>percentile</alert>\index{percentile} is the percentage of people who earned a lower SAT score than Nel.</p>
+        <p>Nel's <alert>percentile</alert> is the percentage of people who earned a lower SAT score than Nel.</p>
 
         <p>We shade the area representing those individuals in <xref ref="fig-satBelow1800" />.</p>
 
@@ -375,21 +334,15 @@
       <image source="images/fig-satBelow1800.png" width="70%" />
     </figure>
 
-    <p>We can use the normal model to find percentiles or probabilities.</p>
+    <p>We can use the normal model to find percentiles or probabilities.
+A <alert>normal probability table</alert>, which lists Z scores and corresponding percentiles, can be used to identify a percentile based on the Z score (and vice versa).
+Statistical software can also be used.</p>
 
-    <p>A <alert>normal probability table</alert>\index{normal probability table}, which lists Z scores and corresponding percentiles, can be used to identify a percentile based on the Z score (and vice versa).</p>
-
-    <p>Statistical software can also be used.</p>
-
-    <p>Normal probabilities are most commonly found using statistical software which we will show here using R.</p>
-
-    <p>We use the software to identify the percentile corresponding to any particular Z score.</p>
-
-    <p>For instance, the percentile of <m>Z=0.43</m> is 0.6664, or the <m>66.64^{th}</m> percentile.</p>
-
-    <p>The <c>pnorm()</c> function is available in default R and will provide the percentile associated with any cutoff on a normal curve.</p>
-
-    <p>The <c>normTail()</c> function is available in the <url href="http://openintrostat.github.io/openintro/"><alert>openintro</alert></url> R package and will draw the associated normal distribution curve.</p>
+<p>Normal probabilities are most commonly found using statistical software which we will show here using R.
+We use the software to identify the percentile corresponding to any particular Z score.
+For instance, the percentile of <m>Z=0.43</m> is 0.6664, or the <m>66.64^{th}</m> percentile.
+The <c>pnorm()</c> function is available in default R and will provide the percentile associated with any cutoff on a normal curve.
+The <c>normTail()</c> function is available in the <url href="http://openintrostat.github.io/openintro/"><alert>openintro</alert></url> R package and will draw the associated normal distribution curve.</p>
 
     <listing>
       <program language="r">
@@ -400,15 +353,11 @@
       </program>
     </listing>
 
-    <p>We can also find the Z score associated with a percentile.</p>
-
-    <p>For example, to identify Z for the <m>80^{th}</m> percentile, we use <c>qnorm()</c> which identifies the <alert>quantile</alert> for a given percentage.</p>
-
-    <p>The quantile represents the cutoff value.</p>
-
-    <p>(To remember the function <c>qnorm()</c> as providing a cutoff, notice that both <c>qnorm()</c> and <q>cutoff</q> start with the sound <q>kuh</q>.</p>
-
-    <p>To remember the <c>pnorm()</c> function as providing a probability from a given cutoff, notice that both <c>pnorm()</c> and probability start with the sound <q>puh</q>.) We determine the Z score for the <m>80^{th}</m> percentile using <c>qnorm()</c>: 0.84.</p>
+    <p>We can also find the Z score associated with a percentile. 
+For example, to identify Z for the <m>80^{th}</m> percentile, we use <c>qnorm()</c> which identifies the <alert>quantile</alert> for a given percentage.
+The quantile represents the cutoff value.
+(To remember the function <c>qnorm()</c> as providing a cutoff, notice that both <c>qnorm()</c> and <q>cutoff</q> start with the sound <q>kuh</q>.
+To remember the <c>pnorm()</c> function as providing a probability from a given cutoff, notice that both <c>pnorm()</c> and probability start with the sound <q>puh</q>.) We determine the Z score for the <m>80^{th}</m> percentile using <c>qnorm()</c>: 0.84.</p>
 
     <listing>
       <program language="r">
@@ -479,15 +428,14 @@
       <image source="images/fig-subtractingArea.png" width="70%" />
     </figure>
 
-    <p>::: {.tip data-latex=<q></q>}</p>
+<assemblage>
+    <title>Always draw a picture first, and find the Z score second.</title>
 
-    <p><alert>Always draw a picture first, and find the Z score second.</alert></p>
-
-    <p>For any normal probability situation, <em>always always always</em> draw and label the normal curve and shade the area of interest first.</p>
-
-    <p>The picture will provide an estimate of the probability.</p>
+    <p>For any normal probability situation, <em>always always always</em> draw and label the normal curve and shade the area of interest first.
+The picture will provide an estimate of the probability.</p>
 
     <p>After drawing a figure to represent the situation, identify the Z score for the observation of interest.</p>
+</assemblage>
 
     <exercise>
       <title>Guided Practice</title>
@@ -501,15 +449,6 @@
       </solution>
     </exercise>
 
-    <listing>
-      <program language="r">
-        <code>
-        par(mar = c(2, 0, 0, 0))
-        normTail(m = 1500, s = 300, L = 1400, col = IMSCOL["blue", "full"])
-        </code>
-      </program>
-    </listing>
-
     <example>
       <statement>
         <p>Edward earned a 1400 on their SAT.</p>
@@ -521,6 +460,15 @@
         <p>First, a picture is needed.</p>
 
         <p>Edward's percentile is the proportion of people who do not get as high as a 1400.</p>
+
+    <listing>
+      <program language="r">
+        <code>
+        par(mar = c(2, 0, 0, 0))
+        normTail(m = 1500, s = 300, L = 1400, col = IMSCOL["blue", "full"])
+        </code>
+      </program>
+    </listing>
 
         <p>These are the scores to the left of 1400, as shown below.</p>
 
@@ -537,15 +485,6 @@
       </solution>
     </example>
 
-    <listing>
-      <program language="r">
-        <code>
-        par(mar = c(2, 0, 0, 0))
-        normTail(m = 1500, s = 300, U = 1400, col = IMSCOL["blue", "full"])
-        </code>
-      </program>
-    </listing>
-
     <example>
       <statement>
         <p>Use the results of the previous example to compute the proportion of SAT takers who did better than Edward.</p>
@@ -556,16 +495,24 @@
       <solution>
         <p>If Edward did better than 37% of SAT takers, then about 63% must have done better than them, as shown below.</p>
 
+    <listing>
+      <program language="r">
+        <code>
+        par(mar = c(2, 0, 0, 0))
+        normTail(m = 1500, s = 300, U = 1400, col = IMSCOL["blue", "full"])
+        </code>
+      </program>
+    </listing>
       </solution>
     </example>
 
-    <p>::: {.tip data-latex=<q></q>}</p>
-
-    <p><alert>Areas to the right.</alert></p>
+<assemblage>
+    <title>Areas to the right.</title>
 
     <p>Most statistical software, as well as normal probability tables in most books, give the area to the left.</p>
 
     <p>If you would like the area to the right, first find the area to the left and then subtract the amount from one.</p>
+</assemblage>
 
     <exercise>
       <title>Guided Practice</title>
@@ -583,7 +530,7 @@
       </solution>
     </exercise>
 
-    <p>Based on a sample of 100 men,[^13-foundations-mathematical-10] the heights of adults who identify as male, between the ages 20 and 62 in the US is nearly normal with mean 70.0<q> and standard deviation 3.3</q>.</p>
+    <p>Based on a sample of 100 men<fn>This sample was taken from the USDA Food Commodity Intake Database.</fn>, the heights of adults who identify as male, between the ages 20 and 62 in the US is nearly normal with mean 70.0<q> and standard deviation 3.3</q>.</p>
 
     <example>
       <statement>
@@ -604,35 +551,8 @@
       </solution>
     </example>
 
-    <p>The last several problems have focused on finding the probability or percentile for a particular observation.</p>
-
-    <p>What if you would like to know the observation corresponding to a particular percentile?</p>
-
-    <listing>
-      <program language="r">
-        <code>
-        par(mar = c(2, 0, 0, 0))
-        normTail(70, 3.3, L = qnorm(0.4, 70, 3.3), col = IMSCOL["blue", "full"])
-        text(67, 0.03, "40%\n(0.40)", cex = 1, col = IMSCOL["black", "full"])
-        </code>
-      </program>
-    </listing>
-
-    <listing>
-      <program language="r">
-        <code>
-        qnorm(0.4, mean = 70, sd = 3.3)
-        </code>
-      </program>
-    </listing>
-
-    <listing>
-      <program language="r">
-        <code>
-        qnorm(0.4, mean = 0, sd = 1)
-        </code>
-      </program>
-    </listing>
+    <p>The last several problems have focused on finding the probability or percentile for a particular observation.
+What if you would like to know the observation corresponding to a particular percentile?</p>
 
     <example>
       <statement>
@@ -644,6 +564,16 @@
       <solution>
         <p>As always, first draw the picture.</p>
 
+    <listing>
+      <program language="r">
+        <code>
+        par(mar = c(2, 0, 0, 0))
+        normTail(70, 3.3, L = qnorm(0.4, 70, 3.3), col = IMSCOL["blue", "full"])
+        text(67, 0.03, "40%\n(0.40)", cex = 1, col = IMSCOL["black", "full"])
+        </code>
+      </program>
+    </listing>
+
         <p>In this case, the lower tail probability is known (0.40), which can be shaded on the diagram.</p>
 
         <p>We want to find the observation that corresponds to the known probability of 0.4.</p>
@@ -651,6 +581,14 @@
         <p>We can find the observation in two different ways: using the height curve seen above or using the Z score associated with the standard normal curve centered at zero with a standard deviation of one.</p>
 
         <p>If you have access to software (like R, code seen below) that allows you to specify the mean and standard deviation of the normal curve, you can calculate the observed value on the curve (i.e., Yousef's height) directly.</p>
+
+    <listing>
+      <program language="r">
+        <code>
+        qnorm(0.4, mean = 70, sd = 3.3)
+        </code>
+      </program>
+    </listing>
 
         <p>Yousef is 69.2 inches tall.</p>
 
@@ -663,6 +601,14 @@
         <p>Because the percentile is below 50%, we know <m>Z</m> will be negative.</p>
 
         <p>Statistical software provides the <m>Z</m> value to be <m>-0.25.</m></p>
+
+    <listing>
+      <program language="r">
+        <code>
+        qnorm(0.4, mean = 0, sd = 1)
+        </code>
+      </program>
+    </listing>
 
         <p>Knowing <m>Z_{Yousef}=-0.25</m> and the population parameters <m>\mu=70</m> and <m>\sigma=3.3</m> inches, the Z score formula can be set up to determine Yousef's unknown height, labeled <m>x_{Yousef}</m>:</p>
 
@@ -677,6 +623,16 @@
       </solution>
     </example>
 
+    <example>
+      <statement>
+        <p>What is the adult male height at the <m>82^{nd}</m> percentile?</p>
+
+      </statement>
+      <solution>
+        <p>In order to practice using Z scores, we will use the standard normal curve to solve the problem.</p>
+
+        <p>Again, we draw the figure first.</p>
+
     <listing>
       <program language="r">
         <code>
@@ -688,6 +644,8 @@
       </program>
     </listing>
 
+        <p>And calculate the Z value associated with the <m>82^{nd}</m> percentile:</p>
+
     <listing>
       <program language="r">
         <code>
@@ -695,18 +653,6 @@
         </code>
       </program>
     </listing>
-
-    <example>
-      <statement>
-        <p>What is the adult male height at the <m>82^{nd}</m> percentile?</p>
-
-      </statement>
-      <solution>
-        <p>In order to practice using Z scores, we will use the standard normal curve to solve the problem.</p>
-
-        <p>Again, we draw the figure first.</p>
-
-        <p>And calculate the Z value associated with the <m>82^{nd}</m> percentile:</p>
 
         <p>Next, we want to find the Z score at the <m>82^{nd}</m> percentile, which will be a positive value (because the percentile is bigger than 50%).</p>
 
@@ -752,6 +698,16 @@
       </solution>
     </exercise>
 
+    <example>
+      <statement>
+        <p>What is the probability that a randomly selected adult male is between 5'9<q> and 6'2</q>?</p>
+
+      </statement>
+      <solution>
+        <p>These heights correspond to 69 inches and 74 inches.</p>
+
+        <p>First, draw the figure.</p>
+
     <listing>
       <program language="r">
         <code>
@@ -760,6 +716,10 @@
         </code>
       </program>
     </listing>
+
+        <p>The area of interest is no longer an upper or lower tail.</p>
+
+        <p>The total area under the curve is 1. If we find the area of the two tails that are not shaded (from the previous Guided Practice, these areas are <m>0.3821</m> and <m>0.1131</m>), then we can find the middle area:</p>
 
     <listing>
       <program language="r">
@@ -798,22 +758,6 @@
         </code>
       </program>
     </listing>
-
-    <example>
-      <statement>
-        <p>What is the probability that a randomly selected adult male is between 5'9<q> and 6'2</q>?</p>
-
-      </statement>
-      <solution>
-        <p>These heights correspond to 69 inches and 74 inches.</p>
-
-        <p>First, draw the figure.</p>
-
-        <p>The area of interest is no longer an upper or lower tail.</p>
-
-        <p>The total area under the curve is 1.</p>
-
-        <p>If we find the area of the two tails that are not shaded (from the previous Guided Practice, these areas are <m>0.3821</m> and <m>0.1131</m>), then we can find the middle area:</p>
 
         <p>That is, the probability of being between 5'9<q> and 6'2</q> is 0.5048.</p>
 
@@ -881,13 +825,10 @@
       </solution>
     </exercise>
 
-    <p>It is possible for a normal random variable to fall 4, 5, or even more standard deviations from the mean.</p>
-
-    <p>However, these occurrences are very rare if the data are nearly normal.</p>
-
-    <p>The probability of being further than 4 standard deviations from the mean is about 1-in-30,000.</p>
-
-    <p>For 5 and 6 standard deviations, it is about 1-in-3.5 million and 1-in-1 billion, respectively.</p>
+    <p>It is possible for a normal random variable to fall 4, 5, or even more standard deviations from the mean.
+However, these occurrences are very rare if the data are nearly normal.
+The probability of being further than 4 standard deviations from the mean is about 1-in-30,000.
+For 5 and 6 standard deviations, it is about 1-in-3.5 million and 1-in-1 billion, respectively.</p>
 
     <exercise>
       <title>Guided Practice</title>
@@ -906,35 +847,28 @@
     <subsection xml:id="sec-se">
       <title>Standard error</title>
 
-      <p>Point estimates vary from sample to sample, and we quantify this variability with what is called the <alert>standard error (SE)</alert>\index{standard error}.</p>
+      <p>Point estimates vary from sample to sample, and we quantify this variability with what is called the <alert>standard error (SE)</alert>.
+The standard error is equal to the standard deviation associated with the statistic.
+So, for example, to quantify the variability of a point estimate from one sample to the next, the variability is called the standard error of the point estimate.
+Almost always, the standard error is itself an estimate, calculated from the sample of data.</p>
 
-      <p>The standard error is equal to the standard deviation associated with the statistic.</p>
-
-      <p>So, for example, to quantify the variability of a point estimate from one sample to the next, the variability is called the standard error of the point estimate.</p>
-
-      <p>Almost always, the standard error is itself an estimate, calculated from the sample of data.</p>
-
-      <p>The way we determine the standard error varies from one situation to the next.</p>
-
-      <p>However, typically it is determined using a formula based on the Central Limit Theorem.</p>
+      <p>The way we determine the standard error varies from one situation to the next.
+However, typically it is determined using a formula based on the Central Limit Theorem.</p>
 
     </subsection>
 
     <subsection xml:id="sec-moe">
       <title>Margin of error</title>
 
-      <p>Very related to the standard error is the <alert>margin of error</alert>\index{margin of error}.</p>
-
-      <p>The margin of error describes how far away observations are from their mean.</p>
-
-      <p>For example, to describe where most (i.e., 95%) observations lie, we say that the margin of error is approximately <m>2 \times SE</m>.</p>
-
-      <p>That is, 95% of the observations are within two margins of error of the mean.</p>
+      <p>Very related to the standard error is the <alert>margin of error</alert>.
+The margin of error describes how far away observations are from their mean.
+For example, to describe where most (i.e., 95%) observations lie, we say that the margin of error is approximately <m>2 \times SE</m>.
+That is, 95% of the observations are within two margins of error of the mean.</p>
 
       <assemblage>
         <p><alert>Margin of error for sample proportions.</alert></p>
 
-        <p>The distance given by <m>z^\star \times SE</m> is called the <alert>margin of error</alert>\index{margin of error}.</p>
+        <p>The distance given by <m>z^\star \times SE</m> is called the <alert>margin of error</alert>.</p>
 
         <p><m>z^\star</m> is the cutoff value found on the normal distribution.</p>
 
@@ -953,20 +887,15 @@
   <section xml:id="sec-caseopp">
     <title>Case Study (test): Opportunity cost</title>
 
-    <p>The approach for using the normal model in the context of inference is very similar to the practice of applying the model to individual observations that are nearly normal.</p>
-
-    <p>We will replace null distributions we previously obtained using the randomization or simulation techniques and verify the results once again using the normal model.</p>
-
-    <p>When the sample size is sufficiently large, the normal approximation generally provides us with the same conclusions as the simulation model.</p>
+    <p>The approach for using the normal model in the context of inference is very similar to the practice of applying the model to individual observations that are nearly normal.
+We will replace null distributions we previously obtained using the randomization or simulation techniques and verify the results once again using the normal model.
+When the sample size is sufficiently large, the normal approximation generally provides us with the same conclusions as the simulation model.</p>
 
     <subsection xml:id="subsec-opp-cost-observed-data">
       <title>Observed data</title>
 
-    <p>In <xref ref="sec-caseStudyOpportunityCost" /> we were introduced to the opportunity cost study, which found that students became thriftier when they were reminded that not spending money now means the money can be spent on other things in the future.</p>
-
-    <p>Let's re-analyze the data in the context of the normal distribution and compare the results.</p>
-
-    <p>::: {.data data-latex=<q></q>}</p>
+    <p>In <xref ref="sec-caseStudyOpportunityCost" /> we were introduced to the opportunity cost study, which found that students became thriftier when they were reminded that not spending money now means the money can be spent on other things in the future.
+Let's re-analyze the data in the context of the normal distribution and compare the results.</p>
 
     <p>The <url href="http://openintrostat.github.io/openintro/reference/opportunity_cost.html"><c>opportunity_cost</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
 
@@ -975,15 +904,11 @@
     <subsection xml:id="subsec-opp-cost-variability">
       <title>Variability of the statistic</title>
 
-    <p><xref ref="fig-OpportunityCostDiffs-w-normal" /> summarizes the null distribution as determined using the randomization method.</p>
-
-    <p>The best fitting normal distribution for the null distribution has a mean of 0.</p>
-
-    <p>We can calculate the standard error of this distribution by borrowing a formula that we will become familiar with in <xref ref="ch17-inference-two-proportions" text="title" />, but for now let's just take the value <m>SE = 0.078</m> as a given.</p>
-
-    <p>Recall that the point estimate of the difference was 0.20, as shown in <xref ref="fig-OpportunityCostDiffs-w-normal" />.</p>
-
-    <p>Next, we'll use the normal distribution approach to compute the p-value.</p>
+    <p><xref ref="fig-OpportunityCostDiffs-w-normal" /> summarizes the null distribution as determined using the randomization method.
+The best fitting normal distribution for the null distribution has a mean of 0.
+We can calculate the standard error of this distribution by borrowing a formula that we will become familiar with in <xref ref="ch17-inference-two-proportions" text="title" />, but for now let's just take the value <m>SE = 0.078</m> as a given.
+Recall that the point estimate of the difference was 0.20, as shown in <xref ref="fig-OpportunityCostDiffs-w-normal" />.
+Next, we'll use the normal distribution approach to compute the p-value.</p>
 
     <figure xml:id="fig-OpportunityCostDiffs-w-normal">
       <caption>Null distribution of differences with an overlaid normal curve for the opportunity cost study. 10,000 simulations were run for this figure.</caption>
@@ -995,9 +920,8 @@
     <subsection xml:id="subsec-opp-cost-observed-vs-null">
       <title>Observed statistic vs. null statistics</title>
 
-    <p>As we learned in <xref ref="sec-normalDist" />, it is helpful to draw and shade a picture of the normal distribution so we know precisely what we want to calculate.</p>
-
-    <p>Here we want to find the area of the tail beyond 0.2, representing the p-value.</p>
+    <p>As we learned in <xref ref="sec-normalDist" />, it is helpful to draw and shade a picture of the normal distribution so we know precisely what we want to calculate.
+Here we want to find the area of the tail beyond 0.2, representing the p-value.</p>
 
     <listing>
       <program language="r">
@@ -1008,9 +932,8 @@
       </program>
     </listing>
 
-    <p>Next, we can calculate the Z score using the observed difference, 0.20, and the two model parameters.</p>
-
-    <p>The standard error, <m>SE = 0.078,</m> is the equivalent of the model's standard deviation.</p>
+    <p>Next, we can calculate the Z score using the observed difference, 0.20, and the two model parameters.
+The standard error, <m>SE = 0.078,</m> is the equivalent of the model's standard deviation.</p>
 
     <me>
       Z = \frac{\text{observed difference} - 0}{SE} = \frac{0.20 - 0}{0.078} = 2.56
@@ -1025,17 +948,16 @@
 
       <p>In the context of a hypothesis test, the Z score for a point estimate is</p>
 
-      <me>
+      <p><m>
         Z = \frac{\text{point estimate} - \text{null value}}{SE}
-      </me>
+      </m></p>
 
       <p>The standard error in this case is the equivalent of the standard deviation of the point estimate, and the null value comes from the claim made in the null hypothesis.</p>
 
     </assemblage>
 
-    <p>We have confirmed that the randomization approach we used earlier and the normal distribution approach provide almost identical p-values and conclusions in the opportunity cost case study.</p>
-
-    <p>Next, let's turn our attention to the medical consultant case study.</p>
+    <p>We have confirmed that the randomization approach we used earlier and the normal distribution approach provide almost identical p-values and conclusions in the opportunity cost case study.
+Next, let's turn our attention to the medical consultant case study.</p>
 
     </subsection>
 
@@ -1047,22 +969,18 @@
     <subsection xml:id="subsec-med-cons-observed-data">
       <title>Observed data</title>
 
-    <p>In <xref ref="sec-case-study-med-consult" /> we learned about a medical consultant who reported that only 3 of their 62 clients who underwent a liver transplant had complications, which is less than the more common complication rate of 0.10.</p>
-
-    <p>In that work, we did not model a null scenario, but we will discuss a simulation method for a one proportion null distribution in <xref ref="ch16-inference-single-proportion" />, such a distribution is provided in <xref ref="fig-MedConsNullSim-w-normal" />.</p>
-
-    <p>We have added the best-fitting normal curve to the figure, which has a mean of 0.10.</p>
-
-    <p>Borrowing a formula that we'll encounter in <xref ref="ch16-inference-single-proportion" text="title" />, the standard error of this distribution was also computed: <m>SE = 0.038.</m></p>
+    <p>In <xref ref="sec-case-study-med-consult" /> we learned about a medical consultant who reported that only 3 of their 62 clients who underwent a liver transplant had complications, which is less than the more common complication rate of 0.10.
+In that work, we did not model a null scenario, but we will discuss a simulation method for a one proportion null distribution in <xref ref="ch16-inference-single-proportion" />, such a distribution is provided in <xref ref="fig-MedConsNullSim-w-normal" />.
+We have added the best-fitting normal curve to the figure, which has a mean of 0.10.
+Borrowing a formula that we'll encounter in <xref ref="ch16-inference-single-proportion" text="title" />, the standard error of this distribution was also computed: <m>SE = 0.038.</m></p>
 
     </subsection>
 
     <subsection xml:id="subsec-med-cons-variability">
       <title>Variability of the statistic</title>
 
-    <p>Before we begin, we want to point out a simple detail that is easy to overlook: the null distribution we generated from the simulation is slightly skewed, and the histogram is not particularly smooth.</p>
-
-    <p>In fact, the normal distribution only sort-of fits this model.</p>
+    <p>Before we begin, we want to point out a simple detail that is easy to overlook: the null distribution we generated from the simulation is slightly skewed, and the histogram is not particularly smooth.
+In fact, the normal distribution only sort-of fits this model.</p>
 
     <figure xml:id="fig-MedConsNullSim-w-normal">
       <caption>The null distribution for the sample proportion, created from 10,000 simulated studies from the medical consultant, along with the best-fitting normal model.</caption>
@@ -1087,58 +1005,42 @@
       </program>
     </listing>
 
-    <p>Next, we can calculate the Z score using the observed complication rate, <m>\hat{p} = 0.048</m> along with the mean and standard deviation of the normal model.</p>
-
-    <p>Here again, we use the standard error for the standard deviation.</p>
+    <p>Next, we can calculate the Z score using the observed complication rate, <m>\hat{p} = 0.048</m> along with the mean and standard deviation of the normal model. Here again, we use the standard error for the standard deviation.</p>
 
     <me>
       Z = \frac{\hat{p} - p_0}{SE_{\hat{p}}} = \frac{0.048 - 0.10}{0.038} = -1.37
     </me>
 
-    <p>Identifying <m>Z = -1.37</m> using statistical software or in the normal probability table, we can determine that the left tail area is 0.0853 which is the estimated p-value for the hypothesis test.</p>
+    <p>Identifying <m>Z = -1.37</m> using statistical software or in the normal probability table, we can determine that the left tail area is 0.0853 which is the estimated p-value for the hypothesis test.
+There is a small problem: the p-value of 0.0853 is almost 30% smaller than the simulation p-value of 0.1222 which will be calculated in <xref ref="ch16-inference-single-proportion" />.</p>
 
-    <p>There is a small problem: the p-value of 0.0853 is almost 30% smaller than the simulation p-value of 0.1222 which will be calculated in <xref ref="ch16-inference-single-proportion" />.</p>
+    <p>The discrepancy is explained by the normal model's poor representation of the null distribution in <xref ref="fig-MedConsNullSim-w-normal" />.
+As noted earlier, the null distribution from the simulations is not very smooth, and the distribution itself is slightly skewed.
+That's the bad news.
+The good news is that we can foresee these problems using some simple checks.
+We'll learn more about these checks in the following chapters.</p>
 
-    <p>The discrepancy is explained by the normal model's poor representation of the null distribution in <xref ref="fig-MedConsNullSim-w-normal" />.</p>
-
-    <p>As noted earlier, the null distribution from the simulations is not very smooth, and the distribution itself is slightly skewed.</p>
-
-    <p>That's the bad news.</p>
-
-    <p>The good news is that we can foresee these problems using some simple checks.</p>
-
-    <p>We'll learn more about these checks in the following chapters.</p>
-
-    <p>In <xref ref="sec-CLTsection" /> we noted that the two common requirements to apply the Central Limit Theorem are (1) the observations in the sample must be independent, and (2) the sample must be sufficiently large.</p>
-
-    <p>The guidelines for this particular situation -- which we will learn in <xref ref="ch16-inference-single-proportion" text="title" /> -- would have alerted us that the normal model was a poor approximation.</p>
+    <p>In <xref ref="sec-CLTsection" /> we noted that the two common requirements to apply the Central Limit Theorem are (1) the observations in the sample must be independent, and (2) the sample must be sufficiently large.
+The guidelines for this particular situation -- which we will learn in <xref ref="ch16-inference-single-proportion" text="title" /> -- would have alerted us that the normal model was a poor approximation.</p>
 
     </subsection>
 
     <subsection xml:id="subsec-med-cons-conditions">
       <title>Conditions for applying the normal model</title>
 
-    <p>The success story in this section was the application of the normal model in the context of the opportunity cost data.</p>
+    <p>The success story in this section was the application of the normal model in the context of the opportunity cost data.
+However, the biggest lesson comes from the less successful attempt to use the normal approximation in the medical consultant case study.</p>
 
-    <p>However, the biggest lesson comes from the less successful attempt to use the normal approximation in the medical consultant case study.</p>
+    <p>Statistical techniques are like a carpenter's tools.
+When used responsibly, they can produce amazing and precise results.
+However, if the tools are applied irresponsibly or under inappropriate conditions, they will produce unreliable results.
+For this reason, with every statistical method that we introduce in future chapters, we will carefully outline conditions when the method can reasonably be used.
+These conditions should be checked in each application of the technique.</p>
 
-    <p>Statistical techniques are like a carpenter's tools.</p>
-
-    <p>When used responsibly, they can produce amazing and precise results.</p>
-
-    <p>However, if the tools are applied irresponsibly or under inappropriate conditions, they will produce unreliable results.</p>
-
-    <p>For this reason, with every statistical method that we introduce in future chapters, we will carefully outline conditions when the method can reasonably be used.</p>
-
-    <p>These conditions should be checked in each application of the technique.</p>
-
-    <p>After covering the introductory topics in this course, advanced study may lead to working with complex models which, for example, bring together many variables with different variability structure.</p>
-
-    <p>Working with data that come from normal populations makes higher-order models easier to estimate and interpret.</p>
-
-    <p>There are times when simulation, randomization, or bootstrapping are unwieldy in either structure or computational demand.</p>
-
-    <p>Normality can often lead to excellent approximations of the data using straightforward modeling techniques.</p>
+    <p>After covering the introductory topics in this course, advanced study may lead to working with complex models which, for example, bring together many variables with different variability structure.
+Working with data that come from normal populations makes higher-order models easier to estimate and interpret.
+There are times when simulation, randomization, or bootstrapping are unwieldy in either structure or computational demand.
+Normality can often lead to excellent approximations of the data using straightforward modeling techniques.</p>
 
     </subsection>
 
@@ -1147,26 +1049,23 @@
   <section xml:id="sec-casestent">
     <title>Case study (interval): Stents</title>
 
-    <p>A point estimate is our best guess for the value of the parameter, so it makes sense to build the confidence interval around that value.</p>
-
-    <p>The standard error, which is a measure of the uncertainty associated with the point estimate, provides a guide for how large we should make the confidence interval.</p>
-
-    <p>The 68-95-99.7 rule tells us that, in general, 95% of observations are within 2 standard errors of the mean.</p>
-
-    <p>Here, we use the value 1.96 to be slightly more precise.</p>
+    <p>A point estimate is our best guess for the value of the parameter, so it makes sense to build the confidence interval around that value.
+The standard error, which is a measure of the uncertainty associated with the point estimate, provides a guide for how large we should make the confidence interval.
+The 68-95-99.7 rule tells us that, in general, 95% of observations are within 2 standard errors of the mean.
+Here, we use the value 1.96 to be slightly more precise.</p>
 
     <assemblage>
       <p><alert>Constructing a 95% confidence interval.</alert></p>
 
       <p>When the sampling distribution of a point estimate can reasonably be modeled as normal, the point estimate we observe will be within 1.96 standard errors of the true value of interest about 95% of the time.</p>
 
-      <p>Thus, a <alert>95% confidence interval</alert>\index{95\% confidence interval}\index{confidence interval} for such a point estimate can be constructed:</p>
+      <p>Thus, a <alert>95% confidence interval</alert> for such a point estimate can be constructed:</p>
 
-      <me>
+      <p><m>
         \text{point estimate} \pm 1.96 \times SE
-      </me>
+      </m></p>
 
-      <p>We can be <alert>95% confident</alert>\index{95\% confident} this interval captures the true value.</p>
+      <p>We can be <alert>95% confident</alert> this interval captures the true value.</p>
 
     </assemblage>
 
@@ -1234,21 +1133,21 @@
         </row>
         <row>
           <cell>Control</cell>
-          <cell>199</cell>
+          <cell>214</cell>
           <cell>13</cell>
-          <cell>212</cell>
+          <cell>227</cell>
         </row>
         <row>
           <cell>Treatment</cell>
-          <cell>205</cell>
+          <cell>191</cell>
           <cell>33</cell>
-          <cell>238</cell>
+          <cell>224</cell>
         </row>
         <row>
           <cell>Total</cell>
-          <cell>404</cell>
+          <cell>405</cell>
           <cell>46</cell>
-          <cell>450</cell>
+          <cell>451</cell>
         </row>
       </tabular>
     </table>
@@ -1272,8 +1171,6 @@
         </code>
       </program>
     </listing>
-
-    <p>::: {.data data-latex=<q></q>}</p>
 
     <p>The <url href="http://openintrostat.github.io/openintro/reference/stent30.html"><c>stent30</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
 
@@ -1303,25 +1200,17 @@
       </solution>
     </example>
 
-    <p>As with hypothesis tests, confidence intervals are imperfect.</p>
-
-    <p>About 1-in-20 properly constructed 95% confidence intervals will fail to capture the parameter of interest, simply due to natural variability in the observed data.</p>
-
-    <p><xref ref="fig-95PercentConfidenceInterval" /> shows 25 confidence intervals for a proportion that were constructed from 25 different datasets that all came from the same population where the true proportion was <m>p = 0.3.</m> However, 1 of these 25 confidence intervals happened not to include the true value.</p>
-
-    <p>The interval which does not capture <m>p=0.3</m> is not due to bad science.</p>
-
-    <p>Instead, it is due to natural variability, and we should <em>expect</em> some of our intervals to miss the parameter of interest.</p>
-
-    <p>Indeed, over a lifetime of creating 95% intervals, you should expect 5% of your reported intervals to miss the parameter of interest (unfortunately, you will not ever know which of your reported intervals captured the parameter and which missed the parameter).</p>
+    <p>As with hypothesis tests, confidence intervals are imperfect.
+About 1-in-20 properly constructed 95% confidence intervals will fail to capture the parameter of interest, simply due to natural variability in the observed data.
+<xref ref="fig-95PercentConfidenceInterval" /> shows 25 confidence intervals for a proportion that were constructed from 25 different datasets that all came from the same population where the true proportion was <m>p = 0.3.</m> However, 1 of these 25 confidence intervals happened not to include the true value.
+The interval which does not capture <m>p=0.3</m> is not due to bad science.
+Instead, it is due to natural variability, and we should <em>expect</em> some of our intervals to miss the parameter of interest.
+Indeed, over a lifetime of creating 95% intervals, you should expect 5% of your reported intervals to miss the parameter of interest (unfortunately, you will not ever know which of your reported intervals captured the parameter and which missed the parameter).</p>
 
     <figure xml:id="fig-95PercentConfidenceInterval">
       <caption>Twenty-five samples of size <m>n=300</m> were collected from a population with <m>p = 0.30.</m> For each sample, a confidence interval was created to try to capture the true proportion <m>p.</m> However, 1 of these 25 intervals did not capture <m>p = 0.30.</m></caption>
       <image source="images/fig-95PercentConfidenceInterval.png" width="70%" />
     </figure>
-
-    <subsection xml:id="subsec-ci-interpretation">
-      <title>Interpreting confidence intervals</title>
 
       <exercise>
         <title>Guided Practice</title>
@@ -1335,9 +1224,12 @@
         <p>While we might say other values are implausible based on the data, this does not mean they are impossible.</p>
         </solution>
       </exercise>
+    </subsection>
+
+    <subsection xml:id="subsec-ci-interpretation">
+      <title>Interpreting confidence intervals</title>
 
       <p>A careful eye might have observed the somewhat awkward language used to describe confidence intervals.</p>
-    </subsection>
 
     <assemblage>
       <p><alert>Correct confidence interval interpretation.</alert></p>
@@ -1350,13 +1242,9 @@
 
     </assemblage>
 
-    <p>Another especially important consideration of confidence intervals is that they <em>only try to capture the population parameter</em>.</p>
-
-    <p>Our intervals say nothing about the confidence of capturing individual observations, a proportion of the observations, or about capturing point estimates.</p>
-
-    <p>Confidence intervals provide an interval estimate for and attempt to capture <alert>population parameters</alert>.</p>
-
-    <p>\index{confidence interval}</p>
+    <p>Another especially important consideration of confidence intervals is that they <em>only try to capture the population parameter</em>.
+Our intervals say nothing about the confidence of capturing individual observations, a proportion of the observations, or about capturing point estimates.
+Confidence intervals provide an interval estimate for and attempt to capture <alert>population parameters</alert>.</p>
 
     </subsection>
 
@@ -1408,15 +1296,23 @@
         </row>
         <row>
           <cell>What does it do?</cell>
-          <cell>Uses mathematical formulas to calculate the variability in the data in order to determine how unusual the observed statistic is under the null hypothesis (or equivalently, how far the parameter is from the observed statistic)</cell>
+          <cell>Uses theory (primarily the Central Limit Theorem) to describe the hypothetical variability resulting from either repeated randomized experiments or random samples</cell>
         </row>
         <row>
           <cell>What is the random process described?</cell>
-          <cell>Random sampling from a population or random allocation of treatments</cell>
+          <cell>Randomized experiment or random sampling</cell>
         </row>
         <row bottom="medium">
           <cell>What other random processes can be approximated?</cell>
-          <cell>Can also be used to describe random sampling in an observational model. Additionally, in some (non-ideal) scenarios, p-values and confidence intervals are estimated using mathematical formulas even when the random sampling or random allocation assumptions are violated. For this course, always check the technical conditions before applying the mathematical models.</cell>
+          <cell>Can also be used to describe random sampling in an observational model or random allocation in an experiment.</cell>
+        </row>
+        <row bottom="medium">
+          <cell>What is it best for?</cell>
+          <cell>Quick analyses through, for example, calculating a Z score</cell>
+        </row>
+        <row bottom="medium">
+          <cell>What physical object represents the simulation process?</cell>
+          <cell>Not applicable</cell>
         </row>
       </tabular>
     </table>
@@ -1453,13 +1349,29 @@
           <cell>Term</cell>
         </row>
         <row>
-          <cell>Central Limit Theorem</cell>
+          <cell>95% confidence interval</cell>
+          <cell>normal distribution</cell>
+          <cell>percentile</cell>
         </row>
         <row>
-          <cell>null distribution</cell>
-        </row>
-        <row>
+          <cell>95% confident</cell>
+          <cell>normal model</cell>
           <cell>sampling distribution</cell>
+        </row>
+        <row>
+          <cell>normal probability table</cell>
+          <cell>Central Limit Theorem</cell>
+          <cell>standard error</cell>
+        </row>
+        <row>
+          <cell>margin of error</cell>
+          <cell>null distribution</cell>
+          <cell>standard normal distribution</cell>
+        </row>
+        <row>
+          <cell>normal curve</cell>
+          <cell>parameter</cell>
+          <cell>Z score</cell>
         </row>
       </tabular>
     </table>
