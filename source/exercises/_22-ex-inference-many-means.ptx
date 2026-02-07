@@ -427,16 +427,16 @@
           <row>
             <cell>edu</cell>
             <cell>4</cell>
-            <cell>4,746.91</cell>
-            <cell>1,186.73</cell>
-            <cell>1.53</cell>
-            <cell>0.19</cell>
+            <cell>4,142</cell>
+            <cell>1,036</cell>
+            <cell>1.26</cell>
+            <cell>0.28</cell>
           </row>
           <row>
             <cell>Residuals</cell>
-            <cell>792</cell>
-            <cell>615,047.70</cell>
-            <cell>776.58</cell>
+            <cell>794</cell>
+            <cell>653,048</cell>
+            <cell>822</cell>
             <cell></cell>
             <cell></cell>
           </row>
