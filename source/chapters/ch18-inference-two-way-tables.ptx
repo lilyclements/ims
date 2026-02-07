@@ -225,7 +225,7 @@
         <p>
           To calculate the expected count for the <m>i^{th}</m> row and <m>j^{th}</m> column, compute
         </p>
-        <me>\text{Expected Count}_{\text{row }i,\text{ col }j} = \frac{(\text{row $i$ total}) \times (\text{column $j$ total})}{\text{table total}}</me>
+        <p><me>\text{Expected Count}_{\text{row }i,\text{ col }j} = \frac{(\text{row $i$ total}) \times (\text{column $j$ total})}{\text{table total}}</me></p>
       </assemblage>
     </subsection>
 
@@ -405,10 +405,8 @@
         <p>
           Conditions:
         </p>
-        <ul>
-          <li><p>Independent observations</p></li>
-          <li><p>Large samples: 5 expected counts in each cell</p></li>
-        </ul>
+        <p>1. Independent observations</p>
+        <p>2. Large samples: 5 expected counts in each cell</p>
       </assemblage>
 
       <p>
@@ -592,7 +590,7 @@
     <title>Exercises</title>
     
     <p>
-      Answers to odd-numbered exercises can be found in Appendix ... />.
+      Answers to odd-numbered exercises can be found in the Appendix />.
     </p>
 
     <xi:include href="../exercises/_18-ex-inference-tables.ptx" />
