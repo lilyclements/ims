@@ -733,6 +733,8 @@ The table below shows the distribution of responses by age group as well as the 
 
       <table xml:id="tbl-shipping-holiday-gifts">
         <title>Shipping holiday gifts by age group.</title>
+        <!-- Note: The Total row intentionally has empty cells for certain age columns, 
+             as these represent subtotals that are not aggregated in the source data. -->
         <tgroup cols="8">
           <thead>
             <row>
@@ -832,11 +834,11 @@ The table below shows the distribution of incidences of depression by amount of 
           <thead>
             <row>
               <entry>Caffeinated coffee consumption</entry>
-              <entry>&lt;/= 1 cup/week</entry>
+              <entry>≤ 1 cup/week</entry>
               <entry>2-6 cups/week</entry>
               <entry>1 cup/day</entry>
               <entry>2-3 cups/day</entry>
-              <entry>&gt;= 4 cups/day</entry>
+              <entry>≥ 4 cups/day</entry>
               <entry>Total</entry>
             </row>
           </thead>
