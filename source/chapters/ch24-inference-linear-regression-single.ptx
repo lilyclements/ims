@@ -370,16 +370,16 @@
     </row>
     <row>
       <cell>(Intercept)</cell>
-      <cell>-5.60</cell>
-      <cell>1.21</cell>
-      <cell>-4.62</cell>
-      <cell>&lt;0.0001</cell>
+      <cell>-5.72</cell>
+      <cell>1.61</cell>
+      <cell>-3.54</cell>
+      <cell>6e-04</cell>
     </row>
     <row>
       <cell>weeks</cell>
-      <cell>0.335</cell>
-      <cell>0.031</cell>
-      <cell>10.83</cell>
+      <cell>0.34</cell>
+      <cell>0.04</cell>
+      <cell>8.07</cell>
       <cell>&lt;0.0001</cell>
     </row>
   </tabular>
@@ -544,17 +544,17 @@
     </row>
     <row>
       <cell>(Intercept)</cell>
-      <cell>6.96</cell>
-      <cell>0.45</cell>
-      <cell>15.39</cell>
+      <cell>6.23</cell>
+      <cell>0.71</cell>
+      <cell>8.79</cell>
       <cell>&lt;0.0001</cell>
     </row>
     <row>
       <cell>mage</cell>
-      <cell>0.036</cell>
-      <cell>0.016</cell>
-      <cell>2.29</cell>
-      <cell>0.0239</cell>
+      <cell>0.04</cell>
+      <cell>0.02</cell>
+      <cell>1.50</cell>
+      <cell>0.01362</cell>
     </row>
   </tabular>
 </table>
@@ -965,7 +965,7 @@
     <p>The point estimate is -0.0431 and the standard error is <m>SE = 0.0108</m>. When constructing a confidence interval for a model coefficient, we generally use a <m>t</m>-distribution. The degrees of freedom for the distribution are noted in the regression output, <m>df = 48</m>, allowing us to identify <m>t_{48}^{\star} = 2.01</m> for use in the confidence interval.</p>
     <p>We can now construct the confidence interval in the usual way:</p>
     <p><me>\begin{aligned} \text{point estimate} &amp;\pm t_{48}^{\star} \times SE \\ -0.0431 &amp;\pm 2.01 \times 0.0108 \\ (-0.0648 &amp;, -0.0214) \end{aligned}</me></p>
-    <p>We are 95% confident that for an additional one unit (i.e., <m>1000 increase) in family income, the university's gift aid is predicted to decrease on average by \</m>21.40 to \$64.80.</p>
+    <p>We are 95% confident that for an additional one unit (i.e., $1000 increase) in family income, the university's gift aid is predicted to decrease on average by $21.40 to $64.80.</p>
   </solution>
 </example>
 
