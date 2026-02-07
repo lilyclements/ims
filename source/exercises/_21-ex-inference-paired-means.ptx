@@ -275,6 +275,36 @@
         </image>
       </figure>
 
+      <table xml:id="table-ex21-16">
+        <title>Summary statistics for Friday the 13th traffic data</title>
+        <tabular halign="center">
+          <row header="yes" bottom="medium">
+            <cell></cell>
+            <cell>n</cell>
+            <cell>Mean</cell>
+            <cell>SD</cell>
+          </row>
+          <row>
+            <cell>sixth</cell>
+            <cell>10</cell>
+            <cell>128,385</cell>
+            <cell>7,259</cell>
+          </row>
+          <row>
+            <cell>thirteenth</cell>
+            <cell>10</cell>
+            <cell>126,550</cell>
+            <cell>7,664</cell>
+          </row>
+          <row>
+            <cell>diff</cell>
+            <cell>10</cell>
+            <cell>1,836</cell>
+            <cell>1,176</cell>
+          </row>
+        </tabular>
+      </table>
+
       <p><ol marker="a.">
         <li>Are there any underlying structures in these data that should be considered in an analysis? Explain.</li>
         <li>What are the hypotheses for evaluating whether the number of people out on Friday the 6<m>^{\text{th}}</m> is different than the number out on Friday the 13<m>^{\text{th}}</m>?</li>
@@ -297,6 +327,36 @@
           <description>Histograms and summary statistics for Friday the 13th accidents data</description>
         </image>
       </figure>
+
+      <table xml:id="table-ex21-17">
+        <title>Summary statistics for Friday the 13th accidents data</title>
+        <tabular halign="center">
+          <row header="yes" bottom="medium">
+            <cell></cell>
+            <cell>n</cell>
+            <cell>Mean</cell>
+            <cell>SD</cell>
+          </row>
+          <row>
+            <cell>sixth</cell>
+            <cell>6</cell>
+            <cell>8</cell>
+            <cell>3</cell>
+          </row>
+          <row>
+            <cell>thirteenth</cell>
+            <cell>6</cell>
+            <cell>11</cell>
+            <cell>4</cell>
+          </row>
+          <row>
+            <cell>diff</cell>
+            <cell>6</cell>
+            <cell>-3</cell>
+            <cell>3</cell>
+          </row>
+        </tabular>
+      </table>
 
       <p><ol marker="a.">
         <li>Conduct a hypothesis test using mathematical models to evaluate if there is a difference between the average numbers of traffic accident related emergency room admissions between Friday the 6<m>^{\text{th}}</m> and Friday the 13<m>^{\text{th}}</m>.</li>

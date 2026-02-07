@@ -775,6 +775,9 @@ boot_diff |&gt;
   <title>Observed data</title>
 
 
+<p>We continue our analysis of the textbook data using the mathematical model. Recall that we sampled 201 UCLA courses, and of those, 68 required books could be found on Amazon. We are interested in whether there is a difference between the UCLA Bookstore price and the Amazon price for textbooks.</p>
+
+<p>The summary statistics for the price differences (UCLA - Amazon) are provided in <xref ref="tbl-textbooksSummaryStats" />. We will use these to conduct a hypothesis test and construct a confidence interval using the <m>t</m>-distribution.</p>
 
 </subsection>
 
