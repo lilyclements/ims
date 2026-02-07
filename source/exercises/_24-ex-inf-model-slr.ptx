@@ -110,6 +110,9 @@
       <figure xml:id="fig-ex24-7-10">
         <image source="images/exercises/_24-ex-inf-model-slr-7-10.png" width="90%"/>
       </figure>
+      <figure xml:id="fig-ex24-7-11">
+        <image source="images/exercises/_24-ex-inf-model-slr-7-11.png" width="90%"/>
+      </figure>
       <p><ol marker="a.">
         <li>Using the histogram, approximate the standard error of the slope statistic (that is, quantify the variability of the slope statistic from sample to sample).</li>
         <li>Find a 98% bootstrap SE confidence interval for the slope parameter.</li>
@@ -124,6 +127,9 @@
       <p>US Department of Health and Human Services, Centers for Disease Control and Prevention collect information on births recorded in the country. The data used here are a random sample of 1000 births from 2014. Here, we study the relationship between the father's age and the weight of the baby. <xref ref="data-births14" /> Shown below are the linear model output for predicting baby's weight (in pounds) from father's age (in years) and the the bootstrap distribution of the slope statistic from 1000 different bootstrap samples of the data.</p>
       <figure xml:id="fig-ex24-8-12">
         <image source="images/exercises/_24-ex-inf-model-slr-8-12.png" width="90%"/>
+      </figure>
+      <figure xml:id="fig-ex24-8-13">
+        <image source="images/exercises/_24-ex-inf-model-slr-8-13.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
         <li>Using the histogram, approximate the standard error of the slope statistic (that is, quantify the variability of the slope statistic from sample to sample).</li>
@@ -141,7 +147,7 @@
         <image source="images/exercises/_24-ex-inf-model-slr-9-14.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
-        <li>For these data, <m>R^2</m> is 51.8%. What is the value of the correlation coefficient? How can you tell if it is positive or negative? (Hint: you may need to look at a previous exercise.)</li>
+        <li>For these data, <m>R^2</m> is 51.84%. What is the value of the correlation coefficient? How can you tell if it is positive or negative? (Hint: you may need to look at a previous exercise.)</li>
         <li>Examine the residual plot. What do you observe? Is a simple least squares fit appropriate for these data? Which of the LINE conditions are met or not met?</li>
       </ol></p>
     </statement>
@@ -155,7 +161,7 @@
         <image source="images/exercises/_24-ex-inf-model-slr-10-15.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
-        <li>For these data, <m>R^2</m> is [R-squared value]%. What is the value of the correlation coefficient? How can you tell if it is positive or negative? (Hint: you may need to look at a previous exercise.)</li>
+        <li>For these data, <m>R^2</m> is 0.09%. What is the value of the correlation coefficient? How can you tell if it is positive or negative? (Hint: you may need to look at a previous exercise.)</li>
         <li>Examine the residual plot. What do you observe? Is a simple least squares fit appropriate for these data? Which of the LINE conditions are met or not met?</li>
       </ol></p>
     </statement>
@@ -167,6 +173,9 @@
       <p>The following regression output is for predicting annual murders per million (<c>annual_murders_per_mil</c>) from percentage living in poverty (<c>perc_pov</c>) in a random sample of 20 metropolitan areas. Shown below are the linear model output for predicting annual murders per million from percentage living in poverty for metropolitan areas and the histogram of slopes from 1000 randomized datasets (1000 times, <c>annual_murders_per_mil</c> was permuted and regressed against <c>perc_pov</c>). The red vertical line is drawn at the observed slope value which was produced in the linear model output.</p>
       <figure xml:id="fig-ex24-11-16">
         <image source="images/exercises/_24-ex-inf-model-slr-11-16.png" width="90%"/>
+      </figure>
+      <figure xml:id="fig-ex24-11-17">
+        <image source="images/exercises/_24-ex-inf-model-slr-11-17.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
         <li>What are the null and alternative hypotheses for evaluating whether the slope of the model for predicting annual murder rate from poverty percentage is different than 0?</li>
@@ -229,7 +238,7 @@
         <image source="images/exercises/_24-ex-inf-model-slr-15-21.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
-        <li>For these data, <m>R^2</m> is 70.6%. What is the value of the correlation coefficient? How can you tell if it is positive or negative?</li>
+        <li>For these data, <m>R^2</m> is 70.56%. What is the value of the correlation coefficient? How can you tell if it is positive or negative?</li>
         <li>Examine the residual plot. What do you observe? Is a simple least squares fit appropriate for the data? Which of the LINE conditions are met or not met?</li>
       </ol></p>
     </statement>
@@ -276,7 +285,7 @@
         <image source="images/exercises/_24-ex-inf-model-slr-18-24.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
-        <li>For these data, <m>R^2</m> is [R-squared value]%. What is the value of the correlation coefficient? How can you tell if it is positive or negative?</li>
+        <li>For these data, <m>R^2</m> is 29.16%. What is the value of the correlation coefficient? How can you tell if it is positive or negative?</li>
         <li>Examine the residual plot. What do you observe? Is a simple least squares fit appropriate for the data? Which of the LINE conditions are met or not met?</li>
       </ol></p>
     </statement>
