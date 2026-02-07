@@ -117,13 +117,13 @@
       <li><m>H_A:</m> <alert>Alternative hypothesis</alert>. The variables <c>sex</c> and <c>decision</c> are <em>not</em> independent. The difference in promotion rates of 29.2% was not due to natural variability, and equally qualified female personnel are less likely to be promoted than male personnel.</li>
     </ul></p>
 
-    <note>
+    <assemblage>
       <title>Important</title>
       <p><alert>Hypothesis testing.</alert></p>
       <p>These hypotheses are part of what is called a <alert>hypothesis test</alert>. A hypothesis test is a statistical technique used to evaluate competing claims using data. Often times, the null hypothesis takes a stance of <em>no difference</em> or <em>no effect</em>. This hypothesis assumes that any differences observed are due to the variability inherent in the population and could have occurred by random chance.</p>
       <p>If the null hypothesis and the data notably disagree, then we reject the null hypothesis in favor of the alternative hypothesis.</p>
       <p>There are many nuances to hypothesis testing, so do not worry if you don't feel like a master of hypothesis testing at the end of this section. We'll discuss these ideas and details many times in this chapter as well as in the chapters that follow.</p>
-    </note>
+    </assemblage>
 
     <p>What would it mean if the null hypothesis, which says the variables <c>sex</c> and <c>decision</c> are unrelated, was true? It would mean each banker would decide whether to promote the candidate without regard to the sex indicated on the personnel file. That is, the difference in the promotion percentages would be due to the natural variability in how the files were randomly allocated to different bankers, and this randomization just happened to give rise to a relatively large difference of 29.2%.</p>
 
@@ -135,7 +135,7 @@
   <subsection xml:id="subsec-sex-discrimination-variability">
     <title>Variability of the statistic</title>
 
-    <p><xref ref="tbl-sex-discrimination-obs" /> shows that 35 bank supervisors recommended promotion and 13 did not. Now, suppose the bankers' decisions were independent of the sex of the candidate. Then, if we conducted the experiment again with a different random assignment of sex to the files, differences in promotion rates would be based only on random fluctuation in promotion decisions. We can perform this <alert>randomization</alert>, which simulates what would have happened if the bankers' decisions had been independent of <c>sex</c> but we had distributed the file sexes differently.<fn>This procedure is formally called a <alert>permutation test</alert>.</fn></p>
+    <p><xref ref="tbl-sex-discrimination-obs" /> shows that 35 bank supervisors recommended promotion and 13 did not. Now, suppose the bankers' decisions were independent of the sex of the candidate. Then, if we conducted the experiment again with a different random assignment of sex to the files, differences in promotion rates would be based only on random fluctuation in promotion decisions. We can perform this <alert>randomization</alert>, which simulates what would have happened if the bankers' decisions had been independent of <c>sex</c> but we had distributed the file sexes differently.<fn>The test procedure we employ in this section is sometimes referred to as a randomization test. If the explanatory variable had not been randomly assigned, as in an observational study, the procedure would be referred to as a permutation test. Permutation tests are used for observational studies, where the explanatory variable was not randomly assigned.</fn></p>
 
     <p>In the <alert>simulation</alert>, we thoroughly shuffle the 48 personnel files, 35 labelled <c>promoted</c> and 13 labelled <c>not promoted</c>, together and we deal files into two new stacks. Note that by keeping 35 promoted and 13 not promoted, we are assuming that 35 of the bank managers would have promoted the individual whose content is contained in the file <alert>independent</alert> of the sex indicated on their file. We will deal 24 files into the first stack, which will represent the 24 <q>female</q> files. The second stack will also have 24 files, and it will represent the 24 <q>male</q> files. <xref ref="fig-sex-rand-shuffle-1" /> highlights both the shuffle and the reallocation to the sham sex groups.</p>
 
@@ -255,7 +255,7 @@ sex_discrimination |&gt;
       <li>If <m>H_A,</m> the <alert>Alternative hypothesis</alert> is true: Sex has an effect on promotion decision, and what we observed was actually due to equally qualified female candidates being discriminated against in promotion decisions, which explains the large difference of 29.2%.</li>
     </ul></p>
 
-    <p>When we conduct formal studies, we reject a null position (the idea that the data are a result of chance only) if the data strongly conflict with that null position.<fn>This reasoning does not generally extend to anecdotal observations. Each of us observes incredibly rare events every day, events we could not possibly hope to predict. However, in the non-statistical setting, we should be cautious not to overinterpret such anecdotal evidence. In our daily lives, we should make decisions and reach conclusions based on evidence that is not only rare, but also trustworthy. Anecdotal evidence typically is not trustworthy evidence.</fn> In our analysis, we determined that there was only a <m>\approx</m> 2% probability of obtaining a sample where <m>\geq</m> 29.2% more male candidates than female candidates get promoted under the null hypothesis, so we conclude that the data provide strong evidence of sex discrimination against female candidates by the male supervisors. In this case, we reject the null hypothesis in favor of the alternative.</p>
+    <p>When we conduct formal studies, we reject a null position (the idea that the data are a result of chance only) if the data strongly conflict with that null position.<fn>This reasoning does not generally extend to anecdotal observations. Each of us observes incredibly rare events every day, events we could not possibly hope to predict. However, in the non-rigorous setting of anecdotal evidence, almost anything may appear to be a rare event, so the idea of looking for rare events in day-to-day activities is treacherous. For example, we might look at the lottery: there was only a 1 in 176 million chance that the Mega Millions numbers for the largest jackpot in history (October 23, 2018) would be (5, 28, 62, 65, 70) with a Mega ball of (5), but nonetheless those numbers came up! However, no matter what numbers had turned up, they would have had the same incredibly rare odds. That is, any set of numbers we could have observed would ultimately be incredibly rare. This type of situation is typical of our daily lives: each possible event in itself seems incredibly rare, but if we consider every alternative, those outcomes are also incredibly rare. We should be cautious not to misinterpret such anecdotal evidence.</fn> In our analysis, we determined that there was only a <m>\approx</m> 2% probability of obtaining a sample where <m>\geq</m> 29.2% more male candidates than female candidates get promoted under the null hypothesis, so we conclude that the data provide strong evidence of sex discrimination against female candidates by the male supervisors. In this case, we reject the null hypothesis in favor of the alternative.</p>
 
     <p><alert>Statistical inference</alert> is the practice of making decisions and conclusions from data in the context of uncertainty. Errors do occur, just like rare events, and the dataset at hand might lead us to the wrong conclusion. While a given dataset may not always lead us to a correct conclusion, statistical inference gives us tools to control and evaluate how often these errors occur. Before getting into the nuances of hypothesis testing, let's work through another case study.</p>
   </subsection>
@@ -545,12 +545,12 @@ ggplot(opportunity_cost_rand_dist, aes(x = stat)) +
 
   <p>In the last two sections, we utilized a <alert>hypothesis test</alert>, which is a formal technique for evaluating two competing possibilities. In each scenario, we described a <alert>null hypothesis</alert>, which represented either a skeptical perspective or a perspective of no difference. We also laid out an <alert>alternative hypothesis</alert>, which represented a new perspective such as the possibility of a relationship between two variables or a treatment effect in an experiment. The alternative hypothesis is usually the reason the scientists set out to do the research in the first place.</p>
 
-  <note>
+  <assemblage>
     <title>Important</title>
     <p><alert>Null and alternative hypotheses.</alert></p>
     <p>The <alert>null hypothesis</alert> <m>(H_0)</m> often represents either a skeptical perspective or a claim of <q>no difference</q> to be tested.</p>
     <p>The <alert>alternative hypothesis</alert> <m>(H_A)</m> represents an alternative claim under consideration and is often represented by a range of possible values for the value of interest.</p>
-  </note>
+  </assemblage>
 
   <p>If a person makes a somewhat unbelievable claim, we are initially skeptical. However, if there is sufficient evidence that supports the claim, we set aside our skepticism. The hallmarks of hypothesis testing are also found in the US court system.</p>
 
@@ -588,11 +588,10 @@ ggplot(opportunity_cost_rand_dist, aes(x = stat)) +
 
     <p>The 2-in-100 chance is what we call a <alert>p-value</alert>, which is a probability quantifying the strength of the evidence against the null hypothesis, given the observed data.</p>
 
-    <note>
-      <title>Important</title>
-      <p><alert>p-value.</alert></p>
+    <assemblage>
+      <title>p-value.</title>
       <p>The <alert>p-value</alert> is the probability of observing data at least as favorable to the alternative hypothesis as our current dataset, if the null hypothesis were true. We typically use a summary statistic of the data, such as a difference in proportions, to help compute the p-value and evaluate the hypotheses. This summary value that is used to compute the p-value is often called the <alert>test statistic</alert>.</p>
-    </note>
+    </assemblage>
 
     <example>
       <statement>
@@ -603,17 +602,16 @@ ggplot(opportunity_cost_rand_dist, aes(x = stat)) +
       </solution>
     </example>
 
-    <p>When the p-value is small, i.e., less than a previously set threshold, we say the results are <alert>statistically discernible</alert>. This means the data provide such strong evidence against <m>H_0</m> that we reject the null hypothesis in favor of the alternative hypothesis.<fn>This reasoning does not generally extend to anecdotal observations. Each of us observes incredibly rare events every day, events we could not possibly hope to predict. However, in the non-statistical setting, we should be cautious not to overinterpret such anecdotal evidence. In our daily lives, we should make decisions and reach conclusions based on evidence that is not only rare, but also trustworthy. Anecdotal evidence typically is not trustworthy evidence.</fn></p>
+    <p>When the p-value is small, i.e., less than a previously set threshold, we say the results are <alert>statistically discernible</alert>. This means the data provide such strong evidence against <m>H_0</m> that we reject the null hypothesis in favor of the alternative hypothesis.<fn>Many texts use the phrase “statistically significant” instead of “statistically discernible”. We have chosen to use “discernible” to indicate that a precise statistical event has happened, as opposed to a notable effect which may or may not fit the statistical definition of discernible or significant.</fn></p>
 
-    <p>The threshold is called the <alert>discernibility level</alert> and often represented by <m>\alpha</m> (the Greek letter <em>alpha</em>). <fn>This discernibility level is sometimes also referred to as the <alert>significance level</alert>, but since we are trying to move away from the term <q>statistically significant</q> we will use <q>discernibility level</q> instead.</fn> The value of <m>\alpha</m> represents how rare an event needs to be in order for the null hypothesis to be rejected. Historically, many fields have set <m>\alpha = 0.05,</m> if the null hypothesis is to be rejected. The value of <m>\alpha</m> can vary depending on the field or the application.</p>
+    <p>The threshold is called the <alert>discernibility level</alert> and often represented by <m>\alpha</m> (the Greek letter <em>alpha</em>). <fn>Here, too, we have chosen “discernibility level” instead of “significance level” which you will see in some texts.</fn> The value of <m>\alpha</m> represents how rare an event needs to be in order for the null hypothesis to be rejected. Historically, many fields have set <m>\alpha = 0.05,</m> if the null hypothesis is to be rejected. The value of <m>\alpha</m> can vary depending on the field or the application.</p>
 
     <p>Note that you may have heard the phrase <q>statistically significant</q> as a way to describe <q>statistically discernible.</q> Although in everyday language <q>significant</q> would indicate that a difference is large or meaningful, that is not necessarily the case here. The term <q>statistically discernible</q> indicates that the p-value from a study fell below the chosen discernibility level. For example, in the sex discrimination study, the p-value was found to be approximately 0.02. Using a discernibility level of <m>\alpha = 0.05,</m> we would say that the data provided statistically discernible evidence against the null hypothesis. However, this conclusion gives us no information regarding the size of the difference in promotion rates!</p>
 
-    <note>
-      <title>Important</title>
-      <p><alert>Statistical discernibility.</alert></p>
+    <assemblage>
+      <title>Statistical discernibility.</title>
       <p>We say that the data provide <alert>statistically discernible</alert> evidence against the null hypothesis if the p-value is less than some predetermined threshold (e.g., 0.01, 0.05, 0.1).</p>
-    </note>
+    </assemblage>
 
     <example>
       <statement>
@@ -624,13 +622,12 @@ ggplot(opportunity_cost_rand_dist, aes(x = stat)) +
       </solution>
     </example>
 
-    <note>
-      <title>Important</title>
-      <p><alert>What's so special about 0.05?</alert></p>
+    <assemblage>
+      <title>What's so special about 0.05?</title>
       <p>We often use a threshold of 0.05 to determine whether a result is statistically discernible. But why 0.05? Maybe we should use a bigger number, or maybe a smaller number. If you're a little puzzled, that probably means you're reading with a critical eye <mdash /> good job! We've made a video to help clarify <em>why 0.05</em>:</p>
       <p><url href="https://www.openintro.org/book/stat/why05/">https://www.openintro.org/book/stat/why05/</url></p>
       <p>Sometimes it's also a good idea to deviate from the standard. We'll discuss when to choose a threshold different than 0.05 in <xref ref="ch14-decision-errors" />.</p>
-    </note>
+    </assemblage>
   </subsection>
 </section>
 
@@ -668,15 +665,23 @@ ggplot(opportunity_cost_rand_dist, aes(x = stat)) +
         </row>
         <row>
           <cell>What does it do?</cell>
-          <cell>Shuffles the explanatory variable to mimic the variability under the null hypothesis</cell>
+          <cell>Shuffles the explanatory variable to mimic the natural variability found in a randomized experiment</cell>
         </row>
         <row>
-          <cell>What is the random process described in the context of the data?</cell>
-          <cell>Randomization - the explanatory variable (or treatment) being shuffled (or permuted) across the response variable (see <xref ref="ch02-study-design" text="global" />)</cell>
+          <cell>What is the random process described?</cell>
+          <cell>Randomized experiment</cell>
         </row>
         <row bottom="medium">
           <cell>What other random processes can be approximated?</cell>
-          <cell>Can also be used to test whether two variables from an observational study are related (see <xref ref="ch18-inference-two-way-tables" text="global" />)</cell>
+          <cell>Can also be used to describe random sampling in an observational model</cell>
+        </row>
+        <row bottom="medium">
+          <cell>What is it best for?</cell>
+          <cell>Hypothesis testing (can also be used for confidence intervals, but not covered in this text)</cell>
+        </row>
+        <row bottom="medium">
+          <cell>What physical object represents the simulation process?</cell>
+          <cell>Shuffling cards</cell>
         </row>
       </tabular>
     </table>
