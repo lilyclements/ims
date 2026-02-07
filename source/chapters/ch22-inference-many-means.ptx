@@ -4,31 +4,25 @@
   <title>Inference for comparing many means</title>
 
 <introduction>
-  <p>In <xref ref="ch20-inference-two-independent-means" /> analysis was done to compare the average population value across two different groups.</p>
-  <p>An important aspect of the analysis was to look at the difference in sample means as an estimate for the difference in population means.</p>
-  <p>When comparing more than two groups, the difference (i.e., subtraction) will not fully capture the nuance in variation across the three or more groups.</p>
-  <p>As with two groups, the research question will focus on whether the group membership is independent of the numerical response variable.</p>
-  <p>Here, independence across groups means that knowledge of the observations in one group does not change what we would expect to happen in the other group.</p>
-  <p>But what happens if the groups are <term>dependent</term>?</p>
-  <p>In this section we focus on a new statistic which incorporates differences in means across more than two groups.</p>
-  <p>Although the ideas in this chapter are quite similar to the t-test, they have earned themselves their own name: <term>AN</term>alysis <term>O</term>f <term>VA</term>riance, or ANOVA.</p>
-</introduction>
+  <p>In <xref ref="ch20-inference-two-independent-means" /> analysis was done to compare the average population value across two different groups.
+An important aspect of the analysis was to look at the difference in sample means as an estimate for the difference in population means.
+When comparing more than two groups, the difference (i.e., subtraction) will not fully capture the nuance in variation across the three or more groups.
+As with two groups, the research question will focus on whether the group membership is independent of the numerical response variable.
+Here, independence across groups means that knowledge of the observations in one group does not change what we would expect to happen in the other group.
+But what happens if the groups are <term>dependent</term>?
+In this section we focus on a new statistic which incorporates differences in means across more than two groups.
+Although the ideas in this chapter are quite similar to the t-test, they have earned themselves their own name: <term>AN</term>alysis <term>O</term>f <term>VA</term>riance, or ANOVA.</p>
 
 <p>Sometimes we want to compare means across many groups. We might initially think to do pairwise comparisons. For example, if there were three groups, we might be tempted to compare the first mean with the second, then with the third, and then finally compare the second and third means for a total of three comparisons. However, this strategy can be treacherous. If we have many groups and do many comparisons, it is likely that we will eventually find a difference just by chance, even if there is no difference in the populations. Instead, we should apply a holistic test to check whether there is evidence that at least one pair of groups are in fact different, which is where <term>ANOVA</term> saves the day.</p>
 
-
-
 <p>In this section, we will learn a new method called <term>analysis of variance (ANOVA)</term> and a new test statistic called an <m>F</m>-statistic (which we will introduce in our discussion of mathematical models). ANOVA uses a single hypothesis test to check whether the means across many groups are equal:</p>
-
 
 <ul>
   <li><p><m>H_0:</m> The mean outcome is the same across all groups, i.e., <m>\mu_1 = \mu_2 = \cdots = \mu_k</m> where <m>\mu_j</m> represents the mean of the outcome for observations in category <m>j.</m></p></li>
   <li><p><m>H_A:</m> At least one mean is different.</p></li>
 </ul>
 
-
 <p>Generally we must check three conditions on the data before performing ANOVA:</p>
-
 
 <ul>
   <li><p>the observations are independent within and between groups,</p></li>
@@ -36,9 +30,7 @@
   <li><p>the variability across the groups is about equal.</p></li>
 </ul>
 
-
 <p>When the three technical conditions are met, we may perform an ANOVA to determine whether the data provide convincing evidence against the null hypothesis that all the <m>\mu_j</m> are equal.</p>
-
 
 <example>
   <statement>
@@ -56,9 +48,7 @@
   </solution>
 </example>
 
-
 <p>Strong evidence favoring the alternative hypothesis in ANOVA is described by unusually large differences among the group means. We will soon learn that assessing the variability of the group means relative to the variability among individual observations within each group is key to ANOVA's success.</p>
-
 
 <example>
   <statement>
@@ -75,7 +65,6 @@
     <p>Investigating groups IV, V, and VI, we see the differences in the groups' centers are noticeable because those differences are large <em>relative to the variability in the individual observations within each group</em>.</p>
   </solution>
 </example>
-
 
 <figure xml:id="fig-toyANOVA">
   <caption>Side-by-side dot plot for the outcomes for six groups. Two sets of groups; first set is comprised of Groups I, II, and III, the second set is comprised of Groups IV, V, and VI.</caption>
@@ -98,6 +87,7 @@ toy_anova |&gt;
   </program>
 </listing>
 
+</introduction>
 
 <section>
   <title>Case study: Batting</title>
@@ -172,7 +162,8 @@ mlb_players_18_vars |&gt;
 
 
 <exercise>
-  <title>The null hypothesis under consideration is the following: <m>\mu_{OF} = \mu_{IF} = \mu_{C} % = \mu_{DH}.</m> Write the null and corresponding alternative hypotheses in plain language.</title>
+  <title>Null Hypothesis</title>
+<p>The null hypothesis under consideration is the following: <m>\mu_{OF} = \mu_{IF} = \mu_{C} % = \mu_{DH}.</m> Write the null and corresponding alternative hypotheses in plain language.</p>
   <statement>
   </statement>
   <solution>
@@ -309,20 +300,15 @@ ggplot(mlb_players_18, aes(x = position, y = OBP)) +
 
 <p>The <m>MSG</m> represents a measure of the between-group variability, and <m>MSE</m> measures the variability within each of the groups.</p>
 
-
-<note>
+<assemblage>
   <title><term>The test statistic for three or more means is an F.</term></title>
   <p>The F statistic is a ratio of how the groups differ (MSG) as compared to how the observations within a group vary (MSE).</p>
-  <me><![CDATA[F = \frac{MSG}{MSE}]]></me>
+  <p><me><![CDATA[F = \frac{MSG}{MSE}]]></me></p>
   <p>When the null hypothesis is true and the conditions are met, F has an F-distribution with <m>df_1 = k-1</m> and <m>df_2 = n-k.</m></p>
   <p>Conditions:</p>
-  <ul>
-    <li><p>independent observations, both within and across groups</p></li>
-    <li><p>large samples and no extreme outliers</p></li>
-  </ul>
-</note>
-
-
+  <p>independent observations, both within and across groups</p>
+   <p>large samples and no extreme outliers</p>
+</assemblage>
 
 </subsection>
 
@@ -522,17 +508,18 @@ classdata |&gt;
 <p>The larger the observed variability in the sample means <m>(MSG)</m> relative to the within-group observations <m>(MSE)</m>, the larger <m>F</m>-statistic will be and the stronger the evidence against the null hypothesis. Because larger <m>F</m>-statistics represent stronger evidence against the null hypothesis, we use the upper tail of the distribution to compute a p-value.</p>
 
 
-<note>
+<assemblage>
   <title><term>The F statistic and the F-test.</term></title>
   <p>Analysis of variance (ANOVA) is used to test whether the mean outcome differs across two or more groups.</p>
   <p>ANOVA uses a test statistic, the <m>F</m>-statistic, which represents a standardized ratio of variability in the sample means relative to the variability within the groups.</p>
   <p>If <m>H_0</m> is true and the model conditions are satisfied, an <m>F</m>-statistic follows an <m>F</m> distribution with parameters <m>df_{1} = k - 1</m> and <m>df_{2} = n - k.</m> The upper tail of the <m>F</m> distribution is used to represent the p-value.</p>
-</note>
+</assemblage>
 
 
 <exercise>
-  <title>For the baseball data, <m>MSG = 0.00803</m> and <m>MSE=0.00158</m>. Identify the degrees of freedom associated with MSG and MSE and verify the <m>F</m>-statistic is approximately 5.077.</title>
+  <title>Baseball Data</title>
   <statement>
+<p>For the baseball data, <m>MSG = 0.00803</m> and <m>MSE=0.00158</m>. Identify the degrees of freedom associated with MSG and MSE and verify the <m>F</m>-statistic is approximately 5.077.</p>
   </statement>
   <solution>
     <p>There are <m>k = 3</m> groups, so <m>df_{G} = k - 1 = 2.</m> There are <m>n = n_1 + n_2 + n_3 = 429</m> total observations, so <m>df_{E} = n - k = 426.</m> Then the <m>F</m>-statistic is computed as the ratio of <m>MSG</m> and <m>MSE:</m> <m>F = \frac{MSG}{MSE} = \frac{0.00803}{0.00158} = 5.082 \approx 5.077.</m> <m>(F = 5.077</m> was computed by using values for <m>MSG</m> and <m>MSE</m> that were not rounded.)</p>
@@ -648,30 +635,21 @@ anova(mod) |&gt;
 
 
 <ul>
-  <li><p><term>Independence.</term> If the data are a simple random sample, this condition can be assumed to be satisfied.</p></li>
-</ul>
-
-<p>For processes and experiments, carefully consider whether the data may be independent (e.g., no pairing). For example, in the MLB data, the data were not sampled. However, there are not obvious reasons why independence would not hold for most or all observations.</p>
-
-
-<ul>
-  <li><p><term>Approximately normal.</term> As with one- and two-sample testing for means, the normality assumption is especially important when the sample size is quite small when it is ironically difficult to check for non-normality.</p></li>
-</ul>
-
-<p>A histogram of the observations from each group is shown in <xref ref="fig-mlbANOVADiagNormalityGroups" />. Since each of the groups we are considering have relatively large sample sizes, what we are looking for are major outliers. None are apparent, so this condition is reasonably met.</p>
-
-
-<ul>
-  <li><p><term>Constant variance.</term> The last assumption is that the variance in the groups is about equal from one group to the next. This assumption can be checked by examining side-by-side box plots of the outcomes across the groups, as in <xref ref="fig-mlbANOVABoxPlot" />ANOVABoxPlot. In this case, the variability is similar in the four groups but not identical. We see in <xref ref="tbl-mlbHRPerABSummaryTable" />HRPerABSummaryTable that the standard deviation does not vary much from one group to the next.</p></li>
+  <li><p><term>Independence.</term> If the data are a simple random sample, this condition can be assumed to be satisfied.
+For processes and experiments, carefully consider whether the data may be independent (e.g., no pairing). For example, in the MLB data, the data were not sampled. However, there are not obvious reasons why independence would not hold for most or all observations.</p><li>
+  <li><p><term>Approximately normal.</term> As with one- and two-sample testing for means, the normality assumption is especially important when the sample size is quite small when it is ironically difficult to check for non-normality.
+A histogram of the observations from each group is shown in <xref ref="fig-mlbANOVADiagNormalityGroups" />. Since each of the groups we are considering have relatively large sample sizes, what we are looking for are major outliers. None are apparent, so this condition is reasonably met.</p>
+</p></li>
+<li><p><term>Constant variance.</term> The last assumption is that the variance in the groups is about equal from one group to the next. This assumption can be checked by examining side-by-side box plots of the outcomes across the groups, as in <xref ref="fig-mlbANOVABoxPlot" />ANOVABoxPlot. In this case, the variability is similar in the four groups but not identical. We see in <xref ref="tbl-mlbHRPerABSummaryTable" />HRPerABSummaryTable that the standard deviation does not vary much from one group to the next.</p></li>
 </ul>
 
 
-<note>
+<assemblage>
   <title><term>Diagnostics for an ANOVA analysis.</term></title>
   <p>Independence is always important to an ANOVA analysis.</p>
   <p>The normality condition is important when the sample sizes for each group are relatively small (if the group sizes are large, the observations do not need to be normal but should also not contain any large outliers).</p>
   <p>The constant variance condition is especially important when the sample sizes differ between groups.</p>
-</note>
+</assemblage>
 
 
 <figure xml:id="fig-mlbANOVADiagNormalityGroups">
