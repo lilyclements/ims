@@ -562,7 +562,7 @@ It would be useful if we could quantify the strength of these linear relationshi
 </assemblage>
 
 <p>We can compute the correlation using a formula, just as we did with the sample mean and standard deviation.
-The formula for correlation, however, is rather complex[^07-model-slr-3], and like with other statistics, we generally perform the calculations on a computer or calculator.</p>
+The formula for correlation, however, is rather complex<fn>Formally, we can compute the correlation for observations <m>(x_1, y_1), (x_2, y_2), ..., (x_n, y_n)</m> using the formula</fn>, and like with other statistics, we generally perform the calculations on a computer or calculator.</p>
 
 <me>r = \frac{1}{n-1} \sum_{i=1}^{n} \frac{x_i-\bar{x}}{s_x}\frac{y_i-\bar{y}}{s_y}</me>
 
@@ -829,7 +829,7 @@ The following are three possible reasons to choose the least squares option inst
   <li><p>The analyses which link the model to inference about a population are most straightforward when the line is fit through least squares.</p></li>
 </ol>
 
-<p>The first two reasons are largely for tradition and convenience; the third and fourth reasons explain why the least squares criterion is typically most helpful when working with real data.[^07-model-slr-6]</p>
+<p>The first two reasons are largely for tradition and convenience; the third and fourth reasons explain why the least squares criterion is typically most helpful when working with real data <fn>There are applications where the sum of residual magnitudes may be more useful, and there are plenty of other criteria we might consider. However, this book only applies the least squares criterion.</fn>.</p>
 
 </subsection>
 
@@ -1134,9 +1134,10 @@ In short, there was a reduction of</p>
   <p><alert>Sums of squares to measure variability in</alert> <m>y.</m></p>
   <p>We can measure the variability in the <m>y</m> values by how far they tend to fall from their mean, <m>\bar{y}.</m> We define this value as the <alert>total sum of squares</alert><idx>total sum of squares</idx>, calculated using the formula below, where <m>y_i</m> represents each <m>y</m> value in the sample, and <m>\bar{y}</m> represents the mean of the <m>y</m> values in the sample.</p>
   <p><m>SST = (y_1 - \bar{y})^2 + (y_2 - \bar{y})^2 + \cdots + (y_n - \bar{y})^2.</m></p>
-  <p>Left-over variability in the <m>y</m> values if we know <m>x</m> can be measured by the <alert>sum of squared errors</alert><idx>sum of squared errors</idx>, or sum of squared residuals, calculated using the formula below, where <m>\hat{y}_i</m> represents the predicted value of <m>y_i</m> based on the least squares regression.[^07-model-slr-9],</p>
-<p> <m>SSE &amp;= (y_1 - \hat{y}_1)^2 + (y_2 - \hat{y}_2)^2 + \cdots + (y_n - \hat{y}_n)^2 </m></p>
-<p><m> &amp;= e_{1}^2 + e_{2}^2 + \dots + e_{n}^2</m></p>
+  <p>Left-over variability in the <m>y</m> values if we know <m>x</m> can be measured by the <alert>sum of squared errors</alert><idx>sum of squared errors</idx>, or sum of squared residuals, calculated using the formula below, where <m>\hat{y}_i</m> represents the predicted value of <m>y_i</m> based on the least squares regression.<fn>The difference <m>SST - SSE</m> is called the regression sum of squares (<m>SSR</m>).
+<m>SSR</m> represents the variation in <m>y</m> that was accounted for in our model.</fn>,</p>
+<p> <m>SSE = (y_1 - \hat{y}_1)^2 + (y_2 - \hat{y}_2)^2 + \cdots + (y_n - \hat{y}_n)^2 </m></p>
+<p><m> = e_{1}^2 + e_{2}^2 + \dots + e_{n}^2</m></p>
   <p>The coefficient of determination can then be calculated as</p>
   <p>
     <m>R^2 = \frac{SST - SSE}{SST} = 1 - \frac{SSE}{SST}</m>
@@ -1145,7 +1146,7 @@ In short, there was a reduction of</p>
 
 <example>
   <statement>
-    <p>Among 50 students in the <c>elmhurst</c> dataset, the total variability in gift aid is <m>SST = 1461</m>.[^07-model-slr-10]</p>
+    <p>Among 50 students in the <c>elmhurst</c> dataset, the total variability in gift aid is <m>SST = 1461</m>.<fn><m>SST</m> can be calculated by finding the sample variance of the outcome variable <m>s^2</m> and multiplying by <m>n-1</m>.</fn></p>
     <p>The sum of squared residuals is <m>SSE = 1098.</m> Find <m>R^2.</m></p>
   </statement>
   <solution>
