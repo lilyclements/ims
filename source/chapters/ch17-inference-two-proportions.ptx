@@ -616,6 +616,11 @@ First, we require a broader independence condition, and secondly, the success-fa
         The number of current smokers in each group was reported as Asian-Indian (n = 223), Chinese (n = 279), Filipino (n = 609), and non-Hispanic Whites (n = 50,880).
         <xref ref="biblio-Rao-2021" />
         To determine whether the proportion of Asian-Indian Americans who are current smokers is different from the proportion of Chinese Americans who are smokers, a randomization simulation was performed.
+        <figure xml:id="fig-ex17-01">
+        <image source="images/exercises/_17-ex-inference-two-props-01.png" width="70%">
+          <description>Histogram of 1,000 randomized differences in proportions for Asian-Indian vs Chinese smoking rates</description>
+        </image>
+        </figure>
         In both words and symbols provide the parameter and statistic of interest for this study.
         Do you know the numerical value of either the parameter or statistic of interest?
         If so, provide the numerical value.
@@ -630,8 +635,13 @@ First, we require a broader independence condition, and secondly, the success-fa
         <alert>Malaria vaccine effectiveness, hypothesis test.</alert>With no currently licensed vaccines to inhibit malaria, good news was welcomed with a recent study reporting long-awaited vaccine success for children in Burkina Faso.
         With 450 children randomized to either one of two different doses of the malaria vaccine or a control vaccine, 89 of 292 malaria vaccine and 106 out of 147 control vaccine children contracted malaria within 12 months after the treatment.
         <xref ref="biblio-Datoo-2021" />
+        <figure xml:id="fig-ex17-02">
+        <image source="images/exercises/_17-ex-inference-two-props-02.png" width="70%">
+          <description>Histogram of 1,000 randomized differences in proportions for malaria vaccine effectiveness</description>
+        </image>
+        </figure>
         In both words and symbols provide the parameter and statistic of interest for this study.
-        Do you know the numerical value of either the parameter or statisic of interest?
+        Do you know the numerical value of either the parameter or statistic of interest?
         If so, provide the numerical value.
         The histogram above provides the sampling distribution (under randomization) for <m>\hat{p}_{malaria} - \hat{p}_{control}</m> under repeated null randomizations (<m>\hat{p}</m> is the proportion of children in the sample who contracted malaria).
         Estimate the standard error of <m>\hat{p}_{malaria} - \hat{p}_{control}</m> based on the randomization histogram.
@@ -644,6 +654,11 @@ First, we require a broader independence condition, and secondly, the success-fa
         <alert>Disaggregating Asian American tobacco use, confidence interval.</alert>Based on a study on the degree to which smoking practices differ across ethnic groups.
         a confidence interval for the difference in current smoking status for Filipino versus Chinese Americans is desired.
         <xref ref="biblio-Rao-2021" />
+        <figure xml:id="fig-ex17-03">
+        <image source="images/exercises/_17-ex-inference-two-props-03.png" width="70%">
+          <description>Histogram of 1,000 bootstrapped differences in proportions for Filipino vs Chinese smoking rates</description>
+        </image>
+        </figure>
         Consider the bootstrap distribution of difference in sample proportions of current smokers (Filipino Americans minus Chinese Americans) in 1,000 bootstrap repetitions as above.
         Estimate the standard error of the difference in sample proportions, as seen in the histogram.
         Using the standard error from the bootstrap distribution, find a 95% bootstrap SE confidence interval for the true difference in proportion of current smokers (Filipino Americans minus Chinese Americans) in the population.
@@ -657,6 +672,11 @@ First, we require a broader independence condition, and secondly, the success-fa
         <alert>Malaria vaccine effectiveness, confidence interval.</alert>With no currently licensed vaccines to inhibit malaria, good news was welcomed with a recent study reporting long-awaited vaccine success for children in Burkina Faso.
         With 450 children randomized to either one of two different doses of the malaria vaccine or a control vaccine, 89 of 292 malaria vaccine and 106 out of 147 control vaccine children contracted malaria within 12 months after the treatment.
         <xref ref="biblio-Datoo-2021" />
+        <figure xml:id="fig-ex17-04">
+        <image source="images/exercises/_17-ex-inference-two-props-04.png" width="70%">
+          <description>Histogram of 1,000 bootstrapped differences in proportions for malaria vaccine effectiveness</description>
+        </image>
+        </figure>
         Consider the bootstrap distribution of difference in sample proportions of children who contracted malaria (malaria vaccine minus control vaccine) in 1000 bootstrap repetitions as above.
         Estimate the standard error of the difference in sample proportions, as seen in the histogram.
         Using the standard error from the bootstrap distribution, find a 95% bootstrap SE confidence interval for the true difference in proportion of children who contract malaria (malaria vaccine minus control vaccine) in the population.
@@ -671,6 +691,11 @@ First, we require a broader independence condition, and secondly, the success-fa
         The poll found that 51% of the bachelor's degree students and 44% of associate degree students said that the COVID-19 pandemic will negatively impact their ability to complete the degree.
         <xref ref="biblio-data-gallupcollegeimpact" />
         Below are two histograms generated with different computational approaches (both use 1,000 repetitions) to research questions which could be asked of these data.
+        <figure xml:id="fig-ex17-05">
+        <image source="images/exercises/_17-ex-inference-two-props-05.png" width="90%">
+          <description>Two histograms showing bootstrap (Method A) and permutation (Method B) distributions for COVID-19 degree completion survey</description>
+        </image>
+        </figure>
         One of the histograms can be used to do a randomization test on whether the proportions of bachelor's and associate students who think the COVID-19 pandemic will negatively impact their ability to complete the degree.
         The other histogram is a bootstrap distribution used to quantify the difference in the proportions of bachelor's and associate's students who feel this way.
         Are the center and standard error of the two graphs approximately the same?
@@ -685,6 +710,11 @@ First, we require a broader independence condition, and secondly, the success-fa
         31% of Republicans and 81% of Democrats said "government regulations are necessary to encourage businesses and consumers to rely more on renewable energy sources".
         <xref ref="biblio-data-gallupcollegeimpact" />
         Below are two histograms generated with different computational approaches (both use 1,000 repetitions) to research questions which could be asked of these data.
+        <figure xml:id="fig-ex17-06">
+        <image source="images/exercises/_17-ex-inference-two-props-06.png" width="90%">
+          <description>Two histograms showing permutation (Method A) and bootstrap (Method B) distributions for renewable energy survey</description>
+        </image>
+        </figure>
         One of the histograms can be used to do a randomization test on whether the proportions of Republicans and Democrats who think government regulations are necessary to encourage businesses and consumers to rely more on renewable energy sources are different.
         The other histogram is a bootstrap distribution used to quantify the difference in the proportions of Republicans and Democrats who agree with this statement.
         Are the center and standard error of the two graphs approximately the same?
@@ -769,6 +799,11 @@ First, we require a broader independence condition, and secondly, the success-fa
         <alert>Is yawning contagious?</alert>An experiment conducted by the MythBusters, a science entertainment TV program on the Discovery Channel, tested if a person can be subconsciously influenced into yawning if another person near them yawns.
         50 people were randomly assigned to two groups: 34 to a group where a person near them yawned (treatment) and 16 to a group where there wasn't a person yawning near them (control).
         The visualization below displays how many participants yawned in each group.[^_17-ex-inference-two-props-1]
+        <figure xml:id="fig-ex17-13">
+        <image source="images/exercises/_17-ex-inference-two-props-13.png" width="70%">
+          <description>Stacked bar chart showing yawning outcomes for treatment and control groups</description>
+        </image>
+        </figure>
         Suppose we are interested in estimating the difference in yawning rates between the control and treatment groups using a confidence interval.
         Explain why we cannot construct such an interval using the normal approximation.
         What might go wrong if we constructed the confidence interval despite this problem?
@@ -782,6 +817,11 @@ First, we require a broader independence condition, and secondly, the success-fa
         Patients were randomly assigned into treatment and control groups.
         Patients in the treatment group received a transplant, and those in the control group did not.
         The visualization below displays how many patients survived and died in each group.[^_17-ex-inference-two-props-2]
+        <figure xml:id="fig-ex17-14">
+        <image source="images/exercises/_17-ex-inference-two-props-14.png" width="70%">
+          <description>Stacked bar chart showing survival outcomes for heart transplant treatment and control groups</description>
+        </image>
+        </figure>
         [@Turnbull-Brown-Hu-1974]
         Suppose we are interested in estimating the difference in survival rate between the control and treatment groups using a confidence interval.
         Explain why we cannot construct such an interval using the normal approximation.
