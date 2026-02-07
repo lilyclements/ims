@@ -513,9 +513,8 @@ To get a better estimate, we use the adjusted <m>R^2</m>.</p>
   <p>The <alert>adjusted R-squared</alert> is computed as</p>
 
   <p><m>R_{adj}^{2}</m></p>
-  <p><m>&amp;= 1 - \frac{s_{\text{residuals}}^2 / (n-k-1)}</m></p>
-  <p><m>{s_{\text{outcome}}^2 / (n-1)} = 1 - \frac{s_{\text{residuals}}^2}{s_{\text{outcome}}^2}</m></p>
-  <p><m>\times \frac{n-1}{n-k-1}</m></p>
+  <p><m>= 1 - \frac{s_{\text{residuals}}^2 / (n-k-1)}</m></p>
+  <p><m>{s_{\text{outcome}}^2 / (n-1)} = 1 - \frac{s_{\text{residuals}}^2}{s_{\text{outcome}}^2} \times \frac{n-1}{n-k-1}</m></p>
 
   <p>where <m>n</m> is the number of observations used to fit the model and <m>k</m> is the number of predictor variables in the model.</p>
 
