@@ -222,6 +222,9 @@
       <figure xml:id="fig-ex24-14-20">
         <image source="images/exercises/_24-ex-inf-model-slr-14-20.png" width="90%"/>
       </figure>
+      <figure xml:id="fig-ex24-14-21">
+        <image source="images/exercises/_24-ex-inf-model-slr-14-21.png" width="90%"/>
+      </figure>
       <p><ol marker="a.">
         <li>Using the histogram, approximate the standard error of the slope statistic (that is, quantify the variability of the slope statistic from sample to sample).</li>
         <li>Find a 90% bootstrap SE confidence interval for the slope parameter.</li>
@@ -234,8 +237,8 @@
     <title>Murders and poverty, conditions</title>
     <statement>
       <p>The scatterplot below shows the annual murders per million vs. percentage living in poverty in a random sample of 20 metropolitan areas. The second figure plots residuals on the y-axis and percent living in poverty on the x-axis.</p>
-      <figure xml:id="fig-ex24-15-21">
-        <image source="images/exercises/_24-ex-inf-model-slr-15-21.png" width="90%"/>
+      <figure xml:id="fig-ex24-15-22">
+        <image source="images/exercises/_24-ex-inf-model-slr-15-22.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
         <li>For these data, <m>R^2</m> is 70.56%. What is the value of the correlation coefficient? How can you tell if it is positive or negative?</li>
@@ -248,8 +251,8 @@
     <title>I heart cats</title>
     <statement>
       <p>Researchers collected data on heart and body weights of 144 domestic adult cats. The table below shows the output of a linear model predicting heart weight (measured in grams) from body weight (measured in kilograms) of these cats.</p>
-      <figure xml:id="fig-ex24-16-22">
-        <image source="images/exercises/_24-ex-inf-model-slr-16-22.png" width="90%"/>
+      <figure xml:id="fig-ex24-16-23">
+        <image source="images/exercises/_24-ex-inf-model-slr-16-23.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
         <li>What are the hypotheses for evaluating whether body weight is positively associated with heart weight in cats?</li>
@@ -264,8 +267,8 @@
     <title>Beer and blood alcohol content</title>
     <statement>
       <p>Many people believe that weight, drinking habits, and many other factors are much more important in predicting blood alcohol content (BAC) than simply considering the number of drinks a person consumed. Here we examine data from sixteen student volunteers at Ohio State University who each drank a randomly assigned number of cans of beer. These students were evenly divided between men and women, and they differed in weight and drinking habits. Thirty minutes later, a police officer measured their blood alcohol content (BAC) in grams of alcohol per deciliter of blood. The scatterplot and regression table summarize the findings.</p>
-      <figure xml:id="fig-ex24-17-23">
-        <image source="images/exercises/_24-ex-inf-model-slr-17-23.png" width="90%"/>
+      <figure xml:id="fig-ex24-17-24">
+        <image source="images/exercises/_24-ex-inf-model-slr-17-24.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
         <li>Describe the relationship between the number of cans of beer and BAC.</li>
@@ -281,8 +284,8 @@
     <title>Urban homeowners, conditions</title>
     <statement>
       <p>The scatterplot below shows the percent of families who own their home vs. the percent of the population living in urban areas. <xref ref="data-urbanOwner" /> There are 52 observations, each corresponding to a state in the US. Puerto Rico and District of Columbia are also included. The second figure plots residuals on the y-axis and percent of the population living in urban areas on the x-axis.</p>
-      <figure xml:id="fig-ex24-18-24">
-        <image source="images/exercises/_24-ex-inf-model-slr-18-24.png" width="90%"/>
+      <figure xml:id="fig-ex24-18-25">
+        <image source="images/exercises/_24-ex-inf-model-slr-18-25.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
         <li>For these data, <m>R^2</m> is 29.16%. What is the value of the correlation coefficient? How can you tell if it is positive or negative?</li>
@@ -295,8 +298,8 @@
     <title>I heart cats, LINE conditions</title>
     <statement>
       <p>Researchers collected data on heart and body weights of 144 domestic adult cats. The figure below shows the output of the predicted values and residuals generated from a linear model predicting heart weight (measured in grams) from body weight (measured in kilograms) of these cats.</p>
-      <figure xml:id="fig-ex24-19-25">
-        <image source="images/exercises/_24-ex-inf-model-slr-19-25.png" width="90%"/>
+      <figure xml:id="fig-ex24-19-26">
+        <image source="images/exercises/_24-ex-inf-model-slr-19-26.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
         <li>Examine the residual plot. Notice that for the small predicted values the residuals have a smaller magnitude than the larger residuals seen with the larger predicted values. The change in magnitude of the residuals across the predicted values is an indication of violation of which LINE technical condition?</li>
@@ -309,8 +312,8 @@
     <title>Beer and blood alcohol content, LINE conditions</title>
     <statement>
       <p>The figure below shows the output of the predicted values and residuals generated from a linear model predicting the blood alcohol content (BAC) from number of cans of beer drunk by sixteen student volunteers at Ohio State University. <xref ref="Malkevitc-Lesser-2008" /></p>
-      <figure xml:id="fig-ex24-20-26">
-        <image source="images/exercises/_24-ex-inf-model-slr-20-26.png" width="90%"/>
+      <figure xml:id="fig-ex24-20-27">
+        <image source="images/exercises/_24-ex-inf-model-slr-20-27.png" width="90%"/>
       </figure>
       <p><ol marker="a.">
         <li>Examine the residual plot. Notice that it is difficult to identify any convincing patterns for or against violation of the LINE technical conditions. What is it about the residual plot that makes it difficult to assess the LINE technical conditions?</li>
