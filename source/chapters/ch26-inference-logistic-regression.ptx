@@ -6,7 +6,6 @@
 <introduction>
   <p>Combining ideas from <xref ref="sec-model-logistic" /> on logistic regression, <xref ref="sec-foundations-mathematical" /> on inference with mathematical models, and <xref ref="ch24-inference-linear-regression-single" /> and <xref ref="ch25-inference-linear-regression-multiple" /> which apply inferential techniques to the linear model, we wrap up the book by considering inferential methods applied to a logistic regression model.</p>
   <p>Additionally, we use cross-validation as a method for independent assessment of the logistic regression model.</p>
-</introduction>
 
 <p>As with multiple linear regression, the inference aspect for logistic regression will focus on interpretation of coefficients and relationships between explanatory variables. Both p-values and cross-validation will be used for assessing a logistic regression model.</p>
 
@@ -58,6 +57,7 @@ email_variables |&gt;
     </input>
   </program>
 </listing>
+</introduction>
 
 
 <section xml:id="sec-model-diagnostics">
@@ -65,14 +65,12 @@ email_variables |&gt;
 
 <p>Before looking at the hypothesis tests associated with the coefficients (turns out they are very similar to those in linear regression!), it is valuable to understand the technical conditions that underlie the inference applied to the logistic regression model. Generally, as you've seen in the logistic regression modeling examples, it is imperative that the response variable is binary. Additionally, the key technical condition for logistic regression has to do with the relationship between the predictor variables (<m>x_i</m> values) and the probability the outcome will be a success. It turns out, the relationship is a specific functional form called a logit function, where <m>{\rm logit}(p) = \log_e(\frac{p}{1-p}).</m> The function may feel complicated, and memorizing the formula of the logit is not necessary for understanding logistic regression. What you do need to remember is that the probability of the outcome being a success is a function of a linear combination of the explanatory variables.</p>
 
-<note>
-  <title>Important</title>
-  <p><alert>Logistic regression conditions.</alert></p>
-  <p></p>
+<assemblage>
+  <title>Logistic regression conditions</title>
   <p>There are two key conditions for fitting a logistic regression model:</p>
   <p>1.  Each outcome <m>Y_i</m> is independent of the other outcomes.</p>
   <p>2.  Each predictor <m>x_i</m> is linearly related to logit<m>(p_i)</m> if all other predictors are held constant.</p>
-</note>
+</assemblage>
 
 <p>The first logistic regression model condition --- independence of the outcomes --- is reasonable if we can assume that the emails that arrive in an inbox within a few months are independent of each other with respect to whether they're spam or not.</p>
 
@@ -112,6 +110,11 @@ ggplot(spam_pred, aes(x = .pred_1, y = spam)) +
     </input>
   </program>
 </listing>
+
+<figure xml:id="fig-26-1">
+  <caption>The predicted probability that each of the 3921 emails are spam. Points have been jittered so that those with nearly identical values aren’t plotted exactly on top of one another.</caption>
+  <image source="images/fig-26-1.png" width="90%" />
+</figure>
 
 <p>We'd like to assess the quality of the model. For example, we might ask: if we look at emails that we modeled as having 10% chance of being spam, do we find out 10% of them actually are spam? We can check this for groups of the data by constructing a plot as follows:</p>
 
@@ -238,7 +241,12 @@ par(par_og) # restore original par
   </program>
 </listing>
 
-<p>A plot like <xref ref="fig-logisticModelBucketDiag" /> helps to better understand the deviations. Additional diagnostics may be created that are similar to those featured in <xref ref="sec-tech-cond-linmod" />. For instance, we could compute residuals as the observed outcome minus the expected outcome (<m>e_i = Y_i - \hat{p}_i</m>), and then we could create plots of these residuals against each predictor.</p>
+<figure xml:id="fig-26-2">
+  <caption>A reconfiguration of the figure above. Again, the predicted probabilities are on the x-axis and the truth is on the y-axis for each email. After data have been bucketed into predicted probability groups, the proportion of spam emails (i.e., the observed probability) is given by the black circles. The dashed line is within the confidence bound of the 95% confidence intervals for many of the buckets, suggesting the logistic fit is reasonable.</caption>
+  <image source="images/fig-26-2.png" width="90%" />
+</figure>
+
+<p>A plot like <xref ref="fig-26-2" /> helps to better understand the deviations. Additional diagnostics may be created that are similar to those featured in <xref ref="sec-tech-cond-linmod" />. For instance, we could compute residuals as the observed outcome minus the expected outcome (<m>e_i = Y_i - \hat{p}_i</m>), and then we could create plots of these residuals against each predictor.</p>
 
 <p></p>
 
@@ -249,11 +257,11 @@ par(par_og) # restore original par
 
 <p>As you learned in <xref ref="sec-model-mlr" />, optimization can be used to find the coefficient estimates for the logistic model. The unknown population model can be written as:</p>
 
-<me>\begin{aligned}\log_e\bigg(\frac{p}{1-p}\bigg) = \beta_0 &amp;+ \beta_1 \times \texttt{to\_multiple}\\&amp;+ \beta_2 \times \texttt{cc} \\&amp;+ \beta_3 \times \texttt{dollar}\\&amp;+ \beta_4 \times \texttt{urgent\_subj}\end{aligned}</me>
+<me>\begin{aligned}\log_e\bigg(\frac{p}{1-p}\bigg) = \beta_0 &amp;+ \beta_1 \times \texttt{to_multiple}\\&amp;+ \beta_2 \times \texttt{cc} \\&amp;+ \beta_3 \times \texttt{dollar}\\&amp;+ \beta_4 \times \texttt{urgent_subj}\end{aligned}</me>
 
 <p>The estimated equation for the regression model may be written as a model with four predictor variables, where <m>\hat{p}</m> is the estimated probability of being a spam email message:</p>
 
-<me>\begin{aligned}\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) = -2.05 &amp;-1.91 \times \texttt{to\_multiple}\\&amp;+ 0.02 \times \texttt{cc} \\&amp;- 0.07 \times \texttt{dollar}\\&amp;+ 2.66 \times \texttt{urgent\_subj}\end{aligned}</me>
+<me>\begin{aligned}\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) = -2.05 &amp;-1.91 \times \texttt{to_multiple}\\&amp;+ 0.02 \times \texttt{cc} \\&amp;- 0.07 \times \texttt{dollar}\\&amp;+ 2.66 \times \texttt{urgent_subj}\end{aligned}</me>
 
 <listing xml:id="tbl-emaillogmodel">
   <caption>Summary of a logistic model for predicting whether an email is spam based on the variables to_multiple, cc, dollar, and urgent_subj. Each of the variables has its own coefficient estimate and p-value.</caption>
@@ -314,7 +322,7 @@ glm(spam ~ to_multiple + cc + dollar + urgent_subj, data = email, family = "bino
 
 <p><alert>The smaller model:</alert></p>
 
-<me>\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) =  -2.12 + -1.81 \times \texttt{to\_multiple}</me>
+<me>\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) =  -2.12 + -1.81 \times \texttt{to_multiple}</me>
 
 <listing xml:id="tbl-emaillogmodel1">
   <caption>The smaller model. Summary of a logistic model for predicting whether an email is spam based on only the predictor variable to_multiple. Each of the variables has its own coefficient estimate and p-value.</caption>
@@ -393,7 +401,7 @@ logCV1 |&gt;
 
 <p><alert>The larger model:</alert></p>
 
-<me>\begin{aligned}\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) = -0.34 &amp;- 2.56 \times \texttt{to\_multiple} + 0.20 \times \texttt{attach} + 1.73 \times \texttt{winner}_{yes} \\&amp;- 1.28 \times \texttt{format} - 2.86 \times \texttt{re\_subj} + 0.00 \times \texttt{exclaim\_mess} \\&amp;- 1.07 \times \texttt{number}_{small} - 0.42 \times \texttt{number}_{big}\end{aligned}</me>
+<me>\begin{aligned}\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) = -0.34 &amp;- 2.56 \times \texttt{to_multiple} + 0.20 \times \texttt{attach} + 1.73 \times \texttt{winner}_{yes} \\&amp;- 1.28 \times \texttt{format} - 2.86 \times \texttt{re_subj} + 0.00 \times \texttt{exclaim_mess} \\&amp;- 1.07 \times \texttt{number}_{small} - 0.42 \times \texttt{number}_{big}\end{aligned}</me>
 
 <listing xml:id="tbl-emaillogmodel2">
   <caption>The larger model. Summary of a logistic model for predicting whether an email is spam based on the variables <c>to_multiple</c>, <c>attach</c>, <c>winner</c>, <c>format</c>, <c>re_subj</c>, <c>exclaim_mess</c>, and <c>number</c>. Each of the variables has its own coefficient estimate and p-value.</caption>
@@ -518,19 +526,8 @@ logCV2 |&gt;
 <subsection xml:id="subsec-terms-ch26">
   <title>Terms</title>
 
-<p>The terms introduced in this chapter are presented in <xref ref="tbl-terms-chp-26" />. If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions. You should be able to easily spot them as <alert>bolded text</alert>.</p>
-
-<listing xml:id="tbl-terms-chp-26">
-  <caption>Terms introduced in this chapter.</caption>
-  <program language="r">
-    <input>
-#| label: tbl-terms-chp-26
-#| tbl-cap: Terms introduced in this chapter.
-#| tbl-pos: H
-make_terms_table(terms_chp_26)
-    </input>
-  </program>
-</listing>
+<p>The terms introduced in this chapter are given below. If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions. You should be able to easily spot them as <alert>bolded text</alert>.</p>
+<p> accuracy, inference on logistic regression, technical conditions, cross-validation, multiple predictors</p>
 
 </subsection>
 
@@ -587,16 +584,16 @@ make_terms_table(terms_chp_26)
         </row>
         <row>
           <cell>(Intercept)</cell>
-          <cell right="minor">-3.912</cell>
-          <cell>0.365</cell>
-          <cell>-10.724</cell>
-          <cell>&lt;0.0001</cell>
+          <cell right="minor">-0.405</cell>
+          <cell>0.133</cell>
+          <cell>-3.04</cell>
+          <cell>0.0023</cell>
         </row>
         <row>
           <cell>parentsUsed</cell>
-          <cell right="minor">2.183</cell>
-          <cell>0.436</cell>
-          <cell>5.008</cell>
+          <cell right="minor">0.791</cell>
+          <cell>0.194</cell>
+          <cell>4.09</cell>
           <cell>&lt;0.0001</cell>
         </row>
       </tabular>
@@ -623,17 +620,17 @@ make_terms_table(terms_chp_26)
         </row>
         <row>
           <cell>(Intercept)</cell>
-          <cell right="minor">2.357</cell>
-          <cell>0.093</cell>
-          <cell>25.376</cell>
+          <cell right="minor">2.431</cell>
+          <cell>0.135</cell>
+          <cell>18.05</cell>
           <cell>&lt;0.0001</cell>
         </row>
         <row>
           <cell>grouptreatment</cell>
-          <cell right="minor">0.044</cell>
-          <cell>0.130</cell>
-          <cell>0.336</cell>
-          <cell>0.7367</cell>
+          <cell right="minor">0.395</cell>
+          <cell>0.210</cell>
+          <cell>1.89</cell>
+          <cell>0.0594</cell>
         </row>
       </tabular>
     </table>
@@ -656,9 +653,19 @@ make_terms_table(terms_chp_26)
     <p>
       Model 1: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{tail_l}</m>
     </p>
+
+<figure xml:id="fig-ex-7">
+  <image source="images/fig-ex-7.png" width="90%" />
+</figure>
+
     <p>
       Model 2: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{total_l} + \beta_2 \times \text{sex}</m>
     </p>
+
+<figure xml:id="fig-ex-7-1">
+  <image source="images/fig-ex-7-1.png" width="90%" />
+</figure>
+
     <p>
       The confusion matrices for each fold are shown in the figures (referenced in the original exercise but not reproduced here in detail).
     </p>
@@ -685,9 +692,15 @@ make_terms_table(terms_chp_26)
     <p>
       Model 1: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{mage} + \beta_2 \times \text{weight} + \beta_3 \times \text{mature} + \beta_4 \times \text{visits} + \beta_5 \times \text{gained} + \beta_6 \times \text{habit}</m>
     </p>
+<figure xml:id="fig-ex-6">
+  <image source="images/fig-ex-6.png" width="90%" />
+</figure>
     <p>
       Model 2: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{weight} + \beta_2 \times \text{mature}</m>
     </p>
+<figure xml:id="fig-ex-6-1">
+  <image source="images/fig-ex-6-1.png" width="90%" />
+</figure>
     <p>
       The confusion matrices for each fold are shown in the figures (referenced in the original exercise but not reproduced here in detail).
     </p>
@@ -715,9 +728,17 @@ make_terms_table(terms_chp_26)
     <p>
       Model 1: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{tail_l}</m>
     </p>
+<figure xml:id="fig-ex-5">
+  <image source="images/fig-ex-5.png" width="90%" />
+</figure>
+
     <p>
       Model 2: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{total_l} + \beta_2 \times \text{sex}</m>
     </p>
+<figure xml:id="fig-ex-5-1">
+  <image source="images/fig-ex-5-1.png" width="90%" />
+</figure>
+
     <p>
       The confusion matrices for each fold are shown in the figures (referenced in the original exercise but not reproduced here in detail).
     </p>
@@ -745,9 +766,15 @@ make_terms_table(terms_chp_26)
     <p>
       Model 1: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{mage} + \beta_2 \times \text{weight} + \beta_3 \times \text{mature} + \beta_4 \times \text{visits} + \beta_5 \times \text{gained} + \beta_6 \times \text{habit}</m>
     </p>
+<figure xml:id="fig-ex-8">
+  <image source="images/fig-ex-8.png" width="90%" />
+</figure>
     <p>
       Model 2: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{weight} + \beta_2 \times \text{mature}</m>
     </p>
+<figure xml:id="fig-ex-8-1">
+  <image source="images/fig-ex-8-1.png" width="90%" />
+</figure>
     <p>
       The confusion matrices for each fold are shown in the figures (referenced in the original exercise but not reproduced here in detail).
     </p>
