@@ -1032,23 +1032,11 @@ There is often no perfect or "right" final model, however, using the adjusted <m
 <subsection>
   <title>Terms</title>
 
-<p>The terms introduced in this chapter are presented in <xref ref="tbl-terms-chp-08" />.</p>
+<p>The terms introduced in this chapter are: adjusted R-squared, forward selection, parsimonious, backward elimination, full model, reference level, collinear, multicollinearity, stepwise selection, degrees of freedom, multiple regression.</p>
 
 <p>If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions.</p>
 
 <p>You should be able to easily spot them as <alert>bolded text</alert>.</p>
-
-<listing xml:id="tbl-terms-chp-08">
-  <caption>Terms introduced in this chapter</caption>
-  <!-- Terms introduced in this chapter. tbl-pos: H -->
-  <program language="r">
-    <code>
-<![CDATA[
-make_terms_table(terms_chp_08)
-]]>
-    </code>
-  </program>
-</listing>
 
 </subsection>
 
