@@ -797,24 +797,13 @@ SE \amp= \sqrt{\frac{5.17^2}{9} + \frac{2.76^2}{9}} = 1.95
 
   <p>The terms introduced in this chapter are presented in <xref ref="tbl-terms-chp-20"/>. If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions. You should be able to easily spot them as <alert>bolded text</alert>.</p>
 
-
-<listing xml:id="tbl-terms-chp-20">
-  <caption>Terms introduced in this chapter.</caption>
-  <program language="r">
-    <code>
-make_terms_table(terms_chp_20)
-    </code>
-  </program>
-</listing>
-
 <table>
   <title>Terms introduced in this chapter.</title>
   <tabular>
-    <row><cell>point estimate</cell></row>
+    <row><cell>point estimate, difference in means, SE difference in means</cell></row>
+    <row><cell> t-CI, point estimate, T score, t-test</cell></row>
   </tabular>
 </table>
-
-
 
 </subsection>
 
@@ -823,10 +812,7 @@ make_terms_table(terms_chp_20)
 <section xml:id="sec-chp20-exercises">
   <title>Exercises</title>
 
-
-  <p>Answers to odd-numbered exercises can be found in ... .</p>
-
-
+  <p>Answers to odd-numbered exercises can be found in <xref ref="sec-exercise-solutions-20" />.</p>
 <xi:include href="../exercises/_20-ex-inference-two-means.ptx"/>
 
 </section>
