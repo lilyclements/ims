@@ -24,6 +24,11 @@
     <title>Diamonds, randomization test</title>
     <statement>
       <p>The prices of diamonds go up as the carat weight increases, but the increase is not smooth. For example, the difference between the size of a 0.99 carat diamond and a 1 carat diamond is undetectable to the naked human eye, but the price of a 1 carat diamond tends to be much higher than the price of a 0.99 carat diamond. We have two random samples of diamonds: 23 0.99 carat diamonds and 23 1 carat diamonds. In order to be able to compare equivalent units, we first divide the price for each diamond by 100 times its weight in carats. That is, for a 0.99 carat diamond, we divide the price by 99 and for a 1 carat diamond, we divide it by 100. Then, we randomize the carat weight to the price values in order simulate the null distribution of differences in average prices of 0.99 carat and 1 carat diamonds. The null distribution (with 1,000 randomized differences) is shown below and depicts the distribution of differences in sample means (of price per carat) if there really was no difference in the population from which these diamonds came.</p>
+      <figure xml:id="fig-20-ex-diamonds-randomization">
+        <image source="images/exercises/_20-ex-inference-two-means-03.png" width="70%">
+          <description>Histogram showing 1,000 randomized differences in means of diamond prices per carat</description>
+        </image>
+      </figure>
       <p>Using the randomization distribution, conduct a hypothesis test to evaluate if there is a difference between the prices per carat of diamonds that weigh 0.99 carats and diamonds that weigh 1 carat. Make sure to state your hypotheses clearly and interpret your results in context of the data.</p>
     </statement>
     <solution>
@@ -35,6 +40,11 @@
     <title>Lizards running, randomization test</title>
     <statement>
       <p>In order to assess physiological characteristics of common lizards, data on top speeds (in m/sec) measured on a laboratory race track for two species of lizards: Western fence lizard (Sceloporus occidentalis) and Sagebrush lizard (Sceloporus graciosus). The original observed difference in lizard speeds is <m>\bar{x}_{Western fence} - \bar{x}_{Sagebrush} = 0.7 \mbox{m/sec}.</m> The histogram below shows the distribution of average differences when speed has been randomly allocated across lizard species 1,000 times. Using the randomization distribution, conduct a hypothesis test to evaluate if there is a difference between the average speed of the Western fence lizard as compared to the Sagebrush lizard. Make sure to state your hypotheses clearly and interpret your results in context of the data.</p>
+      <figure xml:id="fig-20-ex-lizards-randomization">
+        <image source="images/exercises/_20-ex-inference-two-means-04.png" width="70%">
+          <description>Histogram showing 1,000 randomized differences in means of lizard running speeds</description>
+        </image>
+      </figure>
     </statement>
   </exercise>
 
@@ -42,6 +52,11 @@
     <title>Diamonds, bootstrap interval</title>
     <statement>
       <p>We have data on two random samples of diamonds: 23 0.99 carat diamonds and 23 1 carat diamonds. Provided below is a histogram of bootstrap differences in means of price per carat of diamonds that weigh 0.99 carats and diamonds that weigh 1 carat.</p>
+      <figure xml:id="fig-20-ex-diamonds-bootstrap">
+        <image source="images/exercises/_20-ex-inference-two-means-05.png" width="70%">
+          <description>Histogram showing 1,000 bootstrapped differences in means of diamond prices per carat</description>
+        </image>
+      </figure>
       <p><ol marker="a.">
         <li>Using the bootstrap distribution, create a (rough) 95% bootstrap percentile confidence interval for the true population difference in prices per carat of diamonds that weigh 0.99 carats and 1 carat.</li>
         <li>Using the bootstrap distribution, create a (rough) 95% bootstrap SE confidence interval for the true population difference in prices per carat of diamonds that weigh 0.99 carats and 1 carat. Note that the standard error of the bootstrap distribution is 4.64.</li>
@@ -59,6 +74,11 @@
     <title>Lizards running, bootstrap interval</title>
     <statement>
       <p>We have data on top speeds (in m/sec) measured on a laboratory race track for two species of lizards: Western fence lizard (Sceloporus occidentalis) and Sagebrush lizard (Sceloporus graciosus). The bootstrap distribution below describes the variability of difference in means captured from 1,000 bootstrap samples of the lizard data.</p>
+      <figure xml:id="fig-20-ex-lizards-bootstrap">
+        <image source="images/exercises/_20-ex-inference-two-means-06.png" width="70%">
+          <description>Histogram showing 1,000 bootstrapped differences in means of lizard running speeds</description>
+        </image>
+      </figure>
       <p><ol marker="a.">
         <li>Using the bootstrap distribution, create a (rough) 90% percentile bootrap confidence interval for the true population difference in average speed of the Western fence lizard as compared with Sagebrush lizard.</li>
         <li>Using the bootstrap distribution, create a (rough) 90% bootstrap SE confidence interval for the true population difference in average speed of the Western fence lizard as compared with Sagebrush lizard.</li>
@@ -80,6 +100,11 @@
     <title>Possible randomized means</title>
     <statement>
       <p>Data were collected on data from two groups (A and B). There were 3 measurements taken on Group A and two measurements in Group B.</p>
+      <figure xml:id="fig-20-ex-possible-randomized-means">
+        <image source="images/exercises/_20-ex-inference-two-means-08.png" width="50%">
+          <description>Table showing measurements for Groups A and B</description>
+        </image>
+      </figure>
       <p>If the data are (repeatedly) randomly allocated across the two conditions, provide the following: (1) the values which are assigned to group A, (2) the values which are assigned to group B, and (3) the difference in averages <m>(\bar{x}_A - \bar{x}_B)</m> for each of the following:</p>
       <p><ol marker="a.">
         <li>When the randomized difference in averages is as large as possible.</li>
@@ -94,6 +119,11 @@
     <title>Diamonds, mathematical test</title>
     <statement>
       <p>We have data on two random samples of diamonds: one with diamonds that weigh 0.99 carats and one with diamonds that weigh 1 carat. Each sample has 23 diamonds. Sample statistics for the price per carat of diamonds in each sample are provided below. Conduct a hypothesis test using a mathematical model to evaluate if there is a difference between the prices per carat of diamonds that weigh 0.99 carats and diamonds that weigh 1 carat Make sure to state your hypotheses clearly, check relevant conditions, and interpret your results in context of the data.</p>
+      <figure xml:id="fig-20-ex-diamonds-mathematical-test">
+        <image source="images/exercises/_20-ex-inference-two-means-09.png" width="90%">
+          <description>Table of summary statistics and boxplot for diamond prices by carat</description>
+        </image>
+      </figure>
     </statement>
     <solution>
       <p><m>H_0: \mu_{0.99} = \mu_{1}</m> and <m>H_A: \mu_{0.99} \ne \mu_{1}</m>. Independence: Both samples are random and represent less than 10% of their respective populations. Also, we have no reason to think that the 0.99 carats are not independent of the 1 carat diamonds since they are both sampled randomly. Normality: The distributions are not extremely skewed, hence we can assume that the distribution of the average differences will be nearly normal as well. <m>T_{22} = -2.7</m>, p-value = 0.0131. Since p-value less than 0.05, reject <m>H_0</m>. The data provide convincing evidence that the difference in population averages of price per carat of 0.99 carats and 1 carat diamonds are different.</p>
@@ -111,6 +141,11 @@
     <title>Diamonds, mathematical interval</title>
     <statement>
       <p>We have data on two random samples of diamonds: one with diamonds that weigh 0.99 carats and one with diamonds that weigh 1 carat. Each sample has 23 diamonds. Sample statistics for the price per carat of diamonds in each sample are provided below. Assuming that the conditions for conducting inference using a mathematical model are satisfied, construct a 95% confidence interval for the true population difference in prices per carat of diamonds that weigh 0.99 carats and 1 carat.</p>
+      <figure xml:id="fig-20-ex-diamonds-mathematical-interval">
+        <image source="images/exercises/_20-ex-inference-two-means-11.png" width="50%">
+          <description>Table of summary statistics for diamond prices by carat</description>
+        </image>
+      </figure>
     </statement>
     <solution>
       <p>We are 95% confident that the population average price per carat of 0.99 carat diamonds is $2.96 to $22.42 lower than the population average price per carat of 1 carat diamonds.</p>
@@ -133,6 +168,11 @@
     <title>Difference of means</title>
     <statement>
       <p>We collect two random samples from two different populations In each part below, consider the sample means <m>\bar{x}_1</m> and <m>\bar{x}_2</m> that we might observe from these two samples.</p>
+      <figure xml:id="fig-20-ex-difference-of-means">
+        <image source="images/exercises/_20-ex-inference-two-means-13.png" width="60%">
+          <description>Table showing mean, standard deviation, and sample size for two populations</description>
+        </image>
+      </figure>
       <p><ol marker="a.">
         <li>What is the associated mean and standard deviation of <m>\bar{x}_1</m>?</li>
         <li>What is the associated mean and standard deviation of <m>\bar{x}_2</m>?</li>
@@ -161,6 +201,11 @@
     <title>Chicken diet: horsebean vs. linseed</title>
     <statement>
       <p>Chicken farming is a multi-billion dollar industry, and any methods that increase the growth rate of young chicks can reduce consumer costs while increasing company profits, possibly by millions of dollars. An experiment was conducted to measure and compare the effectiveness of various feed supplements on the growth rate of chickens. Newly hatched chicks were randomly allocated into six groups, and each group was given a different feed supplement. In this exercise we consider chicks that were fed horsebean and linseed. Below are some summary statistics from this dataset along with box plots showing the distribution of weights by feed type.</p>
+      <figure xml:id="fig-20-ex-chicken-diet-horsebean-linseed">
+        <image source="images/exercises/_20-ex-inference-two-means-15.png" width="100%">
+          <description>Table of summary statistics, boxplot, and histograms for chicken weights by feed type</description>
+        </image>
+      </figure>
       <p><ol marker="a.">
         <li>Describe the distributions of weights of chickens that were fed horsebean and linseed.</li>
         <li>Do these data provide strong evidence that the average weights of chickens that were fed linseed and horsebean are different? Use a 5% discernibility level.</li>
@@ -182,6 +227,11 @@
     <title>Fuel efficiency in the city</title>
     <statement>
       <p>Each year the US Environmental Protection Agency (EPA) releases fuel economy data on cars manufactured in that year. Below are summary statistics on fuel efficiency (in miles/gallon) from random samples of cars with manual and automatic transmissions manufactured in 2021. Do these data provide strong evidence of a difference between the average fuel efficiency of cars with manual and automatic transmissions in terms of their average city mileage?</p>
+      <figure xml:id="fig-20-ex-fuel-efficiency-city">
+        <image source="images/exercises/_20-ex-inference-two-means-16.png" width="90%">
+          <description>Table of summary statistics and boxplot for city fuel efficiency by transmission type</description>
+        </image>
+      </figure>
     </statement>
   </exercise>
 
@@ -189,6 +239,11 @@
     <title>Chicken diet: casein vs. soybean</title>
     <statement>
       <p>Casein is a common weight gain supplement for humans. Does it have an effect on chickens? An experiment was conducted to measure and compare the effectiveness of various feed supplements on the growth rate of chickens. Newly hatched chicks were randomly allocated into six groups, and each group was given a different feed supplement. In this exercise we consider chicks that were fed casein and soybean. Assume that the conditions for conducting inference using mathematical models are met, and using the data provided below, test the hypothesis that the average weight of chickens that were fed casein is different than the average weight of chickens that were fed soybean. If your hypothesis test yields a statistically discernible result, discuss whether the higher average weight of chickens can be attributed to the casein diet.</p>
+      <figure xml:id="fig-20-ex-chicken-diet-casein-soybean">
+        <image source="images/exercises/_20-ex-inference-two-means-17.png" width="50%">
+          <description>Table of summary statistics for chicken weights by feed type (casein vs. soybean)</description>
+        </image>
+      </figure>
     </statement>
     <solution>
       <p><m>H_0: \mu_C = \mu_S</m>. <m>H_A: \mu_C \ne \mu_S</m>. <m>T = 3.27</m>, <m>df=11</m> <m>\to</m> p-value <m>= 0.007</m>. Since p-value <m>&lt; 0.05</m>, reject <m>H_0</m>. The data provide strong evidence that the average weight of chickens that were fed casein is different than the average weight of chickens that were fed soybean (with weights from casein being higher). Since this is a randomized experiment, the observed difference can be attributed to the diet.</p>
@@ -199,6 +254,11 @@
     <title>Fuel efficiency on the highway</title>
     <statement>
       <p>Each year the US Environmental Protection Agency (EPA) releases fuel economy data on cars manufactured in that year. Below are summary statistics on fuel efficiency (in miles/gallon) from random samples of cars with manual and automatic transmissions manufactured in 2021. Do these data provide strong evidence of a difference between the average fuel efficiency of cars with manual and automatic transmissions in terms of their average highway mileage?</p>
+      <figure xml:id="fig-20-ex-fuel-efficiency-highway">
+        <image source="images/exercises/_20-ex-inference-two-means-18.png" width="90%">
+          <description>Table of summary statistics and boxplot for highway fuel efficiency by transmission type</description>
+        </image>
+      </figure>
     </statement>
   </exercise>
 
