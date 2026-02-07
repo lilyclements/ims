@@ -6,21 +6,14 @@
 
 
 <introduction>
-  <p>We now extend the methods from <xref ref="ch19-inference-single-mean"/> to apply confidence intervals and hypothesis tests to differences in population means that come from two groups, Group 1 and Group 2: <m>\mu_1 - \mu_2.</m></p>
-  <p>In our investigations, we'll identify a reasonable point estimate of <m>\mu_1 - \mu_2</m> based on the sample, and you may have already guessed its form: <m>\bar{x}_1 - \bar{x}_2.</m> <idx><h>point estimate</h><h>difference in means</h></idx><idx><h>difference in means</h><h>point estimate</h></idx> Then we'll look at the inferential analysis in three different ways: using a randomization test, applying bootstrapping for interval estimates, and, if we verify that the point estimate can be modeled using a normal distribution, we compute the estimate's standard error and apply the mathematical framework.</p>
+  <p>We now extend the methods from <xref ref="ch19-inference-single-mean"/> to apply confidence intervals and hypothesis tests to differences in population means that come from two groups, Group 1 and Group 2: <m>\mu_1 - \mu_2.</m>
+In our investigations, we'll identify a reasonable point estimate of <m>\mu_1 - \mu_2</m> based on the sample, and you may have already guessed its form: <m>\bar{x}_1 - \bar{x}_2.</m> <idx><h>point estimate</h><h>difference in means</h></idx><idx><h>difference in means</h><h>point estimate</h></idx> Then we'll look at the inferential analysis in three different ways: using a randomization test, applying bootstrapping for interval estimates, and, if we verify that the point estimate can be modeled using a normal distribution, we compute the estimate's standard error and apply the mathematical framework.</p>
+
+  <p>In this section we consider a difference in two population means, <m>\mu_1 - \mu_2,</m> under the condition that the data are not paired. Just as with a single sample, we identify conditions to ensure we can use the <m>t</m>-distribution with a point estimate of the difference, <m>\bar{x}_1 - \bar{x}_2,</m> and a new standard error formula.
+The details for working through inferential problems in the two independent means setting are strikingly similar to those applied to the two independent proportions setting. We first cover a randomization test where the observations are shuffled under the assumption that the null hypothesis is true. Then we bootstrap the data (with no imposed null hypothesis) to create a confidence interval for the true difference in population means, <m>\mu_1 - \mu_2.</m> The mathematical model, here the <m>t</m>-distribution, is able to describe both the randomization test and the bootstrapping as long as the conditions are met.
+The inferential tools are applied to three different data contexts: determining whether stem cells can improve heart function, exploring the relationship between pregnant women's smoking habits and birth weights of newborns, and exploring whether there is convincing evidence that one variation of an exam is harder than another variation. This section is motivated by questions like "Is there convincing evidence that newborns from mothers who smoke have a different average birth weight than newborns from mothers who do not smoke?"</p>
+
 </introduction>
-
-
-
-  <p>In this section we consider a difference in two population means, <m>\mu_1 - \mu_2,</m> under the condition that the data are not paired. Just as with a single sample, we identify conditions to ensure we can use the <m>t</m>-distribution with a point estimate of the difference, <m>\bar{x}_1 - \bar{x}_2,</m> and a new standard error formula.</p>
-
-
-  <p>The details for working through inferential problems in the two independent means setting are strikingly similar to those applied to the two independent proportions setting. We first cover a randomization test where the observations are shuffled under the assumption that the null hypothesis is true. Then we bootstrap the data (with no imposed null hypothesis) to create a confidence interval for the true difference in population means, <m>\mu_1 - \mu_2.</m> The mathematical model, here the <m>t</m>-distribution, is able to describe both the randomization test and the bootstrapping as long as the conditions are met.</p>
-
-
-  <p>The inferential tools are applied to three different data contexts: determining whether stem cells can improve heart function, exploring the relationship between pregnant women's smoking habits and birth weights of newborns, and exploring whether there is convincing evidence that one variation of an exam is harder than another variation. This section is motivated by questions like "Is there convincing evidence that newborns from mothers who smoke have a different average birth weight than newborns from mothers who do not smoke?"</p>
-
-
 
 <section xml:id="sec-rand2mean">
   <title>Randomization test for the difference in means</title>
