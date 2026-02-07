@@ -209,14 +209,14 @@
         </solution>
       </exercise>
 
-      <note>
+      <assemblage>
         <title>Null distribution of <m>\hat{p}</m> with bootstrap simulation</title>
         <p>
           Regardless of the statistical method chosen, the p-value is always derived by analyzing the null distribution of the test statistic.
           The normal model poorly approximates the null distribution for <m>\hat{p}</m> (the sample proportion) when the success-failure condition is not satisfied.
           As a substitute, we can generate the null distribution using simulated sample proportions and use this distribution to compute the tail area, i.e., the p-value.
         </p>
-      </note>
+      </assemblage>
       
       <p>
         In the previous exercise, the p-value is <em>estimated</em>.
@@ -239,35 +239,31 @@
         Particularly, it can underestimate the variability of the sample proportion.
       </p>
 
-      <note>
+      <assemblage>
         <title>Sampling distribution of <m>\hat{p}</m></title>
         <p>
           The sampling distribution for <m>\hat{p}</m> (the sample proportion) based on a sample of size <m>n</m> from a population with a true proportion <m>p</m> is nearly normal when:
         </p>
         
-        <p>
-          <ol>
-            <li><p>The sample's observations are independent, e.g., are from a simple random sample.</p></li>
-            <li><p>We expected to see at least 10 successes and 10 failures in the sample, i.e., <m>np\geq10</m> and <m>n(1-p)\geq10.</m> This is called the <term>success-failure condition</term><idx>success-failure condition</idx>.</p></li>
-          </ol>
-        </p>
+        <p>1. The sample's observations are independent, e.g., are from a simple random sample.</p>
+        <p>2. We expected to see at least 10 successes and 10 failures in the sample, i.e., <m>np\geq10</m> and <m>n(1-p)\geq10.</m> This is called the <term>success-failure condition</term><idx>success-failure condition</idx>.</p>
         
         <p>
           When these conditions are met, then the sampling distribution of <m>\hat{p}</m> is nearly normal with mean <m>p</m> and standard error of <m>\hat{p}</m> as <m>SE = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}.</m>
         </p>
-      </note>
+      </assemblage>
       
       <p>
         Recall that the margin of error is defined by the standard error.
         The margin of error for <m>\hat{p}</m> can be directly obtained from <m>SE(\hat{p}).</m>
       </p>
 
-      <note>
+      <assemblage>
         <title>Margin of error for <m>\hat{p}</m></title>
         <p>
           The margin of error is <m>z^\star \times \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}</m> where <m>z^\star</m> is calculated from a specified percentile on the normal distribution.
         </p>
-      </note>
+      </assemblage>
       
       <p>
         Typically we do not know the true proportion <m>p,</m> so we substitute some value to check conditions and estimate the standard error.
@@ -312,28 +308,28 @@
         The value of the standard error, <m>SE,</m> depends heavily on the sample size.
       </p>
 
-      <note>
+      <assemblage>
         <title>Standard error of one proportion, <m>\hat{p}</m></title>
         <p>
           When the conditions are met so that the distribution of <m>\hat{p}</m> (the sample proportion) is nearly normal, the <alert>variability</alert> of a single proportion, <m>\hat{p}</m> is well described by:
         </p>
 
-        <me>
+        <p><me>
           SE(\hat{p}) = \sqrt{\frac{p(1-p)}{n}}
-        </me>
+        </me></p>
 
         <p>
           Note that we almost never know the true value of <m>p</m> (the population probability or proportion). A more helpful formula to use is:
         </p>
 
-        <me>
+        <p><me>
           SE(\hat{p}) \approx \sqrt{\frac{(\text{best guess of }p)(1 - \text{best guess of }p)}{n}}
-        </me>
+        </me></p>
 
         <p>
           For hypothesis testing, we use <m>p_0</m> (the proportion specified in the null hypothesis) as the best guess of <m>p.</m> For confidence intervals, we use <m>\hat{p}</m> as the best guess of <m>p.</m>
         </p>
-      </note>
+      </assemblage>
 
       <exercise xml:id="exercise-marijuana-poll-se">
         <statement>
@@ -401,20 +397,16 @@
         </solution>
       </example>
 
-      <note>
+      <assemblage>
         <title>Constructing a confidence interval for a single proportion</title>
         <p>
           There are three steps to constructing a confidence interval for <m>p</m> (the true population proportion or probability).
         </p>
 
-        <p>
-          <ol>
-            <li><p>Check if it seems reasonable to assume the observations are independent and check the success-failure condition using <m>\hat{p}</m> (the sample proportion). If the conditions are met, the sampling distribution of <m>\hat{p}</m> may be well-approximated by the normal model.</p></li>
-            <li><p>Calculate the standard error using <m>\hat{p}</m> instead of <m>p</m>.</p></li>
-            <li><p>Apply the general confidence interval formula.</p></li>
-          </ol>
-        </p>
-      </note>
+        <p>1. Check if it seems reasonable to assume the observations are independent and check the success-failure condition using <m>\hat{p}</m> (the sample proportion). If the conditions are met, the sampling distribution of <m>\hat{p}</m> may be well-approximated by the normal model.</p>
+        <p>2. Calculate the standard error using <m>\hat{p}</m> instead of <m>p</m>.</p>
+        <p>3. Apply the general confidence interval formula.</p>
+      </assemblage>
       
       <p>
         For additional one-proportion confidence interval examples, see <xref ref="sec-ConfidenceIntervals" />.
@@ -495,20 +487,20 @@
         </solution>
       </exercise>
 
-      <note>
+      <assemblage>
         <title>Mathematical model confidence interval for any confidence level</title>
         <p>
           If the point estimate follows the normal model with standard error <m>SE,</m> then a confidence interval for the population parameter is
         </p>
 
-        <me>
+        <p><me>
           \text{point estimate} \pm z^{\star} \times SE
-        </me>
+        </me></p>
 
         <p>
           where <m>z^{\star}</m> corresponds to the confidence level selected.
         </p>
-      </note>
+      </assemblage>
       
       <p>
         <xref ref="fig-choosingZForCI" /> provides a picture of how to identify <m>z^{\star}</m> based on a confidence level.
@@ -563,15 +555,15 @@
         In a hypothesis test, the success-failure condition is checked using the null proportion: we verify <m>np_0</m> and <m>n(1-p_0)</m> are at least 10, where <m>p_0</m> is the null value.
       </p>
 
-      <note>
+      <assemblage>
         <title>The test statistic for assessing a single proportion is a Z</title>
         <p>
           The <term>Z score</term><idx>Z score</idx> is a ratio of how the sample proportion differs from the hypothesized proportion <m>(p_0)</m> as compared to the expected variability of the <m>\hat{p}</m> (sample proportion) values.
         </p>
 
-        <me>
+        <p><me>
           Z = \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}}
-        </me>
+        </me></p>
 
         <p>
           When the null hypothesis is true and the conditions are met, Z has a standard normal distribution.
@@ -580,13 +572,9 @@
         <p>
           Conditions:
         </p>
-        <p>
-          <ul>
-            <li><p>independent observations</p></li>
-            <li><p>large samples <m>(n p_0 \geq 10</m> and <m>n (1-p_0) \geq 10)</m></p></li>
-          </ul>
-        </p>
-      </note>
+        <p>independent observations</p>
+        <p>large samples <m>(n p_0 \geq 10</m> and <m>n (1-p_0) \geq 10)</m></p>
+      </assemblage>
 
       <exercise xml:id="exercise-payday-normal-check">
         <statement>
@@ -604,13 +592,13 @@
         </solution>
       </exercise>
 
-      <note>
+      <assemblage>
         <title>Mathematical model hypothesis test for a proportion</title>
         <p>
           Set up hypotheses and verify the conditions using the null value, <m>p_0,</m> to ensure <m>\hat{p}</m> (the sample proportion) is nearly normal under <m>H_0.</m> If the conditions hold, calculate the standard error, again using <m>p_0,</m> and show the p-value in a drawing.
           Lastly, compute the p-value and evaluate the hypotheses.
         </p>
-      </note>
+      </assemblage>
       
       <p>
         For additional one-proportion hypothesis test examples, see <xref ref="sec-HypothesisTesting" />.
@@ -713,6 +701,7 @@
           <li><p><term>parametric bootstrap</term></p></li>
           <li><p><term>success-failure condition</term></p></li>
           <li><p><term>Z score</term></p></li>
+          <li><p><term>SE single proportion</term></p></li>
         </ul>
       </p>
       
