@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section xml:id="ch21-inference-paired-means" xmlns:xi="http://www.w3.org/2001/XInclude">
+<chapter xml:id="ch21-inference-paired-means" xmlns:xi="http://www.w3.org/2001/XInclude">
 
 <title>Inference for comparing paired means</title>
 
@@ -1028,4 +1028,4 @@ make_terms_table(terms_chp_21)
 
 </section>
 
-</section>
+</chapter>
