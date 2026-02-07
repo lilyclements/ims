@@ -301,6 +301,7 @@
 
     ```{r}
     #| echo: false
+    # Model used for diagnostic plots below
     m_babies_full <- lm(weight ~ weeks + mage + sex + visits + habit, data = births14)
     ```
 
