@@ -583,15 +583,19 @@ ggplot(bsprop_tap, aes(x = bsprop)) +
           </row>
           <row>
             <cell>What does it do?</cell>
-            <cell>Estimates a population parameter using sample data</cell>
+            <cell>Resamples (with replacement) from the observed data to mimic the sampling variability found by collecting data from a population</cell>
           </row>
           <row>
             <cell>What is the random process described?</cell>
             <cell>Random sampling from a population</cell>
           </row>
           <row>
+            <cell>What other random processes can be approximated?</cell>
+            <cell>Can also be used to describe random allocation in an experiment</cell>
+          </row>
+          <row>
             <cell>What is it best for?</cell>
-            <cell>Confidence intervals (created by percentiles of the bootstrap distribution)</cell>
+            <cell>Confidence intervals (can also be used for bootstrap hypothesis testing for one proportion as well)</cell>
           </row>
           <row>
             <cell>What physical object represents the simulation process?</cell>
