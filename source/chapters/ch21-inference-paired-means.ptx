@@ -46,7 +46,7 @@ paired_study_examples |&gt;
 
 
 <assemblage>
-  <title><term>Paired data.</term></title>
+  <title><term>Paired data</term></title>
   <p>Two sets of observations are <em>paired</em> if each observation in one set has a special correspondence or connection with exactly one observation in the other dataset.</p>
 </assemblage>
 <p>It is worth noting that if mathematical modeling is chosen as the analysis tool, paired data inference on the difference in measurements will be identical to the one-sample mathematical techniques described in <xref ref="ch19-inference-single-mean" />. However, recall from <xref ref="ch19-inference-single-mean" /> that with pure one-sample data, the computational tools for hypothesis testing are not easy to implement and were not presented (although the bootstrap was presented as a computational approach for constructing a one sample confidence interval). With paired data, the randomization test fits nicely with the structure of the experiment and is presented here.</p>
