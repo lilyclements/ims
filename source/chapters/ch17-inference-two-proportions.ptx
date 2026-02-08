@@ -773,9 +773,10 @@ First, we require a broader independence condition, and secondly, the success-fa
         <alert>Gender pay gap in medicine.</alert>A study examined the average pay for men and women entering the workforce as doctors for 21 different positions.
         <xref ref="biblio-LoSassoMedicineGenderPayGap" />
         If each gender was equally paid, then we would expect about half of those positions to have men paid more than women and women would be paid more than men in the other half of positions.
-        Write appropriate hypotheses to test this scenario.
-        Men were, on average, paid more in 19 of those 21 positions.
-        Complete a hypothesis test using your hypotheses from part (a).
+        <p><ol marker="a.">
+          <li><p>Write appropriate hypotheses to test this scenario.</p></li>
+          <li><p>Men were, on average, paid more in 19 of those 21 positions. Complete a hypothesis test using your hypotheses from part (a).</p></li>
+        </ol></p>
         \vfill
         </statement>
         </exercise>
