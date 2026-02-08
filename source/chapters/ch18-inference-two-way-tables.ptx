@@ -48,20 +48,16 @@
       The results are shown in <xref ref="tbl-ipod-ask-data-summary" />, and the data suggest that asking the, <em>What problems does it have?</em>, was the most effective at getting the seller to disclose the past freezing issues.
       However, you should also be asking yourself: could we see these results due to chance alone if there really is no difference in the question asked, or is this in fact evidence that some questions are more effective for getting at the truth?
     </p>
+
 <table xml:id="tbl-ipod-ask-data-summary">
   <title>Summary of the iPod study, where a question was posed to the study participant who acted.</title>
-
-  <tgroup cols="4">
-    <thead>
+  <tabular>
       <row>
         <entry>Question</entry>
         <entry>Disclose problem</entry>
         <entry>Hide problem</entry>
         <entry>Total</entry>
       </row>
-    </thead>
-
-    <tbody>
       <row>
         <entry>General</entry>
         <entry>2</entry>
@@ -89,8 +85,7 @@
         <entry>158</entry>
         <entry>219</entry>
       </row>
-    </tbody>
-  </tgroup>
+    </tabular>
 </table>
 
     <p>
@@ -151,17 +146,13 @@
 <table xml:id="tbl-ipod-ask-data-summary-expected">
   <title>The observed counts and the expected counts for the iPod experiment.</title>
 
-  <tgroup cols="5">
-    <thead>
+  <tabular>
       <row>
         <entry>Question</entry>
         <entry>Disclose problem<br/>(Observed / Expected)</entry>
         <entry>Hide problem<br/>(Observed / Expected)</entry>
         <entry>Total</entry>
       </row>
-    </thead>
-
-    <tbody>
       <row>
         <entry>General</entry>
         <entry>2<br/>(20.33)</entry>
@@ -189,8 +180,7 @@
         <entry>158</entry>
         <entry>219</entry>
       </row>
-    </tbody>
-  </tgroup>
+    </tabular>
 </table>
 
 
@@ -271,17 +261,13 @@
 <table xml:id="tbl-ipod-ask-data-summary-rand">
   <title>Summary of the iPod study.</title>
 
-  <tgroup cols="4">
-    <thead>
+  <tabular>
       <row>
         <entry>Question</entry>
         <entry>Disclose problem</entry>
         <entry>Hide problem</entry>
         <entry>Total</entry>
       </row>
-    </thead>
-
-    <tbody>
       <row>
         <entry>General</entry>
         <entry>29</entry>
@@ -309,8 +295,7 @@
         <entry>158</entry>
         <entry>219</entry>
       </row>
-    </tbody>
-  </tgroup>
+    </tabular>
 </table>
 
       <p>
