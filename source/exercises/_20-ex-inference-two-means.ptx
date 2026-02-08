@@ -246,7 +246,31 @@
     <title>Chicken diet: horsebean vs. linseed</title>
     <statement>
       <p>Chicken farming is a multi-billion dollar industry, and any methods that increase the growth rate of young chicks can reduce consumer costs while increasing company profits, possibly by millions of dollars. An experiment was conducted to measure and compare the effectiveness of various feed supplements on the growth rate of chickens. Newly hatched chicks were randomly allocated into six groups, and each group was given a different feed supplement. In this exercise we consider chicks that were fed horsebean and linseed. Below are some summary statistics from this dataset along with box plots showing the distribution of weights by feed type.</p>
-      <figure xml:id="fig-20-ex-chicken-diet-horsebean-linseed">
+      <table xml:id="tbl-chicken-diet-1">
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell></cell>
+      <cell right="minor">Horsebean</cell>
+      <cell right="minor">Linseed</cell>
+    </row>
+    <row>
+      <cell>Mean</cell>
+      <cell right="minor">160.2</cell>
+      <cell right="minor">218.8</cell>
+    </row>
+    <row>
+      <cell>SD</cell>
+      <cell right="minor">38.6</cell>
+      <cell right="minor">52.2</cell>
+    </row>
+    <row>
+      <cell>n</cell>
+      <cell right="minor">10</cell>
+      <cell right="minor">12</cell>
+    </row>
+  </tabular>
+</table>
+<figure xml:id="fig-20-ex-chicken-diet-horsebean-linseed">
         <image source="images/exercises/_20-ex-inference-two-means-15.png" width="100%">
           <description>Table of summary statistics, boxplot, and histograms for chicken weights by feed type</description>
         </image>
