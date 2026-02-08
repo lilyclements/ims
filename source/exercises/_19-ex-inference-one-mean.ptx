@@ -28,6 +28,50 @@
     <title>Heights of adults</title>
     <statement>
       <p>Researchers studying anthropometry collected body measurements, as well as age, weight, height and gender, for 507 physically active adults. Summary statistics for the distribution of heights (measured in centimeters, cm), along with a histogram, are provided below. <xref ref="Heinz-2003" /></p>
+      <table xml:id="tbl-height-summary">
+  <title>Summary statistics for height</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>Statistic</cell>
+      <cell right="minor">Value</cell>
+    </row>
+
+    <row>
+      <cell>Min</cell>
+      <cell right="minor">147.2</cell>
+    </row>
+    <row>
+      <cell>Q1</cell>
+      <cell right="minor">163.8</cell>
+    </row>
+    <row>
+      <cell>Median</cell>
+      <cell right="minor">170.3</cell>
+    </row>
+    <row>
+      <cell>Mean</cell>
+      <cell right="minor">171.1</cell>
+    </row>
+    <row>
+      <cell>Q3</cell>
+      <cell right="minor">177.8</cell>
+    </row>
+    <row>
+      <cell>Max</cell>
+      <cell right="minor">198.1</cell>
+    </row>
+    <row>
+      <cell>SD</cell>
+      <cell right="minor">9.4</cell>
+    </row>
+    <row>
+      <cell>IQR</cell>
+      <cell right="minor">14.0</cell>
+    </row>
+
+  </tabular>
+</table>
+<image source="images/exercises/fig-ex19-03.png" width="70%" />
       <p><ol marker="a.">
         <li>What are the point estimates for the average and median heights of active adults?</li>
         <li>What are the point estimates for the standard deviation and IQR of heights of active adults?</li>
@@ -67,7 +111,8 @@
     <title>Heights of adults, bootstrap interval</title>
     <statement>
       <p>Researchers studying anthropometry collected body measurements, as well as age, weight, height and gender, for 507 physically active adults. The histogram below shows the sample distribution of bootstrapped means from 1,000 different bootstrap samples. <xref ref="Heinz-2003" /></p>
-      <p><ol marker="a.">
+      <image source="images/exercises/fig-ex19-06.png" width="70%" />
+       <p><ol marker="a.">
         <li>Given the bootstrap sampling distribution for the sample mean, find an approximate value for the standard error of the mean.</li>
         <li>By looking at the bootstrap sampling distribution (1,000 bootstrap samples were taken), find an approximate 90% bootstrap percentile confidence interval for the true average adult height in the population from which the data were randomly sampled. Provide the interval as well as a one-sentence interpretation of the interval.</li>
         <li>By looking at the bootstrap sampling distribution (1,000 bootstrap samples were taken), find an approximate 90% bootstrap SE confidence interval for the true average adult height in the population from which the data were randomly sampled. Provide the interval as well as a one-sentence interpretation of the interval.</li>
@@ -92,6 +137,7 @@
     <title><m>t</m>-distribution</title>
     <statement>
       <p>The figure below shows three unimodal and symmetric curves: the standard normal (z) distribution, the <m>t</m>-distribution with 5 degrees of freedom, and the <m>t</m>-distribution with 1 degree of freedom. Determine which is which, and explain your reasoning.</p>
+      <image source="images/exercises/fig-ex19-08.png" width="70%" />
     </statement>
   </exercise>
 
@@ -123,6 +169,7 @@
     <title>Length of gestation, confidence interval</title>
     <statement>
       <p>Every year, the United States Department of Health and Human Services releases to the public a large dataset containing information on births recorded in the country. This dataset has been of interest to medical researchers who are studying the relation between habits and practices of expectant mothers and the birth of their children. In this exercise we work with a random sample of 1,000 cases from the dataset released in 2014. The length of pregnancy, measured in weeks, is commonly referred to as gestation. The histograms below show the distribution of lengths of gestation from the random sample of 1,000 births (on the left) and the distribution of bootstrapped means of gestation from 1,500 different bootstrap samples (on the right).</p>
+      <image source="images/exercises/fig-ex19-11.png" width="70%" />
       <p><ol marker="a.">
         <li>Given the bootstrap sampling distribution for the sample mean, find an approximate value for the standard error of the mean.</li>
         <li>By looking at the bootstrap sampling distribution (1,500 bootstrap samples were taken), find an approximate 99% bootstrap percentile confidence interval for the true average gestation length in the population from which the data were randomly sampled. Provide the interval as well as a one-sentence interpretation of the interval.</li>
@@ -135,6 +182,33 @@
     <title>Length of gestation, hypothesis test</title>
     <statement>
       <p>In this exercise we work with a random sample of 1,000 cases from the dataset released by the United States Department of Health and Human Services in 2014. Provided below are sample statistics for gestation (length of pregnancy, measured in weeks) of births in this sample.</p>
+<table xml:id="tbl-summary-generic-transposed">
+  <title>Summary statistics (transposed)</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>Min</cell>
+      <cell>Q1</cell>
+      <cell>Median</cell>
+      <cell>Mean</cell>
+      <cell>Q3</cell>
+      <cell>Max</cell>
+      <cell>SD</cell>
+      <cell>IQR</cell>
+    </row>
+
+    <row>
+      <cell right="minor">21</cell>
+      <cell right="minor">38</cell>
+      <cell right="minor">39</cell>
+      <cell right="minor">38.7</cell>
+      <cell right="minor">40</cell>
+      <cell right="minor">46</cell>
+      <cell right="minor">2.6</cell>
+      <cell right="minor">2</cell>
+    </row>
+  </tabular>
+</table>
+
       <p><ol marker="a.">
         <li>What is the point estimate for the average length of pregnancy for all women? What about the median?</li>
         <li>You might have heard that human gestation is typically 40 weeks. Using the data, perform a complete hypothesis test, using mathematical models, to assess the 40 week claim. State the null and alternative hypotheses, find the T score, find the p-value, and provide a conclusion in context of the data.</li>
@@ -188,6 +262,27 @@
     <title>Sleep habits of New Yorkers</title>
     <statement>
       <p>New York is known as <q>the city that never sleeps</q>. A random sample of 25 New Yorkers were asked how much sleep they get per night. Statistical summaries of these data are shown below. The point estimate suggests New Yorkers sleep less than 8 hours a night on average. Evaluate the claim that New York is the city that never sleeps keeping in mind that, despite this claim, the true average number of hours New Yorkers sleep could be less than 8 hours or more than 8 hours.</p>
+<table xml:id="tbl-summary-generic-transposed">
+  <title>Summary statistics (transposed)</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>n</cell>
+      <cell>Mean</cell>
+      <cell>SD</cell>
+      <cell>Min</cell>
+      <cell>Max</cell>
+    </row>
+
+    <row>
+      <cell right="minor">25</cell>
+      <cell right="minor">7.73</cell>
+      <cell right="minor">0.77</cell>
+      <cell right="minor">6.17</cell>
+      <cell right="minor">9.78</cell>
+    </row>
+  </tabular>
+</table>
+
       <p><ol marker="a.">
         <li>Write the hypotheses in symbols and in words.</li>
         <li>Check conditions, then calculate the test statistic, <m>T</m>, and the associated degrees of freedom.</li>
