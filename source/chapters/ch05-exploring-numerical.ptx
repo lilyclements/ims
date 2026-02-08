@@ -51,7 +51,7 @@ ggplot(loan50, aes(x = total_income, y = loan_amount)) +
   <image source="images/fig-loan50-amount-income-1.png" width="70%" />
 </figure>
 
-<p>Looking at <xref ref="fig-loan50-amount-income" />, we see that there are many borrowers with income below \$100,000 on the left side of the graph, while there are a handful of borrowers with income above \$250,000.</p>
+<p>Looking at <xref ref="fig-loan50-amount-income" />, we see that there are many borrowers with income below $100,000 on the left side of the graph, while there are a handful of borrowers with income above $250,000.</p>
 
 <listing xml:id="listing-median-hh-income-poverty">
   <caption><c>R</c> code for scatterplot of median household income versus poverty rate</caption>
@@ -174,10 +174,6 @@ ggplot(loan50, aes(x = interest_rate)) +
 
 <p>The <c>loan50</c> dataset represents a sample from a larger population of loans made through Lending Club. We could compute a mean for the entire population in the same way as the sample mean. However, the population mean has a special label: <m>\mu.</m> The symbol <m>\mu</m> is the Greek letter <em>mu</em> and represents the average of all observations in the population. Sometimes a subscript, such as <m>_x,</m> is used to represent which variable the population mean refers to, e.g., <m>\mu_x.</m> Oftentimes it is too expensive to measure the population mean precisely, so we often estimate <m>\mu</m> using the sample mean, <m>\bar{x}.</m></p>
 
-<p>:::</p>
-
-<p>:::</p>
-
 <example>
   <statement>
     <p>Although we do not have an ability to <em>calculate</em> the average interest rate across all loans in the populations, we can <em>estimate</em> the population value using the sample data. Based on the sample of 50 loans, what would be a reasonable estimate of <m>\mu_x,</m> the mean interest rate for all loans in the full dataset?</p>
@@ -237,7 +233,7 @@ ggplot(loan50, aes(x = interest_rate)) +
     <p>Suppose we want to compute the average income per person in the US. To do so, we might first think to take the mean of the per capita incomes across the 3,142 counties in the <c>county</c> dataset. What would be a better approach?</p>
   </statement>
   <solution>
-    <p>The <c>county</c> dataset is special in that each county actually represents many individual people. If we were to simply average across the <c>income</c> variable, we would be treating counties with 5,000 and 5,000,000 residents equally in the calculations. Instead, we should compute the total income for each county, add up all the counties' totals, and then divide by the number of people in all the counties. If we completed these steps with the <c>county</c> data, we would find that the per capita income for the US is \$30,861. Had we computed the *simple* mean of per capita income across counties, the result would have been just \$26,093! This example used what is called a <alert>weighted mean</alert>. For more information on this topic, check out the following online supplement regarding <url href="https://www.openintro.org/go/?id=stat_extra_weighted_mean">weighted means</url>.</p>
+    <p>The <c>county</c> dataset is special in that each county actually represents many individual people. If we were to simply average across the <c>income</c> variable, we would be treating counties with 5,000 and 5,000,000 residents equally in the calculations. Instead, we should compute the total income for each county, add up all the counties' totals, and then divide by the number of people in all the counties. If we completed these steps with the <c>county</c> data, we would find that the per capita income for the US is $30,861. Had we computed the *simple* mean of per capita income across counties, the result would have been just $26,093! This example used what is called a <alert>weighted mean</alert>. For more information on this topic, check out the following online supplement regarding <url href="https://www.openintro.org/go/?id=stat_extra_weighted_mean">weighted means</url>.</p>
   </solution>
 </example>
 
@@ -316,7 +312,7 @@ ggplot(loan50, aes(x = interest_rate)) +
 
 <p>Histograms provide a view of the <alert>data density</alert>. Higher bars represent where the data are relatively more common. For instance, there are many more loans with rates between 5% and 10% than loans with rates between 20% and 25% in the dataset. The bars make it easy to see how the density of the data changes relative to the interest rate.</p>
 
-<p>Histograms are especially convenient for understanding the shape of the data distribution. <xref ref="fig-loan50IntRateHist" /> suggests that most loans have rates under 15%, while only a handful of loans have rates above 20%. When the distribution of a variable trails off to the right in this way and has a longer right <alert>tail</alert>, the shape is said to be <alert>right skewed</alert>.</p>
+<p>Histograms are especially convenient for understanding the shape of the data distribution. <xref ref="fig-loan50IntRateHist" /> suggests that most loans have rates under 15%, while only a handful of loans have rates above 20%. When the distribution of a variable trails off to the right in this way and has a longer right <alert>tail</alert>, the shape is said to be <alert>right skewed</alert><fn>Other ways to describe data that are right skewed: skewed to the right, skewed to the high end, or skewed to the positive end.</fn>.</p>
 
 <listing xml:id="listing-loan50IntRateDensity">
   <caption><c>R</c> code for density plot of interest rate</caption>
@@ -343,7 +339,7 @@ ggplot(loan50, aes(x = interest_rate)) +
 <p>Variables with the reverse characteristic -- a long, thinner tail to the left -- are said to be <alert>left skewed</alert>. We also say that such a distribution has a long left tail. Variables that show roughly equal trailing off in both directions are called <alert>symmetric</alert>.</p>
 
 <assemblage>
-  <title>long tail</title>
+  <title>Long tail distribution</title>
   <p>When data trail off in one direction, the distribution has a long tail. If a distribution has a long left tail, it is left skewed. If a distribution has a long right tail, it is right skewed.</p>
 </assemblage>
 
@@ -546,7 +542,7 @@ ggplot(dists_mean0_sd1, aes(x = x)) +
 <section xml:id="sec-boxplots">
   <title>Box plots, quartiles, and the median</title>
 
-<p>A <alert>box plot</alert> summarizes a dataset using five statistics while also identifying unusual observations. <xref ref="fig-loan-int-rate-boxplot-dotplot" /> provides a dot plot and a box plot of the <c>interest_rate</c> variable from the <c>loan50</c> dataset.</p>
+<p>A <alert>box plot</alert> summarizes a dataset using five statistics while also identifying unusual observations. <xref ref="fig-loan-int-rate-boxplot-dotplot" /> provides a dot plot and a box plot of the <c>interest_rate</c> variable from the <c>loan50</c> dataset<fn>Box plots were introducted by Mary Eleanor Spear who considered them to be a particular type of bar plot, see page 166 of Spear (1952). Mistakenly, box plots are often attributed to John Tukey who was the first person to call them "box-and-whisker plots."</fn>.</p>
 
 <figure xml:id="fig-loan-int-rate-boxplot-dotplot">
   <caption>Distribution of interest rates from the <c>loan50</c> dataset.</caption>
@@ -589,63 +585,63 @@ ggplot(dists_mean0_sd1, aes(x = x)) +
       <cell>5.32</cell>
       <cell>6.08</cell>
       <cell>6.08</cell>
+      <cell>6.08</cell>
       <cell>6.71</cell>
       <cell>6.71</cell>
       <cell>7.34</cell>
       <cell>7.35</cell>
-      <cell>7.35</cell>
     </row>
     <row>
       <cell>11</cell>
+      <cell>7.35</cell>
       <cell>7.96</cell>
       <cell>7.96</cell>
       <cell>7.96</cell>
       <cell>7.97</cell>
       <cell>9.43</cell>
       <cell>9.43</cell>
-      <cell>9.43</cell>
-      <cell>9.43</cell>
+      <cell>9.44</cell>
       <cell>9.44</cell>
       <cell>9.44</cell>
     </row>
     <row>
       <cell>21</cell>
-      <cell>9.44</cell>
       <cell>9.92</cell>
+      <cell>9.92</cell>
+      <cell>9.92</cell>
+      <cell>9.92</cell>
+      <cell>9.93</cell>
+      <cell>9.93</cell>
       <cell>10.42</cell>
       <cell>10.42</cell>
       <cell>10.90</cell>
       <cell>10.90</cell>
+    </row>
+    <row>
+      <cell>31</cell>
+      <cell>10.91</cell>
       <cell>10.91</cell>
       <cell>10.91</cell>
       <cell>11.98</cell>
       <cell>12.62</cell>
-    </row>
-    <row>
-      <cell>31</cell>
+      <cell>12.62</cell>
       <cell>12.62</cell>
       <cell>14.08</cell>
       <cell>15.04</cell>
       <cell>16.02</cell>
+    </row>
+    <row>
+      <cell>41</cell>
       <cell>17.09</cell>
       <cell>17.09</cell>
       <cell>17.09</cell>
       <cell>18.06</cell>
       <cell>18.45</cell>
       <cell>19.42</cell>
-    </row>
-    <row>
-      <cell>41</cell>
       <cell>20.00</cell>
       <cell>21.45</cell>
-      <cell>21.45</cell>
-      <cell>21.45</cell>
-      <cell>21.99</cell>
       <cell>24.85</cell>
-      <cell>25.80</cell>
       <cell>26.30</cell>
-      <cell>26.30</cell>
-      <cell>28.99</cell>
     </row>
   </tabular>
 </table>
@@ -714,21 +710,21 @@ ggplot(dists_mean0_sd1, aes(x = x)) +
     <row>
       <cell>Original data</cell>
       <cell>9.93</cell>
-      <cell>7.42</cell>
+      <cell>5.75</cell>
       <cell>11.57</cell>
       <cell>5.05</cell>
     </row>
     <row>
       <cell>Move 26.3% to 15%</cell>
       <cell>9.93</cell>
-      <cell>7.42</cell>
+      <cell>5.75</cell>
       <cell>11.34</cell>
       <cell>4.61</cell>
     </row>
     <row>
       <cell>Move 26.3% to 35%</cell>
       <cell>9.93</cell>
-      <cell>7.42</cell>
+      <cell>5.75</cell>
       <cell>11.74</cell>
       <cell>5.68</cell>
     </row>
@@ -1329,6 +1325,31 @@ ggplot(county, aes(y = pop_change, x = log(pop2010, base = 10))) +
         </p>
         
         <image source="images/_05-ex-explore-numerical/ex-oscar-winners.png" width="80%" />
+
+        <table>
+          <title>Summary statistics for coffee shop income data</title>
+          <tabular>
+            <row header="yes">
+              <cell></cell>
+              <cell>Mean</cell>
+              <cell>SD</cell>
+              <cell>n</cell>
+            </row>
+            <row>
+              <cell>Best actor</cell>
+              <cell>43.8</cell>
+              <cell>8.8</cell>
+              <cell>92</cell>
+            </row>
+            <row>
+              <cell>Best actress</cell>
+              <cell>36.2</cell>
+              <cell>11.9</cell>
+              <cell>92</cell>
+            </row>
+          </tabular>
+        </table>
+
       </statement>
     </exercise>
     
