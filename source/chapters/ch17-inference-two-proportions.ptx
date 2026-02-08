@@ -208,7 +208,7 @@ The result is: we are 90% confident that, in the population, the true difference
 The interval shows that we do not have much definitive evidence of the effect of blood thinners, one way or another.</p>
       
       <figure xml:id="fig-bootCPR1000CI">
-        <caption>The CPR data is bootstrapped 1,000 times. Each simulation creates a sample from the original data where the probability of survival in the treatment group is <m>\hat{p}_{T}  = 14/40</m> and the probability of survival in the control group is <m>\hat{p}_{C} = 11/50.</m> fig-alt: | A histogram of differences in proportions from 1000 bootstrap simulations of the CPR data. The 5th and 95th percentiles are shown as vertical lines.</caption>
+        <caption>The CPR data is bootstrapped 1,000 times. Each simulation creates a sample from the original data where the probability of survival in the treatment group is <m>\hat{p}_{T}  = 14/40</m> and the probability of survival in the control group is <m>\hat{p}_{C} = 11/50.</m></caption>
         <image source="images/fig-bootCPR1000CI-1.png" width="70%" />
       </figure>
       
@@ -230,7 +230,7 @@ A 95% confidence interval for <m>p_T - p_C</m> is given by:</p>
         \hat{p}_T - \hat{p}_C \pm 2 \cdot SE \rightarrow \ \ \ 14/40 - 11/50 \pm 2 \cdot 0.098 \ \ \  \rightarrow \ \ \  (-0.067, 0.327)
       </me>
       
-      <p>We are 95% confident that the true value of <m>p_T - p_C</m> is between <c>r cpr_boot_90_lower_se</c> and <c>r cpr_boot_90_upper_se</c>.
+      <p>We are 95% confident that the true value of <m>p_T - p_C</m> is between <c>-0.067</c> and <c>0.327</c>.
 Again, the wide confidence interval that contains zero indicates that the study provides very little evidence about the effectiveness of blood thinners.
 For other percentages, e.g., a 90% bootstrap SE confidence interval, we will use quantiles given by the standard normal distribution, as seen in <xref ref="sec-normalDist" /> and <xref ref="fig-er6895997" />.</p>
       
