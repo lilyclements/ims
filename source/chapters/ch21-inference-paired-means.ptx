@@ -14,7 +14,7 @@ However, a particular dependency, <term>pairing</term>, can be modeled quite eff
 <p>Paired data represent a particular type of experimental structure where the analysis is somewhat akin to a one-sample analysis (see <xref ref="ch19-inference-single-mean" />) but has other features that resemble a two-sample analysis (see <xref ref="ch20-inference-two-independent-means" />). As with a two-sample analysis, quantitative measurements are made on each of two different levels of the explanatory variable. However, because the observational unit is <term>paired</term> across the two groups, the two measurements are subtracted such that only the difference is retained. <xref ref="tbl-pairedexamples" /> presents some examples of studies where paired designs were implemented.</p>
 
 <table xml:id="tbl-pairedexamples">
-  <title>Examples of studies where a paired design is used to measure the difference in the measurement over two conditions.</title>
+  <title>Examples of studies where a paired design is used to measure the difference in the measurement over two conditions</title>
   <image source="images/tbl-pairedexamples-1.png" width="70%" />
 </table>
 
@@ -589,7 +589,7 @@ ggplot(tires_shuffled, aes(x = stat)) +
 
 
 <table xml:id="tbl-textbooksDF">
-  <title>Four cases from the <c>ucla_textbooks_f18</c> dataset.</title>
+  <title>Four cases from the <c>ucla_textbooks_f18</c> dataset</title>
   <tabular halign="center">
     <row header="yes" bottom="minor">
       <cell>subject</cell>
@@ -774,11 +774,17 @@ boot_diff |&gt;
 <subsection>
   <title>Observed data</title>
 
+<p>To analyze paired data, it is often useful to look at the difference in outcomes of each pair of observations. In the textbook data, we look at the differences in prices, which is represented as the price_difference variable in the dataset. Here the differences are taken as:</p>
+<p> UCLA Bookstore Price - Amazon price</p>
+<p>It is important that we always subtract using a consistent order; here Amazon prices are always subtracted from UCLA prices. The first difference is shown in <xref ref="tbl-textbooksDF" /> and computed as <m>47.97-47.45=0.52</m>.
+Similarly, the second difference is computed as <m>14.26-13.55=0.71</m>,
+and the third is <m>13.50-12.53 = 0.97</m>
+A histogram of the differences is shown in <xref ref="fig-textbooksDF" /></p>
 
-<p>We continue our analysis of the textbook data using the mathematical model. Recall that we sampled 201 UCLA courses, and of those, 68 required books could be found on Amazon. We are interested in whether there is a difference between the UCLA Bookstore price and the Amazon price for textbooks.</p>
-
-<p>The summary statistics for the price differences (UCLA - Amazon) are provided in <xref ref="tbl-textbooksSummaryStats" />. We will use these to conduct a hypothesis test and construct a confidence interval using the <m>t</m>-distribution.</p>
-
+<figure xml:id="fig-textbooksDF">
+  <caption>Histogram of the differences in prices for each book sampled.</caption>
+  <image source="images/fig-textbooksDF.png" width="70%" />
+</figure>
 </subsection>
 
 <subsection>
@@ -789,7 +795,7 @@ boot_diff |&gt;
 
 
 <table xml:id="tbl-textbooksSummaryStats">
-  <title>Summary statistics for the 68 price differences.</title>
+  <title>Summary statistics for the 68 price differences</title>
   <tabular halign="center">
     <row header="yes" bottom="minor">
       <cell>n</cell>
@@ -957,7 +963,7 @@ ucla_textbooks_f18 |&gt;
 
 
 <table xml:id="tbl-terms-chp-21">
-  <title>Terms introduced in this chapter.</title>
+  <title>Terms introduced in this chapter</title>
   <tabular halign="left">
     <row>
       <cell>bootstrap CI paired difference</cell>
