@@ -65,15 +65,96 @@
         <image source="images/exercises/_25-ex-inf-model-mlr-4-7.png" width="90%"/>
       </figure>
       <p>Also provided below are three regression model outputs: <c>gpa</c> vs. <c>out</c>, <c>gpa</c> vs. <c>sleepnight</c>, and <c>gpa</c> vs. <c>out + sleepnight</c>.</p>
-      <figure xml:id="fig-ex25-4-8">
-        <image source="images/exercises/_25-ex-inf-model-mlr-4-8.png" width="90%"/>
-      </figure>
-      <figure xml:id="fig-ex25-4-9">
-        <image source="images/exercises/_25-ex-inf-model-mlr-4-9.png" width="90%"/>
-      </figure>
-      <figure xml:id="fig-ex25-4-10">
-        <image source="images/exercises/_25-ex-inf-model-mlr-4-10.png" width="90%"/>
-      </figure>
+
+<table xml:id="tbl-reg-out">
+  <title>Regression output for predicting outcome from out</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell right="minor">std.error</cell>
+      <cell right="minor">statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">3.504</cell>
+      <cell right="minor">0.106</cell>
+      <cell right="minor">33.011</cell>
+      <cell><m>\lt</m>0.0001</cell>
+    </row>
+    <row>
+      <cell>out</cell>
+      <cell right="minor">0.045</cell>
+      <cell right="minor">0.046</cell>
+      <cell right="minor">0.998</cell>
+      <cell right="minor">0.3229</cell>
+    </row>
+  </tabular>
+</table>
+
+<table xml:id="tbl-reg-sleepnight">
+  <title>Regression output for predicting outcome from sleepnight</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell right="minor">std.error</cell>
+      <cell right="minor">statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">3.46</cell>
+      <cell right="minor">0.318</cell>
+      <cell right="minor">10.874</cell>
+      <cell><m>\lt</m>0.0001</cell>
+    </row>
+    <row>
+      <cell>sleepnight</cell>
+      <cell right="minor">0.02</cell>
+      <cell right="minor">0.045</cell>
+      <cell right="minor">0.445</cell>
+      <cell right="minor">0.6583</cell>
+    </row>
+  </tabular>
+</table>
+
+<table xml:id="tbl-reg-out-sleepnight">
+  <title>Regression output for predicting outcome from out and sleepnight</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell right="minor">std.error</cell>
+      <cell right="minor">statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">3.483</cell>
+      <cell right="minor">0.320</cell>
+      <cell right="minor">10.888</cell>
+      <cell><m>\lt</m>0.0001</cell>
+    </row>
+    <row>
+      <cell>out</cell>
+      <cell right="minor">0.044</cell>
+      <cell right="minor">0.050</cell>
+      <cell right="minor">0.886</cell>
+      <cell right="minor">0.3796</cell>
+    </row>
+    <row>
+      <cell>sleepnight</cell>
+      <cell right="minor">0.003</cell>
+      <cell right="minor">0.048</cell>
+      <cell right="minor">0.072</cell>
+      <cell right="minor">0.9432</cell>
+    </row>
+  </tabular>
+</table>
+
+
       <p><ol marker="a.">
         <li>There are three variables described in the figure, and each is paired with each other to create three different scatterplots. Rate the pairwise relationships from most correlated to least correlated.</li>
         <li>When using only one variable to model <c>gpa</c>, is <c>out</c> a discernible predictor? Is <c>sleepnight</c> a discernible predictor? Explain your reasoning.</li>
@@ -88,9 +169,6 @@
       <p>A FiveThirtyEight.com article reports that "Horror movies get nowhere near as much draw at the box office as the big-time summer blockbusters or action/adventure movies, but there's a huge incentive for studios to continue pushing them out. The return-on-investment potential for horror movies is absurd." To investigate how the return-on-investment (ROI) compares between genres and how this relationship has changed over time, an introductory statistics student fit a linear regression model to predict the ratio of gross revenue of movies to the production costs from genre and release year for 1,070 movies released between 2000 and 2018. Using the plots given below, determine if this regression model is appropriate for these data. In particular, use the residual plot to check the LINE conditons.</p>
       <figure xml:id="fig-ex25-5-11">
         <image source="images/exercises/_25-ex-inf-model-mlr-5-11.png" width="90%"/>
-      </figure>
-      <figure xml:id="fig-ex25-5-12">
-        <image source="images/exercises/_25-ex-inf-model-mlr-5-12.png" width="90%"/>
       </figure>
     </statement>
   </exercise>
@@ -135,15 +213,92 @@
         <image source="images/exercises/_25-ex-inf-model-mlr-8-16.png" width="90%"/>
       </figure>
       <p>Also provided below are three regression model outputs: <c>weight</c> vs. <c>weeks</c>, <c>weight</c> vs. <c>visits</c>, and <c>weight</c> vs. <c>weeks + visits</c>.</p>
-      <figure xml:id="fig-ex25-8-17">
-        <image source="images/exercises/_25-ex-inf-model-mlr-8-17.png" width="90%"/>
-      </figure>
-      <figure xml:id="fig-ex25-8-18">
-        <image source="images/exercises/_25-ex-inf-model-mlr-8-18.png" width="90%"/>
-      </figure>
-      <figure xml:id="fig-ex25-8-19">
-        <image source="images/exercises/_25-ex-inf-model-mlr-8-19.png" width="90%"/>
-      </figure>
+<table xml:id="tbl-reg-weeks">
+  <title>Regression output for predicting outcome from weeks</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell right="minor">std.error</cell>
+      <cell right="minor">statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">-0.83</cell>
+      <cell right="minor">1.76</cell>
+      <cell right="minor">-0.47</cell>
+      <cell right="minor">0.6395</cell>
+    </row>
+    <row>
+      <cell>weeks</cell>
+      <cell right="minor">0.21</cell>
+      <cell right="minor">0.05</cell>
+      <cell right="minor">4.70</cell>
+      <cell><m>\lt</m>0.0001</cell>
+    </row>
+  </tabular>
+</table>
+<table xml:id="tbl-reg-visits">
+  <title>Regression output for predicting outcome from visits</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell right="minor">std.error</cell>
+      <cell right="minor">statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">6.56</cell>
+      <cell right="minor">0.36</cell>
+      <cell right="minor">18.36</cell>
+      <cell><m>\lt</m>0.0001</cell>
+    </row>
+    <row>
+      <cell>visits</cell>
+      <cell right="minor">0.08</cell>
+      <cell right="minor">0.03</cell>
+      <cell right="minor">2.61</cell>
+      <cell right="minor">0.0105</cell>
+    </row>
+  </tabular>
+</table>
+<table xml:id="tbl-reg-weeks-visits">
+  <title>Regression output for predicting outcome from weeks and visits</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell right="minor">std.error</cell>
+      <cell right="minor">statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">-0.44</cell>
+      <cell right="minor">1.78</cell>
+      <cell right="minor">-0.25</cell>
+      <cell right="minor">0.81</cell>
+    </row>
+    <row>
+      <cell>weeks</cell>
+      <cell right="minor">0.19</cell>
+      <cell right="minor">0.05</cell>
+      <cell right="minor">4.00</cell>
+      <cell><m>\lt</m>0.00</cell>
+    </row>
+    <row>
+      <cell>visits</cell>
+      <cell right="minor">0.04</cell>
+      <cell right="minor">0.03</cell>
+      <cell right="minor">1.26</cell>
+      <cell right="minor">0.21</cell>
+    </row>
+  </tabular>
+</table>
+
       <p><ol marker="a.">
         <li>There are three variables described in the figure, and each is paired with each other to create three different scatterplots. Rate the pairwise relationships from most correlated to least correlated.</li>
         <li>When using only one variable to model the baby's <c>weight</c>, is <c>weeks</c> a discernible predictor? Is <c>visits</c> a discernible predictor? Explain your reasoning.</li>
