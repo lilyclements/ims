@@ -322,7 +322,7 @@
     <title>Fuel efficiency on the highway</title>
     <statement>
       <p>Each year the US Environmental Protection Agency (EPA) releases fuel economy data on cars manufactured in that year. Below are summary statistics on fuel efficiency (in miles/gallon) from random samples of cars with manual and automatic transmissions manufactured in 2021. Do these data provide strong evidence of a difference between the average fuel efficiency of cars with manual and automatic transmissions in terms of their average highway mileage?</p>
-<table xml:id="tbl-city-mpg-summary">
+<table xml:id="tbl-city-mpg-summary-1">
   <title>Summary statistics for city MPG by transmission type</title>
   <tabular halign="left">
     <row header="yes" bottom="medium">
