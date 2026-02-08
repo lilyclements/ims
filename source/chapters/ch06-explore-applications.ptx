@@ -3,7 +3,615 @@
 <chapter xml:id="ch06-explore-applications">
   <title>Applications: Explore</title>
   
-  <p>
-    Content to be added from explore-applications.qmd
-  </p>
+  <section xml:id="sec-case-study-effective-comms">
+    <title>Case study: Effective communication of exploratory results</title>
+    <introduction>
+     <p>
+      Graphs can powerfully communicate ideas directly and quickly.
+      We all know, after all, that <q>a picture is worth 1000 words.</q> Unfortunately, however, there are times when an image conveys a message which is inaccurate or misleading.
+     </p>
+    
+     <p>
+      This chapter focuses on how graphs can best be utilized to present data accurately and effectively.
+      Along with data modeling, creative visualization is somewhat of an art.
+      However, even with an art, there are recommended guiding principles.
+      We provide a few best practices for creating data visualizations.
+     </p>
+    </introduction>
+    <subsection xml:id="sec-keep-it-simple">
+      <title>Keep it simple</title>
+      
+      <p>
+        When creating a graphic, keep in mind what it is that you'd like your reader to see.
+        Colors should be used to group items or differentiate levels in meaningful ways.
+        Colors can be distracting when they are only used to brighten up the plot.
+      </p>
+      
+      <p>
+        Consider a manufacturing company that has summarized its costs into five different categories.
+        In the two graphics provided in <xref ref="fig-pie-to-bar" />, notice that the magnitudes in the pie chart in <xref ref="fig-pie-to-bar-1" /> are difficult for the eye to compare.
+        That is, can your eye tell how different <q>Buildings and administration</q> is from <q>Workplace materials</q> when looking at the slices of pie?
+        Additionally, the colors in the pie chart do not mean anything and are therefore distracting.
+        Lastly, the three-dimensional aspect of the image does not improve the reader's ability to understand the data presented.
+      </p>
+      
+      <p>
+        As an alternative, a bar plot has been provided in <xref ref="fig-pie-to-bar-2" />.
+        Notice how much easier it is to identify the magnitude of the differences across categories while not being distracted by other aspects of the image.
+        Typically, a bar plot will be easier for the reader to digest than a pie chart, especially if the categorical data being plotted has more than just a few levels.
+      </p>
+      
+      <listing xml:id="listing-keep-it-simple">
+        <caption>R code for creating pie chart and bar plot comparison</caption>
+        <program language="r">
+          <code>
+expenses &lt;- tribble(
+  ~category,                     ~value,
+  "Cutting tools"                , 0.03,
+  "Buildings and Administration" , 0.22,
+  "Labor"                        , 0.31,
+  "Machinery"                    , 0.27,
+  "Workplace materials"          , 0.17
+) |&gt;
+  mutate(value =  value * 100) |&gt;
+  uncount(weights = value)
+
+# Pie chart (3D image)
+knitr::include_graphics("images/pie-3d.jpg")
+
+# Bar plot
+ggplot(expenses, aes(x = fct_infreq(category))) +
+  geom_bar() +
+  theme_minimal() +
+  coord_flip() +
+  labs(x = NULL, y = NULL)
+          </code>
+        </program>
+      </listing>
+      
+      <figure xml:id="fig-pie-to-bar">
+        <caption>Same information displayed with two very different visualizations.</caption>
+        
+        <sidebyside widths="40% 60%">
+          <figure xml:id="fig-pie-to-bar-1">
+            <caption>A three-dimensional pie chart.</caption>
+            <image source="images/pie-3d.jpg">
+              <description>A three dimensional pie chart showing that the biggest sources of cost are labor, machinery, and buildings and administration, in that order. Very little of the costs are due to cutting tools.</description>
+            </image>
+          </figure>
+          
+          <figure xml:id="fig-pie-to-bar-2">
+            <caption>A bar plot.</caption>
+            <image source="images/fig-pie-to-bar-2.png">
+              <description>A bar plot showing that the biggest sources of cost are labor, machinery, and buildings and administration, in that order. Very little of the costs are due to cutting tools.</description>
+            </image>
+          </figure>
+        </sidebyside>
+      </figure>
+    </subsection>
+    
+    <subsection xml:id="sec-use-color-to-draw-attention">
+      <title>Use color to draw attention</title>
+      
+      <p>
+        There are many reasons why you might choose to add <alert>color</alert> to your plots.
+        An important principle to keep in mind is to use color to draw attention.
+        Of course, you should still think about how visually pleasing your visualization is, and if you're adding color for making it visually pleasing without drawing attention to a particular feature, that might be fine.
+        However, you should be critical of default coloring and explicitly decide whether to include color and how.
+        Notice that in <xref ref="fig-red-bar-2" /> the coloring is done in such a way to draw the reader's attention to one particular piece of information.
+        The default coloring in <xref ref="fig-red-bar-1" /> can be distracting and makes the reader question, for example, is there something similar about the red and purple bars?
+        Also note that not everyone sees color the same way, often it's useful to add color and one more feature (e.g., pattern) so that you can refer to the features you're drawing attention to in multiple ways, as shown in <xref ref="fig-red-bar-3" />.
+      </p>
+      
+      <listing xml:id="listing-use-color">
+        <caption>R code for demonstrating effective use of color to draw attention</caption>
+        <program language="r">
+          <code>
+# Default coloring
+ggplot(expenses, aes(y = fct_infreq(category), fill = category)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_openintro("five") +
+  labs(x = NULL, y = NULL) +
+  scale_y_discrete(labels = label_wrap(14))
+
+# Highlighting Buildings and Administration with color
+expenses |&gt;
+  mutate(highlight = if_else(category == "Buildings and Administration", "yes", "no")) |&gt;
+  ggplot(aes(y = fct_infreq(category), fill = highlight)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_manual(values = c(IMSCOL["lgray", "full"], IMSCOL["red", "full"])) +
+  labs(x = NULL, y = NULL) +
+  scale_y_discrete(labels = label_wrap(14))
+
+# Highlighting with color and linetype
+expenses |&gt;
+  mutate(highlight = if_else(category == "Buildings and Administration", "yes", "no")) |&gt;
+  ggplot(aes(y = fct_infreq(category), fill = highlight, color = highlight, linetype = highlight, size = highlight)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_manual(values = c(IMSCOL["lgray", "full"], IMSCOL["red", "full"])) +
+  labs(x = NULL, y = NULL) +
+  scale_color_manual(values = c(IMSCOL["lgray", "full"], "white")) +
+  scale_size_manual(values = c(0, 0.8)) +
+  scale_y_discrete(labels = label_wrap(14))
+          </code>
+        </program>
+      </listing>
+      
+      <figure xml:id="fig-red-bar">
+        <caption>Three bar charts visualizing the same information with different coloring to highlight different aspects.</caption>
+        
+        <sidebyside widths="48% 48%" margins="0% 0%">
+          <figure xml:id="fig-red-bar-1">
+            <caption>Default coloring does nothing for the understanding of the data.</caption>
+            <image source="images/fig-red-bar-1.png">
+              <description>Bar chart with each bar (Cutting tools, Workspace materials, Buildings and Administration, Machinery, and Labor) colored differently using default colors.</description>
+            </image>
+          </figure>
+          
+          <figure xml:id="fig-red-bar-2">
+            <caption>Color draws attention directly to the bar on Buildings and Administration.</caption>
+            <image source="images/fig-red-bar-2.png">
+              <description>Bar chart where Buildings and Administration is highlighted in red and the rest of the bars are grey.</description>
+            </image>
+          </figure>
+        </sidebyside>
+        
+        <figure xml:id="fig-red-bar-3">
+          <caption>Color and linetype draw attention directly to the bar on Buildings and Administration.</caption>
+          <image source="images/fig-red-bar-3.png" width="48%">
+            <description>Bar chart where Buildings and Administration is highlighted in red with a white border, and the rest of the bars are grey.</description>
+          </image>
+        </figure>
+      </figure>
+    </subsection>
+    
+    <subsection xml:id="sec-tell-a-story">
+      <title>Tell a story</title>
+      
+      <p>
+        For many graphs, an important aspect is the inclusion of information which is not provided in the dataset that is being plotted.
+        The external information serves to contextualize the data and helps communicate the narrative of the research.
+      </p>
+      
+      <p>
+        In <xref ref="fig-duke-hires" />, the graph on the right is <alert>annotated</alert> with information about the start of the university's fiscal year which contextualizes the information provided by the data.
+        Sometimes the additional information may be a diagonal line given by <m>y = x</m>, points above the line quickly show the reader which values have a <m>y</m> coordinate larger than the <m>x</m> coordinate; points below the line show the opposite.
+      </p>
+      
+      <listing xml:id="listing-tell-a-story">
+        <caption>R code for creating time series plots with effective storytelling</caption>
+        <program language="r">
+          <code>
+duke_hires_raw &lt;- read_csv("data/duke-hires.csv")
+
+set.seed(1234)
+
+duke_hires &lt;- duke_hires_raw |&gt;
+  mutate(
+    `2011` = `2010` + round(runif(12, min = -30, max = 15)),
+    `2011` = `2010` + round(runif(12, min = -12, max = 10) * 1.02),
+    `2012` = `2010` + round(runif(12, min = -11, max = 31) * 0.95),
+    `2013` = `2010` + round(runif(12, min = -37, max = 20) * 1.1),
+    `2014` = `2010` + round(runif(12, min = -10, max = 42) * 0.8),
+    `2015` = `2010` + round(runif(12, min = -23, max = 18) * 1.5),
+    `2012` = if_else(month == 6, 600, `2012`),
+    `2013` = if_else(month == 6, 480, `2013`),
+    `2014` = if_else(month == 6, 550, `2014`),
+    `2015` = if_else(month == 6, 430, `2015`),
+    `2012` = if_else(month == 8, 600 + 10, `2012`),
+    `2013` = if_else(month == 8, 480 + 80, `2013`),
+    `2014` = if_else(month == 8, 550 + 90, `2014`),
+    `2015` = if_else(month == 8, 430 + 140, `2015`),
+    `2015` = if_else(month == 7, 800, `2015`)
+  ) |&gt;
+  pivot_longer(
+    cols = !month,
+    names_to = "year",
+    values_to = "n"
+  )
+
+# Colored by year
+ggplot(duke_hires, aes(x = month, y = n, color = year)) +
+  geom_line(linewidth = 1) +
+  scale_color_openintro("five") +
+  scale_x_continuous(breaks = 1:12, labels = month.abb, minor_breaks = NULL) +
+  scale_y_continuous(breaks = seq(0, 800, 100), minor_breaks = NULL) +
+  labs(
+    title = "Duke hires by month",
+    y = NULL, x = NULL, color = NULL
+  ) +
+  theme(
+    legend.position = c(0.12, 0.65),
+    legend.background = element_rect(color = "gray")
+  )
+
+# Same color with annotation
+ggplot(duke_hires, aes(x = month, y = n, group = year)) +
+  geom_segment(x = 7, xend = 7, y = 0, yend = 800) +
+  geom_line(linewidth = 0.8, color = IMSCOL["blue", "f2"]) +
+  scale_x_continuous(breaks = 1:12, labels = month.abb, minor_breaks = NULL) +
+  scale_y_continuous(breaks = seq(0, 800, 200), minor_breaks = NULL) +
+  labs(
+    title = "Duke hires by month",
+    y = NULL, x = NULL
+  ) +
+  annotate(
+    "label",
+    x = 7, y = 250,
+    label = "Hires always peak in\nJuly, which is the start\nof Duke's fiscal year.",
+    hjust = -0.1
+  )
+          </code>
+        </program>
+      </listing>
+      
+      <figure xml:id="fig-duke-hires">
+        <caption>Time series plot showing monthly Duke University hiring trends over five calendar years.</caption>
+        
+        <sidebyside widths="50% 50%">
+          <figure xml:id="fig-duke-hires-1">
+            <caption>Colored by year</caption>
+            <image source="images/fig-duke-hires-1.png">
+              <description>Time series plot showing monthly Duke University hiring trends over five calendar years. Different colors represent different years. Hiring spikes in July.</description>
+            </image>
+          </figure>
+          
+          <figure xml:id="fig-duke-hires-2">
+            <caption>Same color for all years, annotation summarizing trend</caption>
+            <image source="images/fig-duke-hires-2.png">
+              <description>Time series plot showing monthly Duke University hiring trends with all years in the same color. A vertical line at July is annotated with text explaining that hires always peak in July, which is the start of Duke's fiscal year.</description>
+            </image>
+          </figure>
+        </sidebyside>
+      </figure>
+    </subsection>
+    
+    <subsection xml:id="sec-order-matters">
+      <title>Order matters</title>
+      
+      <p>
+        Most software programs have built-in methods for some of the plot details <mdash /> some order levels alphabetically, some provide functionality for arranging them in a custom order.
+        As seen in <xref ref="fig-brexit-bars-1" />, the alphabetical ordering isn't particularly meaningful for describing the data.
+        Sometimes it makes sense to <alert>order</alert> the bars from tallest to shortest (or vice versa), as shown in <xref ref="fig-brexit-bars-2" />.
+        But in this case, the best ordering is probably the one in which the questions were asked, as shown in <xref ref="fig-brexit-bars-3" />.
+        An ordering which does not make sense in the context of the problem (e.g., alphabetically here), can mislead the reader who might take a quick glance at the axes and not read the bar labels carefully.
+      </p>
+      
+      <p>
+        In September 2019, YouGov survey asked 1,639 Great Britain adults the following question<fn>Source: <url href="https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/x0msmggx08/YouGov%20-%20Brexit%20and%202019%20election.pdf">YouGov Survey Results</url>, retrieved Oct 7, 2019.</fn>:
+      </p>
+      
+      <blockquote>
+        <p>
+          How well or badly do you think the government are doing at handling Britain's exit from the European Union?
+        </p>
+        <p>
+          <ul>
+            <li><p>Very well</p></li>
+            <li><p>Fairly well</p></li>
+            <li><p>Fairly badly</p></li>
+            <li><p>Very badly</p></li>
+            <li><p>Don't know</p></li>
+          </ul>
+        </p>
+      </blockquote>
+      
+      <listing xml:id="listing-order-matters">
+        <caption>R code for demonstrating different ordering strategies for bar plots</caption>
+        <program language="r">
+          <code>
+brexit &lt;- tibble(
+  opinion = c(
+    rep("Very well", 123), rep("Fairly well", 219), rep("Fairly badly", 332),
+    rep("Very badly", 818), rep("Don't know", 151)
+    ),
+  region = c(
+    rep("london", 10), rep("rest_of_south", 49), rep("midlands_wales", 32), rep("north", 24), rep("scot", 8),
+    rep("london", 18), rep("rest_of_south", 93), rep("midlands_wales", 50), rep("north", 48), rep("scot", 10),
+    rep("london", 33), rep("rest_of_south", 126), rep("midlands_wales", 74), rep("north", 76), rep("scot", 23),
+    rep("london", 118), rep("rest_of_south", 246), rep("midlands_wales", 152), rep("north", 212), rep("scot", 90),
+    rep("london", 16), rep("rest_of_south", 38), rep("midlands_wales", 46), rep("north", 40), rep("scot", 11)
+    )
+)
+
+# Alphabetic order
+ggplot(brexit, aes(y = fct_rev(opinion))) +
+  geom_bar() + 
+  labs(y = "Opinion", x = "Count")
+
+# Frequency order
+ggplot(brexit, aes(y = fct_rev(fct_infreq(opinion)))) +
+  geom_bar() + 
+  labs(y = "Opinion", x = "Count")
+
+# Survey question order
+brexit |&gt;
+  mutate(opinion = fct_relevel(opinion, "Very well", "Fairly well", "Fairly badly", "Very badly", "Don't know")) |&gt;
+  ggplot(aes(y = opinion)) +
+  geom_bar() + 
+  labs(y = "Opinion", x = "Count")
+          </code>
+        </program>
+      </listing>
+      
+      <figure xml:id="fig-brexit-bars">
+        <caption>Three bar charts visualizing the same information with arrangement of levels.</caption>
+        
+        <sidebyside widths="48% 48%" margins="0% 0%">
+          <figure xml:id="fig-brexit-bars-1">
+            <caption>Alphabetic order</caption>
+            <image source="images/fig-brexit-bars-1.png">
+              <description>Bar plot with the bars (Very well, Fairly well, Fairly badly, Very badly, Don't know) arranged in alphabetical order.</description>
+            </image>
+          </figure>
+          
+          <figure xml:id="fig-brexit-bars-2">
+            <caption>Frequency order</caption>
+            <image source="images/fig-brexit-bars-2.png">
+              <description>Bar plot with the bars arranged in frequency order from highest (Very badly) to lowest (Very well).</description>
+            </image>
+          </figure>
+        </sidebyside>
+        
+        <figure xml:id="fig-brexit-bars-3">
+          <caption>Same order as presented in the survey question</caption>
+          <image source="images/fig-brexit-bars-3.png" width="48%">
+            <description>Bar plot with the bars arranged in the same order as presented in the survey question.</description>
+          </image>
+        </figure>
+      </figure>
+    </subsection>
+    
+    <subsection xml:id="sec-make-labels-easy-to-read">
+      <title>Make the labels as easy to read as possible</title>
+      
+      <p>
+        The Brexit survey results were additionally broken down by region in Great Britain.
+        The stacked bar plot allows for comparison of Brexit opinion across the five regions.
+        In <xref ref="fig-brexit-region-1" /> the bars are vertical and in <xref ref="fig-brexit-region-2" /> they are horizontal.
+        While the quantitative information in the two graphics is identical, flipping the graph and creating horizontal bars provides more space for the <alert>axis labels</alert>.
+        The easier the categories are to read, the more the reader will learn from the visualization.
+        Remember, the goal is to convey as much information as possible in a succinct and clear manner.
+      </p>
+      
+      <listing xml:id="listing-make-labels-easy">
+        <caption>R code for creating readable labels and horizontal bar plots</caption>
+        <program language="r">
+          <code>
+brexit &lt;- brexit |&gt;
+  mutate(
+    region = fct_relevel(
+      region,
+      "london", "rest_of_south", "midlands_wales", "north", "scot"
+    ),
+    region = fct_recode(
+      region,
+      London = "london", 
+      `Rest of South` = "rest_of_south", 
+      `Midlands / Wales` = "midlands_wales", 
+      North = "north", 
+      Scotland = "scot"
+    )
+  ) |&gt;
+  mutate(Opinion = fct_relevel(opinion, c("Very well", "Fairly well", "Fairly badly", "Very badly", "Don't know")))
+
+# Vertical bars
+ggplot(brexit, aes(x = region, fill = Opinion)) +
+  geom_bar(show.legend = FALSE) +
+  scale_fill_openintro("five") +
+  labs(x = "Region", y = "Count")
+
+# Horizontal bars
+ggplot(brexit, aes(y = region, fill = Opinion)) +
+  geom_bar() +
+  labs(x = "Count", y = NULL) +
+  scale_fill_openintro("five") +
+  theme(legend.position = "bottom")
+          </code>
+        </program>
+      </listing>
+      
+      <figure xml:id="fig-brexit-region">
+        <caption>Stacked bar plots. Horizontal orientation makes the region labels easier to read.</caption>
+        
+        <figure xml:id="fig-brexit-region-1">
+          <caption>Vertical bars across the x-axis.</caption>
+          <image source="images/fig-brexit-region-1-1.png">
+            <description>Stacked bar plot of region and opinion, where vertical bars are on the x-axis.</description>
+          </image>
+        </figure>
+        
+        <figure xml:id="fig-brexit-region-2">
+          <caption>Horizontal bars across the y-axis.</caption>
+          <image source="images/fig-brexit-region-2-1.png">
+            <description>Stacked bar plot of region and opinion, where horizontal bars are on the y-axis.</description>
+          </image>
+        </figure>
+      </figure>
+    </subsection>
+    
+    <subsection xml:id="sec-pick-a-purpose">
+      <title>Pick a purpose</title>
+      
+      <p>
+        Every graphical decision should be made with a <alert>purpose</alert>.
+        As previously mentioned, sticking with default options is not always best for conveying the narrative of your data story.
+        Stacked bar plots tell one part of a story.
+        Depending on your research question, they may not tell the part of the story most important to the research.
+      </p>
+      
+      <p>
+        <xref ref="fig-seg-three-ways" /> provides three different ways of representing the same information.
+        If the most important comparison across regions is proportion, you might prefer <xref ref="fig-seg-three-ways-1" />. If the most important comparison across regions also considers the total number of individuals in the region, you might prefer <xref ref="fig-seg-three-ways-2" />. If a separate bar plot for each region makes the point you'd like, use <xref ref="fig-seg-three-ways-3" />, which has been <alert>faceted</alert> by region.
+        <xref ref="fig-seg-three-ways-3" /> also provides full titles and a succinct URL with the data source.
+        Other deliberate decisions to consider include using informative labels and avoiding redundancy.
+      </p>
+      
+      <listing xml:id="listing-pick-a-purpose">
+        <caption>R code for comparing different visualization approaches</caption>
+        <program language="r">
+          <code>
+# Stacked bar plot showing percentages
+ggplot(brexit, aes(y = region,  fill = Opinion)) +
+  geom_bar(position = "fill") +
+  labs(x = "Percent", y = NULL) +
+  scale_fill_openintro("five") +
+  scale_x_continuous(labels = label_percent()) +
+  theme(legend.position = "top")
+
+# Stacked bar plot showing counts
+ggplot(brexit, aes(y = region, fill = Opinion)) +
+  geom_bar() + 
+  labs(x = "Count", y = NULL) +
+  scale_fill_openintro("five") +
+  theme(legend.position = "top")
+
+# Faceted bar plot
+ggplot(brexit, aes(y = Opinion)) +
+  geom_bar() +
+  facet_grid(. ~ region, labeller = label_wrap_gen(width = 12)) +
+  scale_x_continuous(breaks = c(0, 100, 200)) +
+  labs(
+    title = "How well or badly do you think the government are doing at handling Britain's exit\nfrom the European Union?",
+    subtitle = "YouGov Survey Results, 2-3 September 2019",
+    caption = "Source: bit.ly/2lCJZVg", 
+    x = NULL, y = NULL
+  ) +
+  theme(plot.title.position = "plot")
+          </code>
+        </program>
+      </listing>
+      
+      <figure xml:id="fig-seg-three-ways">
+        <caption>Three different representations of two variables from the survey, region and opinion.</caption>
+        
+        <figure xml:id="fig-seg-three-ways-1">
+          <caption>Stacked bar plot of region and opinion, showing percentages.</caption>
+          <image source="images/fig-seg-three-ways-1-1.png">
+            <description>Stacked bar plot of region and opinion, showing percentages.</description>
+          </image>
+        </figure>
+        
+        <figure xml:id="fig-seg-three-ways-2">
+          <caption>Stacked bar plot of region and opinion, showing counts.</caption>
+          <image source="images/fig-seg-three-ways-2-1.png">
+            <description>Stacked bar plot of region and opinion, showing counts.</description>
+          </image>
+        </figure>
+        
+        <figure xml:id="fig-seg-three-ways-3">
+          <caption>Dodged bar plot of region and opinion, showing counts.</caption>
+          <image source="images/fig-seg-three-ways-3-1.png">
+            <description>Dodged bar plot of region and opinion, showing counts, faceted by region.</description>
+          </image>
+        </figure>
+      </figure>
+    </subsection>
+    
+    <subsection xml:id="sec-select-meaningful-colors">
+      <title>Select meaningful colors</title>
+      
+      <p>
+        One last consideration for building graphs is to consider color choices.
+        Default or rainbow colors are not always the choice which will best distinguish the level of your variables.
+        Much research has been done to find color combinations which are distinct and which are clear for differently sighted individuals.
+        The cividis scale works well with ordinal data <xref ref="Nunez-2018" />.
+        <xref ref="fig-brexit-viridis" /> shows the same plot with two different color themes.
+      </p>
+      
+      <listing xml:id="listing-select-meaningful-colors">
+        <caption>R code for demonstrating color scale selection</caption>
+        <program language="r">
+          <code>
+p &lt;- ggplot(brexit, aes(y = region, fill = Opinion)) +
+  geom_bar(position = "fill") +
+  labs(
+    title = "How well or badly do you think the government are doing at handling Britain's exit\nfrom the European Union?",
+    subtitle = "YouGov Survey Results, 2-3 September 2019",
+    caption = "Source: bit.ly/2lCJZVg",
+    x = NULL, y = NULL, fill = NULL
+  ) +
+  theme(plot.title.position = "plot")
+
+# Default color scale
+p +
+  scale_fill_openintro("five")
+
+# Cividis scale
+p +
+  scale_fill_viridis_d(option = "E")
+          </code>
+        </program>
+      </listing>
+      
+      <figure xml:id="fig-brexit-viridis">
+        <caption>Identical bar plots with two different coloring options.</caption>
+        
+        <sidebyside widths="50% 50%">
+          <figure xml:id="fig-brexit-viridis-1">
+            <caption>Default color scale</caption>
+            <image source="images/fig-brexit-viridis-1.png">
+              <description>Bar plot with default color scale showing Brexit survey results by region and opinion.</description>
+            </image>
+          </figure>
+          
+          <figure xml:id="fig-brexit-viridis-2">
+            <caption>Cividis scale</caption>
+            <image source="images/fig-brexit-viridis-2.png">
+              <description>Bar plot with cividis color scale showing Brexit survey results by region and opinion.</description>
+            </image>
+          </figure>
+        </sidebyside>
+      </figure>
+      
+      <p>
+        In this chapter different representations are contrasted to demonstrate best practices in creating graphs.
+        The fundamental principle is that your graph should provide maximal information succinctly and clearly.
+        Labels should be clear and oriented horizontally for the reader.
+        Don't forget titles and, if possible, include the source of the data.
+      </p>
+    </subsection>
+  </section>
+  
+  <section xml:id="sec-explore-tutorials">
+    <title>Interactive R tutorials</title>
+    
+    <p>
+      Navigate the concepts you've learned in this part in R using the following self-paced tutorials.
+      All you need is your browser to get started!
+    </p>
+    
+    <p>
+      <url href="https://openintrostat.github.io/ims-tutorials/02-explore/">Tutorial 2: Exploratory data analysis</url>
+    </p>
+    
+    <p>
+      <ul>
+        <li><p><url href="https://openintro.shinyapps.io/ims-02-explore-01/">Tutorial 2 - Lesson 1: Visualizing categorical data</url></p></li>
+        <li><p><url href="https://openintro.shinyapps.io/ims-02-explore-02/">Tutorial 2 - Lesson 2: Visualizing numerical data</url></p></li>
+        <li><p><url href="https://openintro.shinyapps.io/ims-02-explore-03/">Tutorial 2 - Lesson 3: Summarizing with statistics</url></p></li>
+        <li><p><url href="https://openintro.shinyapps.io/ims-02-explore-04/">Tutorial 2 - Lesson 4: Case study</url></p></li>
+      </ul>
+    </p>
+    
+    <p>
+      You can also access the full list of tutorials supporting this book at <url href="https://openintrostat.github.io/ims-tutorials">https://openintrostat.github.io/ims-tutorials</url>.
+    </p>
+  </section>
+  
+  <section xml:id="sec-explore-labs">
+    <title>R labs</title>
+    
+    <p>
+      Further apply the concepts you've learned in this part in R with computational labs that walk you through a data analysis case study.
+    </p>
+    
+    <p>
+      <url href="https://www.openintro.org/go?id=ims-r-lab-intro-to-data">Intro to data - Flight delays</url>
+    </p>
+    
+    <p>
+      You can also access the full list of labs supporting this book at <url href="https://www.openintro.org/go?id=ims-r-labs">https://www.openintro.org/go?id=ims-r-labs</url>.
+    </p>
+  </section>
 </chapter>

@@ -137,11 +137,15 @@ p_tl <- ggplot(tappers_listeners_sim_dist, aes(x = stat)) +
 ```
 
 ::: {.guidedpractice data-latex=""}
-Describe the shape of the distributions and note anything that you find interesting.[^13-foundations-mathematical-1]
-:::
+Describe the shape of the distributions and note anything that you find interesting.
 
-[^13-foundations-mathematical-1]: In general, the distributions are reasonably symmetric.
+::: {.callout-note collapse="true"}
+## Solution
+
+In general, the distributions are reasonably symmetric.
     The case study for the medical consultant is the only distribution with any evident skew (the distribution is skewed right).
+:::
+:::
 
 The case study for the medical consultant is the only distribution with any evident skew.
 As we observed in [Chapter -@sec-data-hello], it's common for distributions to be skewed or contain outliers.
@@ -178,13 +182,9 @@ normTail(axes = FALSE)
 Mathematical theory guarantees that if repeated samples are taken a sample proportion or a difference in sample proportions will follow something that resembles a normal distribution when certain conditions are met.
 (Note: we typically only take **one** sample, but the mathematical model lets us know what to expect if we *had* taken repeated samples.) These conditions fall into two general categories describing the independence between observations and the need to take a sufficiently large sample size.
 
-1.  Observations in the sample are **independent**.
-    Independence is guaranteed when we take a random sample from a population.
-    Independence can also be guaranteed if we randomly divide individuals into treatment and control groups.
+1.  **Observations in the sample are independent.** Independence is guaranteed when we take a random sample from a population. Independence can also be guaranteed if we randomly divide individuals into treatment and control groups.
 
-2.  The sample is **large enough**.
-    The sample size cannot be too small.
-    What qualifies as "small" differs from one context to the next, and we'll provide suitable guidelines for proportions in [Chapter -@sec-inference-one-prop].
+2.  **The sample is large enough.** The sample size cannot be too small. What qualifies as "small" differs from one context to the next, and we'll provide suitable guidelines for proportions in [Chapter -@sec-inference-one-prop].
 
 So far we have had no need for the normal distribution.
 We've been able to answer our questions somewhat easily using simulation techniques.
@@ -210,8 +210,6 @@ The symmetric, unimodal, bell curve is ubiquitous throughout statistics.
 It is so common that people know it as a variety of names including the **normal curve**\index{normal curve}, **normal model**\index{normal model}, or **normal distribution**\index{normal distribution}.[^13-foundations-mathematical-2]
 Under certain conditions, sample proportions, sample means, and sample differences can be modeled using the normal distribution.
 Additionally, some variables such as SAT scores and heights of US adult males closely follow the normal distribution.
-
-[^13-foundations-mathematical-2]: It is also introduced as the Gaussian distribution after Frederic Gauss, the first person to formalize its mathematical expression.
 
 ```{r}
 #| include: false
@@ -347,11 +345,15 @@ c.  $N(\mu = 2, \sigma = 9)$
 SAT scores follow a nearly normal distribution with a mean of 1500 points and a standard deviation of 300 points.
 ACT scores also follow a nearly normal distribution with mean of 21 points and a standard deviation of 5 points.
 Suppose Nel scored 1800 points on their SAT and Sian scored 24 points on their ACT.
-Who performed better?[^13-foundations-mathematical-3]
-:::
+Who performed better?
 
-[^13-foundations-mathematical-3]: We use the standard deviation as a guide.
+::: {.callout-note collapse="true"}
+## Solution
+
+We use the standard deviation as a guide.
     Nel is 1 standard deviation above average on the SAT: $1500 + 300 = 1800.$ Sian is 0.6 standard deviations above the mean on the ACT: $21+0.6 \times 5 = 24.$ In @fig-satActNormals, we can see that Nel did better compared to other test takers than Sian did, so their score was better.
+:::
+:::
 
 ```{r}
 #| label: fig-satActNormals
@@ -449,10 +451,14 @@ That is, the normality remains when transforming from $x$ to $Z$ with a shift in
 :::
 
 ::: {.guidedpractice data-latex=""}
-Use Sian's ACT score, 24, along with the ACT mean and standard deviation to compute their Z score.[^13-foundations-mathematical-4]
-:::
+Use Sian's ACT score, 24, along with the ACT mean and standard deviation to compute their Z score.
 
-[^13-foundations-mathematical-4]: $Z_{Sian} = \frac{x_{Sian} - \mu_{ACT}}{\sigma_{ACT}} = \frac{24 - 21}{5} = 0.6$
+::: {.callout-note collapse="true"}
+## Solution
+
+$Z_{Sian} = \frac{x_{Sian} - \mu_{ACT}}{\sigma_{ACT}} = \frac{24 - 21}{5} = 0.6$
+:::
+:::
 
 Observations above the mean always have positive Z scores while those below the mean have negative Z scores.
 If an observation is equal to the mean (e.g., SAT score of 1500), then the Z score is $0.$
@@ -468,19 +474,27 @@ We know it must be above the mean since $Z$ is positive.
 
 ::: {.guidedpractice data-latex=""}
 Head lengths of brushtail possums follow a nearly normal distribution with mean 92.6 mm and standard deviation 3.6 mm.
-Compute the Z scores for possums with head lengths of 95.4 mm and 85.8 mm.[^13-foundations-mathematical-5]
-:::
+Compute the Z scores for possums with head lengths of 95.4 mm and 85.8 mm.
 
-[^13-foundations-mathematical-5]: For $x_1=95.4$ mm: $Z_1 = \frac{x_1 - \mu}{\sigma} = \frac{95.4 - 92.6}{3.6} = 0.78.$ For $x_2=85.8$ mm: $Z_2 = \frac{85.8 - 92.6}{3.6} = -1.89.$
+::: {.callout-note collapse="true"}
+## Solution
+
+For $x_1=95.4$ mm: $Z_1 = \frac{x_1 - \mu}{\sigma} = \frac{95.4 - 92.6}{3.6} = 0.78.$ For $x_2=85.8$ mm: $Z_2 = \frac{85.8 - 92.6}{3.6} = -1.89.$
+:::
+:::
 
 We can use Z scores to roughly identify which observations are more unusual than others.
 One observation $x_1$ is said to be more unusual than another observation $x_2$ if the absolute value of its Z score is larger than the absolute value of the other observation's Z score: $|Z_1| > |Z_2|.$ This technique is especially insightful when a distribution is symmetric.
 
 ::: {.guidedpractice data-latex=""}
-Which of the two brushtail possum observations in the previous guided practice is more *unusual*?[^13-foundations-mathematical-6]
-:::
+Which of the two brushtail possum observations in the previous guided practice is more *unusual*?
 
-[^13-foundations-mathematical-6]: Because the *absolute value* of Z score for the second observation is larger than that of the first, the second observation has a more unusual head length.
+::: {.callout-note collapse="true"}
+## Solution
+
+Because the *absolute value* of Z score for the second observation is larger than that of the first, the second observation has a more unusual head length.
+:::
+:::
 
 \vspace{-5mm}
 
@@ -559,11 +573,15 @@ openintro::normTail(m = 0, s = 1, L = 0.842)
 ```
 
 ::: {.guidedpractice data-latex=""}
-Determine the proportion of SAT test takers who scored better than Nel on the SAT.[^13-foundations-mathematical-7]
-:::
+Determine the proportion of SAT test takers who scored better than Nel on the SAT.
 
-[^13-foundations-mathematical-7]: If 84% had lower scores than Nel, the number of people who had better scores must be 16%.
+::: {.callout-note collapse="true"}
+## Solution
+
+If 84% had lower scores than Nel, the number of people who had better scores must be 16%.
     (Generally ties are ignored when the normal model, or any other continuous distribution, is used.)
+:::
+:::
 
 ### Normal probability examples
 
@@ -654,11 +672,15 @@ After drawing a figure to represent the situation, identify the Z score for the 
 
 ::: {.guidedpractice data-latex=""}
 If the probability of Shannon scoring at least 1630 is 0.3336, then what is the probability they score less than 1630?
-Draw the normal curve representing this exercise, shading the lower region instead of the upper one.[^13-foundations-mathematical-8]
-:::
+Draw the normal curve representing this exercise, shading the lower region instead of the upper one.
 
-[^13-foundations-mathematical-8]: We found the probability to be 0.6664.
+::: {.callout-note collapse="true"}
+## Solution
+
+We found the probability to be 0.6664.
     A picture for this exercise is represented by the shaded area below "0.6664".
+:::
+:::
 
 ::: {.workedexample data-latex=""}
 Edward earned a 1400 on their SAT.
@@ -727,15 +749,17 @@ If you would like the area to the right, first find the area to the left and the
 Stuart earned an SAT score of 2100.
 Draw a picture for each part.
 (a) What is their percentile?
-(b) What percent of SAT takers did better than Stuart?[^13-foundations-mathematical-9]
+(b) What percent of SAT takers did better than Stuart?
+
+::: {.callout-note collapse="true"}
+## Solution
+
+Numerical answers: (a) 0.9772.
+    (b) 0.0228.
+:::
 :::
 
-[^13-foundations-mathematical-9]: Numerical answers: (a) 0.9772.
-    (b) 0.0228.
-
 Based on a sample of 100 men,[^13-foundations-mathematical-10] the heights of adults who identify as male, between the ages 20 and 62 in the US is nearly normal with mean 70.0" and standard deviation 3.3".
-
-[^13-foundations-mathematical-10]: This sample was taken from the USDA Food Commodity Intake Database.
 
 ::: {.workedexample data-latex=""}
 Kamron is 5'7" (67 inches) and Adrian is 6'4" (76 inches).
@@ -842,22 +866,30 @@ This yields 73.04 inches or about 6'1" as the height at the $82^{nd}$ percentile
 Using Z scores, answer the following questions.
 
 (a) What is the $95^{th}$ percentile for SAT scores?\
-(b) What is the $97.5^{th}$ percentile of the male heights? As always with normal probability problems, first draw a picture.[^13-foundations-mathematical-11]
-:::
+(b) What is the $97.5^{th}$ percentile of the male heights? As always with normal probability problems, first draw a picture.
 
-[^13-foundations-mathematical-11]: Remember: draw a picture first, then find the Z score.
+::: {.callout-note collapse="true"}
+## Solution
+
+Remember: draw a picture first, then find the Z score.
     (We leave the pictures to you.) The Z score can be found by using the percentiles and the normal probability table.
     (a) We look for 0.95 in the probability portion (middle part) of the normal probability table, which leads us to row 1.6 and (about) column 0.05, i.e., $Z_{95}=1.65.$ Knowing $Z_{95}=1.65,$ $\mu = 1500,$ and $\sigma = 300,$ we setup the Z score formula: $1.65 = \frac{x_{95} - 1500}{300}.$ We solve for $x_{95}$: $x_{95} = 1995.$ (b) Similarly, we find $Z_{97.5} = 1.96,$ again setup the Z score formula for the heights, and calculate $x_{97.5} = 76.5.$
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
 Using Z scores, answer the following questions.
 
 (a) What is the probability that a randomly selected male adult is at least 6'2" (74 inches)?\
-(b) What is the probability that a male adult is shorter than 5'9" (69 inches)?[^13-foundations-mathematical-12]
-:::
+(b) What is the probability that a male adult is shorter than 5'9" (69 inches)?
 
-[^13-foundations-mathematical-12]: Numerical answers: (a) 0.1131.
+::: {.callout-note collapse="true"}
+## Solution
+
+Numerical answers: (a) 0.1131.
     (b) 0.3821.
+:::
+:::
 
 ::: {.workedexample data-latex=""}
 What is the probability that a randomly selected adult male is between 5'9" and 6'2"?
@@ -921,20 +953,28 @@ That is, the probability of being between 5'9" and 6'2" is 0.5048.
 :::
 
 ::: {.guidedpractice data-latex=""}
-Find the percent of SAT takers who earn between 1500 and 2000.[^13-foundations-mathematical-13]
-:::
+Find the percent of SAT takers who earn between 1500 and 2000.
 
-[^13-foundations-mathematical-13]: This is an abbreviated solution.
+::: {.callout-note collapse="true"}
+## Solution
+
+This is an abbreviated solution.
     (Be sure to draw a figure!) First find the percent who get below 1500 and the percent that get above 2000: $Z_{1500} = 0.00 \to 0.5000$ (area below), $Z_{2000} = 1.67 \to 0.0475$ (area above).
     Final answer: $1.0000-0.5000 - 0.0475 = 0.4525.$
-
-::: {.guidedpractice data-latex=""}
-What percent of adult males are between 5'5" and 5'7"?[^13-foundations-mathematical-14]
+:::
 :::
 
-[^13-foundations-mathematical-14]: 5'5" is 65 inches.
+::: {.guidedpractice data-latex=""}
+What percent of adult males are between 5'5" and 5'7"?
+
+::: {.callout-note collapse="true"}
+## Solution
+
+5'5" is 65 inches.
     5'7" is 67 inches.
     Numerical solution: $1.000 - 0.0649 - 0.8183 = 0.1168,$ i.e., 11.68%.
+:::
+:::
 
 ## Quantifying the variability of a statistic
 
@@ -991,12 +1031,16 @@ abline(h = 0, col = "#AAAAAA")
 ::: {.guidedpractice data-latex=""}
 Use `pnorm()` (or a Z table) to confirm that about 68%, 95%, and 99.7% of observations fall within 1, 2, and 3, standard deviations of the mean in the normal distribution, respectively.
 For instance, first find the area that falls between $Z=-1$ and $Z=1,$ which should have an area of about 0.68.
-Similarly there should be an area of about 0.95 between $Z=-2$ and $Z=2.$[^13-foundations-mathematical-15]
-:::
+Similarly there should be an area of about 0.95 between $Z=-2$ and $Z=2.$
 
-[^13-foundations-mathematical-15]: First draw the pictures.
+::: {.callout-note collapse="true"}
+## Solution
+
+First draw the pictures.
     To find the area between $Z=-1$ and $Z=1,$ use `pnorm()` or the normal probability table to determine the areas below $Z=-1$ and above $Z=1.$ Next verify the area between $Z=-1$ and $Z=1$ is about 0.68.
     Repeat this for $Z=-2$ to $Z=2$ and for $Z=-3$ to $Z=3.$
+:::
+:::
 
 It is possible for a normal random variable to fall 4, 5, or even more standard deviations from the mean.
 However, these occurrences are very rare if the data are nearly normal.
@@ -1005,11 +1049,15 @@ For 5 and 6 standard deviations, it is about 1-in-3.5 million and 1-in-1 billion
 
 ::: {.guidedpractice data-latex=""}
 SAT scores closely follow the normal model with mean $\mu = 1500$ and standard deviation $\sigma = 300.$ About what percent of test takers score 900 to 2100?
-What percent score between 1500 and 2100 ?[^13-foundations-mathematical-16]
-:::
+What percent score between 1500 and 2100 ?
 
-[^13-foundations-mathematical-16]: 900 and 2100 represent two standard deviations above and below the mean, which means about 95% of test takers will score between 900 and 2100.
+::: {.callout-note collapse="true"}
+## Solution
+
+900 and 2100 represent two standard deviations above and below the mean, which means about 95% of test takers will score between 900 and 2100.
     Since the normal model is symmetric, then half of the test takers from part (a) ($\frac{95\%}{2} = 47.5\%$ of all test takers) will score 900 to 1500 while 47.5% score between 1500 and 2100.
+:::
+:::
 
 ### Standard error {#sec-se}
 
@@ -1065,7 +1113,7 @@ Let's re-analyze the data in the context of the normal distribution and compare 
 The [`opportunity_cost`](http://openintrostat.github.io/openintro/reference/opportunity_cost.html) data can be found in the [**openintro**](http://openintrostat.github.io/openintro) R package.
 :::
 
-### Variability of the statistic
+### Variability of the statistic {#sec-variability-opportunity-cost}
 
 @fig-OpportunityCostDiffs-w-normal summarizes the null distribution as determined using the randomization method.
 The best fitting normal distribution for the null distribution has a mean of 0.
@@ -1104,7 +1152,7 @@ ggplot(opportunity_cost_sim_dist, aes(x = stat)) +
   annotate("text", x = 0.2, y = 2.8, label = "observed\ndifference")
 ```
 
-### Observed statistic vs. null statistics
+### Observed statistic vs. null statistics {#sec-observed-vs-null-opportunity-cost}
 
 As we learned in @sec-normalDist, it is helpful to draw and shade a picture of the normal distribution so we know precisely what we want to calculate.
 Here we want to find the area of the tail beyond 0.2, representing the p-value.
@@ -1149,7 +1197,7 @@ In that work, we did not model a null scenario, but we will discuss a simulation
 We have added the best-fitting normal curve to the figure, which has a mean of 0.10.
 Borrowing a formula that we'll encounter in [Chapter -@sec-inference-one-prop], the standard error of this distribution was also computed: $SE = 0.038.$
 
-### Variability of the statistic
+### Variability of the statistic {#sec-variability-medical-consultant}
 
 Before we begin, we want to point out a simple detail that is easy to overlook: the null distribution we generated from the simulation is slightly skewed, and the histogram is not particularly smooth.
 In fact, the normal distribution only sort-of fits this model.
@@ -1188,7 +1236,7 @@ ggplot(medical_consultant_sim_dist, aes(x = stat)) +
   annotate("text", x = 0.05, y = 9, label = "observed\nvalue")
 ```
 
-### Observed statistic vs. null statistics
+### Observed statistic vs. null statistics {#sec-observed-vs-null-medical-consultant}
 
 As always, we'll draw a picture before finding the normal probabilities.
 Below is a normal distribution centered at 0.10 with a standard error of 0.038.
@@ -1264,11 +1312,15 @@ terms_chp_13 <- c(terms_chp_13, "95% confidence interval", "95% confident")
 ```
 
 ::: {.guidedpractice data-latex=""}
-Compute the area between -1.96 and 1.96 for a normal distribution with mean 0 and standard deviation 1.[^13-foundations-mathematical-17]
-:::
+Compute the area between -1.96 and 1.96 for a normal distribution with mean 0 and standard deviation 1.
 
-[^13-foundations-mathematical-17]: We will leave it to you to draw a picture.
+::: {.callout-note collapse="true"}
+## Solution
+
+We will leave it to you to draw a picture.
     The Z scores are $Z_{left} = -1.96$ and $Z_{right} = 1.96.$ The area between these two Z scores is $0.9750 - 0.0250 = 0.9500.$ This is where "1.96" comes from in the 95% confidence interval formula.
+:::
+:::
 
 ::: {.workedexample data-latex=""}
 The point estimate in the opportunity cost study was that 20% fewer students would buy a video if they were reminded that money not spent now could be spent later on something else.
@@ -1320,7 +1372,7 @@ stent30 |>
 The [`stent30`](http://openintrostat.github.io/openintro/reference/stent30.html) data can be found in the [**openintro**](http://openintrostat.github.io/openintro) R package.
 :::
 
-### Variability of the statistic
+### Variability of the statistic {#sec-variability-stent}
 
 ::: {.workedexample data-latex=""}
 Consider the stent study and results.
@@ -1394,13 +1446,17 @@ for (i in 1:num.sim) {
 ```
 
 ::: {.guidedpractice data-latex=""}
-In @fig-95PercentConfidenceInterval, one interval does not contain the true proportion, $p = 0.3.$ Does this imply that there was a problem with the datasets that were selected?[^13-foundations-mathematical-18]
-:::
+In @fig-95PercentConfidenceInterval, one interval does not contain the true proportion, $p = 0.3.$ Does this imply that there was a problem with the datasets that were selected?
 
-[^13-foundations-mathematical-18]: No.
+::: {.callout-note collapse="true"}
+## Solution
+
+No.
     Just as some observations occur more than 1.96 standard deviations from the mean, some point estimates will be more than 1.96 standard errors from the parameter.
     A confidence interval only provides a plausible range of values for a parameter.
     While we might say other values are implausible based on the data, this does not mean they are impossible.
+:::
+:::
 
 ### Interpreting confidence intervals
 
@@ -1419,8 +1475,6 @@ This is one of the most common errors: while it might be useful to think of it a
 Another especially important consideration of confidence intervals is that they *only try to capture the population parameter*.
 Our intervals say nothing about the confidence of capturing individual observations, a proportion of the observations, or about capturing point estimates.
 Confidence intervals provide an interval estimate for and attempt to capture **population parameters**.
-
-\index{confidence interval}
 
 \clearpage
 
@@ -1461,6 +1515,19 @@ inference_method_summary_table |>
 
 ### Terms
 
+```{r}
+#| include: false
+# Reorganize terms to display in specific 3-column format
+# Column 1: 95% confidence interval, 95% confident, Central Limit Theorem, margin of error, normal curve
+# Column 2: normal distribution, normal model, normal probability table, null distribution, parameter  
+# Column 3: percentile, sampling distribution, standard error, standard normal distribution, Z score
+terms_chp_13 <- c(
+  "95% confidence interval", "95% confident", "Central Limit Theorem", "margin of error", "normal curve",
+  "normal distribution", "normal model", "normal probability table", "null distribution", "parameter",
+  "percentile", "sampling distribution", "standard error", "standard normal distribution", "Z score"
+)
+```
+
 The terms introduced in this chapter are presented in @tbl-terms-chp-13.
 If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions.
 You should be able to easily spot them as **bolded text**.
@@ -1473,6 +1540,10 @@ make_terms_table(terms_chp_13)
 ```
 
 \clearpage
+
+[^13-foundations-mathematical-2]: Sometimes also called the Gaussian distribution after mathematician Carl Friedrich Gauss.
+
+[^13-foundations-mathematical-10]: Source: CDC data.
 
 ## Exercises {#sec-chp13-exercises}
 

@@ -24,23 +24,43 @@
         </author>
       </titlepage>
 
+      <xi:include href="welcome.ptx" />
+
       <xi:include href="preface.ptx" />
     </frontmatter>
-
-    <!-- Welcome page for navigation -->
-    <chapter xml:id="welcome">
-      <title>Welcome</title>
-      <p>
-        Welcome to Introduction to Modern Statistics (Second Edition).
-      </p>
-      <p>
-        This PreTeXt version provides an accessible, interactive format for learning statistics.
-      </p>
-    </chapter>
 
     <!-- Part I: Introduction to data -->
     <part xml:id="part-introduction-to-data">
       <title>Introduction to data</title>
+      <introduction>
+        <p>
+          The first part of the book will introduce you to data, their properties, how they are collected, and the structure of the design used for the study.
+          Different data and settings lead to different <alert>types</alert> of conclusions, so you'll always want to keep in mind the data provenance, especially as you move on to modeling and inference.
+        </p>
+        <ul>
+          <li>
+            <p>
+              In <xref ref="sec-data-hello" /> you'll be introduced to tidy data, an important structure for describing, visualizing, and analyzing data.
+            </p>
+          </li>
+          <li>
+            <p>
+              In <xref ref="ch02-study-design" /> the focus is on study design.
+              In particular, the critical distinction between random sampling and randomization is made.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch03-data-applications" /> includes an application on the Paralympics case study where the topics from the Introduction to data part of the book are fully developed.
+            </p>
+          </li>
+        </ul>
+        <p>
+          We recommend you come back to review this foundational part after you cover each new part in the textbook.
+          In particular, it is worthwhile to consider <xref ref="fig-randsampValloc" /> in all of the inferential settings you cover.
+          Each dataset you analyze will have a slightly different context which will require thoughtful consideration of the appropriate conclusions.
+        </p>
+      </introduction>
       <xi:include href="chapters/ch01-hello-data.ptx" />
       <xi:include href="chapters/ch02-study-design.ptx" />
       <xi:include href="chapters/ch03-data-applications.ptx" />
@@ -49,6 +69,37 @@
     <!-- Part II: Exploratory data analysis -->
     <part xml:id="part-exploratory-data-analysis">
       <title>Exploratory data analysis</title>
+      <introduction>
+        <p>
+          After obtaining a dataset, it is vitally important to understand the characteristics of the existing data. 
+          Sometimes the most effective way to grasp the data is through summary statistics or other numerical measures. 
+          Often, however, it is a picture that tells a thousand words. 
+          Knowing how to best convey the underlying meaning in a dataset is a hugely important aspect of communicating results.
+        </p>
+        <ul>
+          <li>
+            <p>
+              Categorical data is the focus of <xref ref="sec-explore-categorical" />. 
+              Both numerical and graphical summaries are presented as ways to convey information about categorical data.
+            </p>
+          </li>
+          <li>
+            <p>
+              Numerical data is the focus of <xref ref="ch05-exploring-numerical" />. 
+              Both numerical and graphical summaries are presented as ways to convey information about numerical data.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch06-explore-applications" /> does a deep dive into important considerations when creating a visualization.
+            </p>
+          </li>
+        </ul>
+        <p>
+          While our book is software agnostic, one of the best ways to become familiar with numerical and graphical summaries is to practice working with different datasets using statistical software. 
+          For example, if you are interested in using R, you might try working through some of the chapters in <url href="https://r4ds.hadley.nz/">R for Data Science</url>, specifically the parts <url href="https://r4ds.hadley.nz/whole-game">Whole game</url> and <url href="https://r4ds.hadley.nz/visualize">Visualize</url>.
+        </p>
+      </introduction>
       <xi:include href="chapters/ch04-exploring-categorical.ptx" />
       <xi:include href="chapters/ch05-exploring-numerical.ptx" />
       <xi:include href="chapters/ch06-explore-applications.ptx" />
@@ -57,6 +108,41 @@
     <!-- Part III: Regression modeling -->
     <part xml:id="part-regression-modeling">
       <title>Regression modeling</title>
+      <introduction>
+        <p>
+          Among the most ubiquitous methods used to model a response variable given one or more predictor variables is regression. 
+          Linear regression is most commonly used when the response variable is numeric (and even better, continuous); logistic regression is used when the response variable is binary.
+        </p>
+        <ul>
+          <li>
+            <p>
+              In <xref ref="sec-model-slr" /> you are introduced to finding a best fit line using a least squares method. 
+              Additionally, the correlation and coefficient of determination are presented as a way to describe the strength of the linear model.
+            </p>
+          </li>
+          <li>
+            <p>
+              In <xref ref="sec-model-mlr" /> the linear model is expanded to include multiple predictor variables in a single model. 
+              We discuss the benefits as well as the pitfalls that can arise when using multiple predictors.
+            </p>
+          </li>
+          <li>
+            <p>
+              In <xref ref="sec-model-logistic" /> the response variable is constrained to be binary which changes the entire structure and produces the logistic regression model. 
+              The similarities between the regression models (namely, linear combinations of the predictors) are presented. 
+              Additionally, you see that the logistic regression predictions are now probabilities.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch10-model-applications" /> includes an application on the Houses for sale case study where the topics from this part of the book are fully developed.
+            </p>
+          </li>
+        </ul>
+        <p>
+          Later on in the textbook, in the <xref ref="part-inferential-modeling" text="title" /> part, we will consider how a regression model built on a sample may or may not describe a particular population of interest.
+        </p>
+      </introduction>
       <xi:include href="chapters/ch07-linear-regression-single.ptx" />
       <xi:include href="chapters/ch08-linear-regression-multiple.ptx" />
       <xi:include href="chapters/ch09-logistic-regression.ptx" />
@@ -66,6 +152,43 @@
     <!-- Part IV: Foundations of inference -->
     <part xml:id="part-foundations-of-inference">
       <title>Foundations of inference</title>
+      <introduction>
+        <p>
+          Among the key concepts in statistics is making conclusions about a population using information in a sample; the process is called statistical inference. 
+          By using computational methods as well as well-developed mathematical theory, we can understand how one dataset differs from a different dataset — even when the two datasets have been collected under identical settings. 
+          In this part, we will walk through the key concepts and terms which will be applied more explicitly in later chapters.
+        </p>
+        <ul>
+          <li>
+            <p>
+              <xref ref="ch11-hypothesis-testing-randomization" /> describes randomization which involves repeatedly permuting observations to represent scenarios in which there is no association between two variables of interest.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch12-confidence-intervals-bootstrapping" /> describes bootstrapping which involves repeatedly sampling (with replacement) from the observed data in order to produce many samples which are similar to, but different from, the original data.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="sec-foundations-mathematical" /> introduces the Central Limit Theorem which is a theoretical mathematical approximation to the variability in data seen through randomization and bootstrapping.
+            </p>
+          </li>
+          <li>
+            <p>
+              In <xref ref="ch14-decision-errors" /> you will be presented with a structure for describing when and how errors can happen within statistical inference.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="sec-foundations-applications" /> includes an application on the Malaria vaccine case study where the topics from this part of the book are fully developed.
+            </p>
+          </li>
+        </ul>
+        <p>
+          Although often computational and mathematical methods are both appropriate (and give similar results), your study of both approaches should convince you that (1) there is almost never a single "correct" approach, and (2) there are different ways to quantify the variability seen from dataset to dataset.
+        </p>
+      </introduction>
       <xi:include href="chapters/ch11-hypothesis-testing-randomization.ptx" />
       <xi:include href="chapters/ch12-confidence-intervals-bootstrapping.ptx" />
       <xi:include href="chapters/ch13-inference-mathematical-models.ptx" />
@@ -76,6 +199,58 @@
     <!-- Part V: Statistical inference -->
     <part xml:id="part-statistical-inference">
       <title>Statistical inference</title>
+      <introduction>
+        <p>
+          While the previous part of the textbook, <xref ref="part-foundations-of-inference" text="title" />, introduces the core of statistical inference, this part provides details for applying statistical inference in particular settings.
+          Understanding the specific nuances given for different inferential methods can be helpful in communicating the resulting analyses.
+        </p>
+        <ul>
+          <li>
+            <p>
+              <xref ref="ch16-inference-single-proportion" /> provides specific details about inference for a single proportion.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch17-inference-two-proportions" /> provides specific details about inference for comparing two proportions.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch18-inference-two-way-tables" /> provides specific details about inference for two-way tables.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch19-inference-single-mean" /> provides specific details about inference for a single mean.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch20-inference-two-independent-means" /> provides specific details about inference for comparing two independent means.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch21-inference-paired-means" /> provides specific details about inference for comparing paired means.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch22-inference-many-means" /> provides specific details about inference for comparing many means.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch23-inference-applications" /> includes an application on the Redundant adjectives case study where the topics from this part of the book on means are fully developed.
+            </p>
+          </li>
+        </ul>
+        <p>
+          After working through the details in this part, you should have a good sense for how inferential methods are similar and different when applied to different data structures.
+          Additionally, you should be able to apply both computational methods as well as mathematical techniques to the inference problem at hand.
+        </p>
+      </introduction>
       <xi:include href="chapters/ch16-inference-single-proportion.ptx" />
       <xi:include href="chapters/ch17-inference-two-proportions.ptx" />
       <xi:include href="chapters/ch18-inference-two-way-tables.ptx" />
@@ -89,6 +264,39 @@
     <!-- Part VI: Inferential modeling -->
     <part xml:id="part-inferential-modeling">
       <title>Inferential modeling</title>
+      <introduction>
+        <p>
+          In a previous part, <xref ref="part-regression-modeling" text="title" />, you learned how to build linear and logistic regression models based on a set of observations.
+          In a different part, <xref ref="part-foundations-of-inference" text="title" />, you learned about the structures that allow us to make inferential claims about a population given a sample of data.
+          In this part, we develop inferential methods applied to regression models.
+        </p>
+        <ul>
+          <li>
+            <p>
+              <xref ref="ch24-inference-linear-regression-single" /> provides specific details about inference for linear regression models with a single predictor.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch25-inference-linear-regression-multiple" /> provides specific details about inference for linear regression models with multiple predictors.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch26-inference-logistic-regression" /> provides specific details about inference for logistic regression models.
+            </p>
+          </li>
+          <li>
+            <p>
+              <xref ref="ch27-model-infer-applications" /> includes an application on the Mario Kart case study where the topics from this part of the book on linear regression are fully developed.
+            </p>
+          </li>
+        </ul>
+        <p>
+          We have only scratched the surface in providing information about modeling and related inferential methods.
+          We hope that the ideas we've covered have whet your appetite to learn more higher level modeling.
+        </p>
+      </introduction>
       <xi:include href="chapters/ch24-inference-linear-regression-single.ptx" />
       <xi:include href="chapters/ch25-inference-linear-regression-multiple.ptx" />
       <xi:include href="chapters/ch26-inference-logistic-regression.ptx" />
@@ -99,6 +307,517 @@
     <backmatter xml:id="backmatter">
       <title>Appendices</title>
       <xi:include href="appendix/exercise-solutions.ptx" />
+      
+      <!-- References -->
+      <references xml:id="references">
+        <title>References</title>
+        
+        <biblio type="raw" xml:id="chimowitz2011stenting">
+          Chimowitz, M. I., Lynn, M. J., Derdeyn, C. P., Turan, T. N., Fiorella, D., Lane, B. F., Janis, L. S., Lutsep, H. L., Barnwell, S. L., Waters, M. F., et al. (2011). 
+          Stenting versus aggressive medical therapy for intracranial arterial stenosis. 
+          <em>New England Journal of Medicine</em>, 365(11):993-1003. 
+          <url href="http://www.nejm.org/doi/full/10.1056/NEJMoa1105335">http://www.nejm.org/doi/full/10.1056/NEJMoa1105335</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="wickham2014">
+          Wickham, H. (2014). 
+          Tidy Data. 
+          <em>Journal of Statistical Software</em>, 59(10). 
+          DOI: 10.18637/jss.v059.i10. 
+          <url href="http://dx.doi.org/10.18637/jss.v059.i10">http://dx.doi.org/10.18637/jss.v059.i10</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Nunez-2018">
+          Nuñez, J. R., Anderton, C. R., &amp; Renslow, R. S. (2018).
+          Optimizing colormaps with consideration for color vision deficiency to enable accurate interpretation of scientific data.
+          <em>PLOS ONE</em>, 13(7), e0199239.
+          DOI: 10.1371/journal.pone.0199239.
+          <url href="https://doi.org/10.1371/journal.pone.0199239">https://doi.org/10.1371/journal.pone.0199239</url>
+         </biblio>
+
+        <biblio type="raw" xml:id="sleuth">
+          Ramsey, F. and Schafer, D. (2012). 
+          <em>The Statistical Sleuth</em> (3rd ed.). 
+          Cengage Learning.
+        </biblio>
+        
+        <biblio type="raw" xml:id="ISCAM">
+          Chance, B. and Rossman, A. (2018). 
+          <em>Investigating Statistical Concepts, Applications, and Methods</em>. 
+          <url href="http://www.rossmanchance.com/iscam3/">http://www.rossmanchance.com/iscam3/</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Witmer_2021">
+          Witmer, J. (2021). 
+          Simpson's Paradox, Visual Displays, and Causal Diagrams. 
+          <em>The American Mathematical Monthly</em>, 128(7):598-610. 
+          DOI: 10.1080/00029890.2021.1932237.
+        </biblio>
+        
+        <biblio type="raw" xml:id="bertrand2003">
+          Bertrand, M. and Mullainathan, S. (2003).
+          Are Emily and Greg More Employable than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination.
+          <em>Working Paper</em>, National Bureau of Economic Research.
+          <url href="https://www.nber.org/papers/w9873">https://www.nber.org/papers/w9873</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Rosen-1974">
+          Rosen, B. and Jerdee, T. H. (1974).
+          Influence of sex role stereotypes on personnel decisions.
+          <em>Journal of Applied Psychology</em>, 59(1):9.
+          DOI: 10.1037/h0035834
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Frederick-2009">
+          Frederick, S., Novemsky, N., Wang, J., Dhar, R., and Nowlis, S. (2009).
+          Opportunity cost neglect.
+          <em>Journal of Consumer Research</em>, 36(4):553-561.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Bottiger-2001">
+          Böttiger, B. W., Bode, C., Kern, S., Gries, A., Gust, R., Glätzer, R., Bauer, H., Motsch, J., and Martin, E. (2001).
+          Efficacy and safety of thrombolytic therapy after initially unsuccessful cardiopulmonary resuscitation: a prospective clinical trial.
+          <em>The Lancet</em>, 357(9268):1583-1585.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Graham-2010">
+          Graham, D. J., Ouellet-Hellstrom, R., MaCurdy, T. E., Ali, F., Sholley, C., Worrall, C., and Kelman, J. A. (2010).
+          Risk of acute myocardial infarction, stroke, heart failure, and death in elderly Medicare patients treated with rosiglitazone or pioglitazone.
+          <em>JAMA</em>, 304(4):411.
+          DOI: 10.1001/jama.2010.920
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Turnbull-Brown-Hu-1974">
+          Turnbull, B., Brown, B., and Hu, M. (1974).
+          Survivorship of Heart Transplant Data.
+          <em>Journal of the American Statistical Association</em>, 69:74-80.
+          DOI: 10.1080/01621459.1974.10480130
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Manson-2019">
+          Manson, J. E., et al. (2019).
+          Marine n-3 Fatty Acids and Prevention of Cardiovascular Disease and Cancer.
+          <em>New England Journal of Medicine</em>, 380(1):23-32.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Rao-2021">
+          Rao, S., et al. (2021).
+          A third dose of SARS-CoV-2 vaccine increases neutralizing antibodies.
+          <em>medRxiv</em> preprint.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Datoo-2021">
+          Datoo, M. S., et al. (2021).
+          Efficacy of a low-dose candidate malaria vaccine, R21 in adjuvant Matrix-M.
+          <em>The Lancet</em>, 397(10287):1809-1818.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-Lockman-2007">
+          Lockman, S., et al. (2007).
+          Nevirapine- versus Lopinavir/Ritonavir-Based Initial Therapy.
+          <em>Clinical Infectious Diseases</em>, 44(10):1334-1341.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-LoSassoMedicineGenderPayGap">
+          LoSasso, A. T., et al.
+          The $16,819 Pay Gap For Newly Trained Physicians.
+          <em>Health Affairs</em>.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-onlineharassment2021">
+          Pew Research Center (2021).
+          The State of Online Harassment.
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-pewdiagnosis-2013">
+          Pew Research Center (2013).
+          The Diagnosis Difference.
+          <url href="https://www.openintro.org/go?id=textbook-pew-2013-diagnosis-difference">https://www.openintro.org/go?id=textbook-pew-2013-diagnosis-difference</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-socialmedianews-2022">
+          Pew Research Center (2022).
+          News consumption across digital platforms.
+          <url href="https://www.pewresearch.org/journalism/fact-sheet/news-platform-fact-sheet/pj_2022-09-20_news-platforms_0-03b/">https://www.pewresearch.org/journalism/fact-sheet/news-platform-fact-sheet/pj_2022-09-20_news-platforms_0-03b/</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-data-gallupcollegeimpact">
+          Gallup Poll.
+          College Impact on Life Satisfaction Survey.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-data-govtshuthown">
+          Survey USA.
+          Government Shutdown Survey (2018-2019).
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-data-KFF2019nathealthplan">
+          Kaiser Family Foundation (2019).
+          National Health Insurance Survey.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-data-sleepCAandOR">
+          Sleep Study Data.
+          California and Oregon Sleep Survey.
+        </biblio>
+        
+        <biblio type="raw" xml:id="biblio-data-employmentDiabetes">
+          Employment and Diabetes Study Data.
+        </biblio>
+        
+        <biblio type="raw" xml:id="Ritz-Yu-Chapa-Fruin-2000">
+          Ritz, B., Yu, F., Chapa, G., and Fruin, S. (2000).
+          Effect of air pollution on preterm birth among children born in Southern California between 1989 and 1993.
+          <em>Epidemiology</em>, 11(5):502-511.
+          <url href="http://www.jstor.org/stable/3703990">http://www.jstor.org/stable/3703990</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Bucciol-2011">
+          Bucciol, A. and Piovesan, M. (2011).
+          Luck or cheating? A field experiment on honesty with children.
+          <em>Journal of Economic Psychology</em>, 32(1):73-78.
+          DOI: 10.1016/j.joep.2010.12.001
+        </biblio>
+        
+        <biblio type="raw" xml:id="Legaki-2020">
+          Legaki, N. Z., Xi, N., Hamari, J., Karpouzis, K., and Assimakopoulos, V. (2020).
+          The effect of challenge-based gamification on learning: An experiment in the context of statistics education.
+          <em>International Journal of Human-Computer Studies</em>, 144.
+          DOI: 10.1016/j.ijhcs.2020.102496
+        </biblio>
+        
+        <biblio type="raw" xml:id="Piff-2012">
+          Piff, P. K., Stancato, D. M., Côté, S., Mendoza-Denton, R., and Keltner, D. (2012).
+          Higher social class predicts increased unethical behavior.
+          <em>Proceedings of the National Academy of Sciences</em>.
+          DOI: 10.1073/pnas.1118373109
+        </biblio>
+        
+        <biblio type="raw" xml:id="Allais-2011">
+          Allais, G., Romoli, M., Rolando, S., Airola, G., Castagnoli Gabellari, I., Allais, R., and Benedetto, C. (2011).
+          Ear acupuncture in the treatment of migraine attacks: a randomized trial on the efficacy of appropriate versus inappropriate acupoints.
+          <em>Neurological Sciences</em>, 32(1):173-175.
+          DOI: 10.1007/s10072-011-0525-4
+        </biblio>
+        
+        <biblio type="raw" xml:id="Garbutt-2012">
+          Garbutt, J. M., Banister, C., Spitznagel, E., and Piccirillo, J. F. (2012).
+          Amoxicillin for Acute Rhinosinusitis: A Randomized Controlled Trial.
+          <em>JAMA: The Journal of the American Medical Association</em>, 307(7):685-692.
+          DOI: 10.1001/jama.2012.138
+        </biblio>
+        
+        <biblio type="raw" xml:id="Gneezy-2000">
+          Gneezy, U. and Rustichini, A. (2000).
+          A fine is a price.
+          <em>The Journal of Legal Studies</em>, 29(1):1-17.
+          DOI: 10.1086/468061
+        </biblio>
+        
+        <biblio type="raw" xml:id="Pfizer-2021">
+          Pfizer (2021).
+          Pfizer-Biontech Announce Positive Topline Results Of Pivotal Covid-19 Vaccine Study In Adolescents.
+          <url href="https://www.openintro.org/go?id=textbook-pfizer-2021-adolescent-covid-vaccine">https://www.openintro.org/go?id=textbook-pfizer-2021-adolescent-covid-vaccine</url>
+        </biblio>
+
+        <biblio type="raw" xml:id="data-births14">
+          United States Department of Health and Human Services. Centers for Disease Control and Prevention. National Center for Health Statistics (2014).
+          Natality Detail File, 2014 United States.
+          Inter-university Consortium for Political and Social Research.
+          DOI: 10.3886/ICPSR36461.v1
+        </biblio>
+        
+        <biblio type="raw" xml:id="palmerpenguins">
+          Gorman, K. B., Williams, T. D., and Fraser, W. R. (2014).
+          Ecological Sexual Dimorphism and Environmental Variability within a Community of Antarctic Penguins (Genus Pygoscelis).
+          <em>PLoS ONE</em>, 9(3), e90081.
+          DOI: 10.1371/journal.pone.0090081
+        </biblio>
+        
+        <biblio type="raw" xml:id="pierson2020large">
+          Pierson, E., Simoiu, C., Overgoor, J., Corbett-Davies, S., Jenson, D., Shoemaker, A., Ramachandran, V., Barghouty, P., Phillips, C., Shroff, R., et al. (2020).
+          A large-scale analysis of racial disparities in police stops across the United States.
+          <em>Nature human behaviour</em>, 4(7):736-745.
+          DOI: 10.1038/s41562-020-0858-1
+        </biblio>
+        
+        <biblio type="raw" xml:id="Hepler-2013">
+          Hepler, J. and Albarracín, D. (2013).
+          Attitudes without objects: Evidence for a dispositional attitude, its measurement, and its consequences.
+          <em>Journal of Personality and Social Psychology</em>, 104(6):1060.
+          DOI: 10.1037/a0032282
+        </biblio>
+        
+        <biblio type="raw" xml:id="news-smokingDementia">
+          Rabin, R. C. (2010).
+          Risks: Smokers Found More Prone to Dementia.
+          <em>New York Times</em>, October 29, 2010.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-nytimes_smoking_dementia">http://www.openintro.org/redirect.php?go=textbook-nytimes_smoking_dementia</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="news-bullySleep">
+          Parker-Pope, T. (2011).
+          The School Bully Is Sleepy.
+          <em>New York Times</em>, June 2, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-school_bully_sleepy_2011">http://www.openintro.org/redirect.php?go=textbook-school_bully_sleepy_2011</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="news-coffeeDepression">
+          O'Connor, A. (2011).
+          Coffee Drinking Linked to Less Depression in Women.
+          <em>New York Times</em>, September 26, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-coffee_depression_2011">http://www.openintro.org/redirect.php?go=textbook-coffee_depression_2011</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Audera-2001">
+          Audera, C., Patulny, R. V., Sander, B. H., and Douglas, R. M. (2001).
+          Mega-dose vitamin C in treatment of the common cold: a randomised controlled trial.
+          <em>Medical journal of Australia</em>, 175(7):359-362.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-vitamin_C_cold_treatment_2001">http://www.openintro.org/redirect.php?go=textbook-vitamin_C_cold_treatment_2001</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Nieman-2009">
+          Nieman, D. C., Cayea, E. J., Austin, M. D., Henson, D. A., McAnulty, S. R., and Jin, F. (2009).
+          Chia seed does not promote weight loss or alter disease risk factors in overweight adults.
+          <em>Nutrition Research</em>, 29(6):414-418.
+          DOI: 10.1016/j.nutres.2009.05.011
+        </biblio>
+        
+        <biblio type="raw" xml:id="conner2017let">
+          Conner, T. S., Brookie, K. L., Carr, A. C., Mainvil, L. A., and Vissers, M. C. M. (2017).
+          Let them eat fruit! The effect of fruit and vegetable consumption on psychological well-being in young adults: A randomized controlled trial.
+          <em>PloS one</em>, 12(2).
+          DOI: 10.1371/journal.pone.0171206
+        </biblio>
+        
+        <biblio type="raw" xml:id="orben2018screens">
+          Orben, A. and Baukney-Przybylski, A. K. (2018).
+          Screens, Teens and Psychological Well-Being: Evidence from three time-use diary studies.
+          <em>Psychological Science</em>.
+          DOI: 10.1177/0956797619830329
+          <em>PLoS ONE</em>, 9(3):e90081, pages 1-13.
+          DOI: 10.1371/journal.pone.0090081
+        </biblio>
+        
+        <biblio type="raw" xml:id="You-2022">
+          You, W., Henneberg, R., Saniotis, A., Ge, Y., and Henneberg, M. (2022).
+          Total Meat Intake is Associated with Life Expectancy: A Cross-Sectional Data Analysis of 175 Contemporary Populations.
+          <em>International Journal of General Medicine</em>, 15:1833-1851.
+        </biblio>
+        
+        <biblio type="raw" xml:id="webpage-horrormovies">
+          FiveThirtyEight (2015).
+          Scary Movies Are The Best Investment In Hollywood.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-fivethirtyeight-scary-movies">http://www.openintro.org/redirect.php?go=textbook-fivethirtyeight-scary-movies</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="pewclimatechange2021">
+          Pew Research Center (2021).
+          How Americans' attitudes about climate change differ by generation, party and other factors, data collected April 20 to 29, 2021.
+          <url href="https://www.openintro.org/go?id=textbook-pew-2021-climate-change">https://www.openintro.org/go?id=textbook-pew-2021-climate-change</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Adolph-1990">
+          Adolph, S. C. (1990).
+          Influence of behavioral thermoregulation on microhabitat use by two <em>Sceloporus</em> lizards.
+          <em>Ecology</em>, 71:315-327.
+        </biblio>
+        
+        <biblio type="raw" xml:id="Asbury-2007">
+          Asbury, D. A. and Adolph, S. C. (2007).
+          Behavioral plasticity in an ecological generalist: microhabitat use by western fence lizards.
+          <em>Evolutionary Ecology Research</em>, 9:801-815.
+        </biblio>
+        
+        <biblio type="raw" xml:id="Rao-2021">
+          Rao, M., Bar, L., Yu, Y., Srinivasan, M., Mukherjea, A., Li, J., Chung, S., Venkatraman, S., Dan, S., and Palaniappan, L. (2021).
+          Disaggregating Asian American Cigarette and Alternative Tobacco Product Use: Results from the National Health Interview Survey (NHIS) 2006–2018.
+          <em>Journal of Racial and Ethnic Health Disparities</em>.
+          DOI: 10.1007/s40615-021-01024-5.
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-sleepTransport">
+          National Sleep Foundation (2012).
+          Sleep in America Poll: Transportation Workers' Sleep.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-trans_workers_sleep_2012">http://www.openintro.org/redirect.php?go=textbook-trans_workers_sleep_2012</url>
+        </biblio>
+
+        <biblio type="raw" xml:id="survey-blmWaPoScar-2020">
+          Washington Post (2020).
+          Washington Post-Schar School national poll, data collected June 2-7, 2020.
+          <url href="http://www.openintro.org/redirect.php?go=exercise-wapo-2020-blm-poll">http://www.openintro.org/redirect.php?go=exercise-wapo-2020-blm-poll</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="survey-raiseTaxes-2015">
+          Public Policy Polling (2015).
+          Americans on College Degrees, Classic Literature, the Seasons, and More, data collected Feb 20-22, 2015.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-PPP_30215">http://www.openintro.org/redirect.php?go=textbook-PPP_30215</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Turnbull-Brown-Hu-1974">
+          Turnbull, B., Brown, B., and Hu, M. (1974).
+          Survivorship of Heart Transplant Data.
+          <em>Journal of the American Statistical Association</em>, 69:74-80.
+          DOI: 10.1080/01621459.1974.10480130
+        </biblio>
+        
+        <biblio type="raw" xml:id="nightingale-1859">
+          Nightingale, F. (1859).
+          <em>Notes on Nursing: what it is, and what it is not</em>.
+          Harrison &amp; Sons, p. 55.
+        </biblio>
+        
+        <biblio type="raw" xml:id="Heinz-2003">
+          Heinz, G., Peterson, L. J., Johnson, R. W., and Kerk, C. J. (2003).
+          Exploring relationships in body dimensions.
+          <em>Journal of Statistics Education</em>, 11(2).
+          <url href="http://www.openintro.org/redirect.php?go=textbook-body_dim_2003">http://www.openintro.org/redirect.php?go=textbook-body_dim_2003</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Mortada-2000">
+          Mortada, W. I., Sobh, M. A., El-Defrawy, M. M., and Farahat, S. E. (2000).
+          Study of lead exposure from automobile exhaust as a risk for nephrotoxicity among traffic policemen.
+          <em>American Journal of Nephrology</em>, 21(4):274-279.
+          DOI: 10.1159/000046261
+        </biblio>
+        
+        <biblio type="raw" xml:id="Smith-2021">
+          Smith, G. E., Chouinard, P. A., and Byosiere, S. (2021).
+          If I fits I sits: A citizen science investigation into illusory contour susceptibility in domestic cats (<em>Felis silvestris catus</em>).
+          <em>Applied Animal Behaviour Science</em>, 240.
+          DOI: 10.1016/j.applanim.2021.105338
+        </biblio>
+        
+        <biblio type="raw" xml:id="Lucas-2011">
+          Lucas, M., Mirzaei, F., Pan, A., Okereke, O. I., Willett, W. C., O'Reilly, E. J., Koenen, K., and Ascherio, A. (2011).
+          Coffee, caffeine, and risk of depression among women.
+          <em>Archives of Internal Medicine</em>, 171(17):1571.
+          DOI: 10.1001/archinternmed.2011.393
+        </biblio>
+        
+        <biblio type="raw" xml:id="KingSuamani2018">
+          King, C., Suamani, J., Sanuku, N., Cheng, Y.-C., Satofan, S., Mancuso, B., Goss, C. W., Robinson, L. J., Siba, P. M., Weil, G. J., and Kazura, J. W. (2018).
+          A Trial of a Triple-Drug Treatment for Lymphatic Filariasis.
+          <em>New England Journal of Medicine</em>, 379:1801-1810.
+          DOI: 10.1056/NEJMoa1706854
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-defundpolice">
+          Survey USA (2021).
+          News Poll 25938, data collected April 29 - May 5, 2021.
+          <url href="https://www.openintro.org/go?id=textbook-surveyusa-2021-seattle-defund-police">https://www.openintro.org/go?id=textbook-surveyusa-2021-seattle-defund-police</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="web-art2018">
+          CDC (2018).
+          2018 Assisted Reproductive Technology Fertility Clinic Success Rates Report.
+          <url href="https://www.cdc.gov/art/pdf/2018-report/ART-2018-Clinic-Report-Full.pdf">https://www.cdc.gov/art/pdf/2018-report/ART-2018-Clinic-Report-Full.pdf</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-gssgrass">
+          NORC (2022).
+          Data Explorer - Should marijuana be made legal.
+          <url href="https://www.openintro.org/go?id=textbook-gssdataexplorer-marijuana-legal">https://www.openintro.org/go?id=textbook-gssdataexplorer-marijuana-legal</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-gsssexeq">
+          NORC (2016).
+          Data Explorer - Government resp to promote gender equality.
+          <url href="https://www.openintro.org/go?id=textbook-gssdataexplorer-marijuana-gender-equality">https://www.openintro.org/go?id=textbook-gssdataexplorer-marijuana-gender-equality</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-KFF2019nathealthplan">
+          Kaiser Family Foundation (2019).
+          The Public On Next Steps For The ACA And Proposals To Expand Coverage, data collected January 9 - 14, 2019.
+          <url href="https://www.openintro.org/go?id=textbook-kff-2019-expand-aca-coverage">https://www.openintro.org/go?id=textbook-kff-2019-expand-aca-coverage</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="news-youngAmericans1">
+          Vaughn, A. (2011).
+          Poll finds young adults optimistic, but not about money.
+          <em>Los Angeles Times</em>, November 3, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-young_americans_2011">http://www.openintro.org/redirect.php?go=textbook-young_americans_2011</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="news-youngAmericans2">
+          Demos (2011).
+          The State of Young America: The Poll, November 2, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-young_americans_2011_extra">http://www.openintro.org/redirect.php?go=textbook-young_americans_2011_extra</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-elderlyDriving">
+          Marist Poll (2011).
+          Road Rules: Re-Testing Drivers at Age 65?, March 4, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-drivers_at_65_2011">http://www.openintro.org/redirect.php?go=textbook-drivers_at_65_2011</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-july4">
+          Survey USA (2012).
+          News Poll 19333, data collected on June 27, 2012.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-SurveyUSA_19333">http://www.openintro.org/redirect.php?go=textbook-SurveyUSA_19333</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-gallupcovidvaccine">
+          Gallup (2021).
+          U.S. Support for Vaccination Proof Varies by Activity, data collected in April 2021.
+          <url href="https://www.openintro.org/go?id=textbook-gallup-2021-vaccine-proof">https://www.openintro.org/go?id=textbook-gallup-2021-vaccine-proof</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-studyAbroad">
+          American Council on Education (2008).
+          College-Bound Students' Interests in Study Abroad and Other International Learning Activities.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-Interests_in_Study_Abroad_2008">http://www.openintro.org/redirect.php?go=textbook-Interests_in_Study_Abroad_2008</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-collegeWorthIt">
+          Pew Research Center (2011).
+          Is College Worth It?, data collected March 15-29, 2011.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-college_worth_it_2011">http://www.openintro.org/redirect.php?go=textbook-college_worth_it_2011</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-yougovcovid">
+          YouGov (2021).
+          Do you think the coronavirus will end up bringing the world closer together, or leave us further apart?
+          <url href="https://www.openintro.org/go?id=textbook-yougov-2021-covid">https://www.openintro.org/go?id=textbook-yougov-2021-covid</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Latter-1902">
+          Latter, O. H. (1902).
+          The Egg of Cuculus Canorus. An Enquiry into the Dimensions of the Cuckoo's Egg and the Relation of the Variations to the Size of the Eggs of the Foster-Parent, with Notes on Coloration.
+          <em>Biometrika</em>, 1:164-176.
+          DOI: 10.2307/2331486
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-chickwts">
+          McNeil, D. R. (1977).
+          Interactive data analysis: a practical primer.
+          Wiley.
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-gss-2010">
+          NORC (2010).
+          General Social Survey, 2010.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-gss_2010">http://www.openintro.org/redirect.php?go=textbook-gss_2010</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-china">
+          UNC Carolina Population Center (2006).
+          China Health and Nutrition Survey, 2006.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-china_health_nut_survey_2006">http://www.openintro.org/redirect.php?go=textbook-china_health_nut_survey_2006</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="data-urbanOwner">
+          US Census Bureau (2010).
+          2010 Census Urban and Rural Classification and Urban Area Criteria Housing Characteristics.
+          <url href="http://www.openintro.org/redirect.php?go=textbook-housing_char_2010">http://www.openintro.org/redirect.php?go=textbook-housing_char_2010</url>
+        </biblio>
+        
+        <biblio type="raw" xml:id="Malkevitc-Lesser-2008">
+          Malkevitch, J. and Lesser, L. M. (2008).
+          <em>For All Practical Purposes: Mathematical Literacy in Today's World</em>.
+          WH Freeman &amp; Co.
+        </biblio>
+      </references>
     </backmatter>
   </book>
 </pretext>

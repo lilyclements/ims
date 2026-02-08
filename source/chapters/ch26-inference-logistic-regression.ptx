@@ -1,9 +1,898 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch26-inference-logistic-regression" xmlns:xi="http://www.w3.org/2001/XInclude">
 
-<chapter xml:id="ch26-inference-logistic-regression">
-  <title>Inference for logistic regression</title>
-  
-  <p>
-    Content to be added from inf-model-logistic.qmd
-  </p>
+<title>Inference for logistic regression</title>
+
+<introduction>
+  <p>Combining ideas from <xref ref="sec-model-logistic" /> on logistic regression, <xref ref="sec-foundations-mathematical" /> on inference with mathematical models, and <xref ref="ch24-inference-linear-regression-single" /> and <xref ref="ch25-inference-linear-regression-multiple" /> which apply inferential techniques to the linear model, we wrap up the book by considering inferential methods applied to a logistic regression model.</p>
+  <p>Additionally, we use cross-validation as a method for independent assessment of the logistic regression model.</p>
+
+<p>As with multiple linear regression, the inference aspect for logistic regression will focus on interpretation of coefficients and relationships between explanatory variables. Both p-values and cross-validation will be used for assessing a logistic regression model.</p>
+
+<p>Consider the <c>email</c> data which describes email characteristics which can be used to predict whether a particular incoming email is spam (unsolicited bulk email). Without reading every incoming message, it might be nice to have an automated way to identify spam emails. Which of the variables describing each email are important for predicting the status of the email?</p>
+
+<note>
+  <title>Data</title>
+  <p>The <url href="http://openintrostat.github.io/openintro/reference/email.html"><c>email</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
+</note>
+
+<table xml:id="tbl-resume-variables-2">
+  <title>Variables and their descriptions for the <c>email</c> dataset. Many of the variables are indicator variables, meaning they take the value 1 if the specified characteristic is present and 0 otherwise.</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>Variable</cell>
+      <cell>Description</cell>
+    </row>
+    <row>
+      <cell>spam</cell>
+      <cell>Indicator for whether the email was spam.</cell>
+    </row>
+    <row>
+      <cell>to_multiple</cell>
+      <cell>Indicator for whether the email was addressed to more than one recipient.</cell>
+    </row>
+    <row>
+      <cell>from</cell>
+      <cell>Whether the message was listed as from anyone (this is usually set by default for regular outgoing email).</cell>
+    </row>
+    <row>
+      <cell>cc</cell>
+      <cell>Number of people cc'ed.</cell>
+    </row>
+    <row>
+      <cell>sent_email</cell>
+      <cell>Indicator for whether the sender had been sent an email in the last 30 days.</cell>
+    </row>
+    <row>
+      <cell>attach</cell>
+      <cell>The number of attached files.</cell>
+    </row>
+    <row>
+      <cell>dollar</cell>
+      <cell>The number of times a dollar sign or the word <q>dollar</q> appeared in the email.</cell>
+    </row>
+    <row>
+      <cell>winner</cell>
+      <cell>Indicates whether <q>winner</q> appeared in the email.</cell>
+    </row>
+    <row>
+      <cell>format</cell>
+      <cell>Indicates whether the email was written using HTML (e.g., may have included bolding or active links).</cell>
+    </row>
+    <row>
+      <cell>re_subj</cell>
+      <cell>Whether the subject started with <q>Re:</q>, <q>RE:</q>, <q>re:</q>, or <q>rE:</q>.</cell>
+    </row>
+    <row>
+      <cell>exclaim_subj</cell>
+      <cell>Whether there was an exclamation point in the subject.</cell>
+    </row>
+    <row>
+      <cell>urgent_subj</cell>
+      <cell>Whether the word <q>urgent</q> was in the email subject.</cell>
+    </row>
+    <row>
+      <cell>exclaim_mess</cell>
+      <cell>The number of exclamation points in the email message.</cell>
+    </row>
+    <row>
+      <cell>number</cell>
+      <cell>Factor variable saying whether there was no number, a small number (under 1 million), or a big number.</cell>
+    </row>
+  </tabular>
+</table>
+</introduction>
+
+
+<section xml:id="sec-model-diagnostics">
+  <title>Model diagnostics</title>
+
+<p>Before looking at the hypothesis tests associated with the coefficients (turns out they are very similar to those in linear regression!), it is valuable to understand the technical conditions that underlie the inference applied to the logistic regression model. Generally, as you've seen in the logistic regression modeling examples, it is imperative that the response variable is binary. Additionally, the key technical condition for logistic regression has to do with the relationship between the predictor variables (<m>x_i</m> values) and the probability the outcome will be a success. It turns out, the relationship is a specific functional form called a logit function, where <m>{\rm logit}(p) = \log_e(\frac{p}{1-p}).</m> The function may feel complicated, and memorizing the formula of the logit is not necessary for understanding logistic regression. What you do need to remember is that the probability of the outcome being a success is a function of a linear combination of the explanatory variables.</p>
+
+<assemblage>
+  <title>Logistic regression conditions</title>
+  <p>There are two key conditions for fitting a logistic regression model:</p>
+  <p>1.  Each outcome <m>Y_i</m> is independent of the other outcomes.</p>
+  <p>2.  Each predictor <m>x_i</m> is linearly related to logit<m>(p_i)</m> if all other predictors are held constant.</p>
+</assemblage>
+
+<p>The first logistic regression model condition --- independence of the outcomes --- is reasonable if we can assume that the emails that arrive in an inbox within a few months are independent of each other with respect to whether they're spam or not.</p>
+
+<p>The second condition of the logistic regression model is not easily checked without a fairly sizable amount of data. Luckily, we have 3921 emails in the dataset! Let's first visualize these data by plotting the true classification of the emails against the model's fitted probabilities, as shown in <xref ref="fig-spam-predict" />.</p>
+
+<listing xml:id="fig-spam-predict">
+  <caption>The predicted probability that each of the 3921 emails are spam. Points have been jittered so that those with nearly identical values aren’t plotted exactly on top of one another.</caption>
+  <program language="r">
+    <input>
+#| label: fig-spam-predict
+#| fig-cap: |
+#|   The predicted probability that each of the 3921 emails are spam. Points
+#|   have been jittered so that those with nearly identical values aren’t plotted
+#|   exactly on top of one another.
+#| fig-alt: |
+#|   Scatterplot with predicted probability of being spam on the x-axis and
+#|   original class, either spam or not spam, on the y-axis. We can see that
+#|   the predictions do not perfectly classify the emails; however, the not spam
+#|   emails generally have lower prediction probabilities than the spam emails.
+#| fig-asp: 0.43
+#| fig-width: 7
+spam_fit &lt;- logistic_reg() |&gt;
+  set_engine("glm") |&gt;
+  fit(spam ~ to_multiple + cc + dollar + urgent_subj, data = email, family = "binomial")
+
+spam_pred &lt;- predict(spam_fit, new_data = email, type = "prob") |&gt;
+  bind_cols(email |&gt; select(spam))
+
+ggplot(spam_pred, aes(x = .pred_1, y = spam)) +
+  geom_jitter(alpha = 0.2) +
+  coord_cartesian(xlim = c(0, 1)) +
+  labs(
+    y = NULL,
+    x = "Predicted probability that email is spam"
+  ) +
+  scale_y_discrete(labels = c("Not spam (0)", "Spam (1)"))
+    </input>
+  </program>
+</listing>
+
+<figure xml:id="fig-26-1">
+  <caption>The predicted probability that each of the 3921 emails are spam. Points have been jittered so that those with nearly identical values aren’t plotted exactly on top of one another.</caption>
+  <image source="images/fig-26-1.png" width="90%" />
+</figure>
+
+<p>We'd like to assess the quality of the model. For example, we might ask: if we look at emails that we modeled as having 10% chance of being spam, do we find out 10% of them actually are spam? We can check this for groups of the data by constructing a plot as follows:</p>
+
+<p>1.  Bucket the observations into groups based on their predicted probabilities. 2.  Compute the average predicted probability for each group. 3.  Compute the observed probability for each group, along with a 95% confidence interval for the true probability of success for those individuals. 4.  Plot the observed probabilities (with 95% confidence intervals) against the average predicted probabilities for each group.</p>
+
+<p>If the model does a good job describing the data, the plotted points should fall close to the line <m>y = x</m>, since the predicted probabilities should be similar to the observed probabilities. We can use the confidence intervals to roughly gauge whether anything might be amiss. Such a plot is shown in <xref ref="fig-logisticModelBucketDiag" />.</p>
+
+<listing xml:id="fig-logisticModelBucketDiag">
+  <caption>A reconfiguration of <xref ref="fig-spam-predict" />. Again, the predicted probabilities are on the x-axis and the truth is on the y-axis for each email. After data have been bucketed into predicted probability groups, the proportion of spam emails (i.e., the observed probability) is given by the black circles. The dashed line is within the confidence bound of the 95% confidence intervals for many of the buckets, suggesting the logistic fit is reasonable.</caption>
+  <program language="r">
+    <input>
+#| label: fig-logisticModelBucketDiag
+#| fig-cap: |
+#|   A reconfiguration of @fig-spam-predict. Again, the predicted probabilities
+#|   are on the x-axis and the truth is on the y-axis for each email. After data
+#|   have been bucketed into predicted probability groups, the proportion of spam
+#|   emails (i.e., the observed probability) is given by the black circles. The
+#|   dashed line is within the confidence bound of the 95% confidence intervals
+#|   for many of the buckets, suggesting the logistic fit is reasonable.
+#| fig-alt: |
+#|   Scatterplot with predicted probability of being spam on the x-axis and
+#|   original class, either spam or not spam, on the y-axis. Superimposed are
+#|   the observed probabilities of being spam, calculated by the proportion of
+#|   spam emails in each bucket of predicted probabilities. The observed
+#|   probabilities and predicted probabilities line up reasonably well.
+#| out-width: 90%
+#| fig-asp: 0.6
+par_og &lt;- par(no.readonly = TRUE) # save original par
+par(mar = c(5.1, 7, 0, 0))
+
+m &lt;- glm(spam ~ to_multiple + cc + dollar + urgent_subj, data = email, family = binomial)
+
+p &lt;- predict(m, type = "response")
+
+set.seed(1)
+noise &lt;- rnorm(nrow(email), sd = 0.08)
+
+ns1 &lt;- 4
+plot(p, as.numeric(email$spam) - 1 + noise / 5,
+  type = "n",
+  xlim = 0:1,
+  ylim = c(-0.07, 1.07),
+  axes = FALSE,
+  xlab = "Predicted Probability",
+  ylab = ""
+)
+par(las = 0)
+mtext("Truth", 2, 5.5)
+par(las = 1)
+rect(0, 0, 1, 1,
+  border = IMSCOL["gray", "full"],
+  col = "#00000000",
+  lwd = 1.5
+)
+lines(0:1, 0:1,
+  lty = 2,
+  col = IMSCOL["gray", "full"],
+  lwd = 1.5
+)
+points(p, as.numeric(email$spam) - 1 + noise / 5,
+  col = IMSCOL["blue", "f5"],
+  pch = 20
+)
+axis(1)
+at &lt;- seq(0, 1, length.out = 6)
+labels &lt;- c(
+  "0 (Not spam)",
+  "0.2  ",
+  "0.4  ",
+  "0.6  ",
+  "0.8  ",
+  "1 (Spam)"
+)
+axis(2, at, labels)
+eps &lt;- 1e-4
+bucket_breaks &lt;- quantile(p, seq(0, 1, 0.01))
+bucket_breaks[1] &lt;- bucket_breaks[1] - eps
+n_buckets &lt;- length(bucket_breaks) - 1
+bucket_breaks[n_buckets] &lt;- bucket_breaks[n_buckets] + 1e3 * eps
+bucket_breaks. &lt;- bucket_breaks
+k &lt;- 1
+for (i in 1:n_buckets) {
+  if (abs(bucket_breaks.[i] - bucket_breaks[k]) &gt;= 0.01) {
+    k &lt;- k + 1
+    bucket_breaks[k] &lt;- bucket_breaks.[i]
+  }
+}
+bucket_breaks &lt;- bucket_breaks[1:k]
+n_buckets &lt;- length(bucket_breaks)
+xp &lt;- rep(NA, n_buckets)
+yp &lt;- rep(NA, n_buckets)
+yp_lower &lt;- rep(NA, n_buckets)
+yp_upper &lt;- rep(NA, n_buckets)
+zs &lt;- qnorm(0.975)
+for (i in 1:n_buckets) {
+  these &lt;- bucket_breaks[i] &lt; p &amp; p &lt;= bucket_breaks[i + 1]
+  xp[i] &lt;- mean(p[these])
+  # cat(paste("xp", "i", "=", xp[i]))
+  y &lt;- (as.numeric(email$spam) - 1)[these]
+  yp[i] &lt;- mean(y)
+  # cat(paste("yp", "i", "=", yp[i]))
+  yp_lower[i] &lt;- yp[i] - zs * sqrt(yp[i] * (1 - yp[i]) / length(y))
+  # cat(paste("yp_lower", "i", "=", yp_lower[i]))
+  yp_upper[i] &lt;- yp[i] + zs * sqrt(yp[i] * (1 - yp[i]) / length(y))
+  # cat(paste("yp_upper", "i", "=", yp_upper[i]))
+}
+points(xp, yp, pch = 19)
+segments(xp, yp_lower, xp, yp_upper)
+arrows(0.3, 0.17,
+  0.24, 0.22,
+  length = 0.07
+)
+text(0.3, 0.15,
+  paste("Observations are bucketed, then we compute",
+    "the observed probability in each bucket (y)",
+    "against the average predicted probability (x)",
+    "for each of the buckets with 95% confidence intervals.",
+    sep = "\n"
+  ),
+  cex = 0.85, pos = 4
+)
+par(par_og) # restore original par
+    </input>
+  </program>
+</listing>
+
+<figure xml:id="fig-26-2">
+  <caption>A reconfiguration of the figure above. Again, the predicted probabilities are on the x-axis and the truth is on the y-axis for each email. After data have been bucketed into predicted probability groups, the proportion of spam emails (i.e., the observed probability) is given by the black circles. The dashed line is within the confidence bound of the 95% confidence intervals for many of the buckets, suggesting the logistic fit is reasonable.</caption>
+  <image source="images/fig-26-2.png" width="90%" />
+</figure>
+
+<p>A plot like <xref ref="fig-26-2" /> helps to better understand the deviations. Additional diagnostics may be created that are similar to those featured in <xref ref="sec-tech-cond-linmod" />. For instance, we could compute residuals as the observed outcome minus the expected outcome (<m>e_i = Y_i - \hat{p}_i</m>), and then we could create plots of these residuals against each predictor.</p>
+
+<p></p>
+
+</section>
+
+<section xml:id="sec-inf-log-reg-soft">
+  <title>Multiple logistic regression output from software</title>
+
+<p>As you learned in <xref ref="sec-model-mlr" />, optimization can be used to find the coefficient estimates for the logistic model. The unknown population model can be written as:</p>
+
+<me>\begin{aligned}\log_e\bigg(\frac{p}{1-p}\bigg) = \beta_0 &amp;+ \beta_1 \times \texttt{to_multiple}\\&amp;+ \beta_2 \times \texttt{cc} \\&amp;+ \beta_3 \times \texttt{dollar}\\&amp;+ \beta_4 \times \texttt{urgent_subj}\end{aligned}</me>
+
+<p>The estimated equation for the regression model may be written as a model with four predictor variables, where <m>\hat{p}</m> is the estimated probability of being a spam email message:</p>
+
+<me>\begin{aligned}\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) = -2.05 &amp;-1.91 \times \texttt{to_multiple}\\&amp;+ 0.02 \times \texttt{cc} \\&amp;- 0.07 \times \texttt{dollar}\\&amp;+ 2.66 \times \texttt{urgent_subj}\end{aligned}</me>
+
+<table xml:id="tbl-emaillogmodel">
+  <title>Summary of a logistic model for predicting whether an email is spam based on the variables to_multiple, cc, dollar, and urgent_subj. Each of the variables has its own coefficient estimate and p-value.</title>
+  <tabular>
+    <row bottom="minor">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell>std.error</cell>
+      <cell>statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">-2.05</cell>
+      <cell>0.06</cell>
+      <cell>-34.67</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>to_multiple1</cell>
+      <cell right="minor">-1.91</cell>
+      <cell>0.30</cell>
+      <cell>-6.37</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>cc</cell>
+      <cell right="minor">0.02</cell>
+      <cell>0.02</cell>
+      <cell>1.16</cell>
+      <cell>0.245</cell>
+    </row>
+    <row>
+      <cell>dollar</cell>
+      <cell right="minor">-0.07</cell>
+      <cell>0.02</cell>
+      <cell>-3.38</cell>
+      <cell>7e-04</cell>
+    </row>
+    <row>
+      <cell>urgent_subj1</cell>
+      <cell right="minor">2.66</cell>
+      <cell>0.80</cell>
+      <cell>3.32</cell>
+      <cell>9e-04</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>Not only does <xref ref="tbl-emaillogmodel" /> provide the estimates for the coefficients, it also provides information on the inference analysis (i.e., hypothesis testing) which is the focus of this chapter.</p>
+
+<p>As in <xref ref="ch25-inference-linear-regression-multiple" />, with <alert>multiple predictors</alert>, each hypothesis test (for each of the explanatory variables) is conditioned on each of the other variables remaining in the model.</p>
+
+<blockquote>
+  <p>if multiple predictors <m>H_0: \beta_i = 0</m> given other variables in the model</p>
+</blockquote>
+
+<p>Using the example above and focusing on each of the variable p-values (here we won't discuss the p-value associated with the intercept), we can write out the four different hypotheses (associated with the p-value corresponding to each of the coefficients / rows in <xref ref="tbl-emaillogmodel" />):</p>
+
+<ul>
+  <li><p><m>H_0: \beta_1 = 0</m> given <c>cc</c>, <c>dollar</c>, and <c>urgent_subj</c> are included in the model</p></li>
+  <li><p><m>H_0: \beta_2 = 0</m> given <c>to_multiple</c>, <c>dollar</c>, and <c>urgent_subj</c> are included in the model</p></li>
+  <li><p><m>H_0: \beta_3 = 0</m> given <c>to_multiple</c>, <c>cc</c>, and <c>urgent_subj</c> are included in the model</p></li>
+  <li><p><m>H_0: \beta_4 = 0</m> given <c>to_multiple</c>, <c>cc</c>, and <c>dollar</c> are included in the model</p></li>
+</ul>
+
+<p>The very low p-values from the software output tell us that three of the variables (that is, not <c>cc</c>) act as statistically discernible predictors in the model at the discernibility level of 0.05, despite the inclusion of any of the other variables. Consider the p-value on <m>H_0: \beta_1 = 0</m>. The low p-value says that it would be extremely unlikely to observe data that yield a coefficient on <c>to_multiple</c> at least as far from 0 as -1.91 (i.e., <m>|b_1| > 1.91</m>) if the true relationship between <c>to_multiple</c> and <c>spam</c> was non-existent (i.e., if <m>\beta_1 = 0</m>) <alert>and</alert> the model also included <c>cc</c> and <c>dollar</c> and <c>urgent_subj</c>. Note also that the coefficient on <c>dollar</c> has a small associated p-value, but the magnitude of the coefficient is also seemingly small (0.07). It turns out that in units of standard errors (0.02 here), 0.07 is actually quite far from zero, it's all about context! The p-values on the remaining variables are interpreted similarly. From the initial output (p-values) in <xref ref="tbl-emaillogmodel" />, it seems as though <c>to_multiple</c>, <c>dollar</c>, and <c>urgent_subj</c> are important variables for modeling whether an email is <c>spam</c>. We remind you that although p-values provide some information about the importance of each of the predictors in the model, there are many, arguably more important, aspects to consider when choosing the best model.</p>
+
+<p>As with linear regression (see <xref ref="sec-inf-mult-reg-collin" />), existence of predictors that are correlated with each other can affect both the coefficient estimates and the associated p-values. However, investigating multicollinearity in a logistic regression model is saved for a text which provides more detail about logistic regression. Next, as a model building alternative (or enhancement) to p-values, we revisit cross-validation within the context of predicting status for each of the individual emails.</p>
+
+</section>
+
+<section xml:id="sec-inf-log-reg-cv">
+  <title>Cross-validation for prediction error</title>
+
+<p>The p-value is a probability measure under a setting of no relationship. That p-value provides information about the degree of the relationship (e.g., above we measure the relationship between <c>spam</c> and <c>to_multiple</c> using a p-value), but the p-value does not measure how well the model will predict the individual emails (e.g., the accuracy of the model). Depending on the goal of the research project, you might be inclined to focus on variable importance (through p-values) or you might be inclined to focus on prediction accuracy (through cross-validation).</p>
+
+<p>Here we present a method for using <alert>cross-validation</alert> <alert>accuracy</alert> to determine which variables (if any) should be used in a model which predicts whether an email is spam. A full treatment of cross-validation and logistic regression models is beyond the scope of this text. Using <m>k</m>-fold cross-validation, we can build <m>k</m> different models which are used to predict the observations in each of the <m>k</m> holdout samples. As with linear regression (see <xref ref="sec-inf-mult-reg-cv" />), we compare a smaller logistic regression model to a larger logistic regression model. The smaller model uses only the <c>to_multiple</c> variable, see the complete dataset (not cross-validated) model output in <xref ref="tbl-emaillogmodel1" />. The logistic regression model can be written as follows, where <m>\hat{p}</m> is the estimated probability of being a spam email message.</p>
+
+<p><alert>The smaller model:</alert></p>
+
+<me>\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) =  -2.12 + -1.81 \times \texttt{to_multiple}</me>
+
+<table xml:id="tbl-emaillogmodel1">
+  <title>The smaller model. Summary of a logistic model for predicting whether an email is spam based on only the predictor variable to_multiple. Each of the variables has its own coefficient estimate and p-value.</title>
+  <tabular>
+    <row bottom="minor">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell>std.error</cell>
+      <cell>statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">-2.12</cell>
+      <cell>0.06</cell>
+      <cell>-37.67</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>to_multiple1</cell>
+      <cell right="minor">-1.81</cell>
+      <cell>0.30</cell>
+      <cell>-6.09</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>For each cross-validated model, the coefficients change slightly, and the model is used to make independent predictions on the holdout sample. The model from the first cross-validation sample is given in <xref ref="fig-emailCV1" /> and can be compared to the coefficients in <xref ref="tbl-emaillogmodel1" />.</p>
+
+<figure xml:id="fig-emailCV1">
+  <caption>The smaller model. The coefficients are estimated using the least squares model on 3/4 of the data with a single predictor variable. Predictions are made on the remaining 1/4 of the observations. Note that the prediction error rate is quite high.</caption>
+  <image source="images/emailCV1.png" width="90%" />
+</figure>
+
+<table xml:id="tbl-email-spam">
+  <title>The smaller model. One quarter at a time, the data were removed from the model building, and whether the email was spam (TRUE) or not (FALSE) was predicted. The logistic regression model was fit independently of the removed emails. Only <c>to_multiple</c> is used to predict whether the email is spam. Because we used a cutoff designed to identify spam emails, the accuracy of the non-spam email predictions is very low. <c>spamTP</c> is the proportion of true spam emails that were predicted to be spam. <c>notspamTP</c> is the proportion of true not spam emails that were predicted to be not spam.</title>
+  <tabular>
+    <row bottom="minor">
+      <cell>fold</cell>
+      <cell right="minor">count</cell>
+      <cell>accuracy</cell>
+      <cell>notspamTP</cell>
+      <cell>spamTP</cell>
+    </row>
+    <row>
+      <cell>1st quarter</cell>
+      <cell right="minor">980</cell>
+      <cell>0.26</cell>
+      <cell>0.19</cell>
+      <cell>0.98</cell>
+    </row>
+    <row>
+      <cell>2nd quarter</cell>
+      <cell right="minor">981</cell>
+      <cell>0.23</cell>
+      <cell>0.15</cell>
+      <cell>0.96</cell>
+    </row>
+    <row>
+      <cell>3rd quarter</cell>
+      <cell right="minor">979</cell>
+      <cell>0.25</cell>
+      <cell>0.18</cell>
+      <cell>0.96</cell>
+    </row>
+    <row>
+      <cell>4th quarter</cell>
+      <cell right="minor">981</cell>
+      <cell>0.24</cell>
+      <cell>0.17</cell>
+      <cell>0.98</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>Because the <c>email</c> dataset has a ratio of roughly 90% non-spam and 10% spam emails, a model which randomly guessed all non-spam would have an overall accuracy of 90%! Clearly, we would like to capture the information with the spam emails, so our interest is in the percent of spam emails which are identified as spam (see <xref ref="tbl-email-spam" />). Additionally, in the logistic regression model, we use a 10% cutoff to predict whether the email is spam. Fortunately, we have done a great job of predicting! However, the trade-off was that most of the non-spam emails are now predicted to be spam which is not acceptable for a prediction algorithm. Adding more variables to the model may help with both the spam and non-spam predictions.</p>
+
+<p>The larger model uses <c>to_multiple</c>, <c>attach</c>, <c>winner</c>, <c>format</c>, <c>re_subj</c>, <c>exclaim_mess</c>, and <c>number</c> as the set of seven predictor variables, see the complete dataset (not cross-validated) model output in <xref ref="tbl-emaillogmodel2" />. The logistic regression model can be written as follows, where <m>\hat{p}</m> is the estimated probability of being a spam email message.</p>
+
+<p>\vspace{5mm}</p>
+
+<p><alert>The larger model:</alert></p>
+
+<me>\begin{aligned}\log_e\bigg(\frac{\hat{p}}{1-\hat{p}}\bigg) = -0.34 &amp;- 2.56 \times \texttt{to_multiple} + 0.20 \times \texttt{attach} + 1.73 \times \texttt{winner}_{yes} \\&amp;- 1.28 \times \texttt{format} - 2.86 \times \texttt{re_subj} + 0.00 \times \texttt{exclaim_mess} \\&amp;- 1.07 \times \texttt{number}_{small} - 0.42 \times \texttt{number}_{big}\end{aligned}</me>
+
+<table xml:id="tbl-emaillogmodel2">
+  <title>The larger model. Summary of a logistic model for predicting whether an email is spam based on the variables <c>to_multiple</c>, <c>attach</c>, <c>winner</c>, <c>format</c>, <c>re_subj</c>, <c>exclaim_mess</c>, and <c>number</c>. Each of the variables has its own coefficient estimate and p-value.</title>
+  <tabular>
+    <row bottom="minor">
+      <cell>term</cell>
+      <cell right="minor">estimate</cell>
+      <cell>std.error</cell>
+      <cell>statistic</cell>
+      <cell>p.value</cell>
+    </row>
+    <row>
+      <cell>(Intercept)</cell>
+      <cell right="minor">-0.34</cell>
+      <cell>0.11</cell>
+      <cell>-3.02</cell>
+      <cell>0.0025</cell>
+    </row>
+    <row>
+      <cell>to_multiple1</cell>
+      <cell right="minor">-2.56</cell>
+      <cell>0.31</cell>
+      <cell>-8.28</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>attach</cell>
+      <cell right="minor">0.20</cell>
+      <cell>0.06</cell>
+      <cell>3.29</cell>
+      <cell>0.001</cell>
+    </row>
+    <row>
+      <cell>winneryes</cell>
+      <cell right="minor">1.73</cell>
+      <cell>0.33</cell>
+      <cell>5.33</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>format1</cell>
+      <cell right="minor">-1.28</cell>
+      <cell>0.13</cell>
+      <cell>-9.80</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>re_subj1</cell>
+      <cell right="minor">-2.86</cell>
+      <cell>0.37</cell>
+      <cell>-7.83</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>exclaim_mess</cell>
+      <cell right="minor">0.00</cell>
+      <cell>0.00</cell>
+      <cell>0.26</cell>
+      <cell>0.7925</cell>
+    </row>
+    <row>
+      <cell>numbersmall</cell>
+      <cell right="minor">-1.07</cell>
+      <cell>0.14</cell>
+      <cell>-7.54</cell>
+      <cell>&lt;0.0001</cell>
+    </row>
+    <row>
+      <cell>numberbig</cell>
+      <cell right="minor">-0.42</cell>
+      <cell>0.20</cell>
+      <cell>-2.10</cell>
+      <cell>0.0357</cell>
+    </row>
+  </tabular>
+</table>
+
+<figure xml:id="fig-emailCV2">
+  <caption>The larger model. The coefficients are estimated using the least squares model on 3/4 of the dataset with the seven specified predictor variables. Predictions are made on the remaining 1/4 of the observations. Note that the predictions are independent of the estimated model coefficients. The predictions are now much better for both the spam and the non-spam emails (than they were with a single predictor variable).</caption>
+  <image source="images/emailCV2.png" width="100%" />
+</figure>
+
+<listing xml:id="listing-414">
+  <caption>R code</caption>
+  <program language="r">
+    <input>
+set.seed(470)
+emailfolds &lt;- caret::createFolds(email$spam, k = 4)
+
+logCV2 &lt;- data.frame(
+  predicted = glm(spam ~ to_multiple + attach + winner + format + re_subj + exclaim_mess + number, data = email[-emailfolds$Fold1, ], family = "binomial") |&gt;
+    predict(newdata = email[emailfolds$Fold1, c("to_multiple", "attach", "winner", "format", "re_subj", "exclaim_mess", "number")], type = "response"),
+  obs = email[emailfolds$Fold1, ]$spam,
+  fold = rep("1st quarter", length(emailfolds$Fold1))
+) |&gt;
+  rbind(data.frame(
+    predicted = glm(spam ~ to_multiple + attach + winner + format + re_subj + exclaim_mess + number, data = email[-emailfolds$Fold2, ], family = "binomial") |&gt;
+      predict(newdata = email[emailfolds$Fold2, c("to_multiple", "attach", "winner", "format", "re_subj", "exclaim_mess", "number")], type = "response"),
+    obs = email[emailfolds$Fold2, ]$spam,
+    fold = rep("2nd quarter", length(emailfolds$Fold2))
+  )) |&gt;
+  rbind(data.frame(
+    predicted = glm(spam ~ to_multiple + attach + winner + format + re_subj + exclaim_mess + number, data = email[-emailfolds$Fold3, ], family = "binomial") |&gt;
+      predict(newdata = email[emailfolds$Fold3, c("to_multiple", "attach", "winner", "format", "re_subj", "exclaim_mess", "number")], type = "response"),
+    obs = email[emailfolds$Fold3, ]$spam,
+    fold = rep("3rd quarter", length(emailfolds$Fold3))
+  )) |&gt;
+  rbind(data.frame(
+    predicted = glm(spam ~ to_multiple + attach + winner + format + re_subj + exclaim_mess + number, data = email[-emailfolds$Fold4, ], family = "binomial") |&gt;
+      predict(newdata = email[emailfolds$Fold4, c("to_multiple", "attach", "winner", "format", "re_subj", "exclaim_mess", "number")], type = "response"),
+    obs = email[emailfolds$Fold4, ]$spam,
+    fold = rep("4th quarter", length(emailfolds$Fold4))
+  )) |&gt;
+  mutate(predspam = ifelse(predicted &lt;= 0.1, 0, 1))
+    </input>
+  </program>
+</listing>
+
+<table xml:id="tbl-email-spam2">
+  <title>The larger model. One quarter at a time, the data were removed from the model building, and whether the email was spam (TRUE) or not (FALSE) was predicted. The logistic regression model was fit independently of the removed emails. Now, the variables <c>to_multiple</c>, <c>attach</c>, <c>winner</c>, <c>format</c>, <c>re_subj</c>, <c>exclaim_mess</c>, and <c>number</c> are used to predict whether the email is  spam. <c>spamTP</c> is the proportion of true spam emails that were predicted to be spam. <c>notspamTP</c> is the proportion of true not spam emails that were predicted to be not spam.</title>
+  <tabular>
+    <row bottom="minor">
+      <cell>fold</cell>
+      <cell right="minor">count</cell>
+      <cell>accuracy</cell>
+      <cell>notspamTP</cell>
+      <cell>spamTP</cell>
+    </row>
+    <row>
+      <cell>1st quarter</cell>
+      <cell right="minor">980</cell>
+      <cell>0.77</cell>
+      <cell>0.77</cell>
+      <cell>0.71</cell>
+    </row>
+    <row>
+      <cell>2nd quarter</cell>
+      <cell right="minor">981</cell>
+      <cell>0.80</cell>
+      <cell>0.81</cell>
+      <cell>0.70</cell>
+    </row>
+    <row>
+      <cell>3rd quarter</cell>
+      <cell right="minor">979</cell>
+      <cell>0.76</cell>
+      <cell>0.77</cell>
+      <cell>0.65</cell>
+    </row>
+    <row>
+      <cell>4th quarter</cell>
+      <cell right="minor">981</cell>
+      <cell>0.78</cell>
+      <cell>0.79</cell>
+      <cell>0.75</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>Somewhat expected, the larger model (see <xref ref="tbl-email-spam2" />) was able to capture more nuance in the emails which lead to better predictions. However, it is not true that adding variables will always lead to better predictions, as correlated or noise variables may dampen the signal from the set of variables that truly predict the status. We encourage you to learn more about multiple variable models and cross-validation in your future exploration of statistical topics.</p>
+
+</section>
+
+<section xml:id="sec-chp27-review">
+  <title>Chapter review</title>
+
+<subsection xml:id="subsec-summary-ch26">
+  <title>Summary</title>
+
+<p>Throughout the text, we have presented a modern view to introduction to statistics. Earlier, we presented graphical techniques which communicated relationships across multiple variables. We also used modeling to formalize the relationships. In <xref ref="ch26-inference-logistic-regression" /> we considered inferential claims on models which include many variables used to predict the probability of the outcome being a success. We continue to emphasize the importance of experimental design in making conclusions about research claims. In particular, recall that variability can come from different sources (e.g., random sampling vs. random allocation, see <xref ref="fig-randsampValloc" />).</p>
+
+<p>As you might guess, this text has only scratched the surface of the world of statistical analyses that can be applied to different datasets. In particular, to do justice to the topic, the linear models and generalized linear models we have introduced can each be covered with their own course or book. Hierarchical models, alternative methods for fitting parameters (e.g., Ridge Regression or LASSO), and advanced computational methods applied to multivariable models (e.g., permuting the response variable? one explanatory variable? all the explanatory variables?) are all beyond the scope of this book. However, your successful understanding of the ideas we have covered has set you up perfectly to move on to a higher level of statistical modeling and inference. Enjoy!</p>
+
+</subsection>
+
+<subsection xml:id="subsec-terms-ch26">
+  <title>Terms</title>
+
+<p>The terms introduced in this chapter are given below. If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions. You should be able to easily spot them as <alert>bolded text</alert>.</p>
+<p> accuracy, inference on logistic regression, technical conditions, cross-validation, multiple predictors</p>
+
+</subsection>
+
+</section>
+
+<exercises xml:id="sec-chp26-exercises">
+  <title>Exercises</title>
+
+  <p>Answers to odd-numbered exercises can be found in <xref ref="appendix-exercise-solutions" />.</p>
+
+<exercise xml:id="ex-26-1">
+  <statement>
+    <p>
+      <alert>Passing the driver's test.</alert> A consulting company is hired to assess whether certain characteristics of a DMV (e.g., location, number of test takers, number of test givers, hours of operation, etc.) are associated with the pass rate of the driver's test.
+      The company is given information on 100 randomly selected DMVs across the country.
+      For each DMV the annual driving test pass rate is recorded, along with other characteristics describing the DMV.
+      Can logistic regression with multiple predictors be used to predict annual driving test pass rate for DMVs in this setting?
+      Explain your reasoning.
+    </p>
+  </statement>
+</exercise>
+
+<exercise xml:id="ex-26-2">
+  <statement>
+    <p>
+      <alert>Oceans and skin cancer.</alert> A researcher wants to investigate the relationship between living within 10 miles of an ocean for at least one year of life and developing skin cancer before the age of 50.
+    </p>
+    <p>
+      <ol>
+        <li><p>Explain why logistic regression can be used to study the relationship between these two binary variables? What is the technical assumption describing the relationship between the response (outcome) and explanatory (predictor) variables?</p></li>
+        <li><p>What other methods covered in this text might be used to address the research question of interest? What advantages does logistic regression have over these methods?</p></li>
+      </ol>
+    </p>
+  </statement>
+</exercise>
+
+<exercise xml:id="ex-26-3">
+  <statement>
+    <p>
+      <alert>Marijuana use in college.</alert> Researchers studying whether the value systems of adolescents conflict with those of their parents asked 445 college students if they use marijuana.
+      They also asked the students' parents if they used marijuana when they were in college.
+      Based on the regression output shown below for predicting student drug use from parent drug use, evaluate whether parents' marijuana usage is a discernible predictor of their kids' marijuana usage.
+      State the hypotheses, the test statistics, the p-value, and the conclusion in context of the data and the research question.<fn>The <c>drug_use</c> data used in this exercise can be found in the <alert>openintro</alert> R package.</fn>
+    </p>
+    <table>
+      <title>Logistic regression output for predicting student marijuana use from parent marijuana use</title>
+      <tabular>
+        <row bottom="minor">
+          <cell>term</cell>
+          <cell right="minor">estimate</cell>
+          <cell>std.error</cell>
+          <cell>statistic</cell>
+          <cell>p.value</cell>
+        </row>
+        <row>
+          <cell>(Intercept)</cell>
+          <cell right="minor">-0.405</cell>
+          <cell>0.133</cell>
+          <cell>-3.04</cell>
+          <cell>0.0023</cell>
+        </row>
+        <row>
+          <cell>parentsUsed</cell>
+          <cell right="minor">0.791</cell>
+          <cell>0.194</cell>
+          <cell>4.09</cell>
+          <cell>&lt;0.0001</cell>
+        </row>
+      </tabular>
+    </table>
+  </statement>
+</exercise>
+
+<exercise xml:id="ex-26-4">
+  <statement>
+    <p>
+      <alert>Treating heart attacks.</alert> Researchers studying the effectiveness of Sulfinpyrazone in the prevention of sudden death after a heart attack conducted a randomized experiment on 1,475 patients.
+      Based on the regression output shown below for predicting the outcome (<c>died</c> or <c>lived</c>, where success is defined as <c>lived</c>) from the treatment group (<c>control</c> and <c>treatment</c>), evaluate whether treatment group is a discernible predictor of the outcome.
+      State the hypotheses, the test statistics, the p-value, and the conclusion in context of the data and the research question.<fn>The <c>sulphinpyrazone</c> data used in this exercise can be found in the <alert>openintro</alert> R package.</fn>
+    </p>
+    <table>
+      <title>Logistic regression output for predicting survival after heart attack</title>
+      <tabular>
+        <row bottom="minor">
+          <cell>term</cell>
+          <cell right="minor">estimate</cell>
+          <cell>std.error</cell>
+          <cell>statistic</cell>
+          <cell>p.value</cell>
+        </row>
+        <row>
+          <cell>(Intercept)</cell>
+          <cell right="minor">2.431</cell>
+          <cell>0.135</cell>
+          <cell>18.05</cell>
+          <cell>&lt;0.0001</cell>
+        </row>
+        <row>
+          <cell>grouptreatment</cell>
+          <cell right="minor">0.395</cell>
+          <cell>0.210</cell>
+          <cell>1.89</cell>
+          <cell>0.0594</cell>
+        </row>
+      </tabular>
+    </table>
+  </statement>
+</exercise>
+
+<exercise xml:id="ex-26-5">
+  <statement>
+    <p>
+      <alert>Possum classification, cross-validation.</alert> The common brushtail possum of the Australia region is a bit cuter than its distant cousin, the American opossum.
+      We consider 104 brushtail possums from two regions in Australia, where the possums may be considered a random sample from the population.
+      The first region is Victoria, which is in the eastern half of Australia and traverses the southern coast.
+      The second region consists of New South Wales and Queensland, which make up eastern and northeastern Australia.
+      We use logistic regression to differentiate between possums in these two regions.
+      The outcome variable, called <c>pop</c>, takes value 1 when a possum is from Victoria and 0 when it is from New South Wales or Queensland.<fn>The <c>possum</c> data used in this exercise can be found in the <alert>openintro</alert> R package.</fn>
+    </p>
+    <p>
+      Two logistic regression models are fit using 4-fold cross-validation:
+    </p>
+    <p>
+      Model 1: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{tail_l}</m>
+    </p>
+
+<figure xml:id="fig-ex-7">
+  <image source="images/fig-ex-7.png" width="90%" />
+</figure>
+
+    <p>
+      Model 2: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{total_l} + \beta_2 \times \text{sex}</m>
+    </p>
+
+<figure xml:id="fig-ex-7-1">
+  <image source="images/fig-ex-7-1.png" width="90%" />
+</figure>
+
+    <p>
+      The confusion matrices for each fold are shown in the figures (referenced in the original exercise but not reproduced here in detail).
+    </p>
+    <p>
+      <ol>
+        <li><p>How many observations are in Fold2? Use the model with only tail length as a predictor variable. Of the observations in Fold2, how many of them were correctly predicted to be from Victoria? How many of them were incorrectly predicted to be from Victoria?</p></li>
+        <li><p>How many observations are used to build the model which predicts for the observations in Fold2?</p></li>
+        <li><p>For one of the cross-validation folds, how many coefficients were estimated for the model which uses tail length as a predictor? For one of the cross-validation folds, how many coefficients were estimated for the model which uses total length and sex as predictors?</p></li>
+      </ol>
+    </p>
+  </statement>
+</exercise>
+
+<exercise xml:id="ex-26-6">
+  <statement>
+    <p>
+      <alert>Premature babies, cross-validation.</alert> US Department of Health and Human Services, Centers for Disease Control and Prevention collect information on births recorded in the country.
+      The data used here are a random sample of 1000 births from 2014 (with some rows removed due to missing data).
+      We use logistic regression to model whether the baby is premature from various explanatory variables.<fn>The <c>births14</c> data used in this exercise can be found in the <alert>openintro</alert> R package.</fn>
+    </p>
+    <p>
+      Two logistic regression models are fit using 3-fold cross-validation:
+    </p>
+    <p>
+      Model 1: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{mage} + \beta_2 \times \text{weight} + \beta_3 \times \text{mature} + \beta_4 \times \text{visits} + \beta_5 \times \text{gained} + \beta_6 \times \text{habit}</m>
+    </p>
+<figure xml:id="fig-ex-6">
+  <image source="images/fig-ex-6.png" width="90%" />
+</figure>
+    <p>
+      Model 2: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{weight} + \beta_2 \times \text{mature}</m>
+    </p>
+<figure xml:id="fig-ex-6-1">
+  <image source="images/fig-ex-6-1.png" width="90%" />
+</figure>
+    <p>
+      The confusion matrices for each fold are shown in the figures (referenced in the original exercise but not reproduced here in detail).
+    </p>
+    <p>
+      <ol>
+        <li><p>How many observations are in Fold2? Use the model with only <c>weight</c> and <c>mature</c> as predictor variables. Of the observations in Fold2, how many of them were correctly predicted to be premature? How many of them were incorrectly predicted to be premature?</p></li>
+        <li><p>How many observations are used to build the model which predicts for the observations in Fold2?</p></li>
+        <li><p>In the original dataset, are most of the births premature or full term? Explain.</p></li>
+        <li><p>For one of the cross-validation folds, how many coefficients were estimated for the model which uses <c>mage</c>, <c>weight</c>, <c>mature</c>, <c>visits</c>, <c>gained</c>, and <c>habit</c> as predictors? For one of the cross-validation folds, how many coefficients were estimated for the model which uses <c>weight</c> and <c>mature</c> as predictors?</p></li>
+      </ol>
+    </p>
+  </statement>
+</exercise>
+
+<exercise xml:id="ex-26-7">
+  <statement>
+    <p>
+      <alert>Possum classification, cross-validation to choose model.</alert> In this exercise we consider 104 brushtail possums from two regions in Australia (the first region is Victoria and the second is New South Wales and Queensland), where the possums may be considered a random sample from the population.
+      We use logistic regression to classify the possums into the two regions.
+      The outcome variable, called <c>pop</c>, takes value 1 when a possum is from Victoria and 0 when it is from New South Wales or Queensland.
+    </p>
+    <p>
+      Two logistic regression models are fit using 4-fold cross-validation:
+    </p>
+    <p>
+      Model 1: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{tail_l}</m>
+    </p>
+<figure xml:id="fig-ex-5">
+  <image source="images/fig-ex-5.png" width="90%" />
+</figure>
+
+    <p>
+      Model 2: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{total_l} + \beta_2 \times \text{sex}</m>
+    </p>
+<figure xml:id="fig-ex-5-1">
+  <image source="images/fig-ex-5-1.png" width="90%" />
+</figure>
+
+    <p>
+      The confusion matrices for each fold are shown in the figures (referenced in the original exercise but not reproduced here in detail).
+    </p>
+    <p>
+      <ol>
+        <li><p>For the model with tail length, how many of the observations were correctly classified? What proportion of the observations were correctly classified?</p></li>
+        <li><p>For the model with total length and sex, how many of the observations were correctly classified? What proportion of the observations were correctly classified?</p></li>
+        <li><p>If you have to choose between using only tail length as a predictor versus using total length and sex as predictors (for classification into region), which model would you choose? Explain.</p></li>
+        <li><p>Given the predictions above, what third model might be preferable to either of the models above? Explain.</p></li>
+      </ol>
+    </p>
+  </statement>
+</exercise>
+
+<exercise xml:id="ex-26-8">
+  <statement>
+    <p>
+      <alert>Premature babies, cross-validation to choose model.</alert> US Department of Health and Human Services, Centers for Disease Control and Prevention collect information on births recorded in the country.
+      The data used here are a random sample of 1000 births from 2014 (with some rows removed due to missing data).
+      We use logistic regression to model whether the baby is premature from various explanatory variables.
+    </p>
+    <p>
+      Two logistic regression models are fit using 3-fold cross-validation:
+    </p>
+    <p>
+      Model 1: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{mage} + \beta_2 \times \text{weight} + \beta_3 \times \text{mature} + \beta_4 \times \text{visits} + \beta_5 \times \text{gained} + \beta_6 \times \text{habit}</m>
+    </p>
+<figure xml:id="fig-ex-8">
+  <image source="images/fig-ex-8.png" width="90%" />
+</figure>
+    <p>
+      Model 2: <m>\log_e \left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 \times \text{weight} + \beta_2 \times \text{mature}</m>
+    </p>
+<figure xml:id="fig-ex-8-1">
+  <image source="images/fig-ex-8-1.png" width="90%" />
+</figure>
+    <p>
+      The confusion matrices for each fold are shown in the figures (referenced in the original exercise but not reproduced here in detail).
+    </p>
+    <p>
+      <ol>
+        <li><p>For the model with 6 predictors, how many of the observations were correctly classified? What proportion of the observations were correctly classified?</p></li>
+        <li><p>For the model with 2 predictors, how many of the observations were correctly classified? What proportion of the observations were correctly classified?</p></li>
+        <li><p>If you have to choose between the model with 6 predictors and the model with 2 predictors (for predicting whether a baby will be premature), which model would you choose? Explain.</p></li>
+      </ol>
+    </p>
+  </statement>
+</exercise>
+
+</exercises>
+
 </chapter>

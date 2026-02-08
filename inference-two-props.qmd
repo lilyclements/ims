@@ -66,11 +66,15 @@ cpr |>
 
 ::: {.guidedpractice data-latex=""}
 Is this an observational study or an experiment?
-What implications does the study type have on what can be inferred from the results?[^17-inference-two-props-1]
-:::
+What implications does the study type have on what can be inferred from the results?
 
-[^17-inference-two-props-1]: The study is an experiment, as patients were randomly assigned an experiment group.
+::: {.callout-note collapse="true"}
+## Solution
+
+The study is an experiment, as patients were randomly assigned an experiment group.
     Since this is an experiment, the results can be used to evaluate a causal relationship between blood thinner use after CPR and whether patients survived.
+:::
+:::
 
 In this study, a larger proportion of patients who received blood thinner after CPR,$\hat{p}_T = \frac{14}{40} = 0.35,$ survived compared to those who did not receive blood thinner, $\hat{p}_C = \frac{11}{50} = 0.22.$ However, based on these observed proportions alone, we cannot determine whether the difference ($\hat{p}_T - \hat{p}_C = 0.35 - 0.22 = 0.13$) provides *convincing evidence* that blood thinner usage after CPR is effective.
 
@@ -567,14 +571,18 @@ A 5-year experiment was conducted to evaluate the effectiveness of fish oils on 
 We'll consider heart attack outcomes in the patients listed in @tbl-fish-oil-data.
 
 Create a 95% confidence interval for the effect of fish oils on heart attacks for patients who are well-represented by those in the study.
-Also interpret the interval in the context of the study.[^17-inference-two-props-2]
-:::
+Also interpret the interval in the context of the study.
 
-[^17-inference-two-props-2]: Because the patients were randomized, the subjects are independent, both within and between the two groups.
+::: {.callout-note collapse="true"}
+## Solution
+
+Because the patients were randomized, the subjects are independent, both within and between the two groups.
     The success-failure condition is also met for both groups as all counts are at least 10.
     This satisfies the conditions necessary to model the difference in proportions using a normal distribution.
     Compute the sample proportions $(\hat{p}_{\text{fish oil}} = 0.0112,$ $\hat{p}_{\text{placebo}} = 0.0155),$ point estimate of the difference $(0.0112 - 0.0155 = -0.0043),$ and standard error $SE = \sqrt{\frac{0.0112 \times 0.9888}{12933} + \frac{0.0155 \times 0.9845}{12938}},$ $SE = 0.00145.$ Next, plug the values into the general formula for a confidence interval, where we'll use a 95% confidence level with $z^{\star} = 1.96:$ $-0.0043 \pm 1.96 \times 0.00145 = (-0.0071, -0.0015).$ We are 95% confident that fish oils decreases heart attacks by 0.15 to 0.71 percentage points (off of a baseline of about 1.55%) over a 5-year period for subjects who are similar to those in the study.
     Because the interval is entirely below 0, and the treatment was randomly assigned the data provide strong evidence that fish oil supplements reduce heart attacks in patients like those in the study.
+:::
+:::
 
 ```{r}
 #| label: tbl-fish-oil-data
@@ -678,18 +686,26 @@ mammogram |>
 ```
 
 ::: {.guidedpractice data-latex=""}
-Is this study an experiment or an observational study?[^17-inference-two-props-3]
-:::
+Is this study an experiment or an observational study?
 
-[^17-inference-two-props-3]: This is an experiment.
+::: {.callout-note collapse="true"}
+## Solution
+
+This is an experiment.
     Patients were randomized to receive mammograms or a standard breast cancer exam.
     We will be able to make causal conclusions based on this study.
-
-::: {.guidedpractice data-latex=""}
-Set up hypotheses to test whether there was a difference in breast cancer deaths in the mammogram and control groups.[^17-inference-two-props-4]
+:::
 :::
 
-[^17-inference-two-props-4]: $H_0:$ the breast cancer death rate for patients screened using mammograms is the same as the breast cancer death rate for patients in the control, $p_{MGM} - p_{C} = 0.$ $H_A:$ the breast cancer death rate for patients screened using mammograms is different than the breast cancer death rate for patients in the control, $p_{MGM} - p_{C} \neq 0.$
+::: {.guidedpractice data-latex=""}
+Set up hypotheses to test whether there was a difference in breast cancer deaths in the mammogram and control groups.
+
+::: {.callout-note collapse="true"}
+## Solution
+
+$H_0:$ the breast cancer death rate for patients screened using mammograms is the same as the breast cancer death rate for patients in the control, $p_{MGM} - p_{C} = 0.$ $H_A:$ the breast cancer death rate for patients screened using mammograms is different than the breast cancer death rate for patients in the control, $p_{MGM} - p_{C} \neq 0.$
+:::
+:::
 
 The research question describing mammograms is set up to address specific hypotheses (in contrast to a confidence interval for a parameter).
 In order to fully take advantage of the hypothesis testing structure, we assess the randomness under the condition that the null hypothesis is true (as we always do for hypothesis testing).
@@ -741,8 +757,6 @@ With both conditions satisfied, we can safely model the difference in proportion
 
 In the previous example, the pooled proportion was used to check the success-failure condition[^17-inference-two-props-5].
 In the next example, we see an additional place where the pooled proportion comes into play: the standard error calculation.
-
-[^17-inference-two-props-5]: For an example of a two-proportion hypothesis test that does not require the success-failure condition to be met, see @sec-two-prop-errors.
 
 ::: {.workedexample data-latex=""}
 Compute the point estimate of the difference in breast cancer death rates in the two groups, and use the pooled proportion $\hat{p}_{\textit{pool}} = 0.0112$ to calculate the standard error.

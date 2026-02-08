@@ -1,9 +1,1502 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch05-exploring-numerical" xmlns:xi="http://www.w3.org/2001/XInclude">
 
-<chapter xml:id="ch05-exploring-numerical">
-  <title>Exploring numerical data</title>
+<title>Exploring numerical data</title>
+
+<introduction>
+<assemblage>
+  <p>This chapter focuses on exploring <alert>numerical</alert> data using summary statistics and visualizations.</p>
+  <p>The summaries and graphs presented in this chapter are created using statistical software; however, since this might be your first exposure to the concepts, we take our time in this chapter to detail how to create them.</p>
+  <p>Mastery of the content presented in this chapter will be crucial for understanding the methods and techniques introduced in the rest of the book.</p>
+</assemblage>
+  
+  <p>Consider the <c>loan_amount</c> variable from the <c>loan50</c> dataset, which represents the loan size for each of 50 loans in the dataset.</p>
+  <p>This variable is numerical since we can sensibly discuss the numerical difference of the size of two loans. On the other hand, area codes and zip codes are not numerical, but rather they are categorical variables.</p>
+  <p>Throughout this chapter, we will apply numerical methods using the <c>loan50</c> and county datasets, which were introduced in <xref ref="sec-data-basics" />. If you’d like to review the variables from either dataset, see Tables <xref ref="tbl-loan50-df" /> and <xref ref="tbl-county-df" />.</p>
+  <p>The <c>county</c> data can be found in the <c>usdata</c> R package and the <c>loan50</c> data can be found in the <c>openintro</c> R package.</p>
+
+</introduction>
+
+<p>Consider the <c>loan_amount</c> variable from the <c>loan50</c> dataset, which represents the loan size for each of 50 loans in the dataset.</p>
+
+<p>This variable is numerical since we can sensibly discuss the numerical difference of the size of two loans. On the other hand, area codes and zip codes are not numerical, but rather they are categorical variables.</p>
+
+<p>Throughout this chapter, we will apply numerical methods using the <c>loan50</c> and <c>county</c> datasets, which were introduced in <xref ref="sec-data-basics" />. If you'd like to review the variables from either dataset, see Tables <xref ref="tbl-loan-50-variables" /> and <xref ref="tbl-county-variables" />.</p>
+
+<note>
+  <title>Data</title>
+  <p>The <url href="http://openintrostat.github.io/usdata/reference/county.html"><c>county</c></url> data can be found in the <url href="http://openintrostat.github.io/usdata"><alert>usdata</alert></url> R package and the <url href="http://openintrostat.github.io/openintro/reference/loan50.html"><c>loan50</c></url> data can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</p>
+</note>
+
+<section xml:id="sec-scatterplots">
+  <title>Scatterplots for paired data</title>
+
+<p>A <alert>scatterplot</alert> provides a case-by-case view of data for two numerical variables. In <xref ref="fig-county-multi-unit-homeownership" />, a scatterplot was used to examine the homeownership rate against the percentage of housing units that are in multi-unit structures (e.g., apartments) in the <c>county</c> dataset. Another scatterplot is shown in <xref ref="fig-loan50-amount-income" />, comparing the total income of a borrower <c>total_income</c> and the amount they borrowed <c>loan_amount</c> for the <c>loan50</c> dataset. In any scatterplot, each point represents a single case. Since there are 50 cases in <c>loan50</c>, there are 50 points in <xref ref="fig-loan50-amount-income" />.</p>
+
+<listing xml:id="listing-loan50-amount-income">
+  <caption><c>R</c> code for scatterplot of loan amount versus total income</caption>
+  <program language="r">
+    <code>
+ggplot(loan50, aes(x = total_income, y = loan_amount)) +
+  geom_point(alpha = 0.6, shape = 21, size = 3) +
+  labs(x = "Total income", y = "Loan amount") +
+  scale_x_continuous(labels = dollar_format(scale = 0.001, suffix = "K")) +
+  scale_y_continuous(labels = dollar_format(scale = 0.001, suffix = "K"))
+    </code>
+  </program>
+</listing>
+
+<figure xml:id="fig-loan50-amount-income">
+  <caption>A scatterplot of loan amount versus total income for the <c>loan50</c> dataset.</caption>
+  <image source="images/fig-loan50-amount-income-1.png" width="70%" />
+</figure>
+
+<p>Looking at <xref ref="fig-loan50-amount-income" />, we see that there are many borrowers with income below $100,000 on the left side of the graph, while there are a handful of borrowers with income above $250,000.</p>
+
+<listing xml:id="listing-median-hh-income-poverty">
+  <caption><c>R</c> code for scatterplot of median household income versus poverty rate</caption>
+  <program language="r">
+    <code>
+ggplot(county, aes(x = poverty / 100, y = median_hh_income)) +
+  geom_point(
+    alpha = 0.3, fill = IMSCOL["black", "full"],
+    shape = 21, size = 3
+  ) +
+  geom_smooth(linetype = "dashed", color = IMSCOL["red", "full"], se = FALSE) +
+  labs(x = "Poverty rate", y = "Median household income") +
+  scale_x_continuous(labels = percent_format(accuracy = 1)) +
+  scale_y_continuous(labels = dollar_format(scale = 0.001, suffix = "K"))
+    </code>
+  </program>
+</listing>
+
+<figure xml:id="fig-median-hh-income-poverty">
+  <caption>A scatterplot of the median household income against the poverty rate for the <c>county</c> dataset. Data are from 2017. A statistical model has also been fit to the data and is shown as a dashed line.</caption>
+  <image source="images/fig-median-hh-income-poverty-1.png" width="70%" />
+</figure>
+
+<example>
+  <statement>
+    <p><xref ref="fig-median-hh-income-poverty" /> shows a plot of median household income against the poverty rate for 3142 counties in the US. What can be said about the relationship between these variables?</p>
+  </statement>
+  <solution>
+    <p>The relationship is evidently <alert>nonlinear</alert>, as highlighted by the dashed line. This is different from previous scatterplots we have seen, which indicate very little, if any, curvature in the trend.</p>
+  </solution>
+</example>
+
+<exercise>
+  <statement>
+    <p>What do scatterplots reveal about the data, and how are they useful?</p>
+  </statement>
+  <solution>
+    <p>Answers may vary.     Scatterplots are helpful in quickly spotting associations relating variables, whether those associations come in the form of simple trends or whether those relationships are more complex.</p>
+  </solution>
+</exercise>
+
+<exercise>
+  <statement>
+    <p>Describe two variables that would have a horseshoe-shaped association in a scatterplot (<m>\cap</m> or <m>\frown</m>).</p>
+  </statement>
+  <solution>
+    <p>Consider the case where your vertical axis represents something "good" and your horizontal axis represents something that is only good in moderation.     Health and water consumption fit this description: we require some water to survive, but consume too much and it becomes toxic and can kill a person.</p>
+  </solution>
+</exercise>
+
+</section>
+
+<section xml:id="sec-dotplots">
+  <title>Dot plots and the mean</title>
+
+<p>Sometimes we are interested in the distribution of a single variable. In these cases, a dot plot provides the most basic of displays. A <alert>dot plot</alert> is a one-variable scatterplot; an example using the interest rate of 50 loans is shown in <xref ref="fig-loan-int-rate-dotplot" />.</p>
+
+<listing xml:id="listing-loan-int-rate-dotplot">
+  <caption><c>R</c> code for dot plot of interest rate</caption>
+  <program language="r">
+    <code>
+loan50_interest_rate_mean &lt;- mean(loan50$interest_rate)
+ggplot(loan50, aes(x = interest_rate)) +
+  geom_dotplot() +
+  labs(x = "Interest rate") +
+  scale_x_continuous(labels = label_percent(scale = 1)) +
+  theme(
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank()
+  ) +
+  geom_polygon(
+    data = tibble(
+      x = c(
+        loan50_interest_rate_mean - 1,
+        loan50_interest_rate_mean + 1,
+        loan50_interest_rate_mean
+      ),
+      y = c(-0.1, -0.1, 0)
+    ),
+    aes(x = x, y = y),
+    fill = IMSCOL["red", "full"]
+  )
+    </code>
+  </program>
+</listing>
+
+<figure xml:id="fig-loan-int-rate-dotplot">
+  <caption>A dot plot of interest rate for the <c>loan50</c> dataset. The rates have been rounded to the nearest percent in this plot, and the distribution's mean is shown as a red triangle.</caption>
+  <image source="images/fig-loan-int-rate-dotplot-1.png" width="70%" />
+</figure>
+
+<p>The <alert>mean</alert>, often called the <alert>average</alert> is a common way to measure the center of a <alert>distribution</alert> of data. To compute the mean interest rate, we add up all the interest rates and divide by the number of observations.</p>
+
+<p>The sample mean is often labeled <m>\bar{x}.</m> The letter <m>x</m> is being used as a generic placeholder for the variable of interest and the bar over the <m>x</m> communicates we are looking at the average interest rate, which for these 50 loans is 11.57%. It's useful to think of the mean as the balancing point of the distribution, and it's shown as a triangle in <xref ref="fig-loan-int-rate-dotplot" />.</p>
+
+<assemblage>
+  <title>Mean</title>
+  <p>The sample mean can be calculated as the sum of the observed values divided by the number of observations:
+  <me>\bar{x} = \frac{x_1 + x_2 + \cdots + x_n}{n}</me></p>
+</assemblage>
+
+<exercise>
+  <statement>
+    <p>Examine the equation for the mean. What does <m>x_1</m> correspond to? And <m>x_2</m>? Can you infer a general meaning to what <m>x_i</m> might represent?</p>
+  </statement>
+  <solution>
+    <p><m>x_1</m> corresponds to the interest rate for the first loan in the sample, <m>x_2</m> to the second loan's interest rate, and <m>x_i</m> corresponds to the interest rate for the <m>i^{th}</m> loan in the dataset.     For example, if <m>i = 4,</m> then we are examining <m>x_4,</m> which refers to the fourth observation in the dataset.</p>
+  </solution>
+</exercise>
+
+<exercise>
+  <statement>
+    <p>What was <m>n</m> in this sample of loans?</p>
+  </statement>
+  <solution>
+    <p>The sample size was <m>n = 50.</m></p>
+  </solution>
+</exercise>
+
+<p>The <c>loan50</c> dataset represents a sample from a larger population of loans made through Lending Club. We could compute a mean for the entire population in the same way as the sample mean. However, the population mean has a special label: <m>\mu.</m> The symbol <m>\mu</m> is the Greek letter <em>mu</em> and represents the average of all observations in the population. Sometimes a subscript, such as <m>_x,</m> is used to represent which variable the population mean refers to, e.g., <m>\mu_x.</m> Oftentimes it is too expensive to measure the population mean precisely, so we often estimate <m>\mu</m> using the sample mean, <m>\bar{x}.</m></p>
+
+<example>
+  <statement>
+    <p>Although we do not have an ability to <em>calculate</em> the average interest rate across all loans in the populations, we can <em>estimate</em> the population value using the sample data. Based on the sample of 50 loans, what would be a reasonable estimate of <m>\mu_x,</m> the mean interest rate for all loans in the full dataset?</p>
+  </statement>
+  <solution>
+    <p>The sample mean, 11.57, provides a rough estimate of <m>\mu_x.</m> While it is not perfect, this is our single best guess <alert>point estimate</alert> of the average interest rate of all the loans in the population under study. In <xref ref="ch11-hypothesis-testing-randomization" /> and beyond, we will develop tools to characterize the accuracy of point estimates, like the sample mean. As you might have guessed, point estimates based on larger samples tend to be more accurate than those based on smaller samples.</p>
+  </solution>
+</example>
+
+<p>The mean is useful because it allows us to rescale or standardize a metric into something more easily interpretable and comparable. Suppose we would like to understand if a new drug is more effective at treating asthma attacks than the standard drug. A trial of 1,500 adults is set up, where 500 receive the new drug, and 1000 receive a standard drug in the control group. Results of this trial are summarized in <xref ref="tbl-drug-asthma-results" />.</p>
+
+<table xml:id="tbl-drug-asthma-results">
+  <title>Results of a trial of 1500 adults that suffer from asthma.</title>
+  <tabular>
+    <row header="yes">
+      <cell></cell>
+      <cell>New drug</cell>
+      <cell>Standard drug</cell>
+    </row>
+    <row>
+      <cell>Number of patients</cell>
+      <cell>500</cell>
+      <cell>1000</cell>
+    </row>
+    <row>
+      <cell>Total asthma attacks</cell>
+      <cell>200</cell>
+      <cell>300</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>Comparing the raw counts of 200 to 300 asthma attacks would make it appear that the new drug is better, but this is an artifact of the imbalanced group sizes.</p>
+
+<p>Instead, we should look at the average number of asthma attacks per patient in each group:</p>
+
+<ul>
+  <li><p>New drug: <m>200 / 500 = 0.4</m> asthma attacks per patient</p></li>
+  <li><p>Standard drug: <m>300 / 1000 = 0.3</m> asthma attacks per patient</p></li>
+</ul>
+
+<p>The standard drug has a lower average number of asthma attacks per patient than the average in the treatment group.</p>
+
+<example>
+  <statement>
+    <p>Come up with another example where the mean is useful for making comparisons.</p>
+  </statement>
+  <solution>
+    <p>Emilio opened a food truck last year where he sells burritos, and his business has stabilized over the last 3 months. Over that 3-month period, he has made $11,000 while working 625 hours. Emilio's average hourly earnings provides a useful statistic for evaluating whether his venture is, at least from a financial perspective, worth it:
+    <me>\frac{\$11000}{625\text{ hours}} = \$17.60\text{ per hour}</me>
+    By knowing his average hourly wage, Emilio now has put his earnings into a standard unit that is easier to compare with many other jobs that he might consider.</p>
+  </solution>
+</example>
+
+<example>
+  <statement>
+    <p>Suppose we want to compute the average income per person in the US. To do so, we might first think to take the mean of the per capita incomes across the 3,142 counties in the <c>county</c> dataset. What would be a better approach?</p>
+  </statement>
+  <solution>
+    <p>The <c>county</c> dataset is special in that each county actually represents many individual people. If we were to simply average across the <c>income</c> variable, we would be treating counties with 5,000 and 5,000,000 residents equally in the calculations. Instead, we should compute the total income for each county, add up all the counties' totals, and then divide by the number of people in all the counties. If we completed these steps with the <c>county</c> data, we would find that the per capita income for the US is $30,861. Had we computed the *simple* mean of per capita income across counties, the result would have been just $26,093! This example used what is called a <alert>weighted mean</alert>. For more information on this topic, check out the following online supplement regarding <url href="https://www.openintro.org/go/?id=stat_extra_weighted_mean">weighted means</url>.</p>
+  </solution>
+</example>
+
+</section>
+
+<section xml:id="sec-histograms">
+  <title>Histograms and shape</title>
+
+<p>Dot plots show the exact value for each observation. They are useful for small datasets but can become hard to read with larger samples. Rather than showing the value of each observation, we prefer to think of the value as belonging to a <em>bin</em>. For example, in the <c>loan50</c> dataset, we created a table of counts for the number of loans with interest rates between 5.0% and 7.5%, then the number of loans with rates between 7.5% and 10.0%, and so on. Observations that fall on the boundary of a bin (e.g., 10.00%) are allocated to the lower bin. The tabulation is shown in <xref ref="tbl-binnedIntRateAmountTable" />, and the binned counts are plotted as bars in <xref ref="fig-loan50IntRateHist" /> into what is called a <alert>histogram</alert>. Note that the histogram resembles a more heavily binned version of the stacked dot plot shown in <xref ref="fig-loan-int-rate-dotplot" />.</p>
+
+<table xml:id="tbl-binnedIntRateAmountTable">
+  <title>Counts for the binned interest rate data.</title>
+  <tabular>
+    <row header="yes">
+      <cell>Interest rate</cell>
+      <cell>Count</cell>
+    </row>
+    <row>
+      <cell>(5% - 7.5%]</cell>
+      <cell>11</cell>
+    </row>
+    <row>
+      <cell>(7.5% - 10%]</cell>
+      <cell>15</cell>
+    </row>
+    <row>
+      <cell>(10% - 12.5%]</cell>
+      <cell>8</cell>
+    </row>
+    <row>
+      <cell>(12.5% - 15%]</cell>
+      <cell>4</cell>
+    </row>
+    <row>
+      <cell>(15% - 17.5%]</cell>
+      <cell>5</cell>
+    </row>
+    <row>
+      <cell>(17.5% - 20%]</cell>
+      <cell>4</cell>
+    </row>
+    <row>
+      <cell>(20% - 22.5%]</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>(22.5% - 25%]</cell>
+      <cell>1</cell>
+    </row>
+    <row>
+      <cell>(25% - 27.5%]</cell>
+      <cell>1</cell>
+    </row>
+  </tabular>
+</table>
+
+<listing xml:id="listing-loan50IntRateHist">
+  <caption><c>R</c> code for histogram of interest rate</caption>
+  <program language="r">
+    <code>
+ggplot(loan50, aes(x = interest_rate)) +
+  geom_histogram(breaks = seq(5, 27.5, 2.5)) +
+  labs(x = "Interest rate", y = "Count") +
+  scale_x_continuous(
+    breaks = seq(5, 25, 5),
+    labels = label_percent(scale = 1, accuracy = 1)
+  )
+    </code>
+  </program>
+</listing>
+
+<figure xml:id="fig-loan50IntRateHist">
+  <caption>A histogram of interest rate. This distribution is strongly skewed to the right.</caption>
+  <image source="images/fig-loan50IntRateHist-1.png" width="70%" />
+</figure>
+
+<p>Histograms provide a view of the <alert>data density</alert>. Higher bars represent where the data are relatively more common. For instance, there are many more loans with rates between 5% and 10% than loans with rates between 20% and 25% in the dataset. The bars make it easy to see how the density of the data changes relative to the interest rate.</p>
+
+<p>Histograms are especially convenient for understanding the shape of the data distribution. <xref ref="fig-loan50IntRateHist" /> suggests that most loans have rates under 15%, while only a handful of loans have rates above 20%. When the distribution of a variable trails off to the right in this way and has a longer right <alert>tail</alert>, the shape is said to be <alert>right skewed</alert><fn>Other ways to describe data that are right skewed: skewed to the right, skewed to the high end, or skewed to the positive end.</fn>.</p>
+
+<listing xml:id="listing-loan50IntRateDensity">
+  <caption><c>R</c> code for density plot of interest rate</caption>
+  <program language="r">
+    <code>
+ggplot(loan50, aes(x = interest_rate)) +
+  geom_density(fill = IMSCOL[1, 1], alpha = 0.5) +
+  labs(x = "Interest rate", y = "Density") +
+  scale_x_continuous(
+    breaks = seq(5, 25, 5),
+    labels = label_percent(scale = 1, accuracy = 1)
+  )
+    </code>
+  </program>
+</listing>
+
+<figure xml:id="fig-loan50IntRateDensity">
+  <caption>A density plot of interest rate. Again, the distribution is strongly skewed to the right.</caption>
+  <image source="images/fig-loan50IntRateDensity-1.png" width="70%" />
+</figure>
+
+<p><xref ref="fig-loan50IntRateDensity" /> shows a <alert>density plot</alert> which is a smoothed out histogram. The technical details for how to draw density plots (precisely how to smooth out the histogram) are beyond the scope of this text, but you will note that the shape, scale, and spread of the observations are displayed similarly in a histogram as in a density plot.</p>
+
+<p>Variables with the reverse characteristic -- a long, thinner tail to the left -- are said to be <alert>left skewed</alert>. We also say that such a distribution has a long left tail. Variables that show roughly equal trailing off in both directions are called <alert>symmetric</alert>.</p>
+
+<assemblage>
+  <title>Long tail distribution</title>
+  <p>When data trail off in one direction, the distribution has a long tail. If a distribution has a long left tail, it is left skewed. If a distribution has a long right tail, it is right skewed.</p>
+</assemblage>
+
+<exercise>
+  <statement>
+    <p>Besides the mean (since it was labeled), what can you see in the dot plot in <xref ref="fig-loan-int-rate-dotplot" /> that you cannot see in the histogram in <xref ref="fig-loan50IntRateHist" />?</p>
+  </statement>
+  <solution>
+    <p>The interest rates for individual loans.</p>
+  </solution>
+</exercise>
+
+<p>In addition to looking at whether a distribution is skewed or symmetric, histograms can be used to identify modes. A <alert>mode</alert> is represented by a prominent peak in the distribution. There is only one prominent peak in the histogram of <c>interest_rate</c>.</p>
+
+<p>A definition of <em>mode</em> sometimes taught in math classes is the value with the most occurrences in the dataset. However, for many real-world datasets, it is common to have <em>no</em> observations with the same value in a dataset, making this definition impractical in data analysis.</p>
+
+<p><xref ref="fig-singleBiMultiModalPlots" /> shows histograms that have one, two, or three prominent peaks. Such distributions are called <alert>unimodal</alert>, <alert>bimodal</alert>, and <alert>multimodal</alert>, respectively. Any distribution with more than two prominent peaks is called multimodal. Notice that there was one prominent peak in the unimodal distribution with a second less prominent peak that was not counted since it only differs from its neighboring bins by a few observations.</p>
+
+<listing xml:id="listing-singleBiMultiModalPlots">
+  <caption><c>R</c> code for histograms with different modality</caption>
+  <program language="r">
+    <code>
+df_modes &lt;- tibble(
+  uni   = rchisq(65, 6),
+  bi    = c(rchisq(25, 5.8), rnorm(40, 20, 2)),
+  multi =  c(rchisq(25, 3), rnorm(25, 15), rnorm(15, 25, 1.5))
+)
+p_uni &lt;- ggplot(df_modes, aes(x = uni)) +
+  geom_histogram(binwidth = 2) +
+  labs(x = NULL, y = NULL) +
+  ylim(0, 23) +
+  xlim(0, 30)
+p_bi &lt;- ggplot(df_modes, aes(x = bi)) +
+  geom_histogram(binwidth = 2) +
+  labs(x = NULL, y = NULL) +
+  ylim(0, 23) +
+  xlim(0, 30)
+p_multi &lt;- ggplot(df_modes, aes(x = multi)) +
+  geom_histogram(binwidth = 2) +
+  labs(x = NULL, y = NULL) +
+  ylim(0, 23) +
+  xlim(0, 30)
+p_uni + p_bi + p_multi
+    </code>
+  </program>
+</listing>
+
+<figure xml:id="fig-singleBiMultiModalPlots">
+  <caption>Counting only prominent peaks, the distributions are (left to right) unimodal, bimodal, and multimodal. Note that the left plot is unimodal because we are counting prominent peaks, not just any peak.</caption>
+  <image source="images/fig-singleBiMultiModalPlots-1.png" width="70%" />
+</figure>
+
+<example>
+  <statement>
+    <p><xref ref="fig-loan50IntRateHist" /> reveals only one prominent mode in the interest rate. Is the distribution unimodal, bimodal, or multimodal?</p>
+  </statement>
+  <solution>
+    <p>Remember that <em>uni</em> stands for 1 (think <em>uni</em>cycles), and <em>bi</em> stands for 2 (think <em>bi</em>cycles).</p>
+  </solution>
+</example>
+
+<exercise>
+  <statement>
+    <p>Height measurements of young students and adult teachers at an elementary school were taken. How many modes would you expect in this height dataset?</p>
+  </statement>
+  <solution>
+    <p>There might be two height groups visible in the dataset: the children (students) and the adults (teachers).     That is, the data are probably bimodal.</p>
+  </solution>
+</exercise>
+
+<p>Looking for modes isn't about finding a clear and correct answer about the number of modes in a distribution, which is why <em>prominent</em> is not rigorously defined in this book. The most important part of this examination is to better understand your data.</p>
+
+</section>
+
+<section xml:id="sec-variance-sd">
+  <title>Variance and standard deviation</title>
+
+<p>The mean was introduced as a method to describe the center of a variable, and <alert>variability</alert> in the data is also important. Here, we introduce two measures of variability: the variance and the standard deviation. Both of these are very useful in data analysis, even though their formulas are a bit tedious to calculate by hand. The standard deviation is the easier of the two to comprehend, as it roughly describes how far away the typical observation is from the mean.</p>
+
+<p>We call the distance of an observation from its mean its <alert>deviation</alert>. Below are the deviations for the <m>1^{st},</m> <m>2^{nd},</m> <m>3^{rd},</m> and <m>50^{th}</m> observations in the <c>interest_rate</c> variable:</p>
+
+<md>
+\begin{aligned}
+x_1 - \bar{x} \amp= 10.9 - 11.57 = -0.67 \\
+x_2 - \bar{x} \amp= 9.92 - 11.57 = -1.65 \\
+x_3 - \bar{x} \amp= 26.3 - 11.57 = 14.73 \\
+\amp\vdots \\
+x_{50} - \bar{x} \amp= 6.08 - 11.57 = -5.49
+\end{aligned}
+</md>
+
+<p>If we square these deviations and then take an average, the result is equal to the sample <alert>variance</alert>, denoted by <m>s^2</m>:</p>
+
+<me>s^2 = \frac{(-0.67)^2 + (-1.65)^2 + (14.73)^2 + \cdots + (-5.49)^2}{50 - 1} = \frac{0.45 + 2.72 + \cdots + 30.14}{49} = 26.21</me>
+
+<p>We divide by <m>n - 1,</m> rather than dividing by <m>n,</m> when computing a sample's variance. There's some mathematical nuance here, but the end result is that doing this makes this statistic slightly more reliable and useful.</p>
+
+<p>Notice that squaring the deviations does two things. First, it makes large values relatively much larger. Second, it gets rid of any negative signs.</p>
+
+<assemblage>
+  <title>Standard deviation</title>
+  <p>The sample standard deviation can be calculated as the square root of the sum of the squared distance of each value from the mean divided by the number of observations minus one:
+  <me>s = \sqrt{\frac{\sum_{i=1}^n (x_i - \bar{x})^2}{n-1}}</me></p>
+</assemblage>
+
+<p>The <alert>standard deviation</alert> is defined as the square root of the variance:</p>
+
+<me>s = \sqrt{26.21} = 5.12</me>
+
+<p>While often omitted, a subscript of <m>_x</m> may be added to the variance and standard deviation, i.e., <m>s_x^2</m> and <m>s_x^{},</m> if it is useful as a reminder that these are the variance and standard deviation of the observations represented by <m>x_1,</m> <m>x_2,</m> ..., <m>x_n.</m></p>
+
+<assemblage>
+  <title>Variance and standard deviation</title>
+  <p>The variance is the average squared distance from the mean. The standard deviation is the square root of the variance. The standard deviation is useful when considering how far the data are distributed from the mean. The standard deviation represents the typical deviation of observations from the mean. Often about 68% of the data will be within one standard deviation of the mean and about 95% will be within two standard deviations. However, these percentages are not strict rules.</p>
+</assemblage>
+
+<p>Like the mean, the population values for variance and standard deviation have special symbols: <m>\sigma^2</m> for the variance and <m>\sigma</m> for the standard deviation.</p>
+
+<figure xml:id="fig-sdRuleForIntRate">
+  <caption>For the interest rate variable, 34 of the 50 loans (68%) had interest rates within 1 standard deviation of the mean, and 48 of the 50 loans (96%) had rates within 2 standard deviations. Usually about 68% of the data are within 1 standard deviation of the mean and 95% within 2 standard deviations, though this is far from a hard rule. See also <xref ref="fig-severalDiffDistWithSdOf1" /> for more examples of how the empirical rule applies to different distribution shapes.</caption>
+  <image source="images/sdRuleForIntRate-1.png" width="70%" />
+</figure>
+
+<exercise>
+  <statement>
+    <p>A good description of the shape of a distribution should include modality and whether the distribution is symmetric or skewed to one side. Using <xref ref="fig-severalDiffDistWithSdOf1" /> as an example, explain why such a description is important.</p>
+  </statement>
+  <solution>
+    <p><xref ref="fig-severalDiffDistWithSdOf1" /> shows three distributions that look quite different, but all have the same mean, variance, and standard deviation.     Using modality, we can distinguish between the first plot (bimodal) and the last two (unimodal).     Using skewness, we can distinguish between the last plot (right skewed) and the first two.     While a picture, like a histogram, tells a more complete story, we can use modality and shape (symmetry/skew) to characterize basic information about a distribution.</p>
+  </solution>
+</exercise>
+
+<listing xml:id="listing-severalDiffDistWithSdOf1">
+  <caption><c>R</c> code for distributions with same mean and standard deviation</caption>
+  <program language="r">
+    <code>
+x1 &lt;- c(rep(-0.975, 1000), rep(0.975, 1000))
+x1 &lt;- (x1 - mean(x1)) / sd(x1)
+x2 &lt;- rnorm(2000)
+x2 &lt;- (x2 - mean(x2)) / sd(x2)
+x3 &lt;- qchisq(seq(0.26, 0.8, 0.0005), 4)
+x3 &lt;- (x3 - mean(x3)) / sd(x3)
+dists_mean0_sd1 &lt;- tibble(
+  x = c(x1, x2, x3),
+  group = c(rep("A", length(x1)), rep("B", length(x2)), rep("C", length(x3)))
+)
+ggplot(dists_mean0_sd1, aes(x = x)) +
+  geom_histogram(binwidth = 1) +
+  facet_grid(group ~ ., scales = "free_y") +
+  theme(
+    # remove y axis
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    # strip facet labels
+    strip.background = element_blank(),
+    strip.text.y = element_blank()
+  ) +
+  scale_x_continuous(breaks = seq(-3, 3, 1)) +
+  labs(x = NULL) +
+  geom_polygon(
+    data = tibble(x = c(-1, -1, 1, 1), y = c(0, 1000, 1000, 0)),
+    aes(x = x, y = y), fill = IMSCOL["gray", "f5"], alpha = 0.3
+  ) +
+  geom_polygon(
+    data = tibble(x = c(-2, -2, 2, 2), y = c(0, 1000, 1000, 0)),
+    aes(x = x, y = y), fill = IMSCOL["gray", "f5"], alpha = 0.3
+  ) +
+  geom_polygon(
+    data = tibble(x = c(-3, -3, 3, 3), y = c(0, 1000, 1000, 0)),
+    aes(x = x, y = y), fill = IMSCOL["gray", "f5"], alpha = 0.3
+  ) +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
+    </code>
+  </program>
+</listing>
+
+<figure xml:id="fig-severalDiffDistWithSdOf1">
+  <caption>Three different population distributions with the same mean (0) and standard deviation (1).</caption>
+  <image source="images/fig-severalDiffDistWithSdOf1-1.png" width="70%" />
+</figure>
+
+<example>
+  <statement>
+    <p>Describe the distribution of the <c>interest_rate</c> variable using the histogram in <xref ref="fig-loan50IntRateHist" />. The description should incorporate the center, variability, and shape of the distribution, and it should also be placed in context. Also note any especially unusual cases.</p>
+  </statement>
+  <solution>
+    <p>The distribution of interest rates is unimodal and skewed to the high end. Many of the rates fall near the mean at 11.57%, and most fall within one standard deviation (5.05%) of the mean. There are a few exceptionally large interest rates in the sample that are above 20%.</p>
+  </solution>
+</example>
+
+<p>In practice, the variance and standard deviation are sometimes used as a means to an end, where the "end" is being able to accurately estimate the uncertainty associated with a sample statistic. For example, in <xref ref="sec-foundations-mathematical" /> the standard deviation is used in calculations that help us understand how much a sample mean varies from one sample to the next.</p>
+
+</section>
+
+<section xml:id="sec-boxplots">
+  <title>Box plots, quartiles, and the median</title>
+
+<p>A <alert>box plot</alert> summarizes a dataset using five statistics while also identifying unusual observations. <xref ref="fig-loan-int-rate-boxplot-dotplot" /> provides a dot plot and a box plot of the <c>interest_rate</c> variable from the <c>loan50</c> dataset<fn>Box plots were introducted by Mary Eleanor Spear who considered them to be a particular type of bar plot, see page 166 of Spear (1952). Mistakenly, box plots are often attributed to John Tukey who was the first person to call them "box-and-whisker plots."</fn>.</p>
+
+<figure xml:id="fig-loan-int-rate-boxplot-dotplot">
+  <caption>Distribution of interest rates from the <c>loan50</c> dataset.</caption>
+  <sidebyside widths="100%">
+    <figure xml:id="fig-loan-int-rate-boxplot-dotplot-1">
+      <caption>Dot plot</caption>
+      <image source="images/fig-loan-int-rate-boxplot-dotplot-1.png" />
+    </figure>
+  </sidebyside>
+  <sidebyside widths="100%">
+    <figure xml:id="fig-loan-int-rate-boxplot-dotplot-2">
+      <caption>Box plot</caption>
+      <image source="images/fig-loan-int-rate-boxplot-dotplot-2.png" />
+    </figure>
+  </sidebyside>
+</figure>
+
+<p>The dark line inside the box represents the <alert>median</alert>, which splits the data in half. 50% of the data fall below this value and 50% fall above it. Since in the <c>loan50</c> dataset there are 50 observations (an even number), the median is defined as the average of the two observations closest to the <m>50^{th}</m> percentile. <xref ref="tbl-loan50-int-rate-sorted" /> shows all interest rates, arranged in ascending order. We can see that the <m>25^{th}</m> and the <m>26^{th}</m> values are both 10.90, which corresponds to the thick line in  <xref ref="fig-loan-int-rate-boxplot-dotplot-2" />.</p>
+
+<table xml:id="tbl-loan50-int-rate-sorted">
+  <title>Interest rates from the <c>loan50</c> dataset, arranged in ascending order.</title>
+  <tabular>
+    <row header="yes">
+      <cell></cell>
+      <cell>1</cell>
+      <cell>2</cell>
+      <cell>3</cell>
+      <cell>4</cell>
+      <cell>5</cell>
+      <cell>6</cell>
+      <cell>7</cell>
+      <cell>8</cell>
+      <cell>9</cell>
+      <cell>10</cell>
+    </row>
+    <row>
+      <cell>1</cell>
+      <cell>5.31</cell>
+      <cell>5.31</cell>
+      <cell>5.32</cell>
+      <cell>6.08</cell>
+      <cell>6.08</cell>
+      <cell>6.08</cell>
+      <cell>6.71</cell>
+      <cell>6.71</cell>
+      <cell>7.34</cell>
+      <cell>7.35</cell>
+    </row>
+    <row>
+      <cell>11</cell>
+      <cell>7.35</cell>
+      <cell>7.96</cell>
+      <cell>7.96</cell>
+      <cell>7.96</cell>
+      <cell>7.97</cell>
+      <cell>9.43</cell>
+      <cell>9.43</cell>
+      <cell>9.44</cell>
+      <cell>9.44</cell>
+      <cell>9.44</cell>
+    </row>
+    <row>
+      <cell>21</cell>
+      <cell>9.92</cell>
+      <cell>9.92</cell>
+      <cell>9.92</cell>
+      <cell>9.92</cell>
+      <cell>9.93</cell>
+      <cell>9.93</cell>
+      <cell>10.42</cell>
+      <cell>10.42</cell>
+      <cell>10.90</cell>
+      <cell>10.90</cell>
+    </row>
+    <row>
+      <cell>31</cell>
+      <cell>10.91</cell>
+      <cell>10.91</cell>
+      <cell>10.91</cell>
+      <cell>11.98</cell>
+      <cell>12.62</cell>
+      <cell>12.62</cell>
+      <cell>12.62</cell>
+      <cell>14.08</cell>
+      <cell>15.04</cell>
+      <cell>16.02</cell>
+    </row>
+    <row>
+      <cell>41</cell>
+      <cell>17.09</cell>
+      <cell>17.09</cell>
+      <cell>17.09</cell>
+      <cell>18.06</cell>
+      <cell>18.45</cell>
+      <cell>19.42</cell>
+      <cell>20.00</cell>
+      <cell>21.45</cell>
+      <cell>24.85</cell>
+      <cell>26.30</cell>
+    </row>
+  </tabular>
+</table>
+
+<p>When there are an odd number of observations, there will be exactly one observation that splits the data into two halves, and in such a case that observation is the median (no average needed).</p>
+
+<assemblage>
+  <title>Median: the number in the middle</title>
+  <p>If the data are ordered from smallest to largest, the <alert>median</alert> is the observation right in the middle. If there are an even number of observations, there will be two values in the middle, and the median is taken as their average.</p>
+</assemblage>
+
+<p>The second step in building a box plot is drawing a rectangle to represent the middle 50% of the data. The length of the box is called the <alert>interquartile range</alert>, or <alert>IQR</alert> for short. It, like the standard deviation, is a measure of variability in data. The more variable the data, the larger the standard deviation and IQR tend to be. The two boundaries of the box are called the <alert>first quartile</alert> (the <m>25^{th}</m> percentile, i.e., 25% of the data fall below this value) and the <alert>third quartile</alert> (the <m>75^{th}</m> percentile, i.e., 75% of the data fall below this value), and these are often labeled <m>Q_1</m> and <m>Q_3,</m> respectively.</p>
+
+<assemblage>
+  <title>Interquartile range (IQR)</title>
+  <p>The IQR is the length of the box in a box plot. It is computed as <m>IQR = Q_3 - Q_1,</m> where <m>Q_1</m> and <m>Q_3</m> are the <m>25^{th}</m> and <m>75^{th}</m> percentiles, respectively. A <m>\alpha</m> <alert>percentile</alert> is a number with <m>\alpha</m>% of the observations below and <m>100-\alpha</m>% of the observations above. For example, the <m>90^{th}</m> percentile of SAT scores is the value of the SAT score with 90% of students below that value and 10% of students above that value.</p>
+</assemblage>
+
+<exercise>
+  <statement>
+    <p>What percent of the data fall between <m>Q_1</m> and the median? What percent is between the median and <m>Q_3</m>?</p>
+  </statement>
+  <solution>
+    <p>Since <m>Q_1</m> and <m>Q_3</m> capture the middle 50% of the data and the median splits the data in the middle, 25% of the data fall between <m>Q_1</m> and the median, and another 25% falls between the median and <m>Q_3.</m></p>
+  </solution>
+</exercise>
+
+<p>Extending out from the box, the <alert>whiskers</alert> attempt to capture the data outside of the box. The whiskers of a box plot reach to the minimum and the maximum values in the data, unless there are points that are considered unusually high or unusually low, which are identified as potential <alert>outliers</alert> by the box plot. These are labeled with a dot on the box plot. The purpose of labeling the outlying points -- instead of extending the whiskers to the minimum and maximum observed values -- is to help identify any observations that appear to be unusually distant from the rest of the data. There are a variety of formulas for determining whether a particular data point is considered an outlier, and different statistical software use different formulas. A commonly used formula is that any observation beyond <m>1.5\times IQR</m> away from the first or the third quartile is considered an outlier. In a sense, the box is like the body of the box plot and the whiskers are like its arms trying to reach the rest of the data, up to the outliers.</p>
+
+<assemblage>
+  <title>Outliers are extreme</title>
+  <p>An <alert>outlier</alert> is an observation that appears extreme relative to the rest of the data. Examining data for outliers serves many useful purposes, including:<ul>
+    <li>identifying strong skew in the distribution,</li>
+    <li>identifying possible data collection or data entry errors, and</li>
+    <li>providing insight into interesting properties of the data.</li>
+  </ul></p>
+  <p>Keep in mind, however, that some datasets have a naturally long skew and outlying points do <alert>not</alert> represent any sort of problem in the dataset.</p>
+</assemblage>
+
+<exercise>
+  <statement>
+    <p>Using the box plot in <xref ref="fig-loan-int-rate-boxplot-dotplot-2" />, estimate the values of the <m>Q_1,</m> <m>Q_3,</m> and IQR for <c>interest_rate</c> in the <c>loan50</c> dataset.</p>
+  </statement>
+  <solution>
+    <p>These visual estimates will vary a little from one person to the next: <m>Q_1 \approx</m> 8%, <m>Q_3 \approx</m> 14%, IQR <m>\approx</m> 14 - 8 = 6%.</p>
+  </solution>
+</exercise>
+
+</section>
+
+<section xml:id="robust-statistics">
+  <title>Robust statistics</title>
+
+<p>How are the <alert>sample statistics</alert>  of the <c>interest_rate</c> dataset affected by the observation, 26.3%? What would have happened if this loan had instead been only 15%? What would happen to these summary statistics  if the observation at 26.3% had been even larger, say 35%? The three conjectured scenarios are plotted alongside the original data in <xref ref="fig-loan-int-rate-robust-ex" />, and sample statistics are computed under each scenario in <xref ref="tbl-robustOrNotTable" />.</p>
+
+<table xml:id="tbl-robustOrNotTable">
+  <title>A comparison of how the median, IQR, mean, and standard deviation change as the value of an extreme observation from the original interest data changes.</title>
+  <tabular>
+    <row header="yes">
+      <cell>Scenario</cell>
+      <cell>Median</cell>
+      <cell>IQR</cell>
+      <cell>Mean</cell>
+      <cell>SD</cell>
+    </row>
+    <row>
+      <cell>Original data</cell>
+      <cell>9.93</cell>
+      <cell>5.75</cell>
+      <cell>11.57</cell>
+      <cell>5.05</cell>
+    </row>
+    <row>
+      <cell>Move 26.3% to 15%</cell>
+      <cell>9.93</cell>
+      <cell>5.75</cell>
+      <cell>11.34</cell>
+      <cell>4.61</cell>
+    </row>
+    <row>
+      <cell>Move 26.3% to 35%</cell>
+      <cell>9.93</cell>
+      <cell>5.75</cell>
+      <cell>11.74</cell>
+      <cell>5.68</cell>
+    </row>
+  </tabular>
+</table>
+
+<figure xml:id="fig-loan-int-rate-robust-ex">
+  <caption>Dot plots of the original interest rate data and two modified datasets.</caption>
+  <sidebyside widths="100%">
+    <figure xml:id="fig-loan-int-rate-robust-ex-1">
+      <caption>Original data</caption>
+      <image source="images/fig-loan-int-rate-robust-ex-1.png" />
+    </figure>
+  </sidebyside>
+  <sidebyside widths="100%">
+    <figure xml:id="fig-loan-int-rate-robust-ex-2">
+      <caption>Move 26.3% to 15%</caption>
+      <image source="images/fig-loan-int-rate-robust-ex-2.png" />
+    </figure>
+  </sidebyside>
+  <sidebyside widths="100%">
+    <figure xml:id="fig-loan-int-rate-robust-ex-3">
+      <caption>Move 26.3% to 35%</caption>
+      <image source="images/fig-loan-int-rate-robust-ex-3.png" />
+    </figure>
+  </sidebyside>
+</figure>
+
+<exercise>
+  <statement>
+    <p>Which is more affected by extreme observations, the mean or median? Is the standard deviation or IQR more affected by extreme observations?</p>
+  </statement>
+  <solution>
+    <p>Mean is affected more than the median.     Standard deviation is affected more than the IQR.</p>
+  </solution>
+</exercise>
+
+<p>The median and IQR are called <alert>robust statistics</alert> because extreme observations have little effect on their values: moving the most extreme value generally has little influence on these statistics. On the other hand, the mean and standard deviation are more heavily influenced by changes in extreme observations, which can be important in some situations.</p>
+
+<example>
+  <statement>
+    <p>The median and IQR did not change under the three scenarios in <xref ref="tbl-robustOrNotTable" />. Why might this be the case?</p>
+  </statement>
+  <solution>
+    <p>The median and IQR are only sensitive to numbers near <m>Q_1,</m> the median, and <m>Q_3.</m> Since values in these regions are stable in the three datasets, the median and IQR estimates are also stable.</p>
+  </solution>
+</example>
+
+<p>You might not be surprised that the answer to the question "which is better, the mean or the median?" is: <em>it depends</em>. The two statistics measure different things, and so their use is dependent on the context in the analysis. Consider the following scenarios:</p>
+
+<ul>
+  <li>
+    <p>Is it better to measure the average profit per customer or the median profit per customer?</p>
+    <ul>
+      <li><p>If concern is about the overall profit margin of the company, the mean is a better measure to assess what is happening across the company. The company could have a positive median profit per customer and still be unprofitable.</p></li>
+      <li><p>If concern is around understanding the profit per typical customer, possibly to understand the growth headroom for the company's profit, the median profit per customer would tell you more about individual customer profits.</p></li>
+    </ul>
+  </li>
+  <li>
+    <p>If you operate an app and want to know how long it takes for the app to open on your customers' phones, do you want the mean amount of time or the median amount of time?</p>
+    <ul>
+      <li><p>The mean leads to an understanding of the overall amount of time being wasted in opening the app.</p></li>
+      <li><p>The median tells you about the typical user experience.</p></li>
+      <li><p>However, if the app takes less than 5 milliseconds to launch for 50% of the users but more than 10 seconds to launch for 10% of the users, the median doesn't give the information you need. In that scenario, you might want an upper percentile, like the 95th percentile.</p></li>
+    </ul>
+  </li>
+</ul>
+
+<exercise>
+  <statement>
+    <p>The distribution of loan amounts in the <c>loan50</c> dataset is right skewed, with a few large loans lingering out into the right tail. If you were wanting to understand the typical loan size, should you be more interested in the mean or median?</p>
+  </statement>
+  <solution>
+    <p>If we are looking to simply understand what a typical individual loan looks like, the median is probably more useful.     However, if the goal is to understand something that scales well, such as the total amount of money we might need to have on hand if we were to offer 1,000 loans, then the mean would be more useful.</p>
+  </solution>
+</exercise>
+
+<p>Regardless of the choice of centrality statistic (either mean or median), for most analyses, it is important to consider more than just the centrality. Other statistics like upper and lower percentiles, IQR, or standard deviation provide information about the variability of the observations. And visualizing the data through a graphical representation will typically provide a wealth of information necessary for understanding the full data picture associated with the research question.</p>
+
+</section>
+
+<section xml:id="sec-transforming-data">
+  <title>Transforming data</title>
+
+<p>When data are very strongly skewed, we sometimes transform them, so they are easier to model. <xref ref="fig-county-unemployed-pop-transform-1" /> and <xref ref="fig-county-unemployed-pop-transform-2" /> show right-skewed distributions: distribution of the percentage of unemployed people and the distribution of the population in all counties in the United States. The distribution of population is more strongly skewed than the distribution of percentage unemployed, hence the log transformation results in a much bigger change in the shape of the distribution.</p>
+
+<figure xml:id="fig-county-unemployed-pop-transform">
+  <caption>Histograms of percentage unemployed, population, and their log transformed versions in all US counties. For the plots of transformed variables, the x-value corresponds to the power of 10, e.g., 1 on the x-axis corresponds to <m>10^1 =</m> 10 and 5 on the x-axis corresponds to <m>10^5=</m> 100,000. Data are from 2017.</caption>
+  <sidebyside widths="45% 45%">
+    <figure xml:id="fig-county-unemployed-pop-transform-1">
+      <caption>Percentage unemployed</caption>
+      <image source="images/fig-county-unemployed-pop-transform-1.png" />
+    </figure>
+    <figure xml:id="fig-county-unemployed-pop-transform-2">
+      <caption>log<m>_{10}</m>-transformed percentage unemployed</caption>
+      <image source="images/fig-county-unemployed-pop-transform-2.png" />
+    </figure>
+  </sidebyside>
+  <sidebyside widths="45% 45%">
+    <figure xml:id="fig-county-unemployed-pop-transform-3">
+      <caption>Population</caption>
+      <image source="images/fig-county-unemployed-pop-transform-3.png" />
+    </figure>
+    <figure xml:id="fig-county-unemployed-pop-transform-4">
+      <caption>log<m>_{10}</m>-transformed populations</caption>
+      <image source="images/fig-county-unemployed-pop-transform-4.png" />
+    </figure>
+  </sidebyside>
+</figure>
+
+<example>
+  <statement>
+    <p>Consider the histogram of county populations shown in  <xref ref="fig-county-unemployed-pop-transform-3" />, which shows extreme skew. What characteristics of the plot keep it from being useful?</p>
+  </statement>
+  <solution>
+    <p>Nearly all of the data fall into the left-most bin, and the extreme skew obscures many of the potentially interesting details at the low values.</p>
+  </solution>
+</example>
+
+<listing xml:id="listing-county-unemployed-pop-transform">
+  <caption><c>R</c> code for transformed distributions of unemployment and population</caption>
+  <program language="r">
+    <code>
+ggplot(county, aes(x = unemployment_rate)) +
+  geom_histogram(binwidth = 1) +
+  scale_x_continuous(labels = label_percent(scale = 1)) +
+  labs(
+    x = "Percentage unemployed",
+    y = "Count"
+  )
+ggplot(county, aes(x = log(unemployment_rate, base = 10))) +
+  geom_histogram(binwidth = 0.1) +
+  labs(
+    x = expression(log[10] * "(Percentage unemployed)"),
+    y = "Count"
+  )
+ggplot(county_complete, aes(x = pop_2019)) +
+  geom_histogram(binwidth = 500000) +
+  scale_x_continuous(labels = label_number(scale = 0.000001, suffix = "M", accuracy = 1)) +
+  labs(
+    x = "Population (M = millions)",
+    y = "Count"
+  )
+ggplot(county_complete, aes(x = log(pop_2019, base = 10))) +
+  geom_histogram(binwidth = 0.5) +
+  labs(
+    x = expression(log[10] * "(Population)"),
+    y = "Count"
+  )
+    </code>
+  </program>
+</listing>
+
+<p>There are some standard transformations that may be useful for strongly right skewed data where much of the data is positive but clustered near zero. A <alert>transformation</alert> is a rescaling of the data using a function. For instance, a plot of the logarithm (base 10) of unemployment rates and county populations results in the new histograms in <xref ref="fig-county-unemployed-pop-transform-2" />. The transformed data are symmetric, and any potential outliers appear much less extreme than in the original dataset. By reigning in the outliers and extreme skew, transformations often make it easier to build statistical models for the data.</p>
+
+<p>Transformations can also be applied to one or both variables in a scatterplot. A scatterplot of the population change from 2010 to 2017 against the population in 2010 is shown in <xref ref="fig-county-pop-change-transform-1" />. It's difficult to decipher any interesting patterns because the population variable is so strongly skewed. However, if we apply a log<m>_{10}</m> transformation to the population variable, as shown in <xref ref="fig-county-pop-change-transform-2" />, a positive association between the variables is revealed. In fact, we may be interested in fitting a trend line to the data when we explore methods around fitting regression lines in <xref ref="sec-model-slr" />.</p>
+
+<listing xml:id="listing-county-pop-change-transform">
+  <caption><c>R</c> code for scatterplots with log transformation</caption>
+  <program language="r">
+    <code>
+ggplot(county, aes(y = pop_change, x = pop2010)) +
+  geom_point(alpha = 0.5) +
+  scale_x_continuous(labels = label_number(scale = 0.000001, suffix = "M", accuracy = 1)) +
+  labs(
+    x = "Population before change\n(M = millions)",
+    y = "Population change"
+  )
+ggplot(county, aes(y = pop_change, x = log(pop2010, base = 10))) +
+  geom_point(alpha = 0.5) +
+  labs(
+    x = expression(log[10] * "(Population before change)"),
+    y = "Population change"
+  )
+    </code>
+  </program>
+</listing>
+
+<figure xml:id="fig-county-pop-change-transform">
+  <caption>Scatterplots of population change and log<m>_{10}</m>-transformed population change vs. population before change.</caption>
+  <sidebyside widths="45% 45%">
+    <figure xml:id="fig-county-pop-change-transform-1">
+      <caption>Population change</caption>
+      <image source="images/fig-county-pop-change-transform-1.png" />
+    </figure>
+    <figure xml:id="fig-county-pop-change-transform-2">
+      <caption>log<m>_{10}</m>-transformed population change</caption>
+      <image source="images/fig-county-pop-change-transform-2.png" />
+    </figure>
+  </sidebyside>
+</figure>
+
+<p>Transformations other than the logarithm can be useful, too. For instance, the square root <m>(\sqrt{\text{original observation}})</m> and inverse <m>\bigg ( \frac{1}{\text{original observation}} \bigg )</m> are commonly used by data scientists. Common goals in transforming data are to see the data structure differently, reduce skew, assist in modeling, or straighten a nonlinear relationship in a scatterplot.</p>
+
+</section>
+
+<section xml:id="mapping-data">
+  <title>Mapping data</title>
+
+<p>The <c>county</c> dataset offers many numerical variables that we could plot using dot plots, scatterplots, or box plots, but they can miss the true nature of the data as geographic. When we encounter geographic data, we should create an <alert>intensity map</alert>, where colors are used to show higher and lower values of a variable. <xref ref="fig-county-intensity-maps" /> shows intensity maps for poverty rate in percent (<c>poverty</c>), unemployment rate in percent (<c>unemployment_rate</c>), homeownership rate in percent (<c>homeownership</c>), and median household income in \$1000s (<c>median_hh_income</c>). The color key indicates which colors correspond to which values. The intensity maps are not generally very helpful for getting precise values in any given county, but they are very helpful for seeing geographic trends and generating interesting research questions or hypotheses.</p>
+
+<figure xml:id="fig-county-intensity-maps">
+  <caption>Intensity maps of US counties</caption>
+  <sidebyside widths="45% 45%">
+    <figure xml:id="fig-county-intensity-maps-1">
+      <caption>Poverty rate</caption>
+      <image source="images/fig-county-intensity-maps-1.png" />
+    </figure>
+    <figure xml:id="fig-county-intensity-maps-2">
+      <caption>Unemployment rate</caption>
+      <image source="images/fig-county-intensity-maps-2.png" />
+    </figure>
+  </sidebyside>
+  <sidebyside widths="45% 45%">
+    <figure xml:id="fig-county-intensity-maps-3">
+      <caption>Homeownership rate</caption>
+      <image source="images/fig-county-intensity-maps-3.png" />
+    </figure>
+    <figure xml:id="fig-county-intensity-maps-4">
+      <caption>Median household income, in thousands of USD</caption>
+      <image source="images/fig-county-intensity-maps-4.png" />
+    </figure>
+  </sidebyside>
+</figure>
+
+<example>
+  <statement>
+    <p>What interesting features are evident in the poverty and unemployment rate intensity maps in <xref ref="fig-county-intensity-maps-1" /> and <xref ref="fig-county-intensity-maps-2" />?</p>
+  </statement>
+  <solution>
+    <p>Poverty rates are evidently higher in a few locations. Notably, the deep south shows higher poverty rates, as does much of Arizona and New Mexico. High poverty rates are evident in the Mississippi flood plains a little north of New Orleans and in a large section of Kentucky. The unemployment rate follows similar trends, and we can see correspondence between the two variables. In fact, it makes sense for higher rates of unemployment to be closely related to poverty rates. One observation that stands out when comparing the two maps: the poverty rate is much higher than the unemployment rate, meaning while many people may be working, they are not making enough to break out of poverty.</p>
+  </solution>
+</example>
+
+<exercise>
+  <statement>
+    <p>What interesting features are evident in the median household income intensity map in <xref ref="fig-county-intensity-maps-4" />?</p>
+  </statement>
+  <solution>
+    <p>Answers will vary.     There is some correspondence between high earning and metropolitan areas, where we can see darker spots (higher median household income), though there are several exceptions.     You might look for large cities you are familiar with and try to spot them on the map as dark spots.</p>
+  </solution>
+</exercise>
+
+</section>
+
+<section xml:id="sec-chp5-review">
+  <title>Chapter review</title>
+
+<subsection xml:id="summary-chp5">
+  <title>Summary</title>
+
+<p>Fluently working with numerical variables is an important skill for data analysts. In this chapter we have introduced different visualizations and numerical summaries applied to numeric variables. The graphical visualizations are even more descriptive when two variables are presented simultaneously. We presented scatterplots, dot plots, histograms, and box plots. Numerical variables can be summarized using the mean, median, quartiles, standard deviation, and variance.</p>
+
+</subsection>
+
+<subsection xml:id="terms-chp5">
+  <title>Terms</title>
+
+<p>The terms introduced in this chapter are presented in <xref ref="tbl-terms-chp-05" />. If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions. You should be able to easily spot them as <alert>bolded text</alert>.</p>
+
+<table xml:id="tbl-terms-chp-05">
+  <title>Terms introduced in this chapter.</title>
+  <tabular>
+    <row>
+      <cell>average</cell>
+      <cell>bimodal</cell>
+      <cell>box plot</cell>
+    </row>
+    <row>
+      <cell>data density</cell>
+      <cell>density plot</cell>
+      <cell>deviation</cell>
+    </row>
+    <row>
+      <cell>distribution</cell>
+      <cell>dot plot</cell>
+      <cell>first quartile</cell>
+    </row>
+    <row>
+      <cell>histogram</cell>
+      <cell>interquartile range</cell>
+      <cell>IQR</cell>
+    </row>
+    <row>
+      <cell>left skewed</cell>
+      <cell>mean</cell>
+      <cell>median</cell>
+    </row>
+    <row>
+      <cell>multimodal</cell>
+      <cell>nonlinear</cell>
+      <cell>outlier</cell>
+    </row>
+    <row>
+      <cell>percentile</cell>
+      <cell>point estimate</cell>
+      <cell>right skewed</cell>
+    </row>
+    <row>
+      <cell>robust statistics</cell>
+      <cell>scatterplot</cell>
+      <cell>standard deviation</cell>
+    </row>
+    <row>
+      <cell>symmetric</cell>
+      <cell>tail</cell>
+      <cell>third quartile</cell>
+    </row>
+    <row>
+      <cell>transformation</cell>
+      <cell>unimodal</cell>
+      <cell>variability</cell>
+    </row>
+    <row>
+      <cell>variance</cell>
+      <cell>weighted mean</cell>
+      <cell>whiskers</cell>
+    </row>
+  </tabular>
+</table>
+
+</subsection>
+
+</section>
+
+<section xml:id="sec-chp5-exercises">
+  <title>Exercises</title>
   
   <p>
-    Content to be added from explore-numerical.qmd
+    Answers to odd-numbered exercises can be found in Appendix <xref ref="sec-exercise-solutions-05" />.
   </p>
+
+  <p> Note that in this PreTeXt version, these graphics have had to be recreated. As a result, you may find that the images themselves are slightly different to other versions, or to a version if you tried this for yourself with the data in R. The answers should still work (e.g., if asked about correlation to plot).</p>
+
+  <exercises>
+    <title>Chapter 5 Exercises</title>
+    
+    <exercise>
+      <title>Mammal life spans</title>
+      <statement>
+        <p>
+          Data were collected on life spans (in years) and gestation lengths (in days) for 62 mammals. A scatterplot of life span versus length of gestation is shown below.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-mammals-scatterplot.png" width="60%" />
+        
+        <p>
+          <ol>
+            <li><p>What type of an association is apparent between life span and length of gestation?</p></li>
+            <li><p>What type of an association would you expect to see if the axes of the plot were reversed, i.e., if we plotted length of gestation versus life span?</p></li>
+            <li><p>Are life span and length of gestation independent? Explain your reasoning.</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Associations</title>
+      <statement>
+        <p>
+          Indicate which of the plots show (a) a positive association, (b) a negative association, or (c) no association. Also determine if the positive and negative associations are linear or nonlinear. Each part may refer to more than one plot.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-associations-plots.png" width="80%" />
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Reproducing bacteria</title>
+      <statement>
+        <p>
+          Suppose that there is only sufficient space and nutrients to support one million bacterial cells in a petri dish. You place a few bacterial cells in this petri dish, allow them to reproduce freely, and record the number of bacterial cells in the dish over time. Sketch a plot representing the relationship between number of bacterial cells and time.
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Office productivity</title>
+      <statement>
+        <p>
+          Office productivity is relatively low when the employees feel no stress about their work or job security. However, high levels of stress can also lead to reduced employee productivity. Sketch a plot to represent the relationship between stress and productivity.
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Make-up exam</title>
+      <statement>
+        <p>
+          In a class of 25 students, 24 of them took an exam in class and 1 student took a make-up exam the following day. The professor graded the first batch of 24 exams and found an average score of 74 points with a standard deviation of 8.9 points. The student who took the make-up the following day scored 64 points on the exam.
+        </p>
+        
+        <p>
+          <ol>
+            <li><p>Does the new student's score increase or decrease the average score?</p></li>
+            <li><p>What is the new average?</p></li>
+            <li><p>Does the new student's score increase or decrease the standard deviation of the scores?</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Infant mortality</title>
+      <statement>
+        <p>
+          The infant mortality rate is defined as the number of infant deaths per 1,000 live births. This rate is often used as an indicator of the level of health in a country. The relative frequency histogram below shows the distribution of estimated infant death rates for 224 countries for which such data were available in 2014.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-infant-mortality-hist.png" width="60%" />
+        
+        <p>
+          <ol>
+            <li><p>Estimate Q1, the median, and Q3 from the histogram.</p></li>
+            <li><p>Would you expect the mean of this dataset to be smaller or larger than the median? Explain your reasoning.</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Days off at a mining plant</title>
+      <statement>
+        <p>
+          Workers at a particular mining site receive an average of 35 days paid vacation, which is lower than the national average. The manager of this plant is under pressure from a local union to increase the amount of paid time off. However, he does not want to give more days off to the workers because that would be costly. Instead he decides he should fire 10 employees in such a way as to raise the average number of days off that are reported by his employees. In order to achieve this goal, should he fire employees who have the most number of days off, least number of days off, or those who have about the average number of days off?
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Medians and IQRs</title>
+      <statement>
+        <p>
+          For each part, compare distributions A and B based on their medians and IQRs. You do not need to calculate these statistics; simply state how the medians and IQRs compare. Make sure to explain your reasoning. <em>Hint:</em> It may be useful to sketch dot plots of the distributions.
+        </p>
+        
+        <p>
+          <ol>
+            <li><p><term>A:</term> 3, 5, 6, 7, 9; <term>B:</term> 3, 5, 6, 7, 20</p></li>
+            <li><p><term>A:</term> 3, 5, 6, 7, 9; <term>B:</term> 3, 5, 7, 8, 9</p></li>
+            <li><p><term>A:</term> 1, 2, 3, 4, 5; <term>B:</term> 6, 7, 8, 9, 10</p></li>
+            <li><p><term>A:</term> 0, 10, 50, 60, 100; <term>B:</term> 0, 100, 500, 600, 1000</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Means and SDs</title>
+      <statement>
+        <p>
+          For each part, compare distributions A and B based on their means and standard deviations. You do not need to calculate these statistics; simply state how the means and the standard deviations compare. Make sure to explain your reasoning. <em>Hint:</em> It may be useful to sketch dot plots of the distributions.
+        </p>
+        
+        <p>
+          <ol>
+            <li><p><term>A:</term> 3, 5, 5, 5, 8, 11, 11, 11, 13; <term>B:</term> 3, 5, 5, 5, 8, 11, 11, 11, 20</p></li>
+            <li><p><term>A:</term> -20, 0, 0, 0, 15, 25, 30, 30; <term>B:</term> -40, 0, 0, 0, 15, 25, 30, 30</p></li>
+            <li><p><term>A:</term> 0, 2, 4, 6, 8, 10; <term>B:</term> 20, 22, 24, 26, 28, 30</p></li>
+            <li><p><term>A:</term> 100, 200, 300, 400, 500; <term>B:</term> 0, 50, 300, 550, 600</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Histograms and box plots</title>
+      <statement>
+        <p>
+          Describe (in words) the distribution in the histograms below and match them to the box plots.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-hist-box-match.png" width="80%" />
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Air quality</title>
+      <statement>
+        <p>
+          Daily air quality is measured by the air quality index (AQI) reported by the Environmental Protection Agency. This index reports the pollution level and what associated health effects might be a concern. The index is calculated for five major air pollutants regulated by the Clean Air Act and takes values from 0 to 300, where a higher value indicates lower air quality. AQI was reported for 356 days in 2022 in Durham, NC. The histogram below shows the distribution of the AQI values on these days.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-air-quality-hist.png" width="70%" />
+        
+        <p>
+          <ol>
+            <li><p>Estimate the median AQI value of this sample.</p></li>
+            <li><p>Would you expect the mean AQI value of this sample to be higher or lower than the median? Explain your reasoning.</p></li>
+            <li><p>Estimate Q1, Q3, and IQR for the distribution.</p></li>
+            <li><p>Would any of the days in this sample be considered to have an unusually low or high AQI? Explain your reasoning.</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Median vs. mean</title>
+      <statement>
+        <p>
+          Estimate the median for the 400 observations shown in the histogram, and note whether you expect the mean to be higher or lower than the median.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-median-vs-mean.png" width="70%" />
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Histograms vs. box plots</title>
+      <statement>
+        <p>
+          Compare the two plots below. What characteristics of the distribution are apparent in the histogram and not in the box plot? What characteristics are apparent in the box plot but not in the histogram?
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-hist-vs-box.png" width="80%" />
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Facebook friends</title>
+      <statement>
+        <p>
+          Facebook data indicate that 50% of Facebook users have 100 or more friends, and that the average friend count of users is 190. What do these findings suggest about the shape of the distribution of number of friends of Facebook users?
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Distributions and appropriate statistics</title>
+      <statement>
+        <p>
+          For each of the following, state whether you expect the distribution to be symmetric, right skewed, or left skewed. Also specify whether the mean or median would best represent a typical observation in the data, and whether the variability of observations would be best represented using the standard deviation or IQR. Explain your reasoning.
+        </p>
+        
+        <p>
+          <ol>
+            <li><p>Number of pets per household.</p></li>
+            <li><p>Distance to work, i.e., number of miles between work and home.</p></li>
+            <li><p>Heights of adult males.</p></li>
+            <li><p>Age at death.</p></li>
+            <li><p>Exam grade on an easy test.</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Distributions and appropriate statistics</title>
+      <statement>
+        <p>
+          For each of the following, state whether you expect the distribution to be symmetric, right skewed, or left skewed. Also specify whether the mean or median would best represent a typical observation in the data, and whether the variability of observations would be best represented using the standard deviation or IQR. Explain your reasoning.
+        </p>
+        
+        <p>
+          <ol>
+            <li><p>Housing prices in a country where 25% of the houses cost below $350,000, 50% of the houses cost below $450,000, 75% of the houses cost below $1,000,000, and there are a meaningful number of houses that cost more than $6,000,000.</p></li>
+            <li><p>Housing prices in a country where 25% of the houses cost below $300,000, 50% of the houses cost below $600,000, 75% of the houses cost below $900,000, and very few houses that cost more than $1,200,000.</p></li>
+            <li><p>Number of alcoholic drinks consumed by college students in a given week. Assume that most of these students don't drink since they are under 21 years old, and only a few drink excessively.</p></li>
+            <li><p>Annual salaries of the employees at a Fortune 500 company where only a few high level executives earn much higher salaries than all the other employees.</p></li>
+            <li><p>Gestation time in humans where 25% of the babies are born by 38 weeks of gestation, 50% of the babies are born by 39 weeks, 75% of the babies are born by 40 weeks, and the maximum gestation length is 46 weeks.</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>TV watchers</title>
+      <statement>
+        <p>
+          College students in a statistics class were asked how many hours of television they watch per week, including online streaming services. This sample yielded an average of 8.28 hours, with a standard deviation of 7.18 hours. Is the distribution of number of hours students watch television weekly symmetric? If not, what shape would you expect this distribution to have? Explain your reasoning.
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Exam scores</title>
+      <statement>
+        <p>
+          The average on a history exam (scored out of 100 points) was 85, with a standard deviation of 15. Is the distribution of the scores on this exam symmetric? If not, what shape would you expect this distribution to have? Explain your reasoning.
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Midrange</title>
+      <statement>
+        <p>
+          The <em>midrange</em> of a distribution is defined as the average of the maximum and the minimum of that distribution. Is this statistic robust to outliers and extreme skew? Explain your reasoning.
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Oscar winners</title>
+      <statement>
+        <p>
+          The first Oscar awards for best actor and best actress were given out in 1929. The histograms below show the age distribution for all of the best actor and best actress winners from 1929 to 2019. Summary statistics for these distributions are also provided. Compare the distributions of ages of best actor and actress winners.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-oscar-winners.png" width="80%" />
+
+        <table>
+          <title>Summary statistics for coffee shop income data</title>
+          <tabular>
+            <row header="yes">
+              <cell></cell>
+              <cell>Mean</cell>
+              <cell>SD</cell>
+              <cell>n</cell>
+            </row>
+            <row>
+              <cell>Best actor</cell>
+              <cell>43.8</cell>
+              <cell>8.8</cell>
+              <cell>92</cell>
+            </row>
+            <row>
+              <cell>Best actress</cell>
+              <cell>36.2</cell>
+              <cell>11.9</cell>
+              <cell>92</cell>
+            </row>
+          </tabular>
+        </table>
+
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Stats scores</title>
+      <statement>
+        <p>
+          The final exam scores of twenty introductory statistics students, arranged in ascending order, are as follows: 57, 66, 69, 71, 72, 73, 74, 77, 78, 78, 79, 79, 81, 81, 82, 83, 83, 88, 89, 94. Suppose students who score above the 75th percentile on the final exam get an A in the class. How many students will get an A in this class?
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Income at the coffee shop</title>
+      <statement>
+        <p>
+          The first histogram below shows the distribution of the yearly incomes of 40 patrons at a college coffee shop. Suppose two new people walk into the coffee shop: one making $225,000 and the other $250,000. The second histogram shows the new income distribution. Summary statistics are also provided, rounded to the nearest whole number.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-income-coffee-shop.png" width="70%" />
+
+        <table>
+          <title>Summary statistics for coffee shop income data</title>
+          <tabular>
+            <row header="yes">
+              <cell></cell>
+              <cell>n</cell>
+              <cell>Min</cell>
+              <cell>Q1</cell>
+              <cell>Median</cell>
+              <cell>Mean</cell>
+              <cell>Max</cell>
+              <cell>SD</cell>
+            </row>
+            <row>
+              <cell>Before</cell>
+              <cell>40</cell>
+              <cell>$60,679</cell>
+              <cell>$60,818</cell>
+              <cell>$65,238</cell>
+              <cell>$65,089</cell>
+              <cell>$69,885</cell>
+              <cell>$2,122</cell>
+            </row>
+            <row>
+              <cell>After</cell>
+              <cell>42</cell>
+              <cell>$60,679</cell>
+              <cell>$60,838</cell>
+              <cell>$65,352</cell>
+              <cell>$73,299</cell>
+              <cell>$250,000</cell>
+              <cell>$37,321</cell>
+            </row>
+          </tabular>
+        </table>
+
+        <p>
+          <ol>
+            <li><p>Would the mean or the median best represent what we might think of as a typical income for the 42 patrons at this coffee shop? What does this say about the robustness of the two measures?</p></li>
+            <li><p>Would the standard deviation or the IQR best represent the amount of variability in the incomes of the 42 patrons at this coffee shop? What does this say about the robustness of the two measures?</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>A new statistic</title>
+      <statement>
+        <p>
+          The statistic <m>\frac{\overline{x}}{median}</m> can be used as a measure of skewness. Suppose we have a distribution where all observations are greater than 0, <m>x_i > 0</m>. What is the expected shape of the distribution under the following conditions? Explain your reasoning.
+        </p>
+        
+        <p>
+          <ol>
+            <li><p><m>\frac{\overline{x}}{median} = 1</m></p></li>
+            <li><p><m>\frac{\overline{x}}{median} &lt; 1</m></p></li>
+            <li><p><m>\frac{\overline{x}}{median} > 1</m></p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Commute times</title>
+      <statement>
+        <p>
+          The US census collects data on the time it takes Americans to commute to work, among many other variables. The histogram below shows the distribution of mean commute times in 3,142 US counties in 2017. Also shown below is a spatial intensity map of the same data.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-commute-times.png" width="90%" />
+        
+        <p>
+          <ol>
+            <li><p>Describe the numerical distribution and comment on whether a log transformation may be advisable for these data.</p></li>
+            <li><p>Describe the spatial distribution of commuting times using the map.</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>Hispanic population</title>
+      <statement>
+        <p>
+          The US census collects data on race and ethnicity of Americans, among many other variables. The histogram below shows the distribution of the percentage of the population that is Hispanic in 3,142 counties in the US in 2010. Also shown is a histogram of logs of these values.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-hispanic-population.png" width="90%" />
+        
+        <p>
+          <ol>
+            <li><p>Describe the numerical distribution and comment on why we might want to use log-transformed values in analyzing or modeling these data.</p></li>
+            <li><p>What features of the distribution of the Hispanic population in US counties are apparent in the map but not in the histogram? What features are apparent in the histogram but not the map?</p></li>
+            <li><p>Is one visualization more appropriate or helpful than the other? Explain your reasoning.</p></li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+    <exercise>
+      <title>NYC marathon winners</title>
+      <statement>
+        <p>
+          The histogram and box plots below show the distribution of finishing times for male and female (combined) winners of the New York City Marathon between 1970 and 2023.
+        </p>
+        
+        <image source="images/_05-ex-explore-numerical/ex-nyc-marathon-1.png" width="70%" />
+        
+        <p>
+          <ol>
+            <li><p>What features of the distribution are apparent in the histogram and not the box plot? What features are apparent in the box plot but not in the histogram?</p></li>
+            <li><p>What may be the reason for the bimodal distribution? Explain.</p></li>
+            <li>
+              <p>Compare the distribution of marathon times for men and women based on the box plot shown below.</p>
+              <image source="images/_05-ex-explore-numerical/ex-nyc-marathon-2.png" width="70%" />
+            </li>
+            <li>
+              <p>The time series plot shown below is another way to look at these data. Describe what is visible in this plot but not in the others.</p>
+              <image source="images/_05-ex-explore-numerical/ex-nyc-marathon-3.png" width="70%" />
+            </li>
+          </ol>
+        </p>
+      </statement>
+    </exercise>
+    
+  </exercises>
+</section>
+
 </chapter>

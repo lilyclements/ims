@@ -3,7 +3,7 @@
 <publication>
   <common>
     <tableofcontents level="2" />
-    <exercise-inline hint="yes" answer="no" solution="no"/>
+    <exercise-inline hint="yes" answer="no" solution="yes"/>
     <exercise-divisional hint="yes" answer="no" solution="no"/>
   </common>
   
@@ -14,8 +14,9 @@
   <html>
     <calculator model="none" />
     <index-page ref="welcome" />
-    <css style="default" />
+    <css style="default" colors="blue_grey" />
     <search variant="default" />
     <baseurl href="https://lilyclements.github.io/ims/" />
+    <knowl listing="yes" />
   </html>
 </publication>

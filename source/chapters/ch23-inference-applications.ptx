@@ -1,9 +1,877 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter xml:id="ch23-inference-applications" xmlns:xi="http://www.w3.org/2001/XInclude">
 
-<chapter xml:id="ch23-inference-applications">
-  <title>Applications: Infer</title>
-  
+<title>Applications: Infer</title>
+
+<introduction>
   <p>
-    Content to be added from inference-applications.qmd
+    This chapter brings together the computational and mathematical methods we have presented for statistical inference. We recap the key concepts of randomization tests and bootstrapping for computational methods, and z-procedures and t-procedures for mathematical models. We then work through an extended case study on redundant adjectives that demonstrates how to apply various inference methods in practice.
   </p>
+</introduction>
+
+<section xml:id="sec-comp-methods-summary">
+  <title>Recap: Computational methods</title>
+
+  <p>
+    The computational methods we have presented are used in two settings. First, in many real life applications (as in those covered here), the mathematical model and computational model give identical conclusions. When there are no differences in conclusions, the advantage of the computational method is that it gives the analyst a good sense for the logic of the statistical inference process. Second, when there is a difference in the conclusions (seen primarily in methods beyond the scope of this text), it is often the case that the computational method relies on fewer technical conditions and is therefore more appropriate to use.
+  </p>
+
+  <subsection xml:id="subsec-randomization-recap">
+    <title>Randomization</title>
+
+    <p>
+      An important feature of randomization tests is that the data are permuted in such a way that the null hypothesis is true. The randomization distribution provides a distribution of the statistic of interest under the null hypothesis, which is exactly the information needed to calculate a p-value <mdash /> where the p-value is the probability of obtaining the observed data or more extreme when the null hypothesis is true. Although there are ways to adjust the randomization for settings other than the null hypothesis being true, they are not covered in this book and they are not used widely. In approaching research questions with a randomization test, be sure to ask yourself what the null hypothesis represents and how it is that permuting the data is creating different possible null data representations.
+    </p>
+
+    <p>
+      <alert>Hypothesis tests.</alert> When using a randomization test, we proceed as follows:
+    </p>
+
+    <p>
+      <ul>
+        <li><p>Write appropriate hypotheses.</p></li>
+        <li><p>Compute the observed statistic of interest.</p></li>
+        <li><p>Permute the data repeatedly, each time, recalculating the statistic of interest.</p></li>
+        <li><p>Compute the proportion of times the permuted statistics are as extreme as or more extreme than the observed statistic, this is the p-value.</p></li>
+        <li><p>Make a conclusion based on the p-value, and write the conclusion in context and in plain language so anyone can understand the result.</p></li>
+      </ul>
+    </p>
+  </subsection>
+
+  <subsection xml:id="subsec-bootstrapping-recap">
+    <title>Bootstrapping</title>
+
+    <p>
+      Bootstrapping, in contrast to randomization tests, represents a proxy sampling of the original population. With bootstrapping, the analyst is not forcing the null hypothesis to be true (or false, for that matter), but instead, they are replicating the variability seen in taking repeated samples from a population. Because there is no underlying true (or false) null hypothesis, bootstrapping is typically used for creating confidence intervals for the parameter of interest. Bootstrapping can be used to test particular values of a parameter (e.g., by evaluating whether a particular value of interest is contained in the confidence interval), but generally, bootstrapping is used for interval estimation instead of testing.
+    </p>
+
+    <p>
+      <alert>Confidence intervals.</alert> The following is how we generally computed a confidence interval using bootstrapping:
+    </p>
+
+    <p>
+      <ul>
+        <li><p>Repeatedly resample the original data, with replacement, using the same sample size as the original data.</p></li>
+        <li><p>For each resample, calculate the statistic of interest.</p></li>
+        <li>
+          <p>Calculate the confidence interval using one of the following methods:</p>
+          <ul>
+            <li><p>Bootstrap percentile interval: Obtain the endpoints representing the middle (e.g., 95%) of the bootstrapped statistics. The endpoints will be the confidence interval.</p></li>
+            <li><p>Bootstrap standard error (SE) interval: Find the SE of the bootstrapped statistics. The confidence interval will be given by the original observed statistic plus or minus some multiple (e.g., 2) of SEs.</p></li>
+          </ul>
+        </li>
+        <li><p>Put the conclusions in context and in plain language so even non-statisticians and data scientists can understand the results.</p></li>
+      </ul>
+    </p>
+  </subsection>
+</section>
+
+<section xml:id="sec-math-models-summary">
+  <title>Recap: Mathematical models</title>
+
+  <p>
+    The mathematical models which have been used to produce inferential analyses follow a consistent framework for different parameters of interest. As a way to contrast and compare the mathematical approach, we offer the following summaries in <xref ref="tbl-zcompare" /> and <xref ref="tbl-tcompare" />.
+  </p>
+
+  <subsection xml:id="subsec-z-procedures">
+    <title>z-procedures</title>
+
+    <p>
+      Generally, when the response variable is categorical (or binary), the summary statistic is a proportion and the model used to describe the proportion is the standard normal curve (also referred to as a <m>z</m>-curve or a <m>z</m>-distribution). We provide <xref ref="tbl-zcompare" /> partly as a mechanism for understanding <m>z</m>-procedures and partly to highlight the extremely common usage of the <m>z</m>-distribution in practice.
+    </p>
+
+    <table xml:id="tbl-zcompare">
+      <title>Similarities of z-methods across one sample and two independent samples analysis of a binary response variable. <m>p</m> represents the population proportion, <m>\hat{p}</m> represents the sample proportion, <m>p_0</m> represents the null hypothesized proportion, <m>\hat{p}_{pool}</m> represents the pooled proportion, and <m>n</m> represents the sample size. The subscripts of 1 and 2 indicate that the values are measured separately for samples 1 and 2.</title>
+      <tabular>
+        <row header="yes">
+          <cell></cell>
+          <cell>One sample</cell>
+          <cell>Two independent samples</cell>
+        </row>
+        <row>
+          <cell>Response variable</cell>
+          <cell>Binary</cell>
+          <cell>Binary</cell>
+        </row>
+        <row>
+          <cell>Parameter of interest</cell>
+          <cell>Proportion: <m>p</m></cell>
+          <cell>Difference in proportions: <m>p_1 - p_2</m></cell>
+        </row>
+        <row>
+          <cell>Statistic of interest</cell>
+          <cell>Proportion: <m>\widehat{p}</m></cell>
+          <cell>Difference in proportions: <m>\widehat{p}_1 - \widehat{p}_2</m></cell>
+        </row>
+        <row>
+          <cell>Standard error: HT</cell>
+          <cell><m>\sqrt{\frac{p_0(1-p_0)}{n}}</m></cell>
+          <cell><m>\sqrt{\widehat{p}_{pool}\left(1-\widehat{p}_{pool}\right)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}</m></cell>
+        </row>
+        <row>
+          <cell>Standard error: CI</cell>
+          <cell><m>\sqrt{\frac{\widehat{p}(1-\widehat{p})}{n}}</m></cell>
+          <cell><m>\sqrt{\frac{\widehat{p}_{1}(1-\widehat{p}_{1})}{n_1} + \frac{\widehat{p}_{2}(1-\widehat{p}_{2})}{n_2}}</m></cell>
+        </row>
+        <row>
+          <cell>Conditions</cell>
+          <cell>1. Independence, 2. Success-failure</cell>
+          <cell>1. Independence, 2. Success-failure</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      <alert>Hypothesis tests.</alert> When applying the <m>z</m>-distribution for a hypothesis test, we proceed as follows:
+    </p>
+
+    <p>
+      <ul>
+        <li><p>Write appropriate hypotheses.</p></li>
+        <li>
+          <p>Verify conditions for using the <m>z</m>-distribution.</p>
+          <ul>
+            <li><p>One-sample: the observations (or differences) must be independent. The success-failure condition of at least 10 success and at least 10 failures should hold.</p></li>
+            <li><p>For a difference of proportions: each sample must separately satisfy the success-failure conditions, and the data in the groups must also be independent.</p></li>
+          </ul>
+        </li>
+        <li><p>Compute the point estimate of interest and the standard error.</p></li>
+        <li><p>Compute the Z score and p-value.</p></li>
+        <li><p>Make a conclusion based on the p-value, and write a conclusion in context and in plain language so anyone can understand the result.</p></li>
+      </ul>
+    </p>
+
+    <p>
+      <alert>Confidence intervals.</alert> Similarly, the following is how we generally computed a confidence interval using a <m>z</m>-distribution:
+    </p>
+
+    <p>
+      <ul>
+        <li><p>Verify conditions for using the <m>z</m>-distribution. (See above.)</p></li>
+        <li><p>Compute the point estimate of interest, the standard error, and <m>z^{\star}</m>.</p></li>
+        <li><p>Calculate the confidence interval using the general formula: point estimate <m>\pm z^{\star} SE</m>.</p></li>
+        <li><p>Put the conclusions in context and in plain language so even non-statisticians and data scientists can understand the results.</p></li>
+      </ul>
+    </p>
+  </subsection>
+
+  <subsection xml:id="subsec-t-procedures">
+    <title>t-procedures</title>
+
+    <p>
+      With quantitative response variables, the <m>t</m>-distribution was applied as the appropriate mathematical model in three distinct settings. Although the three data structures are different, their similarities and differences are worth pointing out. We provide <xref ref="tbl-tcompare" /> partly as a mechanism for understanding <m>t</m>-procedures and partly to highlight the extremely common usage of the <m>t</m>-distribution in practice.
+    </p>
+
+    <table xml:id="tbl-tcompare">
+      <title>Similarities of <m>t</m>-methods across one sample, paired sample, and two independent samples analysis of a numeric response variable. <m>\mu</m> represents the population mean, <m>\bar{x}</m> represents the sample mean, <m>s</m> represents the standard deviation, and <m>n</m> represents the sample size. The subscript of <m>diff</m> indicates that the values are measured on the paired differences. The subscripts of <m>1</m> and <m>2</m> indicate that the values are measured separately on sample <m>1</m> and sample <m>2</m>.</title>
+      <tabular>
+        <row header="yes">
+          <cell></cell>
+          <cell>One sample</cell>
+          <cell>Paired sample</cell>
+          <cell>Two independent samples</cell>
+        </row>
+        <row>
+          <cell>Response variable</cell>
+          <cell>Numeric</cell>
+          <cell>Numeric</cell>
+          <cell>Numeric</cell>
+        </row>
+        <row>
+          <cell>Parameter of interest</cell>
+          <cell>Mean: <m>\mu</m></cell>
+          <cell>Paired mean: <m>\mu_{diff}</m></cell>
+          <cell>Difference in means: <m>\mu_1 - \mu_2</m></cell>
+        </row>
+        <row>
+          <cell>Statistic of interest</cell>
+          <cell>Mean: <m>\bar{x}</m></cell>
+          <cell>Paired mean: <m>\bar{x}_{diff}</m></cell>
+          <cell>Difference in means: <m>\bar{x}_1 - \bar{x}_2</m></cell>
+        </row>
+        <row>
+          <cell>Standard error</cell>
+          <cell><m>\frac{s}{\sqrt{n}}</m></cell>
+          <cell><m>\frac{s_{diff}}{\sqrt{n_{diff}}}</m></cell>
+          <cell><m>\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}</m></cell>
+        </row>
+        <row>
+          <cell>Degrees of freedom</cell>
+          <cell><m>n-1</m></cell>
+          <cell><m>n_{diff} -1</m></cell>
+          <cell><m>\min(n_1 -1, n_2 - 1)</m></cell>
+        </row>
+        <row>
+          <cell>Conditions</cell>
+          <cell>1. Independence, 2. Normality or large samples</cell>
+          <cell>1. Independence, 2. Normality or large samples</cell>
+          <cell>1. Independence, 2. Normality or large samples</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      <alert>Hypothesis tests.</alert> When applying the <m>t</m>-distribution for a hypothesis test, we proceed as follows:
+    </p>
+
+    <p>
+      <ul>
+        <li><p>Write appropriate hypotheses.</p></li>
+        <li>
+          <p>Verify conditions for using the <m>t</m>-distribution.</p>
+          <ul>
+            <li><p>One-sample or differences from paired data: the observations (or differences) must be independent and nearly normal. For larger sample sizes, we can relax the nearly normal requirement, e.g., slight skew is okay for sample sizes of 15, moderate skew for sample sizes of 30, and strong skew for sample sizes of 60.</p></li>
+            <li><p>For a difference of means when the data are not paired: each sample mean must separately satisfy the one-sample conditions for the <m>t</m>-distribution, and the data in the groups must also be independent.</p></li>
+          </ul>
+        </li>
+        <li><p>Compute the point estimate of interest, the standard error, and the degrees of freedom. For <m>df</m>, use <m>n-1</m> for one sample, and for two samples use either statistical software or the smaller of <m>n_1 - 1</m> and <m>n_2 - 1</m>.</p></li>
+        <li><p>Compute the T score and p-value.</p></li>
+        <li><p>Make a conclusion based on the p-value, and write a conclusion in context and in plain language so anyone can understand the result.</p></li>
+      </ul>
+    </p>
+
+    <p>
+      <alert>Confidence intervals.</alert> Similarly, the following is how we generally computed a confidence interval using a <m>t</m>-distribution:
+    </p>
+
+    <p>
+      <ul>
+        <li><p>Verify conditions for using the <m>t</m>-distribution. (See above.)</p></li>
+        <li><p>Compute the point estimate of interest, the standard error, the degrees of freedom, and <m>t^{\star}_{df}</m>.</p></li>
+        <li><p>Calculate the confidence interval using the general formula:
+        <me>\text{point estimate } \pm t_{df}^{\star} SE</me></p></li>
+        <li><p>Put the conclusions in context and in plain language so even non-statisticians and data scientists can understand the results.</p></li>
+      </ul>
+    </p>
+  </subsection>
+</section>
+
+<section xml:id="sec-case-study-redundant-adjectives">
+  <title>Case study: Redundant adjectives</title>
+
+  <p>
+    Take a look at the images in <xref ref="fig-blue-triangle-shapes" />. How would you describe the circled item in <xref ref="fig-blue-triangle-shapes-1" />? Would you call it <q>the triangle</q>? Or <q>the blue triangle</q>? How about in <xref ref="fig-blue-triangle-shapes-2" />? Does your answer change?
+  </p>
+
+  <figure xml:id="fig-blue-triangle-shapes">
+    <caption>Two sets of four shapes.</caption>
+    <sidebyside>
+      <figure xml:id="fig-blue-triangle-shapes-1">
+        <caption>The circled triangle is the only triangle.</caption>
+        <image source="images/fig-blue-triangle-shapes-1.png" width="90%" />
+      </figure>
+      <figure xml:id="fig-blue-triangle-shapes-2">
+        <caption>The circled triangle is the only blue triangle.</caption>
+        <image source="images/fig-blue-triangle-shapes-2.png" width="90%" />
+      </figure>
+    </sidebyside>
+  </figure>
+
+  <listing xml:id="listing-blue-triangle-shapes">
+    <caption>R code to create shapes visualization</caption>
+    <program language="r">
+      <code>
+shape_names &lt;- c(
+  "circle filled",
+  "square filled",
+  "diamond filled",
+  "triangle filled",
+  "circle filled",
+  "square filled",
+  "triangle filled",
+  "triangle filled"
+)
+
+shapes &lt;- data.frame(
+  shape_names = shape_names,
+  figure = c(rep(1, 4), rep(2, 4)),
+  x = rep(1:4, 2),
+  y = 1,
+  color = rep(c(
+    IMSCOL["pink", "full"], IMSCOL["yellow", "full"],
+    IMSCOL["red", "full"], IMSCOL["blue", "full"]
+  ), 2)
+)
+
+ggplot(shapes |&gt; filter(figure == 1), aes(x, y)) +
+  geom_point(aes(shape = shape_names, color = color, fill = color), size = 20) +
+  scale_shape_identity() +
+  scale_color_identity() +
+  scale_fill_identity() +
+  theme_void() +
+  expand_limits(x = c(0.5, 4.5)) +
+  annotate("point", x = 4, y = 1, shape = "circle open", color = "black", size = 40)
+
+ggplot(shapes |&gt; filter(figure == 2), aes(x, y)) +
+  geom_point(aes(shape = shape_names, color = color, fill = color), size = 20) +
+  scale_shape_identity() +
+  scale_color_identity() +
+  scale_fill_identity() +
+  theme_void() +
+  expand_limits(x = c(0.5, 4.5)) +
+  annotate("point", x = 4, y = 1, shape = "circle open", color = "black", size = 40)
+      </code>
+    </program>
+  </listing>
+
+  <p>
+    In <xref ref="fig-blue-triangle-shapes-1" /> the circled item is the only triangle, but in the bottom image the circled item is one of two triangles. While in <xref ref="fig-blue-triangle-shapes-1" /> <q>the triangle</q> is a sufficient description for the circled item, many of us might choose to refer to it as the <q>blue triangle</q> anyway. In <xref ref="fig-blue-triangle-shapes-1" /> there are two triangles, so <q>the triangle</q> is no longer sufficient, and to describe the circled item we must qualify it with the color as well, as <q>the blue triangle</q>.
+  </p>
+
+  <p>
+    Your answers to the above questions might be different if you're answering in a different language than English. For example, in Spanish, the adjective comes after the noun (e.g., <q>el triángulo azul</q>) therefore the incremental value of the additional adjective might be different for <xref ref="fig-blue-triangle-shapes-1" />.
+  </p>
+
+  <p>
+    Researchers studying frequent use of redundant adjectives (e.g., referring to a single triangle as <q>the blue triangle</q>) and incrementality of language processing designed an experiment where they showed the following two images to 22 native English speakers (undergraduates from University College London) and 22 native Spanish speakers (undergraduates from the Universidad de las Islas Baleares). They found that in both languages, the subjects used more redundant color adjectives in denser displays where it would be more efficient. One of the displays from the study is shown in <xref ref="fig-redundant-adjectives-blue-triangle" />.
+  </p>
+
+  <figure xml:id="fig-redundant-adjectives-blue-triangle">
+    <caption>Images used in one of the experiments. In each presentation all of the shapes and their colors are unique. In the left presentation, the blue triangle is circled and is one of four shapes. In the right presentation, the blue triangle is circled and is one of sixteen shapes.</caption>
+    <image source="images/redundant-adjectives-blue-triangle.png" width="80%" />
+  </figure>
+
+  <p>
+    In this case study we will examine data from redundant adjective study, which the authors have made available on Open Science Framework at <url href="https://osf.io/9hw68">osf.io/9hw68</url>.
+  </p>
+
+  <listing xml:id="listing-redundant-data-load">
+    <caption>R code to load and process redundant adjective data</caption>
+    <program language="r">
+      <code>
+# analysis based on
+# https://osf.io/fqnms/ &gt; Production data &gt; AnalyzeProduction.R
+
+# one row per question
+redundant_individual &lt;- read_csv("data/ENGLISH-SPANISH PRODUCTION.csv") |&gt;
+  clean_names() |&gt;
+  mutate(
+    items = if_else(question &gt; 10, 16, 4),
+    items = as.factor(items),
+    adjective = if_else(color_response == 1, "redundant", "not redundant")
+  ) |&gt;
+  select(-color_response)
+
+# one row per individual
+redundant &lt;- redundant_individual |&gt;
+  group_by(language, subject, items) |&gt;
+  summarise(
+    n_questions = n(),
+    redundant_perc = sum(adjective == "redundant") * 100 / n_questions,
+    .groups = "drop"
+  )
+      </code>
+    </program>
+  </listing>
+
+  <p>
+    <xref ref="tbl-redundant-data" /> shows the top six rows of the data. The full dataset has 88 rows. Remember that there are a total of 44 subjects in the study (22 English and 22 Spanish speakers). There are two rows in the dataset for each of the subjects: one representing data from when they were shown an image with 4 items on it and the other with 16 items on it. Each subject was asked 10 questions for each type of image (with a different layout of items on the image for each question). The variable of interest to us is <c>redundant_perc</c>, which gives the percentage of questions the subject used a redundant adjective to identify <q>the blue triangle</q>. Note that the variable is <q>percentage</q>, and we are interested in the average percentage. Therefore, we will use methods for means. If the variable had been <q>success or failure</q> (e.g., <q>used redundant or didn't</q>), we would have used methods for proportions.
+  </p>
+
+  <table xml:id="tbl-redundant-data">
+    <title>Top six rows of the data collected in the study.</title>
+    <tabular>
+      <row header="yes">
+        <cell>language</cell>
+        <cell>subject</cell>
+        <cell>items</cell>
+        <cell>n_questions</cell>
+        <cell>redundant_perc</cell>
+      </row>
+      <row>
+        <cell>English</cell>
+        <cell>1</cell>
+        <cell>4</cell>
+        <cell>10</cell>
+        <cell>100</cell>
+      </row>
+      <row>
+        <cell>English</cell>
+        <cell>1</cell>
+        <cell>16</cell>
+        <cell>10</cell>
+        <cell>100</cell>
+      </row>
+      <row>
+        <cell>English</cell>
+        <cell>2</cell>
+        <cell>4</cell>
+        <cell>10</cell>
+        <cell>0</cell>
+      </row>
+      <row>
+        <cell>English</cell>
+        <cell>2</cell>
+        <cell>16</cell>
+        <cell>10</cell>
+        <cell>0</cell>
+      </row>
+      <row>
+        <cell>English</cell>
+        <cell>3</cell>
+        <cell>4</cell>
+        <cell>10</cell>
+        <cell>100</cell>
+      </row>
+      <row>
+        <cell>English</cell>
+        <cell>3</cell>
+        <cell>16</cell>
+        <cell>10</cell>
+        <cell>100</cell>
+      </row>
+    </tabular>
+  </table>
+
+  <subsection xml:id="subsec-exploratory-analysis">
+    <title>Exploratory analysis</title>
+
+    <p>
+      In one of the images shown to the subjects, there are 4 items, and in the other, there are 16 items. In each of the images the circled item is the only triangle, therefore referring to it as <q>the blue triangle</q> or as <q>el triángulo azul</q> is considered redundant. If the subject's response was <q>the triangle</q>, they were recorded to have not used a redundant adjective. If the response was <q>the blue triangle</q>, they were recorded to have used a redundant adjective. <xref ref="fig-reduntant-bar" /> shows the results of the experiment. We can see that English speakers are more likely than Spanish speakers to use redundant adjectives, and that in both languages, subjects are more likely to use a redundant adjective when there are more items in the image (i.e., in a denser display).
+    </p>
+
+    <figure xml:id="fig-reduntant-bar">
+      <caption>Results of redundant adjective usage experiment. English speakers are more likely than Spanish speakers to use redundant adjectives, regardless of number of items in image. For both images, respondents are more likely to use a redundant adjective when there are more items in the image.</caption>
+      <image source="images/fig-reduntant-bar-1.png" width="70%" />
+    </figure>
+
+    <listing xml:id="listing-redundant-bar-plot">
+      <caption>R code to create bar plot of redundant adjective usage</caption>
+      <program language="r">
+        <code>
+redundant_summary &lt;- redundant |&gt;
+  group_by(language, items) |&gt;
+  summarise(mean_redundant_perc = mean(redundant_perc), .groups = "drop")
+
+redundant_summary |&gt;
+  ggplot(aes(y = items, x = mean_redundant_perc, fill = language)) +
+  geom_col(position = "dodge") +
+  geom_text(
+    aes(
+      y = c(0.75, 1.75, 1.25, 2.25), 
+      x = mean_redundant_perc - c(5, 5, -5, 5),
+      label = paste(round(mean_redundant_perc, 2), "%")
+    ),
+    color = c("white", "white", "black", "white"),
+    fontface = "bold"
+  ) +
+  scale_x_continuous(labels = label_percent(scale = 1)) +
+  labs(
+    y = "Number of items in image",
+    x = "Percentage of redundant adjective usage",
+    fill = "Language"
+  ) +
+  scale_fill_manual(values = c(IMSCOL["blue", "full"], IMSCOL["red", "full"])) +
+  theme(legend.position = c(0.9, 0.2))
+        </code>
+      </program>
+    </listing>
+  </subsection>
+
+  <subsection xml:id="subsec-confidence-interval-single-mean">
+    <title>Confidence interval for a single mean</title>
+
+    <p>
+      In this experiment, the average percentage of redundant adjective usage among subjects who responded in English when presented with an image with 4 items in it is 37.27%. Along with the sample average as a point estimate, however, we can construct a confidence interval for the true mean redundant adjective usage of English speakers who use redundant color adjectives when describing items in an image that is not very dense.
+    </p>
+
+    <listing xml:id="listing-boot-eng-4-construct">
+      <caption>R code to construct bootstrap confidence interval</caption>
+      <program language="r">
+        <code>
+set.seed(74)
+boot_eng_4 &lt;- redundant |&gt;
+  filter(language == "English", items == 4) |&gt;
+  specify(response = redundant_perc) |&gt;
+  generate(1000, type = "bootstrap") |&gt;
+  calculate(stat = "mean")
+
+ci_eng_4 &lt;- boot_eng_4 |&gt;
+  get_confidence_interval(level = 0.95)
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      Using a computational method, we can construct the interval via bootstrapping. <xref ref="fig-boot-eng-4-viz" /> shows the distribution of 1,000 bootstrapped means from this sample. The 95% confidence interval (that is calculated by taking the 2.5th and 97.5th percentile of the bootstrap distribution is 19.1% to 56.4%. Note that this interval for the true population parameter is only valid if we can assume that the sample of English speakers are representative of the population of all English speakers.
+    </p>
+
+    <figure xml:id="fig-boot-eng-4-viz">
+      <caption>Distribution of 1,000 bootstrapped means of redundant adjective usage percentage among English speakers who were shown four items in images. Overlaid on the distribution is the 95% bootstrap percentile interval that ranges from 19.1% to 56.4%.</caption>
+      <image source="images/fig-boot-eng-4-viz-1.png" width="70%" />
+    </figure>
+
+    <listing xml:id="listing-boot-eng-4-viz">
+      <caption>R code to visualize bootstrap distribution</caption>
+      <program language="r">
+        <code>
+boot_eng_4 |&gt;
+  ggplot(aes(x = stat)) +
+  geom_histogram(binwidth = 5, fill = IMSCOL["green", "full"]) +
+  annotate("line",
+    x = c(ci_eng_4_lower, ci_eng_4_lower),
+    y = c(0, 250),
+    color = IMSCOL["green", "f2"], size = 1
+  ) +
+  annotate("line",
+    x = c(ci_eng_4_upper, ci_eng_4_upper),
+    y = c(0, 250),
+    color = IMSCOL["green", "f2"], size = 1
+  ) +
+  annotate("rect",
+    xmin = ci_eng_4_lower, xmax = ci_eng_4_upper,
+    ymin = 0, ymax = 250,
+    alpha = 0.3, fill = IMSCOL["green", "full"]
+  ) +
+  labs(
+    x = "Mean redundant adjective usage percentage",
+    y = "Count",
+    title = "1,000 bootstrap means"
+  ) +
+  scale_x_continuous(labels = label_percent(scale = 1))
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      Using a similar technique, we can also construct confidence intervals for the true mean redundant adjective usage percentage for English speakers who are shown dense (16 item) displays and for Spanish speakers with both types (4 and 16 items) displays. However, these confidence intervals are not very meaningful to compare to one another as the interpretation of the <q>true mean redundant adjective usage percentage</q> is quite an abstract concept. Instead, we might be more interested in comparative questions such as <q>Does redundant adjective usage differ between dense and sparse displays among English speakers and among Spanish speakers?</q> or <q>Does redundant adjective usage differ between English speakers and Spanish speakers?</q> To answer either of these questions we need to conduct a hypothesis test.
+    </p>
+  </subsection>
+
+  <subsection xml:id="subsec-paired-mean-test">
+    <title>Paired mean test</title>
+
+    <p>
+      Let's start with the following question: <q>Do the data provide convincing evidence of a difference in mean redundant adjective usage percentages between sparse (4 item) and dense (16 item) displays for English speakers?</q> Note that the English speaking participants were each evaluated on both the 4 item and the 16 item displays. Therefore, the variable of interest is the difference in redundant percentage. The statistic of interest will be the average of the differences, here <m>\bar{x}_{diff} = 27.73</m>.
+    </p>
+
+    <listing xml:id="listing-redundant-paired">
+      <caption>R code to prepare paired data</caption>
+      <program language="r">
+        <code>
+redundant_paired &lt;- redundant |&gt;
+  filter(language == "English") |&gt;
+  select(-language, -n_questions) |&gt;
+  pivot_wider(
+    id_cols = subject, names_from = items, names_prefix = "redundant_perc_",
+    values_from = redundant_perc
+  ) |&gt;
+  mutate(diff_redundant_perc = redundant_perc_16 - redundant_perc_4)
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      Data from the first six English speaking participants are seen in <xref ref="tbl-redundant-data-paired" />. Although the redundancy percentages seem higher in the 16 item task, a hypothesis test will tell us whether the differences observed in the data could be due to natural variability.
+    </p>
+
+    <table xml:id="tbl-redundant-data-paired">
+      <title>Six participants who speak English with redundancy difference.</title>
+      <tabular>
+        <row header="yes">
+          <cell>subject</cell>
+          <cell>redundant_perc_4</cell>
+          <cell>redundant_perc_16</cell>
+          <cell>diff_redundant_perc</cell>
+        </row>
+        <row>
+          <cell>1</cell>
+          <cell>100</cell>
+          <cell>100</cell>
+          <cell>0</cell>
+        </row>
+        <row>
+          <cell>2</cell>
+          <cell>0</cell>
+          <cell>0</cell>
+          <cell>0</cell>
+        </row>
+        <row>
+          <cell>3</cell>
+          <cell>100</cell>
+          <cell>100</cell>
+          <cell>0</cell>
+        </row>
+        <row>
+          <cell>4</cell>
+          <cell>10</cell>
+          <cell>80</cell>
+          <cell>70</cell>
+        </row>
+        <row>
+          <cell>5</cell>
+          <cell>0</cell>
+          <cell>90</cell>
+          <cell>90</cell>
+        </row>
+        <row>
+          <cell>6</cell>
+          <cell>0</cell>
+          <cell>70</cell>
+          <cell>70</cell>
+        </row>
+      </tabular>
+    </table>
+
+    <p>
+      We can answer the research question using a hypothesis test with the following hypotheses:
+    </p>
+
+    <p>
+      <md>
+        <mrow>H_0: \mu_{diff} &amp;= 0</mrow>
+        <mrow>H_A: \mu_{diff} &amp;\ne 0</mrow>
+      </md>
+    </p>
+
+    <p>
+      where <m>\mu_{diff}</m> is the true difference in redundancy percentages when comparing a 16 item display with a 4 item display. Recall that the computational method used to assess a hypothesis pertaining to the true average of a paired difference shuffles the observed percentage across the two groups (4 item vs 16 item) but <alert>within</alert> a single participant. The shuffling process allows for repeated calculations of potential sample differences under the condition that the null hypothesis is true.
+    </p>
+
+    <p>
+      <xref ref="fig-eng-viz" /> shows the distribution of 1,000 mean differences from redundancy percentages permuted across the two conditions. Note that the distribution is centered at 0, since the structure of randomly assigning redundancy percentages to each item display will balance the data out such that the average of any differences will be zero.
+    </p>
+
+    <figure xml:id="fig-eng-viz">
+      <caption>Distribution of 1,000 mean differences of redundant adjective usage percentage among English speakers who were shown images with 4 and 16 items. Overlaid on the distribution is the observed average difference in the sample (solid line) as well as the difference in the other direction (dashed line), which is far out in the tail, yielding a p-value that is approximately 0.</caption>
+      <image source="images/fig-eng-viz-1.png" width="70%" />
+    </figure>
+
+    <listing xml:id="listing-eng-viz">
+      <caption>R code to perform paired randomization test</caption>
+      <program language="r">
+        <code>
+set.seed(74)
+null_eng &lt;- redundant_paired |&gt;
+  specify(response = diff_redundant_perc) |&gt;
+  hypothesize(null = "paired independence") |&gt;
+  generate(1000, type = "permute") |&gt;
+  calculate(stat = "mean")
+
+obs_stat_eng &lt;- redundant_paired |&gt;
+  specify(response = diff_redundant_perc) |&gt;
+  calculate(stat = "mean") |&gt;
+  as.numeric()
+
+null_eng |&gt;
+  ggplot(aes(x = stat)) +
+  geom_histogram(binwidth = 5, fill = IMSCOL["green", "full"]) +
+  annotate(
+    "line",
+    x = c(obs_stat_eng, obs_stat_eng),
+    y = c(0, 200),
+    color = IMSCOL["red", "full"], size = 1
+  ) +
+  annotate(
+    "line",
+    x = c(-obs_stat_eng, -obs_stat_eng),
+    y = c(0, 200),
+    color = IMSCOL["red", "full"], size = 1,
+    linetype = "dashed"
+  ) +
+  labs(
+    x = "Mean difference in redundant adjective usage percentages\n(16 items - 4 items)",
+    y = "Count",
+    title = "1,000 randomized mean difference"
+  ) +
+  scale_x_continuous(labels = label_percent(scale = 1))
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      With such a small p-value, we reject the null hypothesis and conclude that the data provide convincing evidence of a difference in mean redundant adjective usage percentages across different displays for English speakers.
+    </p>
+  </subsection>
+
+  <subsection xml:id="subsec-two-independent-means-test">
+    <title>Two independent means test</title>
+
+    <p>
+      Finally, let's consider the question <q>How does redundant adjective usage differ between English speakers and Spanish speakers?</q> The English speakers are independent from the Spanish speakers, but since the same subjects were shown the two types of displays, we can't combine data from the two display types (4 objects and 16 objects) together while maintaining independence of observations. Therefore, to answer questions about language differences, we will need to conduct two hypothesis tests, one for sparse displays and the other for dense displays. In each of the tests, the hypotheses are as follows:
+    </p>
+
+    <p>
+      <md>
+        <mrow>H_0: \mu_{English} &amp;= \mu_{Spanish}</mrow>
+        <mrow>H_A: \mu_{English} &amp;\ne \mu_{Spanish}</mrow>
+      </md>
+    </p>
+
+    <p>
+      Here, the randomization process is slightly different than the paired setting (because the English and Spanish speakers do not have a natural pairing across the two groups). To answer the research question using a computational method, we can use a randomization test where we permute the data across all participants under the assumption that the null hypothesis is true (no difference in mean redundant adjective usage percentages across English vs Spanish speakers).
+    </p>
+
+    <listing xml:id="listing-two-means-test">
+      <caption>R code to perform two-sample randomization tests</caption>
+      <program language="r">
+        <code>
+# 4 item
+set.seed(74)
+null_4 &lt;- redundant |&gt;
+  filter(items == 4) |&gt;
+  specify(response = redundant_perc, explanatory = language) |&gt;
+  hypothesize(null = "independence") |&gt;
+  generate(1000, type = "permute") |&gt;
+  calculate(stat = "diff in means", order = c("English", "Spanish"))
+
+obs_stat_4 &lt;- redundant |&gt;
+  filter(items == 4) |&gt;
+  specify(response = redundant_perc, explanatory = language) |&gt;
+  calculate(stat = "diff in means", order = c("English", "Spanish")) |&gt;
+  as.numeric()
+
+pval_4 &lt;- null_4 |&gt;
+  get_p_value(obs_stat = obs_stat_4, direction = "both") |&gt;
+  as.numeric()
+
+# 16 item
+set.seed(74)
+null_16 &lt;- redundant |&gt;
+  filter(items == 16) |&gt;
+  specify(response = redundant_perc, explanatory = language) |&gt;
+  hypothesize(null = "independence") |&gt;
+  generate(1000, type = "permute") |&gt;
+  calculate(stat = "diff in means", order = c("English", "Spanish"))
+
+obs_stat_16 &lt;- redundant |&gt;
+  filter(items == 16) |&gt;
+  specify(response = redundant_perc, explanatory = language) |&gt;
+  calculate(stat = "diff in means", order = c("English", "Spanish")) |&gt;
+  as.numeric()
+
+pval_16 &lt;- null_16 |&gt;
+  get_p_value(obs_stat = obs_stat_16, direction = "both") |&gt;
+  as.numeric()
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      <xref ref="fig-compare-lang-viz" /> shows the null distributions for each of the two hypothesis tests. The p-value for the 4 item display comparison is very small (0) while the p-value for the 16 item display is much larger (0.088).
+    </p>
+
+    <figure xml:id="fig-compare-lang-viz">
+      <caption>Distributions of 1,000 differences in randomized means of redundant adjective usage percentage between English and Spanish speakers. In each plot, the observed differences in the sample (solid line) and the differences in the other direction (dashed line) are overlaid.</caption>
+      <sidebyside>
+        <figure xml:id="fig-compare-lang-viz-4">
+          <caption>The differences in 4 item displays.</caption>
+          <image source="images/fig-compare-lang-viz-1.png" width="90%" />
+        </figure>
+        <figure xml:id="fig-compare-lang-viz-16">
+          <caption>The differences in 16 item displays.</caption>
+          <image source="images/fig-compare-lang-viz-2.png" width="90%" />
+        </figure>
+      </sidebyside>
+    </figure>
+
+    <listing xml:id="listing-compare-lang-viz">
+      <caption>R code to visualize two-sample randomization tests</caption>
+      <program language="r">
+        <code>
+null_4 |&gt;
+  ggplot(aes(x = stat)) +
+  geom_histogram(binwidth = 5, fill = IMSCOL["green", "full"]) +
+  annotate(
+    "line",
+    x = c(obs_stat_4, obs_stat_4),
+    y = c(0, 300),
+    color = IMSCOL["red", "full"], size = 1
+  ) +
+  annotate(
+    "line",
+    x = -1 * c(obs_stat_4, obs_stat_4),
+    y = c(0, 300),
+    color = IMSCOL["red", "full"], size = 1,
+    linetype = "dashed"
+  ) +
+  labs(
+    x = "Difference in mean redundant adjective usage percentages\n(English - Spanish)",
+    y = "Count",
+    title = "4 item display",
+    subtitle = "1,000 differences in randomized means"
+  ) +
+  scale_x_continuous(labels = label_percent(scale = 1))
+
+null_16 |&gt;
+  ggplot(aes(x = stat)) +
+  geom_histogram(binwidth = 5, fill = IMSCOL["green", "full"]) +
+  annotate(
+    "line",
+    x = c(obs_stat_16, obs_stat_16),
+    y = c(0, 200),
+    color = IMSCOL["red", "full"], size = 1
+  ) +
+  annotate(
+    "line",
+    x = -1 * c(obs_stat_16, obs_stat_16),
+    y = c(0, 200),
+    color = IMSCOL["red", "full"], size = 1,
+    linetype = "dashed"
+  ) +
+  labs(
+    x = "Difference in mean redundant adjective usage percentages\n(English - Spanish)",
+    y = "Count",
+    title = "16 item display",
+    subtitle = "1,000 differences in randomized means"
+  ) +
+  scale_x_continuous(labels = label_percent(scale = 1))
+        </code>
+      </program>
+    </listing>
+
+    <p>
+      Based on the p-values (a measure of deviation from the null claim), we can conclude that the data provide convincing evidence of a difference in mean redundant adjective usage percentages between languages in 4 item displays (small p-value) but not in 16 item displays (not small p-value). The results suggests that language patterns around redundant adjective usage might be more similar for denser displays than sparser displays across English and Spanish speakers.
+    </p>
+  </subsection>
+</section>
+
+<section xml:id="sec-inference-tutorials">
+  <title>Interactive R tutorials</title>
+
+  <p>
+    Navigate the concepts you've learned in this part in R using the following self-paced tutorials. All you need is your browser to get started!
+  </p>
+
+  <p>
+    <url href="https://openintrostat.github.io/ims-tutorials/05-infer/">Tutorial 5: Statistical inference</url>
+  </p>
+
+  <p>
+    <ul>
+      <li><p><url href="https://openintro.shinyapps.io/ims-05-infer-01/">Tutorial 5 - Lesson 1: Inference for a single proportion</url></p></li>
+      <li><p><url href="https://openintro.shinyapps.io/ims-05-infer-02/">Tutorial 5 - Lesson 2: Hypothesis tests to compare proportions</url></p></li>
+      <li><p><url href="https://openintro.shinyapps.io/ims-05-infer-03/">Tutorial 5 - Lesson 3: Chi-squared test of independence</url></p></li>
+      <li><p><url href="https://openintro.shinyapps.io/ims-05-infer-04/">Tutorial 5 - Lesson 4: Chi-squared goodness of fit Test</url></p></li>
+      <li><p><url href="https://openintro.shinyapps.io/ims-05-infer-05/">Tutorial 5 - Lesson 5: Bootstrapping for estimating a parameter</url></p></li>
+      <li><p><url href="https://openintro.shinyapps.io/ims-05-infer-06/">Tutorial 5 - Lesson 6: Introducing the t-distribution</url></p></li>
+      <li><p><url href="https://openintro.shinyapps.io/ims-05-infer-07/">Tutorial 5 - Lesson 7: Inference for difference in two means</url></p></li>
+      <li><p><url href="https://openintro.shinyapps.io/ims-05-infer-08/">Tutorial 5 - Lesson 8: Comparing many means</url></p></li>
+    </ul>
+  </p>
+
+  <p>
+    You can also access the full list of tutorials supporting this book at <url href="https://openintrostat.github.io/ims-tutorials">https://openintrostat.github.io/ims-tutorials</url>.
+  </p>
+</section>
+
+<section xml:id="sec-inference-labs">
+  <title>R labs</title>
+
+  <p>
+    Further apply the concepts you've learned in this part in R with computational labs that walk you through a data analysis case study.
+  </p>
+
+  <p>
+    <ul>
+      <li><p><url href="https://www.openintro.org/go?id=ims-r-lab-infer-1">Inference for categorical responses - Texting while driving</url></p></li>
+      <li><p><url href="https://www.openintro.org/go?id=ims-r-lab-infer-2">Inference for numerical responses - Youth Risk Behavior Surveillance System</url></p></li>
+    </ul>
+  </p>
+
+  <p>
+    You can also access the full list of labs supporting this book at <url href="https://www.openintro.org/go?id=ims-r-labs">https://www.openintro.org/go?id=ims-r-labs</url>.
+  </p>
+</section>
+
 </chapter>

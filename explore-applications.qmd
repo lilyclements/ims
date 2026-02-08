@@ -422,7 +422,7 @@ One last consideration for building graphs is to consider color choices.
 Default or rainbow colors are not always the choice which will best distinguish the level of your variables.
 Much research has been done to find color combinations which are distinct and which are clear for differently sighted individuals.
 The cividis scale works well with ordinal data.
-[@Nunez:2018] @fig-brexit-viridis shows the same plot with two different color themes.
+[@Nunez-2018] @fig-brexit-viridis shows the same plot with two different color themes.
 
 \vspace{5mm}
 

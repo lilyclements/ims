@@ -99,13 +99,17 @@ lm(price ~ cond_new, data = mariokart) |>
 ```
 
 ::: {.guidedpractice data-latex=""}
-Write down the equation for the model, note whether the slope is statistically different from zero, and interpret the coefficient.[^27-inf-model-applications-1]
-:::
+Write down the equation for the model, note whether the slope is statistically different from zero, and interpret the coefficient.
 
-[^27-inf-model-applications-1]: The equation for the line may be written as $\widehat{\texttt{price}} = 47.15 + 10.90\times \texttt{cond\_new}$.
+::: {.callout-note collapse="true"}
+## Solution
+
+The equation for the line may be written as $\widehat{\texttt{price}} = 47.15 + 10.90\times \texttt{cond\_new}$.
     Examining the regression output in @tbl-mariokart-model-output we can see that the p-value for `cond_new` is very close to zero, indicating there is strong evidence that the coefficient is different from zero when using this one-variable model.
     The variable `cond_new` is a two-level categorical variable that takes value 1 when the game is new and value 0 when the game is used.
     This means the 10.90 model coefficient predicts a price of an extra \$10.90 for those games that are new versus those that are used.
+:::
+:::
 
 Sometimes there are underlying structures or relationships between predictor variables.
 For instance, new games sold on Ebay tend to come with more Wii wheels, which may have led to higher prices for those auctions.
@@ -141,24 +145,36 @@ lm(price ~ cond_new + stock_photo + duration + wheels, data = mariokart) |>
 ::: {.guidedpractice data-latex=""}
 Write out the model's equation using the point estimates from @tbl-mariokart-full-model-output.
 How many predictors are there in the model?
-How many coefficients are estimated?[^27-inf-model-applications-2]
-:::
+How many coefficients are estimated?
 
-[^27-inf-model-applications-2]: $\widehat{\texttt{price}} = 36.21 + 5.13 \times \texttt{cond\_new} + 1.08 \times \texttt{stock\_photo} - 0.03 \times \texttt{duration} + 7.29 \times \texttt{wheels},$ with 4 predictors but 5 coefficients (including the intercept).
+::: {.callout-note collapse="true"}
+## Solution
+
+$\widehat{\texttt{price}} = 36.21 + 5.13 \times \texttt{cond\_new} + 1.08 \times \texttt{stock\_photo} - 0.03 \times \texttt{duration} + 7.29 \times \texttt{wheels},$ with 4 predictors but 5 coefficients (including the intercept).
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
 What does $\beta_4,$ the coefficient of variable $x_4$ (Wii wheels), represent?
-What is the point estimate of $\beta_4?$[^27-inf-model-applications-3]
-:::
+What is the point estimate of $\beta_4?$
 
-[^27-inf-model-applications-3]: In the population of all auctions, it is the average difference in auction price for each additional Wii wheel included when holding the other variables constant.
+::: {.callout-note collapse="true"}
+## Solution
+
+In the population of all auctions, it is the average difference in auction price for each additional Wii wheel included when holding the other variables constant.
     The point estimate is $b_4 = 7.29$
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
-Compute the residual of the first observation in @tbl-mariokart-data-frame using the equation identified in @tbl-mariokart-full-model-output.[^27-inf-model-applications-4]
-:::
+Compute the residual of the first observation in @tbl-mariokart-data-frame using the equation identified in @tbl-mariokart-full-model-output.
 
-[^27-inf-model-applications-4]: $e_i = y_i - \hat{y_i} = 51.55 - 49.62 = 1.93$.
+::: {.callout-note collapse="true"}
+## Solution
+
+$e_i = y_i - \hat{y_i} = 51.55 - 49.62 = 1.93$.
+:::
+:::
 
 ::: {.workedexample data-latex=""}
 In @tbl-mariokart-model-output, we estimated a coefficient for `cond_new` in of $b_1 = 10.90$ with a standard error of $SE_{b_1} = 1.26$ when using simple linear regression.
@@ -206,7 +222,6 @@ mariokart |>
   theme(plot.title.position = "plot")
 ```
 
-
 ::: {.workedexample data-latex=""}
 In @fig-mariokart-rand-dist, the red line (the observed slope) is far from the bulk of the histogram.
 Explain why the randomly permuted datasets produce slopes that are quite different from the observed slope.
@@ -220,20 +235,28 @@ So the slope describing the actual observed relationship is not one that is like
 :::
 
 ::: {.guidedpractice data-latex=""}
-Using the histogram in @fig-mariokart-rand-dist, find the p-value and conclude the hypothesis test in the context of the problem.[^27-inf-model-applications-5]
-:::
+Using the histogram in @fig-mariokart-rand-dist, find the p-value and conclude the hypothesis test in the context of the problem.
 
-[^27-inf-model-applications-5]: The observed slope is 10.9 which is nowhere near the range of values for the permuted slopes (roughly -5 to +5).
+::: {.callout-note collapse="true"}
+## Solution
+
+The observed slope is 10.9 which is nowhere near the range of values for the permuted slopes (roughly -5 to +5).
     Because the observed slope is not a plausible value under the null distribution, the p-value is essentially zero.
     We reject the null hypothesis and claim that there is a relationship between whether the game is new (or not) and the average predicted price of the game.
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
 Is the conclusion based on the histogram of randomized slopes consistent with the conclusion obtained using the mathematical model?
-Explain.[^27-inf-model-applications-6]
-:::
+Explain.
 
-[^27-inf-model-applications-6]: The p-value in @tbl-mariokart-model-output is also essentially zero, so the null hypothesis is also rejected when the mathematical model approach is taken.
+::: {.callout-note collapse="true"}
+## Solution
+
+The p-value in @tbl-mariokart-model-output is also essentially zero, so the null hypothesis is also rejected when the mathematical model approach is taken.
     Often, the mathematical and computational approaches to inference will give quite similar answers.
+:::
+:::
 
 Although knowing there is a relationship between the condition of the game and its price, we might be more interested in the difference in price, here given by the slope of the linear regression line.
 That is, $\beta_1$ represents the population value for the difference in price between new *Mario Kart* games and used games.
@@ -266,7 +289,6 @@ mariokart |>
   theme(plot.title.position = "plot")
 ```
 
-
 ::: {.workedexample data-latex=""}
 @fig-mariokart-boot-dist displays the slope estimates taken from bootstrap samples of the original data.
 Using the histogram, estimate the standard error of the slope.
@@ -282,19 +304,27 @@ The standard error given in @tbl-mariokart-model-output is 1.26 which is not too
 
 ::: {.guidedpractice data-latex=""}
 Use @fig-mariokart-boot-dist to create a 90% standard error bootstrap confidence interval for the true slope.
-Interpret the interval in context.[^27-inf-model-applications-7]
-:::
+Interpret the interval in context.
 
-[^27-inf-model-applications-7]: Using the bootstrap SE method, we know the normal percentile is $z^\star = 1.645$, which gives a CI of $b_1 \pm 1.645 \cdot SE \rightarrow 10.9 \pm 1.645 \cdot 1.5 \rightarrow (8.43, 13.37).$ For games that are new, the average price is higher by between \$8.43 and \$13.37 than games that are used, with 90% confidence.
+::: {.callout-note collapse="true"}
+## Solution
+
+Using the bootstrap SE method, we know the normal percentile is $z^\star = 1.645$, which gives a CI of $b_1 \pm 1.645 \cdot SE \rightarrow 10.9 \pm 1.645 \cdot 1.5 \rightarrow (8.43, 13.37).$ For games that are new, the average price is higher by between \$8.43 and \$13.37 than games that are used, with 90% confidence.
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
 Use @fig-mariokart-boot-dist to create a 90% bootstrap percentile confidence interval for the true slope.
-Interpret the interval in context.[^27-inf-model-applications-8]
-:::
+Interpret the interval in context.
 
-[^27-inf-model-applications-8]: Because there were 1,000 bootstrap resamples, we look for the cutoffs which provide 50 bootstrap slopes on the left, 900 in the middle, and 50 on the right.
+::: {.callout-note collapse="true"}
+## Solution
+
+Because there were 1,000 bootstrap resamples, we look for the cutoffs which provide 50 bootstrap slopes on the left, 900 in the middle, and 50 on the right.
     Looking at the bootstrap histogram, the rough 90% confidence interval is \$9 to \$13.10.
     For games that are new, the average price is higher by between \$9.00 and \$13.10 than games that are used, with 90% confidence.
+:::
+:::
 
 ### Cross-validation
 
@@ -403,30 +433,46 @@ mario_CV2$pred |>
 
 ::: {.guidedpractice data-latex=""}
 In @fig-mariokart-cv-residuals-2, note the point at roughly predicted = 50 and prediction error = 10.
-Estimate the observed and predicted value for that observation.[^27-inf-model-applications-9]
-:::
+Estimate the observed and predicted value for that observation.
 
-[^27-inf-model-applications-9]: The predicted value is roughly $\widehat{\texttt{price}} = \$50.$ The observed value is roughly $\texttt{price}_i = \$60$ riders (using $e_i = y_i - \hat{y}_i).$
+::: {.callout-note collapse="true"}
+## Solution
+
+The predicted value is roughly $\widehat{\texttt{price}} = \$50.$ The observed value is roughly $\texttt{price}_i = \$60$ riders (using $e_i = y_i - \hat{y}_i).$
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
-In @fig-mariokart-cv-residuals-2, for the same point at roughly predicted = 50 and prediction error = 10, describe which cross-validation fold(s) were used to build its prediction model.[^27-inf-model-applications-10]
-:::
+In @fig-mariokart-cv-residuals-2, for the same point at roughly predicted = 50 and prediction error = 10, describe which cross-validation fold(s) were used to build its prediction model.
 
-[^27-inf-model-applications-10]: The point appears to be in fold 2, so folds 1 and 3 were used to build the prediction model.
+::: {.callout-note collapse="true"}
+## Solution
+
+The point appears to be in fold 2, so folds 1 and 3 were used to build the prediction model.
+:::
+:::
 
 ::: {.guidedpractice data-latex=""}
-By noting the spread of the cross-validated prediction errors (on the y-axis) in @fig-mariokart-cv-residuals, which model should be chosen for a final report on these data?[^27-inf-model-applications-11]
-:::
+By noting the spread of the cross-validated prediction errors (on the y-axis) in @fig-mariokart-cv-residuals, which model should be chosen for a final report on these data?
 
-[^27-inf-model-applications-11]: The cross-validated residuals on `cond_new` vary roughly from -15 to 15, while the cross-validated residuals on the four predictor model vary less, roughly from -10 to 10.
+::: {.callout-note collapse="true"}
+## Solution
+
+The cross-validated residuals on `cond_new` vary roughly from -15 to 15, while the cross-validated residuals on the four predictor model vary less, roughly from -10 to 10.
     Given the smaller residuals from the four predictor model, it seems as though the larger model is better.
-
-::: {.guidedpractice data-latex=""}
-Using the summary statistic cross-validation sum of squared errors (CV SSE), which model should be chosen for a final report on these data?[^27-inf-model-applications-12]
+:::
 :::
 
-[^27-inf-model-applications-12]: The CV SSE is smaller (by a factor of almost two!) for the model with four predictors.
+::: {.guidedpractice data-latex=""}
+Using the summary statistic cross-validation sum of squared errors (CV SSE), which model should be chosen for a final report on these data?
+
+::: {.callout-note collapse="true"}
+## Solution
+
+The CV SSE is smaller (by a factor of almost two!) for the model with four predictors.
     Using a single valued criterion (CV SSE) allows us to make a decision to choose the model with four predictors.
+:::
+:::
 
 \clearpage
 
