@@ -99,7 +99,7 @@ toy_anova |&gt;
 
 
 <table xml:id="tbl-mlbBat18DataFrame">
-  <title>Six cases and some of the variables from the <c>mlb_players_18</c> data frame.</title>
+  <title>Six cases and some of the variables from the <c>mlb_players_18</c> data frame</title>
   <tabular halign="left">
     <row header="yes" bottom="minor">
       <cell>name</cell>
@@ -202,7 +202,7 @@ mlb_players_18 |&gt;
 
 
 <table xml:id="tbl-mlbBat18Variables">
-  <title>Variables and their descriptions for the <c>mlb_players_18</c> dataset.</title>
+  <title>Variables and their descriptions for the <c>mlb_players_18</c> dataset</title>
   <tabular halign="left">
     <row header="yes" bottom="minor">
       <cell>Variable</cell>
@@ -315,7 +315,7 @@ mlb_players_18_vars |&gt;
 
 
 <table xml:id="tbl-mlbHRPerABSummaryTable">
-  <title>Summary statistics of on-base percentage, split by player position.</title>
+  <title>Summary statistics of on-base percentage, split by player position</title>
   <tabular halign="center">
     <row header="yes" bottom="minor">
       <cell>Position</cell>
@@ -468,10 +468,13 @@ ggplot(mlb_players_18, aes(x = position, y = OBP)) +
   <li><p><m>H_A:</m> not <m>H_0.</m> At least one of the exams is inherently more (or less) difficult than the others.</p></li>
 </ul>
 
-
+<note>
+<p>The <c>classdata</c> data can be found in the openintro R package.
+</p>
+</note>
 
 <table xml:id="tbl-summaryStatsForThreeVersionsOfExams">
-  <title>Summary statistics of scores for each exam version.</title>
+  <title>Summary statistics of scores for each exam version</title>
   <tabular halign="center">
     <row header="yes" bottom="minor">
       <cell>Exam</cell>
@@ -774,7 +777,7 @@ text(6.3, 0.3, "Small tail area", pos = 3)
 
 
 <table xml:id="tbl-anovaSummaryTableForOBPAgainstPosition">
-  <title>ANOVA summary for testing whether the average on-base percentage differs across player positions.</title>
+  <title>ANOVA summary for testing whether the average on-base percentage differs across player positions</title>
   <tabular halign="left">
     <row header="yes" bottom="minor">
       <cell>term</cell>
@@ -908,7 +911,7 @@ mlb_players_18 |&gt;
 
 
 <table xml:id="tbl-terms-chp-22">
-  <title>Terms introduced in this chapter.</title>
+  <title>Terms introduced in this chapter</title>
   <tabular halign="left">
     <row header="yes" bottom="minor">
       <cell></cell>
