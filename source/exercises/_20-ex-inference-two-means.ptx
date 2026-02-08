@@ -119,6 +119,32 @@
     <title>Diamonds, mathematical test</title>
     <statement>
       <p>We have data on two random samples of diamonds: one with diamonds that weigh 0.99 carats and one with diamonds that weigh 1 carat. Each sample has 23 diamonds. Sample statistics for the price per carat of diamonds in each sample are provided below. Conduct a hypothesis test using a mathematical model to evaluate if there is a difference between the prices per carat of diamonds that weigh 0.99 carats and diamonds that weigh 1 carat Make sure to state your hypotheses clearly, check relevant conditions, and interpret your results in context of the data.</p>
+
+<table xml:id="tbl-diamond-summary">
+  <title>Summary statistics for diamond prices</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>group</cell>
+      <cell right="minor">Mean</cell>
+      <cell right="minor">SD</cell>
+      <cell right="minor">n</cell>
+    </row>
+    <row>
+      <cell>0.99 carats</cell>
+      <cell right="minor">$44.51</cell>
+      <cell right="minor">$13.32</cell>
+      <cell right="minor">23</cell>
+    </row>
+    <row>
+      <cell>1 carat</cell>
+      <cell right="minor">$57.20</cell>
+      <cell right="minor">$18.19</cell>
+      <cell right="minor">23</cell>
+    </row>
+  </tabular>
+</table>
+
+
       <figure xml:id="fig-20-ex-diamonds-mathematical-test">
         <image source="images/exercises/_20-ex-inference-two-means-09.png" width="90%">
           <description>Table of summary statistics and boxplot for diamond prices by carat</description>
@@ -141,11 +167,30 @@
     <title>Diamonds, mathematical interval</title>
     <statement>
       <p>We have data on two random samples of diamonds: one with diamonds that weigh 0.99 carats and one with diamonds that weigh 1 carat. Each sample has 23 diamonds. Sample statistics for the price per carat of diamonds in each sample are provided below. Assuming that the conditions for conducting inference using a mathematical model are satisfied, construct a 95% confidence interval for the true population difference in prices per carat of diamonds that weigh 0.99 carats and 1 carat.</p>
-      <figure xml:id="fig-20-ex-diamonds-mathematical-interval">
-        <image source="images/exercises/_20-ex-inference-two-means-11.png" width="50%">
-          <description>Table of summary statistics for diamond prices by carat</description>
-        </image>
-      </figure>
+
+<table xml:id="tbl-diamond-summary-1">
+  <title>Summary statistics for diamond prices</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>group</cell>
+      <cell right="minor">Mean</cell>
+      <cell right="minor">SD</cell>
+      <cell right="minor">n</cell>
+    </row>
+    <row>
+      <cell>0.99 carats</cell>
+      <cell right="minor">$44.51</cell>
+      <cell right="minor">$13.32</cell>
+      <cell right="minor">23</cell>
+    </row>
+    <row>
+      <cell>1 carat</cell>
+      <cell right="minor">$57.20</cell>
+      <cell right="minor">$18.19</cell>
+      <cell right="minor">23</cell>
+    </row>
+  </tabular>
+</table>
     </statement>
     <solution>
       <p>We are 95% confident that the population average price per carat of 0.99 carat diamonds is $2.96 to $22.42 lower than the population average price per carat of 1 carat diamonds.</p>
@@ -232,6 +277,29 @@
           <description>Table of summary statistics and boxplot for city fuel efficiency by transmission type</description>
         </image>
       </figure>
+<table xml:id="tbl-city-mpg-summary">
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>Transmission</cell>
+      <cell right="minor">Mean</cell>
+      <cell right="minor">SD</cell>
+      <cell right="minor">n</cell>
+    </row>
+    <row>
+      <cell>Automatic</cell>
+      <cell right="minor">17.4</cell>
+      <cell right="minor">3.44</cell>
+      <cell right="minor">25</cell>
+    </row>
+    <row>
+      <cell>Manual</cell>
+      <cell right="minor">22.7</cell>
+      <cell right="minor">4.58</cell>
+      <cell right="minor">25</cell>
+    </row>
+  </tabular>
+</table>
+
     </statement>
   </exercise>
 
@@ -254,7 +322,32 @@
     <title>Fuel efficiency on the highway</title>
     <statement>
       <p>Each year the US Environmental Protection Agency (EPA) releases fuel economy data on cars manufactured in that year. Below are summary statistics on fuel efficiency (in miles/gallon) from random samples of cars with manual and automatic transmissions manufactured in 2021. Do these data provide strong evidence of a difference between the average fuel efficiency of cars with manual and automatic transmissions in terms of their average highway mileage?</p>
-      <figure xml:id="fig-20-ex-fuel-efficiency-highway">
+<table xml:id="tbl-city-mpg-summary">
+  <title>Summary statistics for city MPG by transmission type</title>
+  <tabular halign="left">
+    <row header="yes" bottom="medium">
+      <cell>Highway</cell>
+      <cell right="minor">Mean</cell>
+      <cell right="minor">SD</cell>
+      <cell right="minor">n</cell>
+    </row>
+    <row>
+      <cell>Automatic</cell>
+      <cell right="minor">23.7</cell>
+      <cell right="minor">3.90</cell>
+      <cell right="minor">25</cell>
+    </row>
+    <row>
+      <cell>Manual</cell>
+      <cell right="minor">30.9</cell>
+      <cell right="minor">5.13</cell>
+      <cell right="minor">25</cell>
+    </row>
+  </tabular>
+</table>
+      
+
+<figure xml:id="fig-20-ex-fuel-efficiency-highway">
         <image source="images/exercises/_20-ex-inference-two-means-18.png" width="90%">
           <description>Table of summary statistics and boxplot for highway fuel efficiency by transmission type</description>
         </image>
