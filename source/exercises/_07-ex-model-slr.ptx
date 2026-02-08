@@ -20,7 +20,7 @@
     <statement>
       <p>Shown below are two plots of residuals remaining after fitting a linear model to two different sets of data. For each plot, describe important features and determine if a linear model would be appropriate for these data. Explain your reasoning.</p>
       <figure xml:id="fig-ex07-02">
-        <image source="images/exercises/fig-ex07-02.png" width="90%">
+        <image source="images/exercises/_07-ex-model-slr-02.png" width="90%">
           <description>Figure for exercise 2</description>
         </image>
       </figure>
@@ -33,7 +33,7 @@
     <statement>
       <p>For each of the six plots, identify the strength of the relationship (e.g., weak, moderate, or strong) in the data and whether fitting a linear model would be reasonable.</p>
       <figure xml:id="fig-ex07-03">
-        <image source="images/exercises/fig-ex07-03.png" width="90%">
+        <image source="images/exercises/_07-ex-model-slr-03.png" width="90%">
           <description>Figure for exercise 3</description>
         </image>
       </figure>
@@ -133,7 +133,7 @@
     <statement>
       <p>Researchers studying anthropometry collected body and skeletal diameter measurements, as well as age, weight, height and sex for 507 physically active individuals. The scatterplot below shows the relationship between height and shoulder girth (circumference of shoulders measured over deltoid muscles), both measured in centimeters.<fn>The <c>bdims</c> data used in this exercise can be found in the <alert>openintro</alert> R package.</fn> [[Heinz:2003]]</p>
       <figure xml:id="fig-ex07-09">
-        <image source="images/exercises/fig-ex07-09.png" width="90%">
+        <image source="images/exercises//_07-ex-model-slr-09.png" width="90%">
           <description>Figure for exercise 9</description>
         </image>
       </figure>
