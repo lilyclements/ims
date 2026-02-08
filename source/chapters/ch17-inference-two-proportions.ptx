@@ -729,7 +729,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>State appropriate hypotheses to test for difference in virologic failure rates between treatment groups.</p></li>
           <li><p>Complete the hypothesis test and state an appropriate conclusion. (Reminder: Verify any necessary conditions for the test.)</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -743,7 +743,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>Calculate and interpret the mean and standard deviation associated with the difference in sample proportions for the two groups, <m>\hat{p}_{NY} - \hat{p}_{NE}</m> in repeated samples of 1000 in each group.</p></li>
           <li><p>How are the standard deviations from parts (a), (b), and (c) related?</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -756,7 +756,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>Calculate a 95% confidence interval for the difference between the proportion of Democrats and Independents who support a National Health Plan <m>(p_{D} - p_{I})</m>, and interpret it in this context. We have already checked conditions for you.</p></li>
           <li><p>True or false: If we had picked a random Democrat and a random Independent at the time of this poll, it is more likely that the Democrat would support the National Health Plan than the Independent.</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -765,7 +765,7 @@ First, we require a broader independence condition, and secondly, the success-fa
         These data are based on simple random samples of 11,545 California and 4,691 Oregon residents.
         Calculate a 95% confidence interval for the difference between the proportions of Californians and Oregonians who are sleep deprived and interpret it in context of the data.
         <xref ref="biblio-data-sleepCAandOR" />
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -777,7 +777,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>Write appropriate hypotheses to test this scenario.</p></li>
           <li><p>Men were, on average, paid more in 19 of those 21 positions. Complete a hypothesis test using your hypotheses from part (a).</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -788,7 +788,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>Conduct a hypothesis test to determine if these data provide strong evidence that the rate of sleep deprivation is different for the two states. (Reminder: Check conditions)</p></li>
           <li><p>It is possible the conclusion of the test in part (a) is incorrect. If this is the case, what type of error was made?</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -805,7 +805,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>Suppose we are interested in estimating the difference in yawning rates between the control and treatment groups using a confidence interval. Explain why we cannot construct such an interval using the normal approximation.</p></li>
           <li><p>What might go wrong if we constructed the confidence interval despite this problem?</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -815,17 +815,17 @@ First, we require a broader independence condition, and secondly, the success-fa
         Patients were randomly assigned into treatment and control groups.
         Patients in the treatment group received a transplant, and those in the control group did not.
         The visualization below displays how many patients survived and died in each group.<fn>The <url href="http://openintrostat.github.io/openintro/reference/heart_transplant.html"><c>heart_transplant</c></url> data used in this exercise can be found in the <url href="http://openintrostat.github.io/openintro"><alert>openintro</alert></url> R package.</fn>
+<xref ref="biblio-Turnbull-Brown-Hu-1974" />
         <figure xml:id="fig-ex17-14">
         <image source="images/exercises/_17-ex-inference-two-props-14.png" width="70%">
           <description>Stacked bar chart showing survival outcomes for heart transplant treatment and control groups</description>
         </image>
         </figure>
-        [@Turnbull-Brown-Hu-1974]
         <p><ol marker="a.">
           <li><p>Suppose we are interested in estimating the difference in survival rate between the control and treatment groups using a confidence interval. Explain why we cannot construct such an interval using the normal approximation.</p></li>
           <li><p>What might go wrong if we constructed the confidence interval despite this problem?</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -857,7 +857,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>We can conclude that there is a discernible difference between the proportions of 18-29 year-olds and 30-49 year-olds who have personally experienced harassment online is too large to plausibly be due to chance, if in fact there is no difference between the two proportions.</p></li>
           <li><p>The 90% confidence interval for <m>(p_{18-29} - p_{30-49})</m> cannot be calculated with only the information given in this exercise.</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -868,9 +868,9 @@ First, we require a broader independence condition, and secondly, the success-fa
         <p><ol marker="a.">
           <li><p>The malaria vaccine was seen to be effective at lowering the rate of contracting malaria (when compared to the control vaccine).</p></li>
           <li><p>In the US population, Asian-Indian Americans and Chinese Americans are not observed to have different proportions of current smokers.</p></li>
-          <li><p>There is no evidence to claim a difference in the proportion of Americans who are not affected personally by a government shutdown when comparing Americans who make less than \<m>40,000 annually and Americans who make \</m>40,000 annually.</p></li>
+          <li><p>There is no evidence to claim a difference in the proportion of Americans who are not affected personally by a government shutdown when comparing Americans who make less than $40,000 annually and Americans who make $40,000 annually.</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -882,7 +882,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>Of registered voters in California, the proportion who report not knowing enough to voice an opinion on whether they support off shore drilling is different across those who have a college degree and those who do not.</p></li>
           <li><p>In comparing Californians and Oregonians, there is no evidence to support a difference in the proportion of each who are sleep deprived.</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -892,7 +892,7 @@ First, we require a broader independence condition, and secondly, the success-fa
         She does this at the beginning and end of the semester and wants to evaluate whether students' opinions have changed over the semester.
         Can she used the methods we learned in this chapter for this analysis?
         Explain your reasoning.
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -903,7 +903,7 @@ First, we require a broader independence condition, and secondly, the success-fa
         She conducted the same apple-a-day survey at the end of the semester, and this time 60% of the students responded yes.
         Can she used a two-proportion method from this section for this analysis?
         Explain your reasoning.
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -921,7 +921,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p><m>\delta = -0.4</m> and <m>n_{malaria} = n_{control} = 100</m></p></li>
           <li><p>What can you conclude about values of <m>\delta</m> and the sample size?</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
         <exercise>
@@ -934,7 +934,7 @@ First, we require a broader independence condition, and secondly, the success-fa
           <li><p>State appropriate hypotheses to test for difference in proportions of diabetes between employed and unemployed Americans.</p></li>
           <li><p>The sample difference is about 1%. If we completed the hypothesis test, we would find that the p-value is very small (about 0), meaning the difference is statistically discernible. Use this result to explain the difference between statistically discernible and practically important findings.</p></li>
         </ol></p>
-        \vfill
+        
         </statement>
         </exercise>
 </exercises>
