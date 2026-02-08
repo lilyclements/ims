@@ -654,7 +654,7 @@ births14_nona |&gt;
   <p>> <em>It's true. The babies born from women who smoke are smaller, but they're just as healthy as the babies born from women who do not smoke. And some women would prefer having smaller babies.</em> - Joseph Cullman, Philip Morris' Chairman of the Board on CBS' <em>Face the Nation</em>, Jan 3, 1971</p>
 
 
-  <p>Furthermore, health differences between babies born to mothers who smoke and those who do not are not limited to weight differences.<fn>20-inference-two-means-6</fn></p>
+  <p>Furthermore, health differences between babies born to mothers who smoke and those who do not are not limited to weight differences.</p>
 
 
   <p>A small note on the power of the independent t-test (recall the discussion of power in <xref ref="sec-pow"/>). It turns out that the independent t-test given here is often less powerful than the paired t-test discussed in <xref ref="sec-mathpaired"/>. That said, depending on how the data are collected, we don't always have a mechanism for pairing the data and reducing the inherent variability across observations.</p>
