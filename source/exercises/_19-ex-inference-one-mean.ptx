@@ -262,7 +262,7 @@
     <title>Sleep habits of New Yorkers</title>
     <statement>
       <p>New York is known as <q>the city that never sleeps</q>. A random sample of 25 New Yorkers were asked how much sleep they get per night. Statistical summaries of these data are shown below. The point estimate suggests New Yorkers sleep less than 8 hours a night on average. Evaluate the claim that New York is the city that never sleeps keeping in mind that, despite this claim, the true average number of hours New Yorkers sleep could be less than 8 hours or more than 8 hours.</p>
-<table xml:id="tbl-summary-generic-transposed">
+<table xml:id="tbl-summary-generic-transposed-2">
   <title>Summary statistics (transposed)</title>
   <tabular halign="left">
     <row header="yes" bottom="medium">
