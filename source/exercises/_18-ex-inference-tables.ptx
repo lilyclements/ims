@@ -257,23 +257,23 @@ The original data are shown on the left and the results of the randomization is 
             </row>
             <row>
               <cell>Desert</cell>
-              <cell>40</cell>
-              <cell>39</cell>
-              <cell>40</cell>
+              <cell>44</cell>
+              <cell>42</cell>
+              <cell>33</cell>
               <cell>119</cell>
             </row>
             <row>
               <cell>Mountain</cell>
               <cell>39</cell>
-              <cell>33</cell>
-              <cell>35</cell>
+              <cell>31</cell>
+              <cell>37</cell>
               <cell>107</cell>
             </row>
             <row>
               <cell>Valley</cell>
+              <cell>31</cell>
               <cell>35</cell>
-              <cell>36</cell>
-              <cell>35</cell>
+              <cell>40</cell>
               <cell>106</cell>
             </row>
             <row>
@@ -685,7 +685,7 @@ Use these results to evaluate the hypotheses from part (a), and provide a concl
     <title>Shipping holiday gifts</title>
     <statement>
       <p>A local news survey asked 500 randomly sampled Los Angeles residents which shipping carrier they prefer to use for shipping holiday gifts.
-The table below shows the distribution of responses by age group as well as the expected counts for each cell (shown in italics).</p>
+The table below shows the distribution of responses by age group as well as the expected counts for each cell (shown in brackets).</p>
 
       <table xml:id="tbl-shipping-holiday-gifts">
         <title>Shipping holiday gifts by age group.</title>
@@ -694,72 +694,51 @@ The table below shows the distribution of responses by age group as well as the 
         <tabular>
             <row>
               <cell>Shipping Carrier</cell>
-              <cell>18-34</cell>
-              <cell>35-44</cell>
-              <cell>45-54</cell>
-              <cell>55-64</cell>
-              <cell>65+</cell>
-              <cell>Not sure</cell>
+              <cell>18 to 34</cell>
+              <cell>35 to 54</cell>
+              <cell>55 or more</cell>
               <cell>Total</cell>
             </row>
             <row>
               <cell>USPS</cell>
-              <cell>72</cell>
-              <cell>81</cell>
-              <cell>97</cell>
-              <cell>102</cell>
-              <cell>76</cell>
-              <cell>62</cell>
+              <cell>72 (81)</cell>
+              <cell>97 (102)</cell>
+              <cell>76 (62)</cell>
               <cell>245</cell>
             </row>
             <row>
               <cell>UPS</cell>
-              <cell>52</cell>
-              <cell>53</cell>
-              <cell>76</cell>
-              <cell>68</cell>
-              <cell>34</cell>
-              <cell>41</cell>
+              <cell>52 (53)</cell>
+              <cell>76 (68)</cell>
+              <cell>34 (41)</cell>
               <cell>162</cell>
             </row>
             <row>
               <cell>FedEx</cell>
-              <cell>31</cell>
-              <cell>21</cell>
-              <cell>24</cell>
-              <cell>27</cell>
-              <cell>9</cell>
-              <cell>16</cell>
+              <cell>31 (21)</cell>
+              <cell>24 (27)</cell>
+              <cell>9 (16)</cell>
               <cell>64</cell>
             </row>
             <row>
               <cell>Something else</cell>
-              <cell>7</cell>
-              <cell>5</cell>
-              <cell>6</cell>
-              <cell>7</cell>
-              <cell>3</cell>
-              <cell>4</cell>
+              <cell>7 (5)</cell>
+              <cell>6 (7)</cell>
+              <cell>3 (4)</cell>
               <cell>16</cell>
             </row>
             <row>
               <cell>Not sure</cell>
-              <cell>3</cell>
-              <cell>5</cell>
-              <cell>6</cell>
-              <cell>5</cell>
-              <cell>4</cell>
-              <cell>3</cell>
+              <cell>3 (5)</cell>
+              <cell>6 (5)</cell>
+              <cell>4 (3)</cell>
               <cell>13</cell>
             </row>
             <row>
               <cell>Total</cell>
               <cell>165</cell>
-              <cell> </cell>
               <cell>209</cell>
-              <cell> </cell>
               <cell>126</cell>
-              <cell> </cell>
               <cell>500</cell>
             </row>
           </tabular>
@@ -795,7 +774,7 @@ The table below shows the distribution of incidences of depression by amount of 
             <row>
               <cell>Yes (clinical depression)</cell>
               <cell>670</cell>
-              <cell>373</cell>
+              <cell> </cell>
               <cell>905</cell>
               <cell>564</cell>
               <cell>95</cell>
